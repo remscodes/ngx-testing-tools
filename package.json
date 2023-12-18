@@ -1,14 +1,27 @@
 {
   "name": "ngx-testing-extra",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
-  },
   "private": true,
+  "description": "Provides high-level utilities for testing Angular applications",
+  "license": "MIT",
+  "author": {
+    "name": "Rémy Abitbol",
+    "url": "https://github.com/remscodes"
+  },
+  "scripts": {
+    "build": "ng build ngx-testing-extra && npm run copy-README && npm run copy-LICENSE",
+    "types": "tsc --noEmit",
+    "copy-README": "npm run copy-to-dist -- README.md",
+    "copy-LICENSE": "npm run copy-to-dist -- LICENSE",
+    "copy-to-dist": "node scripts/copy-to-dist.cjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/remscodes/ngx-testing-extra"
+  },
+  "engines": {
+    "node": ">=18.13.0"
+  },
   "dependencies": {
     "@angular/animations": "^17.0.0",
     "@angular/common": "^17.0.0",
