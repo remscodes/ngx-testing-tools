@@ -2,5 +2,5 @@
  * Public API Surface of ngx-testing-extra
  */
 
-export * from './lib/ngx-testing-extra.service';
-export * from './lib/ngx-testing-extra.component';
+export { TestingModule } from './lib/testing.module';
+export { provideTesting } from './lib/testing.providers';
