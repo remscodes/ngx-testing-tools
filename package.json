@@ -1,5 +1,5 @@
 {
-  "name": "ngx-testing-extra",
+  "name": "ngx-testing-extra-sources",
   "version": "0.0.0",
   "private": true,
   "description": "Provides high-level utilities for testing Angular applications",
@@ -49,5 +49,9 @@
     "ng-packagr": "^17.0.3",
     "typescript": "~5.2.2"
   },
+  "keywords": [
+    "angular",
+    "testing"
+  ],
   "packageManager": "pnpm@8.12.1"
 }

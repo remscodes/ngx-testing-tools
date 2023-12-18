@@ -1,12 +1,31 @@
 {
   "name": "ngx-testing-extra",
-  "version": "0.0.1",
+  "version": "0.0.0",
+  "description": "Provides high-level utilities for testing Angular applications",
+  "license": "MIT",
+  "author": {
+    "name": "Rémy Abitbol",
+    "url": "https://github.com/remscodes"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/remscodes/ngx-testing-extra"
+  },
+  "engines": {
+    "node": ">=18.13.0"
+  },
   "peerDependencies": {
     "@angular/common": "^17.0.0",
-    "@angular/core": "^17.0.0"
+    "@angular/core": "^17.0.0",
+    "@angular/platform-browser": "^17.0.0",
+    "@angular/router": "^17.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
   },
+  "keywords": [
+    "angular",
+    "testing"
+  ],
   "sideEffects": false
 }
