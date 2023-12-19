@@ -1,10 +1,10 @@
 export type RequestMethod =
   | 'GET'
+  | 'DELETE'
   | 'HEAD'
+  | 'OPTIONS'
   | 'POST'
   | 'PUT'
-  | 'DELETE'
-  | 'CONNECT'
-  | 'OPTIONS'
-  | 'TRACE'
-  | 'PATCH';
+  | 'PATCH'
+  // | 'CONNECT'
+  // | 'TRACE'
