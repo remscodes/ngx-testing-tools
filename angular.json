@@ -35,6 +35,94 @@
           }
         }
       }
+    },
+    "ngx-testing-extra-demo": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "projects/ngx-testing-extra-demo",
+      "sourceRoot": "projects/ngx-testing-extra-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/ngx-testing-extra-demo",
+            "index": "projects/ngx-testing-extra-demo/src/index.html",
+            "browser": "projects/ngx-testing-extra-demo/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/ngx-testing-extra-demo/tsconfig.app.json",
+            "assets": [
+              "projects/ngx-testing-extra-demo/src/favicon.ico",
+              "projects/ngx-testing-extra-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-testing-extra-demo/src/styles.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "ngx-testing-extra-demo:build:production"
+            },
+            "development": {
+              "buildTarget": "ngx-testing-extra-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "ngx-testing-extra-demo:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
+            "tsConfig": "projects/ngx-testing-extra-demo/tsconfig.spec.json",
+            "assets": [
+              "projects/ngx-testing-extra-demo/src/favicon.ico",
+              "projects/ngx-testing-extra-demo/src/assets"
+            ],
+            "styles": [
+              "projects/ngx-testing-extra-demo/src/styles.css"
+            ],
+            "scripts": []
+          }
+        }
+      }
     }
   }
 }
