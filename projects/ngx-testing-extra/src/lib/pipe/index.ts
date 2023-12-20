@@ -1,0 +1,1 @@
+export { testPipeValues } from './pipe';
