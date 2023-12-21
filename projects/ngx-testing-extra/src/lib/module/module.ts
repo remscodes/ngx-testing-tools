@@ -1,14 +1,9 @@
-import { Type } from '@angular/core';
+import { EnvironmentProviders, Provider, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { TestingModule } from '../testing.module';
 
-export function expectModuleToInitialize<T>(Module: Type<T>): void {
-  beforeEach(() => {
-    TestBed.configureTestingModule({ imports: [Module, TestingModule] });
-  });
-
+export function expectModuleToInitialize<T>(Module: Type<T>, providers: (Provider | EnvironmentProviders)[] = []): void {
   it('should initialize', () => {
-    const module: T = TestBed.inject(Module);
+    const module: T = TestBed.configureTestingModule({ imports: [Module], providers }).inject(Module);
     expect(module).toBeTruthy();
   });
 }
