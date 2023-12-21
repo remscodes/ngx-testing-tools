@@ -1,0 +1,1 @@
+export { fromInjector } from './injector';
