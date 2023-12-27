@@ -5,6 +5,7 @@
 export * from './lib/browser';
 export * from './lib/guard';
 export * from './lib/http';
+export * from './lib/injector';
 export * from './lib/module';
 export * from './lib/pipe';
 export * from './lib/route';
