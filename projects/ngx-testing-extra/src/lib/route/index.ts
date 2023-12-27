@@ -1,1 +1,1 @@
-export { checkResolver } from './resolver.utils';
+export { checkResolver } from './resolver';
