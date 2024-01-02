@@ -1,1 +1,1 @@
-export { expectModuleToInitialize } from './module';
+export { expectModuleToCreate } from './module';
