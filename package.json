@@ -15,6 +15,9 @@
     "copy-LICENSE": "npm run copy-to-dist -- LICENSE",
     "copy-to-dist": "node scripts/copy-to-dist.cjs"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/remscodes/ngx-testing-extra"
