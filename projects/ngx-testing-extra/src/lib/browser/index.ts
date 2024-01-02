@@ -9,6 +9,5 @@ export {
 
 export {
   click,
-  getTextContent,
   emitChildOutput,
 } from './event';
