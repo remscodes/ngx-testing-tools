@@ -1,27 +1,212 @@
-# NgxTestingExtra
+<div align="center">
+    <h1>Angular Testing Extra</h1>
+    <p>Utilities for testing an Angular application</p>
+</div> 
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.7.
+<div align="center">
 
-## Development server
+[![github ci](https://img.shields.io/github/actions/workflow/status/remscodes/ngx-testing-extra/npm-ci.yml.svg?logo=github&label=CI&style=for-the-badge)](https://github.com/remscodes/ngx-testing-extra/actions/workflows/npm-ci.yml)
+[![npm version](https://img.shields.io/npm/v/ngx-testing-extra.svg?style=for-the-badge&logo=npm)](https://www.npmjs.org/package/ngx-testing-extra)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/ngx-testing-extra.svg?style=for-the-badge)](https://bundlephobia.com/package/ngx-testing-extra)
+[![license](https://img.shields.io/github/license/remscodes/ngx-testing-extra.svg?style=for-the-badge)](LICENSE)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+</div>
 
-## Code scaffolding
+## Introduction
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This library aims to reduce boilerplate for testing component, http response, guard and everything else related to the Angular mechanism.
 
-## Build
+All the utilities provided make it easy to read and carry out the tests.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Installation
 
-## Running unit tests
+```shell
+npm install ngx-testing-extra
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Table of contents
 
-## Running end-to-end tests
+- [Component](#component)
+  - [Instance](#instance)
+  - [Native Element](#native-element)
+  - [Debug Element](#debug-element)
+  - [Event](#event)
+- [Pipe](#pipe)
+- [HTTP](#http)
+  - [Response](#response)
+  - [Interceptor](#interceptor)
+- [Router](#router)
+  - [Guard](#guard)
+  - [Resolver](#resolver)
+- [Injector](#injector)
+- [Module](#module)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Component
 
-## Further help
+#### Instance
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Query for one component instance :
+
+`findComponent<T>(fixture: ComponentFixture, selectorOrDirective: string | Type<T>): T`
+
+Query for all component instances :
+
+`findAllComponents<T>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<T>): T[]`
+
+#### Native element
+
+Query for one native element :
+
+`findElement<T extends HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T`
+
+Query for all native elements :
+
+`findAllElements<T extends HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T[]`
+
+#### Debug element
+
+Query for one debug element :
+
+`findDebugElement(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement`
+
+Query for all debug elements :
+
+`findAllDebugElements(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement[]`
+
+#### Event
+
+Trigger element click event :
+
+`click(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): void`
+
+Trigger child component output :
+
+`emitChildOutput(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>, outputName: string, outputValue?: any): void`
+
+### Pipe
+
+Use jasmine `it` to test pipe transform based on the provided record :
+
+`testPipeValues<T extends PipeTransform>(pipe: T, record: Record<any, string>): void`
+
+### HTTP
+
+#### Response
+
+Intercept http request and make response succeed :
+
+`emitFakeSuccessResponse(httpController: HttpTestingController, config: SuccessResponseConfig): void`
+
+```ts
+export interface SuccessResponseConfig {
+  url: string;
+  method: | 'GET'
+    | 'DELETE'
+    | 'HEAD'
+    | 'OPTIONS'
+    | 'POST'
+    | 'PUT'
+    | 'PATCH';
+  headers?: | HttpHeaders
+    | { [name: string]: string | string[] };
+  status?: number;
+  statusText?: string;
+  body: | ArrayBuffer
+    | Blob
+    | boolean
+    | string
+    | number
+    | Object
+    | (boolean | string | number | Object | null)[]
+    | null;
+}
+```
+
+Intercept http request and make response failed :
+
+`emitFakeErrorResponse(httpController: HttpTestingController, config: ErrorResponseConfig): void`
+
+```ts
+export interface ErrorResponseConfig {
+  url: string;
+  method: | 'GET'
+    | 'DELETE'
+    | 'HEAD'
+    | 'OPTIONS'
+    | 'POST'
+    | 'PUT'
+    | 'PATCH';
+  status?: number;
+  statusText?: string;
+}
+```
+
+#### Interceptor
+
+Make the provided interceptor succeed and observe the given `HttpEvent` :
+
+`makeInterceptorSucceed(interceptor: HttpInterceptorFn, config?: SuccessInterceptorConfig): Observable<HttpEvent<unknown>>`
+
+```ts
+export interface SuccessInterceptorConfig {
+  url: string;
+  method?: 'GET' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'JSONP';
+}
+```
+
+Make the provided interceptor fail and observe the given `HttpEvent` :
+
+`makeInterceptorFail(interceptor: HttpInterceptorFn, config?: ErrorInterceptorConfig): Observable<HttpEvent<unknown>>`
+
+```ts
+export interface ErrorInterceptorConfig {
+  url?: string;
+  status?: number;
+}
+```
+
+### Router
+
+#### Guard
+
+Verify the behavior of the provided CanActivate guard for the given route config :
+
+`challengeActivate(guard: CanActivateFn, state: RouterStateSnapshot, routeConfig?: RouteSnapshotConfig)`
+
+```ts
+export interface RouteSnapshotConfig {
+  data?: Data;
+  params?: Params;
+  queryParams?: Params;
+}
+```
+
+Verify the behavior of the provided CanDeactivate guard for the given route config :
+
+`challengeDeactivate<T>(guard: CanDeactivateFn<T>, component: T, currentState: RouterStateSnapshot, nextState: RouterStateSnapshot, routeConfig?: RouteSnapshotConfig)`
+
+Verify the behavior of the provided CanMatch guard for the given route and segments :
+
+`challengeMatch(guard: CanMatchFn, route: Route, segments: UrlSegment[])`
+
+#### Resolver
+
+Verify the provided resolver and observe the returned value :
+
+`checkResolver<T>(resolver: ResolveFn<T>, state: RouterStateSnapshot, routeConfig?: RouteSnapshotConfig)`
+
+### Injector
+
+Get instance from fixture injector based on the provided token :
+
+`fromInjector<T>(fixture: ComponentFixture<any>, directive: Type<T>): T`
+
+### Module
+
+Use jasmine `it` to test module creation :
+
+`expectModuleToCreate<T>(Module: Type<T>, providers?: (Provider | EnvironmentProviders)[]): void`
+
+## License
+
+[MIT](LICENSE) © Rémy Abitbol.
