@@ -1,8 +1,13 @@
-import { CanDeactivateFn } from '@angular/router';
+import { ActivatedRouteSnapshot, CanDeactivateFn, RouterStateSnapshot } from '@angular/router';
 import { of } from 'rxjs';
 
-export function noBackGuard(): CanDeactivateFn<any> {
-  return (component, currentRoute, currentState, nextState) => {
+export function noBackGuard<T>(): CanDeactivateFn<T> {
+  return (
+    component: T,
+    currentRoute: ActivatedRouteSnapshot,
+    currentState: RouterStateSnapshot,
+    nextState: RouterStateSnapshot,
+  ) => {
     return of(true);
   };
 }

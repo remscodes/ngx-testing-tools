@@ -20,13 +20,13 @@ describe('Page1Component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should click by id', () => {
+  it('should click button by id', () => {
     expect(component.isClicked).toBeFalse();
     click(fixture, '#my-button');
     expect(component.isClicked).toBeTrue();
   });
 
-  it('should click by directive', () => {
+  it('should click button by directive', () => {
     expect(component.isClicked).toBeFalse();
     click(fixture, ButtonDirective);
     expect(component.isClicked).toBeTrue();

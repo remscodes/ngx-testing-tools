@@ -1,8 +1,8 @@
-import { CanActivateFn } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
 import { of } from 'rxjs';
 
 export function loginGuard(): CanActivateFn {
-  return (route, state) => {
+  return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
     return of(true);
   };
 }

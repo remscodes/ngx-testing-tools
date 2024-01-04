@@ -1,4 +1,4 @@
-import { testPipeValues } from '../../../../ngx-testing-extra/src/lib/pipe';
+import { testPipeValues } from 'ngx-testing-extra';
 import { PrefixPipe } from './prefix.pipe';
 
 describe('PrefixPipe', () => {
