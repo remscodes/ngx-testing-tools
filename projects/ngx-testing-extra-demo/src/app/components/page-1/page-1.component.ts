@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
+
+@Directive({
+  selector: 'button[buttonDirective]',
+  standalone: true,
+})
+export class ButtonDirective {}
 
 @Component({
   selector: 'app-page-1',
@@ -6,8 +12,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrl: './page-1.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [],
+  imports: [ButtonDirective],
 })
 export class Page1Component {
 
+  public isClicked = false;
 }

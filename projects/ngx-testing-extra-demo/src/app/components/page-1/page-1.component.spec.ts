@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Page1Component } from './page-1.component';
+import { click } from '../../../../../ngx-testing-extra/src/lib/browser';
+import { ButtonDirective, Page1Component } from './page-1.component';
 
 describe('Page1Component', () => {
-  let component: Page1Component;
   let fixture: ComponentFixture<Page1Component>;
+  let component: Page1Component;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -17,5 +18,17 @@ describe('Page1Component', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should click by id', () => {
+    expect(component.isClicked).toBeFalse();
+    click(fixture, '#my-button');
+    expect(component.isClicked).toBeTrue();
+  });
+
+  it('should click by directive', () => {
+    expect(component.isClicked).toBeFalse();
+    click(fixture, ButtonDirective);
+    expect(component.isClicked).toBeTrue();
   });
 });
