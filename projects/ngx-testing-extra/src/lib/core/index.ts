@@ -1,2 +1,2 @@
-export { BedTools, describeComponent } from './extra-describe';
-export { ExtraFn, ExtraTools, ExtraBed } from './extra-bed';
+export * from './models';
+export { ExtraBed } from './extra-bed';
