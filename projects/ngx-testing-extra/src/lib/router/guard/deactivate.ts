@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot, CanDeactivateFn, RouterStateSnapshot } from '@angular/router';
-import { buildRouteSnapshot, RouteSnapshotConfig } from '../route/route-snapshot';
+import { buildRouteSnapshot, RouteSnapshotConfig } from '../route-snapshot';
 import { DefaultGuardReturn, GuardReturn } from './models/guard.model';
 
 export function challengeDeactivate<T, R extends GuardReturn = DefaultGuardReturn>(

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { click } from '../../../../../ngx-testing-extra/src/lib/browser';
+import { click } from 'ngx-testing-extra';
 import { ButtonDirective, Page1Component } from './page-1.component';
 
 describe('Page1Component', () => {
