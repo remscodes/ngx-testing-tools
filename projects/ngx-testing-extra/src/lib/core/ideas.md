@@ -1,4 +1,4 @@
-Classic way
+### Classic way
 
 ```ts
 describe('AppComponent', () => {
@@ -8,9 +8,7 @@ describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [
-        { provide: AppService, useClass: MockAppService },
-      ],
+      providers: [AppService],
     }).compileComponents();
 
     fixture = TestBed.createComponent(AppComponent);
@@ -21,12 +19,20 @@ describe('AppComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should do something', () => {
+    // ...
+  });
 });
 ```
 
-Idea 1
+### Idea 1
 
-Good to init one extra for each test suite.
+A new `ExtraBed` is instanciated for each test suite.
+
+Reduce boilerplate by providing `fixture`, `instance` (=`componentInstance`) and more for each test case thanks to created `ExtraBed` instance.  
+
+We do need to call `compile` before each to (re)create the fixture.
 
 ```ts
 describe('AppComponent', () => {
@@ -36,16 +42,45 @@ describe('AppComponent', () => {
     await extra.provide(AppService).compile();
   });
 
-  it('should create', extra(({ instance }) => {
-    expect(instance).toBeTruthy();
+  it('should do something', extra(({ instance, fixture }) => {
+    // ...
   }));
 });
 ```
 
-Idea 2
+#### Improvement 1
 
-Good to not need to assign `extra` to one constant.
-But need to connect `extra` to static `ExtraBed`.
+Use `createExtraBed` function instead of class constructor.
+
+Encourage constant name `bed` instead of `extra`.
+
+Automatically `fixture.detectChanges()` before each (can be disabled via `bed(.., { startDetectChanges: false })`).
+
+Add redondant "should create" test case with `bed.shouldCreate()`.
+
+```ts
+describe('AppComponent', () => {
+  const bed = createExtraBed(AppComponent);
+
+  beforeEach(async () => {
+    await bed.provide(AppService).compile();
+  });
+  
+  bed.shouldCreate();
+
+  it('should do something', bed(({ instance, fixture }) => {
+    // ...
+  }));
+});
+```
+
+### Idea 2
+
+Use `ExtraBed` directly as static.
+
+`bed(..)` is an exported function that is linked to the static `ExtraBed`.
+
+Therefore, we do not to create a new `ExtraBed` for each test suite.
 
 ```ts
 describe('AppComponent', () => {
@@ -54,25 +89,36 @@ describe('AppComponent', () => {
     await ExtraBed.root(AppComponent).provide(AppService).compile();
   });
 
-  it('should create', extra(({ instance }) => {
-    expect(instance).toBeTruthy();
+  it('should do something', extra(({ instance, fixture }) => {
+    // ...
   }));
 });
 ```
 
-Idea 3
+#### Refused
 
-__Not working__ for component with `ngOnChanges()` that needs wrapper component for testing.
-Therefore, the passed `AppComponent` cannot be used to create the fixture for that specific case.
+Impossible to infer `AppComponent` type to provided `instance` and `fixture` by `extra` function. 
+
+Therefore, we do need to add `AppComponent` as generic type to every `extra`, that is adding more verbosity. 
+
+### Idea 3
 
 ```ts
 describeComponent(AppComponent, ({ extra }) => {
   beforeEach(async () => {
-    await extra.import().compile();
+    await extra.provide(AppService).compile();
   });
 
-  it('should create', extra(({ instance }) => {
-    expect(instance).toBeTruthy();
+  it('should do smt', extra(({ instance, fixture }) => {
+    // ...
   }));
 });
 ```
+
+#### Refused
+
+Make impossible the testing for component with `ngOnChanges()` that needs wrapper component to test it.
+
+Therefore, the passed `AppComponent` cannot be used to create the fixture for that specific case.
+
+Then if we replace `AppComponent` by its wrapper we add ambiguity concerning the "described component". 
