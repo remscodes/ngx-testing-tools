@@ -8,12 +8,11 @@ describe('Page2Component', () => {
 
   bed.shouldCreate();
 
-  it('should check', bed(({ instance, done }) => {
+  it('should check', bed(({ instance }) => {
     expect(instance.checked).toBeFalse();
     instance.checked = true;
     expect(instance.checked).toBeTrue();
-    done();
-  }, { withDoneFn: true }));
+  }));
 
   it('should check again', bed(({ instance }) => {
     expect(instance.checked).toBeFalse();

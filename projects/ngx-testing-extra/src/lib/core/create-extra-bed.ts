@@ -7,12 +7,12 @@ export function createExtraBed<T>(rootComponent: Type<T>): ExtraBed<T> {
   const bed = new ExtraBedFactory(rootComponent);
 
   const bedFn: ExtraBed<T> = ((cb: ExtraCb<T>, opts: ExtraOptions = {}) => {
+
     const {
       startDetectChanges = true,
-      withDoneFn = false,
     } = opts;
 
-    const expectationFn = (done: DoneFn = createBrokenDoneFn()) => {
+    const expectationFn = (done: DoneFn = null!) => {
       const fixture: ComponentFixture<T> = bed['fixture'];
       const {
         componentInstance: instance,
@@ -22,10 +22,10 @@ export function createExtraBed<T>(rootComponent: Type<T>): ExtraBed<T> {
 
       if (startDetectChanges) fixture.detectChanges();
 
-      return cb({ fixture, instance, ref, debug, done });
+      return cb({ fixture, instance, ref, debug }, done);
     };
 
-    return (withDoneFn)
+    return (cb.length > 1)
       ? (done: DoneFn) => expectationFn(done)
       : () => expectationFn();
   }) as ExtraBed<T>;
@@ -37,18 +37,4 @@ export function createExtraBed<T>(rootComponent: Type<T>): ExtraBed<T> {
   bedFn.shouldCreate = bed.shouldCreate.bind(bed);
 
   return bedFn;
-}
-
-function createBrokenDoneFn(): DoneFn {
-  const error: string = 'An asynchronous it function took a done callback but also returned a promise. Either remove the done callback (recommended) or change the function to not return a promise and add withDoneFn option.';
-
-  const doneFn: DoneFn = (() => {
-    throw error;
-  }) as unknown as DoneFn;
-
-  doneFn.fail = () => {
-    throw error;
-  };
-
-  return doneFn;
 }
