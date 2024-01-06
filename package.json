@@ -11,7 +11,7 @@
   "scripts": {
     "build": "ng build ngx-testing-extra && npm run copy-README && npm run copy-LICENSE",
     "types": "tsc --noEmit",
-    "test": "ng test ngx-testing-extra-demo",
+    "test": "ng test ngx-testing-extra-demo --browsers=ChromeHeadless",
     "copy-README": "npm run copy-to-dist -- README.md",
     "copy-LICENSE": "npm run copy-to-dist -- LICENSE",
     "copy-to-dist": "node scripts/copy-to-dist.cjs"
@@ -57,5 +57,5 @@
     "angular",
     "testing"
   ],
-  "packageManager": "pnpm@8.13.1"
+  "packageManager": "pnpm@8.14.0"
 }
