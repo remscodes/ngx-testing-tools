@@ -1,2 +1,2 @@
 export * from './models';
-export { ExtraBed } from './extra-bed';
+export { createExtraBed } from './create-extra-bed';

@@ -1,23 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ExtraBed, ExtraFn } from 'ngx-testing-extra';
+import { createExtraBed } from 'ngx-testing-extra';
 import { Page2Component } from './page-2.component';
 
-xdescribe('Page2Component', () => {
-  let extra: ExtraFn<Page2Component>;
+fdescribe('Page2Component', () => {
+  const bed = createExtraBed(Page2Component);
+  beforeEach(() => bed.compile());
 
-  beforeEach(async () => {
-    extra = await ExtraBed.root(Page2Component).compile();
-  });
+  bed.shouldCreate();
 
-  it('should create', extra(({ instance }) => {
-    expect(instance).toBeTruthy();
+  it('should check', bed(({ instance }) => {
     expect(instance.checked).toBeFalse();
     instance.checked = true;
     expect(instance.checked).toBeTrue();
   }));
 
-  it('should ', extra(({ instance }) => {
+  it('should check again', bed(({ instance }) => {
     expect(instance.checked).toBeFalse();
+    instance.checked = true;
+    expect(instance.checked).toBeTrue();
   }));
 });
 
@@ -37,12 +37,17 @@ xdescribe('Page2Component', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should check', () => {
     expect(component.checked).toBeFalse();
     component.checked = true;
     expect(component.checked).toBeTrue();
   });
 
-  it('should ', () => {
+  it('should check again', () => {
     expect(component.checked).toBeFalse();
+    component.checked = true;
+    expect(component.checked).toBeTrue();
   });
 });
