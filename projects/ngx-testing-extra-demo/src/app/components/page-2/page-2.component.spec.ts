@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { createExtraBed } from 'ngx-testing-extra';
 import { Page2Component } from './page-2.component';
 
-fdescribe('Page2Component', () => {
+describe('Page2Component', () => {
   const bed = createExtraBed(Page2Component);
   beforeEach(() => bed.compile());
 
@@ -21,7 +21,7 @@ fdescribe('Page2Component', () => {
   }));
 });
 
-xdescribe('Page2Component', () => {
+describe('Page2Component', () => {
   let fixture: ComponentFixture<Page2Component>;
   let component: Page2Component;
 
@@ -40,12 +40,6 @@ xdescribe('Page2Component', () => {
   });
 
   it('should check', () => {
-    expect(component.checked).toBeFalse();
-    component.checked = true;
-    expect(component.checked).toBeTrue();
-  });
-
-  it('should check again', () => {
     expect(component.checked).toBeFalse();
     component.checked = true;
     expect(component.checked).toBeTrue();

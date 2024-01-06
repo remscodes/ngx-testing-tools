@@ -10,10 +10,6 @@ export class ExtraBedFactory<ComponentType> {
 
   private fixture: ComponentFixture<ComponentType> = null!;
 
-  public static root<T>(rootComponent: Type<T>): ExtraBedFactory<T> {
-    return new ExtraBedFactory<T>(rootComponent);
-  }
-
   public import(imp: Type<any>): this
   public import(imps: Type<any>[]): this
   public import(oneOrManyImports: MaybeArray<Type<any>>): this {

@@ -11,7 +11,7 @@ export interface ExtraTools<T> {
   instance: T;
   ref: ComponentRef<T>;
   debug: DebugElement;
-  done: DoneFn;
+  done?: DoneFn;
 }
 
 export interface ExtraOptions {

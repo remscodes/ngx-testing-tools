@@ -1,26 +1,41 @@
 import { Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { ExtraBedFactory } from './extra-bed';
-import { ExtraBed, ExtraCb, ExtraFn, ExtraOptions } from './models/extra.models';
+import { ExtraBed, ExtraCb, ExtraOptions } from './models/extra.models';
 
 export function createExtraBed<T>(rootComponent: Type<T>): ExtraBed<T> {
   const bed = new ExtraBedFactory(rootComponent);
 
-  const fn: ExtraFn<T> = function (this: ExtraBedFactory<T>, cb: ExtraCb<T>, opts: ExtraOptions = {}) {
-    const fixture: ComponentFixture<T> = this['fixture'];
-    const {
-      componentInstance: instance,
-      debugElement: debug,
-      componentRef: ref,
-    } = fixture;
-    const {
-      startDetectChanges = true,
-    } = opts;
+  const fn = ((cb: ExtraCb<T>, opts: ExtraOptions = {}) => {
 
-    if (startDetectChanges) fixture.detectChanges();
+    return () => {
 
-    return (done: DoneFn) => cb({ fixture, instance, ref, debug, done });
-  };
+      const fixture: ComponentFixture<T> = bed['fixture'];
+      const {
+        componentInstance: instance,
+        debugElement: debug,
+        componentRef: ref,
+      } = fixture;
+      const {
+        startDetectChanges = true,
+      } = opts;
 
-  return Object.assign(bed, fn);
+      if (startDetectChanges) fixture.detectChanges();
+
+      return cb({ fixture, instance, ref, debug });
+    };
+  }) as ExtraBed<T>;
+
+  // @ts-ignore
+  fn.import = bed.import.bind(bed);
+  // @ts-ignore
+  fn.provide = bed.provide.bind(bed);
+  // @ts-ignore
+  fn.declare = bed.declare.bind(bed);
+
+  fn.compile = bed.compile.bind(bed);
+
+  fn.shouldCreate = bed.shouldCreate.bind(bed);
+
+  return fn;
 }
