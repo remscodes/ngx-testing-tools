@@ -1,6 +1,6 @@
 import { ComponentRef, DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { ExtraBedFactory } from '../extra-bed';
+import { ExtraBedFactory } from '../extra-bed-factory';
 
 export type ExtraFn<T> = (cb: ExtraCb<T>, opts?: ExtraOptions) => jasmine.ImplementationCallback
 
@@ -11,7 +11,7 @@ export interface ExtraTools<T> {
   instance: T;
   ref: ComponentRef<T>;
   debug: DebugElement;
-  done?: DoneFn;
+  done: DoneFn;
 }
 
 export interface ExtraOptions {
@@ -19,6 +19,10 @@ export interface ExtraOptions {
    * @default true
    */
   startDetectChanges?: boolean;
+  /**
+   * @default false
+   */
+  withDoneFn?: boolean;
 }
 
 export interface ExtraBed<T> extends ExtraFn<T>, ExtraBedFactory<T> {}
