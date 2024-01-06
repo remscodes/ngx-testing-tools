@@ -1,1 +1,1 @@
-export { ExtraFn, ExtraTools, ExtraCb, ExtraOptions } from './extra.models';
+export { ExtraTools, ExtraOptions } from './extra.models';
