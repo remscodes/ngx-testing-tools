@@ -39,7 +39,7 @@ export function findDebugElement(fixture: ComponentFixture<any>, selectorOrDirec
     ? fixture.debugElement.query(By.css(selectorOrDirective))
     : fixture.debugElement.query(By.directive(selectorOrDirective));
 
-  if (!element) throw `Cannot find one DebugElement with ${(typeof selectorOrDirective === 'string') ? `selector "${selectorOrDirective}"` : `directive "${selectorOrDirective.name}"`}`;
+  if (!element) throwCannotFind(selectorOrDirective);
 
   return element;
 }
@@ -48,11 +48,23 @@ export function findAllDebugElements(fixture: ComponentFixture<any>, selector: s
 export function findAllDebugElements(fixture: ComponentFixture<any>, directive: Type<any>): DebugElement[]
 export function findAllDebugElements(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement[]
 export function findAllDebugElements(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement[] {
-  const debug: Nullable<DebugElement[]> = (typeof selectorOrDirective === 'string')
+  const debugs: Nullable<DebugElement[]> = (typeof selectorOrDirective === 'string')
     ? fixture.debugElement.queryAll(By.css(selectorOrDirective))
     : fixture.debugElement.queryAll(By.directive(selectorOrDirective));
 
-  if (!debug) throw `Cannot find many DebugElement with ${(typeof selectorOrDirective === 'string') ? `selector "${selectorOrDirective}"` : `directive "${selectorOrDirective.name}"`}`;
+  if (!debugs) throwCannotFind(selectorOrDirective, true);
 
-  return debug;
+  return debugs;
+}
+
+function throwCannotFind(selectorOrDirective: string | Type<any>, many: boolean = false): never {
+  const input: string = (typeof selectorOrDirective === 'string')
+    ? `selector "${selectorOrDirective}"`
+    : `directive "${selectorOrDirective.name}"`;
+
+  const quantifier: string = (many)
+    ? 'many'
+    : 'one';
+
+  throw `Cannot find ${quantifier} DebugElement with : ${input}`;
 }
