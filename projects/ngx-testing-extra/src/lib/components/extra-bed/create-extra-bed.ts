@@ -24,12 +24,16 @@ export function createExtraBed<T>(rootComponent: Type<T>): ExtraBed<T> {
         debugElement: debug,
       } = fixture;
 
+      const {
+        injector,
+      } = debug;
+
       const query: QueryTools = buildQueryTools(fixture);
       const action: ActionTools = buildActionTools(fixture);
 
       if (startDetectChanges) fixture.detectChanges();
 
-      return cb({ fixture, component, debug, query, action }, done);
+      return cb({ fixture, component, injector, debug, query, action }, done);
     };
 
     return (cb.length > 1)
