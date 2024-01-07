@@ -14,10 +14,15 @@ describe('Page2Component', () => {
     expect(instance.checked).toBeTrue();
   }));
 
-  it('should check again', bed(({ instance }) => {
+  it('should check again', bed(({ instance, query, action }) => {
     expect(instance.checked).toBeFalse();
     instance.checked = true;
     expect(instance.checked).toBeTrue();
+
+    action.click('#my-span');
+    
+    const span: HTMLSpanElement = query.findElement('#my-span');
+    console.log(span);
   }));
 });
 
