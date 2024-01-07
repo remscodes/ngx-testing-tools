@@ -1,3 +1,4 @@
+export * from './extra-bed';
 export {
   findDebugElement,
   findAllDebugElements,
