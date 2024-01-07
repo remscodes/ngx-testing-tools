@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
-import { MaybeArray } from '../models/shared.model';
+import { MaybeArray } from '../../models/shared.model';
 
 export class ExtraBedFactory<ComponentType> {
 

@@ -5,12 +5,14 @@ import { Nullable } from '../models/shared.model';
 
 export function findComponent<T>(fixture: ComponentFixture<any>, selector: string): T
 export function findComponent<T>(fixture: ComponentFixture<any>, directive: Type<T>): T
+export function findComponent<T>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<T>): T
 export function findComponent<T>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<T>): T {
   return findDebugElement(fixture, selectorOrDirective).componentInstance;
 }
 
 export function findAllComponents<T>(fixture: ComponentFixture<any>, selector: string): T[]
 export function findAllComponents<T>(fixture: ComponentFixture<any>, directive: Type<T>): T[]
+export function findAllComponents<T>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<T>): T[]
 export function findAllComponents<T>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<T>): T[] {
   return findAllDebugElements(fixture, selectorOrDirective).map(e => e.componentInstance);
 }
@@ -22,10 +24,10 @@ export function findElement<T extends HTMLElement = HTMLElement>(fixture: Compon
   return findDebugElement(fixture, selectorOrDirective).nativeElement;
 }
 
-export function findAllElement<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selector: string): T[]
-export function findAllElement<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, directive: Type<any>): T[]
-export function findAllElement<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T[]
-export function findAllElement<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T[] {
+export function findAllElements<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selector: string): T[]
+export function findAllElements<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, directive: Type<any>): T[]
+export function findAllElements<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T[]
+export function findAllElements<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T[] {
   return findAllDebugElements(fixture, selectorOrDirective).map(e => e.nativeElement);
 }
 
@@ -37,7 +39,7 @@ export function findDebugElement(fixture: ComponentFixture<any>, selectorOrDirec
     ? fixture.debugElement.query(By.css(selectorOrDirective))
     : fixture.debugElement.query(By.directive(selectorOrDirective));
 
-  if (!element) throw `Cannot find one DebugElement with ${(typeof selectorOrDirective === 'string') ? `selector "${selectorOrDirective}"` : `directive "${selectorOrDirective.name}"`}`;
+  if (!element) throwCannotFind(selectorOrDirective);
 
   return element;
 }
@@ -46,11 +48,23 @@ export function findAllDebugElements(fixture: ComponentFixture<any>, selector: s
 export function findAllDebugElements(fixture: ComponentFixture<any>, directive: Type<any>): DebugElement[]
 export function findAllDebugElements(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement[]
 export function findAllDebugElements(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement[] {
-  const debug: Nullable<DebugElement[]> = (typeof selectorOrDirective === 'string')
+  const debugs: Nullable<DebugElement[]> = (typeof selectorOrDirective === 'string')
     ? fixture.debugElement.queryAll(By.css(selectorOrDirective))
     : fixture.debugElement.queryAll(By.directive(selectorOrDirective));
 
-  if (!debug) throw `Cannot find many DebugElement with ${(typeof selectorOrDirective === 'string') ? `selector "${selectorOrDirective}"` : `directive "${selectorOrDirective.name}"`}`;
+  if (!debugs) throwCannotFind(selectorOrDirective, true);
 
-  return debug;
+  return debugs;
+}
+
+function throwCannotFind(selectorOrDirective: string | Type<any>, many: boolean = false): never {
+  const input: string = (typeof selectorOrDirective === 'string')
+    ? `selector "${selectorOrDirective}"`
+    : `directive "${selectorOrDirective.name}"`;
+
+  const quantifier: string = (many)
+    ? 'many'
+    : 'one';
+
+  throw `Cannot find ${quantifier} DebugElement with : ${input}`;
 }
