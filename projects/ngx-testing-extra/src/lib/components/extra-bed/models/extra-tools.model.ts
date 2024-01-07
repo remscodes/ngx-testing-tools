@@ -5,7 +5,7 @@ import { QueryTools } from './query-tools.model';
 
 export interface ExtraTools<T> {
   fixture: ComponentFixture<T>;
-  instance: T;
+  component: T;
   debug: DebugElement;
   query: QueryTools;
   action: ActionTools;

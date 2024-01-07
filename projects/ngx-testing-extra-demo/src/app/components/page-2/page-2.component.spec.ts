@@ -7,11 +7,11 @@ describe('Page2Component', () => {
 
   bed.shouldCreate();
 
-  it('should click', bed(({ instance, action }) => {
-    expect(instance.clicked).toBeFalse();
+  it('should click', bed(({ component, action }) => {
+    expect(component.clicked).toBeFalse();
 
     action.click('#my-span');
 
-    expect(instance.clicked).toBeTrue();
+    expect(component.clicked).toBeTrue();
   }));
 });

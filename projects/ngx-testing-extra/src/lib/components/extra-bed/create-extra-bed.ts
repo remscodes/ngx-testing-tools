@@ -20,7 +20,7 @@ export function createExtraBed<T>(rootComponent: Type<T>): ExtraBed<T> {
     const expectationFn = (done: DoneFn = null!) => {
       const fixture: ComponentFixture<T> = bed['fixture'];
       const {
-        componentInstance: instance,
+        componentInstance: component,
         debugElement: debug,
       } = fixture;
 
@@ -29,7 +29,7 @@ export function createExtraBed<T>(rootComponent: Type<T>): ExtraBed<T> {
 
       if (startDetectChanges) fixture.detectChanges();
 
-      return cb({ fixture, instance, debug, query, action }, done);
+      return cb({ fixture, component, debug, query, action }, done);
     };
 
     return (cb.length > 1)
