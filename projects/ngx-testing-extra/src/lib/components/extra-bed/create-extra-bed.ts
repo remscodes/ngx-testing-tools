@@ -2,7 +2,9 @@ import { Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { buildActionTools } from './action-tools';
 import { ExtraBedFactory } from './extra-bed-factory';
-import { ActionTools, ExtraBed, ExtraCb, ExtraOptions, QueryTools } from './models/extra.models';
+import { ActionTools } from './models/action-tools.model';
+import { ExtraBed, ExtraCb, ExtraOptions } from './models/extra-bed.models';
+import { QueryTools } from './models/query-tools.model';
 import { buildQueryTools } from './query-tools';
 
 export function createExtraBed<T>(rootComponent: Type<T>): ExtraBed<T> {

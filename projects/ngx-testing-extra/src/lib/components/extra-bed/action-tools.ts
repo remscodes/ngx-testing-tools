@@ -1,6 +1,6 @@
 import { ComponentFixture } from '@angular/core/testing';
 import { click, emitChildOutput } from '../event';
-import { ActionTools } from './models/extra.models';
+import { ActionTools } from './models/action-tools.model';
 
 export function buildActionTools(fixture: ComponentFixture<unknown>): ActionTools {
   return {

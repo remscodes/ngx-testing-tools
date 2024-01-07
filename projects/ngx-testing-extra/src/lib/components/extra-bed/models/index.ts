@@ -1,1 +1,1 @@
-export { ExtraTools, ExtraOptions } from './extra.models';
+export { ExtraTools, ExtraOptions } from './extra-bed.models';
