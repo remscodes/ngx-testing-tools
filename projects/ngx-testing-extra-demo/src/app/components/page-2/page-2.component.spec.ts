@@ -7,20 +7,11 @@ describe('Page2Component', () => {
 
   bed.shouldCreate();
 
-  it('should check', bed(({ instance }) => {
-    expect(instance.checked).toBeFalse();
-    instance.checked = true;
-    expect(instance.checked).toBeTrue();
-  }));
-
-  it('should check again', bed(({ instance, query, action }) => {
-    expect(instance.checked).toBeFalse();
-    instance.checked = true;
-    expect(instance.checked).toBeTrue();
+  it('should click', bed(({ instance, action }) => {
+    expect(instance.clicked).toBeFalse();
 
     action.click('#my-span');
 
-    const span: HTMLSpanElement = query.findElement('#my-span');
-    console.log(span);
+    expect(instance.clicked).toBeTrue();
   }));
 });

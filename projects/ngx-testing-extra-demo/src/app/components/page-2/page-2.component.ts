@@ -10,5 +10,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class Page2Component {
 
-  public checked: boolean = false;
+  public clicked: boolean = false;
 }
