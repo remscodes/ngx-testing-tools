@@ -5,12 +5,14 @@ import { Nullable } from '../models/shared.model';
 
 export function findComponent<T>(fixture: ComponentFixture<any>, selector: string): T
 export function findComponent<T>(fixture: ComponentFixture<any>, directive: Type<T>): T
+export function findComponent<T>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<T>): T
 export function findComponent<T>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<T>): T {
   return findDebugElement(fixture, selectorOrDirective).componentInstance;
 }
 
 export function findAllComponents<T>(fixture: ComponentFixture<any>, selector: string): T[]
 export function findAllComponents<T>(fixture: ComponentFixture<any>, directive: Type<T>): T[]
+export function findAllComponents<T>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<T>): T[]
 export function findAllComponents<T>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<T>): T[] {
   return findAllDebugElements(fixture, selectorOrDirective).map(e => e.componentInstance);
 }
@@ -22,10 +24,10 @@ export function findElement<T extends HTMLElement = HTMLElement>(fixture: Compon
   return findDebugElement(fixture, selectorOrDirective).nativeElement;
 }
 
-export function findAllElement<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selector: string): T[]
-export function findAllElement<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, directive: Type<any>): T[]
-export function findAllElement<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T[]
-export function findAllElement<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T[] {
+export function findAllElements<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selector: string): T[]
+export function findAllElements<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, directive: Type<any>): T[]
+export function findAllElements<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T[]
+export function findAllElements<T extends HTMLElement = HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T[] {
   return findAllDebugElements(fixture, selectorOrDirective).map(e => e.nativeElement);
 }
 
