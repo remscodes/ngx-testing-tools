@@ -11,7 +11,8 @@
   "scripts": {
     "build": "ng build ngx-testing-extra && pnpm run copy-README && pnpm run copy-LICENSE",
     "types": "tsc --noEmit",
-    "test": "ng test ngx-testing-extra-demo --browsers=ChromeHeadless",
+    "test": "ng test ngx-testing-extra --browsers=ChromeHeadless",
+    "test:demo": "ng test ngx-testing-extra-demo --browsers=ChromeHeadless",
     "test:ci": "pnpm run test --no-watch --no-progress",
     "copy-README": "pnpm run copy-to-dist -- README.md",
     "copy-LICENSE": "pnpm run copy-to-dist -- LICENSE",
