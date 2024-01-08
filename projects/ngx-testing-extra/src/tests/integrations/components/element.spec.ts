@@ -1,17 +1,20 @@
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { findAllComponents, findComponent } from '../../../lib/components';
+import { findAllComponents, findAllDebugElements, findAllElements, findComponent, findDebugElement, findElement } from '../../../lib/components';
 import { InnerComponent } from '../../fixtures/components/inner.component';
 import { NoWhereComponent } from '../../fixtures/components/no-where.component';
 import { OuterComponent } from '../../fixtures/components/outer.component';
+import { MyButtonDirective } from '../../fixtures/directives/my-button.directive';
+import { NoWhereDirective } from '../../fixtures/directives/no-where.directive';
 
 describe('Element finding utils', () => {
   let fixture: ComponentFixture<OuterComponent>;
   let component: OuterComponent;
 
   beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [OuterComponent],
-    }).compileComponents();
+    await TestBed
+      .configureTestingModule({ imports: [OuterComponent] })
+      .compileComponents();
 
     fixture = TestBed.createComponent(OuterComponent);
     component = fixture.componentInstance;
@@ -23,28 +26,128 @@ describe('Element finding utils', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('findComponent', () => {
+  function validateArrayOf2(array: unknown[]): void {
 
-    it('should find InnerComponent by directive', () => {
-      const inner = findComponent(fixture, InnerComponent);
+  }
 
-      expect(inner).toBeTruthy();
+  describe('findDebugElement', () => {
+
+    function validateDebugElement(debug: unknown): void {
+      expect(debug).toBeTruthy();
+      expect(debug instanceof DebugElement).toBeTrue();
+    }
+
+    it('should find InnerComponent debug element by selector', () => {
+      const debug = findDebugElement(fixture, 'app-inner');
+      validateDebugElement(debug);
     });
 
-    it('should find InnerComponent by selector', () => {
-      const inner = findComponent(fixture, 'app-inner');
-
-      expect(inner).toBeTruthy();
+    it('should find InnerComponent debug element by directive', () => {
+      const debug = findDebugElement(fixture, InnerComponent);
+      validateDebugElement(debug);
     });
 
-    it('should not find one by directive', () => {
-      expect(() => findComponent(fixture, NoWhereComponent))
-        .toThrowError('Cannot find one DebugElement with : directive "NoWhereComponent"');
+    it('should find button debug element by selector', () => {
+      const debug = findDebugElement(fixture, '#my-outer-button');
+      validateDebugElement(debug);
+    });
+
+    it('should find button debug element by directive', () => {
+      const debug = findDebugElement(fixture, MyButtonDirective);
+      validateDebugElement(debug);
     });
 
     it('should not find one by selector', () => {
-      expect(() => findComponent(fixture, 'app-no-where'))
+      expect(() => findDebugElement(fixture, '#no-where-button'))
+        .toThrowError('Cannot find one DebugElement with : selector "#no-where-button"');
+    });
+
+    it('should not find one by directive', () => {
+      expect(() => findDebugElement(fixture, NoWhereDirective))
+        .toThrowError('Cannot find one DebugElement with : directive "NoWhereDirective"');
+    });
+  });
+
+  describe('findAllDebugElements', () => {
+
+    function validateArrayOfDebugElements(debugs: unknown[]): void {
+      expect(debugs).toBeTruthy();
+      expect(Array.isArray(debugs)).toBeTrue();
+      expect(debugs.length).toEqual(2);
+
+      debugs.forEach(debug => {
+        expect(debug).toBeTruthy();
+        expect(debug instanceof DebugElement).toBeTrue();
+      });
+    }
+
+    describe('InnerComponent', () => {
+
+      beforeEach(() => {
+        component.extraInner = true;
+        fixture.detectChanges();
+      });
+
+      it('should find all InnerComponent debug elements by selector', () => {
+        const debugs = findAllDebugElements(fixture, 'app-inner');
+        validateArrayOfDebugElements(debugs);
+      });
+
+      it('should find all InnerComponent debug elements by directive', () => {
+        const debugs = findAllDebugElements(fixture, InnerComponent);
+        validateArrayOfDebugElements(debugs);
+      });
+    });
+
+    describe('HTMLButtonElement', () => {
+
+      it('should not find all button debug elements by selector', () => {
+        const debugs = findAllDebugElements(fixture, 'button');
+        validateArrayOfDebugElements(debugs);
+      });
+
+      it('should not find all button debug element by directive', () => {
+        const debugs = findAllDebugElements(fixture, MyButtonDirective);
+        validateArrayOfDebugElements(debugs);
+      });
+    });
+
+    it('should not find all debug elements by selector', () => {
+      expect(() => findAllDebugElements(fixture, 'app-no-where'))
+        .toThrowError('Cannot find many DebugElement with : selector "app-no-where"');
+    });
+
+    it('should not find all debug elements by directive', () => {
+      expect(() => findAllDebugElements(fixture, NoWhereDirective))
+        .toThrowError('Cannot find many DebugElement with : directive "NoWhereDirective"');
+    });
+  });
+
+  describe('findComponent', () => {
+
+    function validateComponentInstance(component: unknown): void {
+      expect(component).toBeTruthy();
+      expect(component instanceof InnerComponent).toBeTrue();
+    }
+
+    it('should find InnerComponent instance by selector', () => {
+      const inner = findComponent<InnerComponent>(fixture, 'app-inner');
+      validateComponentInstance(inner);
+    });
+
+    it('should find InnerComponent instance by directive', () => {
+      const inner = findComponent(fixture, InnerComponent);
+      validateComponentInstance(inner);
+    });
+
+    it('should not find component instance by selector', () => {
+      expect(() => findComponent<NoWhereComponent>(fixture, 'app-no-where'))
         .toThrowError('Cannot find one DebugElement with : selector "app-no-where"');
+    });
+
+    it('should not find component instance by directive', () => {
+      expect(() => findComponent(fixture, NoWhereComponent))
+        .toThrowError('Cannot find one DebugElement with : directive "NoWhereComponent"');
     });
   });
 
@@ -55,30 +158,134 @@ describe('Element finding utils', () => {
       fixture.detectChanges();
     });
 
-    it('should find all InnerComponent by directive', () => {
-      const inners = findAllComponents<InnerComponent>(fixture, InnerComponent);
-
+    function validateArrayOfComponentInstances(inners: unknown[]): void {
       expect(inners).toBeTruthy();
       expect(Array.isArray(inners)).toBeTrue();
       expect(inners.length).toEqual(2);
-    });
 
-    it('should find all InnerComponent by selector', () => {
+      inners.forEach(inner => {
+        expect(inner).toBeTruthy();
+        expect(inner instanceof InnerComponent).toBeTrue();
+      });
+    }
+
+    it('should find all InnerComponent instances by selector', () => {
       const inners = findAllComponents<InnerComponent>(fixture, 'app-inner');
-
-      expect(inners).toBeTruthy();
-      expect(Array.isArray(inners)).toBeTrue();
-      expect(inners.length).toEqual(2);
+      validateArrayOfComponentInstances(inners);
     });
 
-    it('should not find many by directive', () => {
+    it('should find all InnerComponent instances by directive', () => {
+      const inners = findAllComponents<InnerComponent>(fixture, InnerComponent);
+      validateArrayOfComponentInstances(inners);
+    });
+
+    it('should not find all component instances by selector', () => {
+      expect(() => findAllComponents(fixture, 'app-no-where'))
+        .toThrowError('Cannot find many DebugElement with : selector "app-no-where"');
+    });
+
+    it('should not find all component instances by directive', () => {
       expect(() => findAllComponents(fixture, NoWhereComponent))
         .toThrowError('Cannot find many DebugElement with : directive "NoWhereComponent"');
     });
+  });
 
-    it('should not find many by selector', () => {
-      expect(() => findAllComponents(fixture, 'app-no-where'))
+  describe('findElement', () => {
+
+    function validateNativeElement(element: unknown): void {
+      expect(element).toBeTruthy();
+      expect(element instanceof HTMLElement).toBeTrue();
+    }
+
+    describe('HTMLButtonElement', () => {
+
+      it('should find button element by selector', () => {
+        const button = findElement<HTMLButtonElement>(fixture, '#my-outer-button');
+        validateNativeElement(button);
+      });
+
+      it('should find button element by directive', () => {
+        const button = findElement(fixture, MyButtonDirective);
+        validateNativeElement(button);
+      });
+    });
+
+    describe('Component native element', () => {
+
+      it('should find InnerComponent element by selector', () => {
+        const inner = findElement<HTMLButtonElement>(fixture, 'app-inner');
+        validateNativeElement(inner);
+      });
+
+      it('should find InnerComponent element by directive', () => {
+        const inner = findElement(fixture, InnerComponent);
+        validateNativeElement(inner);
+      });
+    });
+
+    it('should not find element by selector', () => {
+      expect(() => findElement(fixture, '#no-where-button'))
+        .toThrowError('Cannot find one DebugElement with : selector "#no-where-button"');
+    });
+
+    it('should not find element by directive', () => {
+      expect(() => findElement(fixture, NoWhereDirective))
+        .toThrowError('Cannot find one DebugElement with : directive "NoWhereDirective"');
+    });
+  });
+
+  describe('findAllElements', () => {
+
+    function validateArrayOfNativeElements(elements: unknown[]): void {
+      expect(elements).toBeTruthy();
+      expect(Array.isArray(elements)).toBeTrue();
+      expect(elements.length).toEqual(2);
+
+      elements.forEach(element => {
+        expect(element).toBeTruthy();
+        expect(element instanceof HTMLElement).toBeTrue();
+      });
+    }
+
+    describe('HTMLButtonElement', () => {
+
+      it('should find all buttons by selector', () => {
+        const buttons = findAllElements<HTMLButtonElement>(fixture, 'button');
+        validateArrayOfNativeElements(buttons);
+      });
+
+      it('should find all buttons by directive', () => {
+        const buttons = findAllElements<HTMLButtonElement>(fixture, MyButtonDirective);
+        validateArrayOfNativeElements(buttons);
+      });
+    });
+
+    describe('Component native element', () => {
+
+      beforeEach(() => {
+        component.extraInner = true;
+        fixture.detectChanges();
+      });
+
+      it('should find all InnerComponent elements by selector', () => {
+        const inners = findAllElements(fixture, 'app-inner');
+        validateArrayOfNativeElements(inners);
+      });
+
+      it('should find all InnerComponent elements by directive', () => {
+        const inners = findAllElements(fixture, InnerComponent);
+        validateArrayOfNativeElements(inners);
+      });
+    });
+
+    it('should not find all by selector', () => {
+      expect(() => findAllElements(fixture, 'app-no-where'))
         .toThrowError('Cannot find many DebugElement with : selector "app-no-where"');
+    });
+
+    it('should not find all by directive', () => {
+      expect(() => findAllElements(fixture, NoWhereDirective))
+        .toThrowError('Cannot find many DebugElement with : directive "NoWhereDirective"');
     });
   });
 });
