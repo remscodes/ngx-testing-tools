@@ -48,11 +48,11 @@ export function findAllDebugElements(fixture: ComponentFixture<any>, selector: s
 export function findAllDebugElements(fixture: ComponentFixture<any>, directive: Type<any>): DebugElement[]
 export function findAllDebugElements(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement[]
 export function findAllDebugElements(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement[] {
-  const debugs: Nullable<DebugElement[]> = (typeof selectorOrDirective === 'string')
+  const debugs: DebugElement[] = (typeof selectorOrDirective === 'string')
     ? fixture.debugElement.queryAll(By.css(selectorOrDirective))
     : fixture.debugElement.queryAll(By.directive(selectorOrDirective));
 
-  if (!debugs) throwCannotFind(selectorOrDirective, true);
+  if (debugs.length === 0) throwCannotFind(selectorOrDirective, true);
 
   return debugs;
 }
@@ -66,5 +66,5 @@ function throwCannotFind(selectorOrDirective: string | Type<any>, many: boolean 
     ? 'many'
     : 'one';
 
-  throw `Cannot find ${quantifier} DebugElement with : ${input}`;
+  throw new Error(`Cannot find ${quantifier} DebugElement with : ${input}`);
 }
