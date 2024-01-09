@@ -60,7 +60,7 @@ describe('findAllElements', () => {
   });
 
   function validateArrayOfNativeElements(elements: unknown[]): void {
-    validateArray(elements, 2);
+    validateArray(elements, { size: 2 });
     elements.forEach(element => validateInstanceType(element, HTMLElement));
   }
 });

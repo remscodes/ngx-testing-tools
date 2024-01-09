@@ -3,7 +3,7 @@ import { NoWhereDirective } from '../../../fixtures/directives/no-where.directiv
 
 describe('throwCannotFind', () => {
 
-  it('should throw an error', () => {
+  it('should throw specific error messages', () => {
     expect(() => throwCannotFind('button'))
       .toThrowError('Cannot find one DebugElement with : selector "button".');
 

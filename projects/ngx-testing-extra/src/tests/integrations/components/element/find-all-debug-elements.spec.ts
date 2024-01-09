@@ -61,7 +61,7 @@ describe('findAllDebugElements', () => {
   });
 
   function validateArrayOfDebugElements(debugs: unknown[]): void {
-    validateArray(debugs, 2);
+    validateArray(debugs, { size: 2 });
     debugs.forEach(debug => validateInstanceType(debug, DebugElement));
   }
 });

@@ -39,7 +39,7 @@ describe('findAllComponents', () => {
   });
 
   function validateArrayOfComponentInstances(inners: unknown[]): void {
-    validateArray(inners, 2);
+    validateArray(inners, { size: 2 });
     inners.forEach(inner => validateInstanceType(inner, InnerComponent));
   }
 });
