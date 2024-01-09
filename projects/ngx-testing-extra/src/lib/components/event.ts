@@ -1,6 +1,6 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { findDebugElement } from './element';
+import { findDebugElement } from './find-debug-element';
 
 export function click(fixture: ComponentFixture<any>, selector: string): void
 export function click(fixture: ComponentFixture<any>, directive: Type<any>): void

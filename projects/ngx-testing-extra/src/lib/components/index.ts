@@ -1,14 +1,5 @@
 export * from './extra-bed';
-export {
-  findDebugElement,
-  findAllDebugElements,
-  findElement,
-  findAllElements,
-  findComponent,
-  findAllComponents,
-} from './element';
-
-export {
-  click,
-  emitChildOutput,
-} from './event';
+export { findComponent, findAllComponents } from './find-component';
+export { findElement, findAllElements } from './find-element';
+export { findDebugElement, findAllDebugElements } from './find-debug-element';
+export { click, emitChildOutput } from './event';
