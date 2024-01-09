@@ -1,8 +1,9 @@
-import { createExtraBed } from 'ngx-testing-extra';
+import { componentTestBed } from 'ngx-testing-extra';
 import { Page2Component } from './page-2.component';
 
 describe('Page2Component', () => {
-  const bed = createExtraBed(Page2Component);
+  const bed = componentTestBed(Page2Component);
+
   beforeEach(() => bed.compile());
 
   bed.shouldCreate();
