@@ -64,12 +64,12 @@ describe('Element finding utils', () => {
 
     it('should not find one by selector', () => {
       expect(() => findDebugElement(fixture, '#no-where-button'))
-        .toThrowError('Cannot find one DebugElement with : selector "#no-where-button"');
+        .toThrowError('Cannot find one DebugElement with : selector "#no-where-button".');
     });
 
     it('should not find one by directive', () => {
       expect(() => findDebugElement(fixture, NoWhereDirective))
-        .toThrowError('Cannot find one DebugElement with : directive "NoWhereDirective"');
+        .toThrowError('Cannot find one DebugElement with : directive "NoWhereDirective".');
     });
   });
 
@@ -113,12 +113,12 @@ describe('Element finding utils', () => {
 
     it('should not find all debug elements by selector', () => {
       expect(() => findAllDebugElements(fixture, 'app-no-where'))
-        .toThrowError('Cannot find many DebugElement with : selector "app-no-where"');
+        .toThrowError('Cannot find many DebugElement with : selector "app-no-where".');
     });
 
     it('should not find all debug elements by directive', () => {
       expect(() => findAllDebugElements(fixture, NoWhereDirective))
-        .toThrowError('Cannot find many DebugElement with : directive "NoWhereDirective"');
+        .toThrowError('Cannot find many DebugElement with : directive "NoWhereDirective".');
     });
   });
 
@@ -140,12 +140,12 @@ describe('Element finding utils', () => {
 
     it('should not find component instance by selector', () => {
       expect(() => findComponent<NoWhereComponent>(fixture, 'app-no-where'))
-        .toThrowError('Cannot find one DebugElement with : selector "app-no-where"');
+        .toThrowError('Cannot find one DebugElement with : selector "app-no-where".');
     });
 
     it('should not find component instance by directive', () => {
       expect(() => findComponent(fixture, NoWhereComponent))
-        .toThrowError('Cannot find one DebugElement with : directive "NoWhereComponent"');
+        .toThrowError('Cannot find one DebugElement with : directive "NoWhereComponent".');
     });
   });
 
@@ -173,12 +173,12 @@ describe('Element finding utils', () => {
 
     it('should not find all component instances by selector', () => {
       expect(() => findAllComponents(fixture, 'app-no-where'))
-        .toThrowError('Cannot find many DebugElement with : selector "app-no-where"');
+        .toThrowError('Cannot find many DebugElement with : selector "app-no-where".');
     });
 
     it('should not find all component instances by directive', () => {
       expect(() => findAllComponents(fixture, NoWhereComponent))
-        .toThrowError('Cannot find many DebugElement with : directive "NoWhereComponent"');
+        .toThrowError('Cannot find many DebugElement with : directive "NoWhereComponent".');
     });
   });
 
@@ -216,12 +216,12 @@ describe('Element finding utils', () => {
 
     it('should not find element by selector', () => {
       expect(() => findElement(fixture, '#no-where-button'))
-        .toThrowError('Cannot find one DebugElement with : selector "#no-where-button"');
+        .toThrowError('Cannot find one DebugElement with : selector "#no-where-button".');
     });
 
     it('should not find element by directive', () => {
       expect(() => findElement(fixture, NoWhereDirective))
-        .toThrowError('Cannot find one DebugElement with : directive "NoWhereDirective"');
+        .toThrowError('Cannot find one DebugElement with : directive "NoWhereDirective".');
     });
   });
 
@@ -265,12 +265,12 @@ describe('Element finding utils', () => {
 
     it('should not find all by selector', () => {
       expect(() => findAllElements(fixture, 'app-no-where'))
-        .toThrowError('Cannot find many DebugElement with : selector "app-no-where"');
+        .toThrowError('Cannot find many DebugElement with : selector "app-no-where".');
     });
 
     it('should not find all by directive', () => {
       expect(() => findAllElements(fixture, NoWhereDirective))
-        .toThrowError('Cannot find many DebugElement with : directive "NoWhereDirective"');
+        .toThrowError('Cannot find many DebugElement with : directive "NoWhereDirective".');
     });
   });
 });

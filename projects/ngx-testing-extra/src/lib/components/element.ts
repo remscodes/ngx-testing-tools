@@ -66,5 +66,5 @@ function throwCannotFind(selectorOrDirective: string | Type<any>, many: boolean 
     ? 'many'
     : 'one';
 
-  throw new Error(`Cannot find ${quantifier} DebugElement with : ${input}`);
+  throw new Error(`Cannot find ${quantifier} DebugElement with : ${input}.`);
 }
