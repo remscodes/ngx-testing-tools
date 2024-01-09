@@ -5,7 +5,7 @@ import { OuterComponent } from '../../../fixtures/components/outer.component';
 import { MyButtonDirective } from '../../../fixtures/directives/my-button.directive';
 import { NoWhereDirective } from '../../../fixtures/directives/no-where.directive';
 import { createOuterComponentFixture } from '../../../fixtures/helpers/configuration/create-outer-component-fixture';
-import { validateArrayOf2 } from '../../../fixtures/helpers/validators/validate-array';
+import { validateArray } from '../../../fixtures/helpers/validators/validate-array';
 import { validateInstanceType } from '../../../fixtures/helpers/validators/validate-instance-type';
 
 describe('findAllElements', () => {
@@ -60,7 +60,7 @@ describe('findAllElements', () => {
   });
 
   function validateArrayOfNativeElements(elements: unknown[]): void {
-    validateArrayOf2(elements);
+    validateArray(elements, 2);
     elements.forEach(element => validateInstanceType(element, HTMLElement));
   }
 });

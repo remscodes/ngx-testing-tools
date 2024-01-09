@@ -4,7 +4,7 @@ import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { NoWhereComponent } from '../../../fixtures/components/no-where.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
 import { createOuterComponentFixture } from '../../../fixtures/helpers/configuration/create-outer-component-fixture';
-import { validateArrayOf2 } from '../../../fixtures/helpers/validators/validate-array';
+import { validateArray } from '../../../fixtures/helpers/validators/validate-array';
 import { validateInstanceType } from '../../../fixtures/helpers/validators/validate-instance-type';
 
 describe('findAllComponents', () => {
@@ -39,7 +39,7 @@ describe('findAllComponents', () => {
   });
 
   function validateArrayOfComponentInstances(inners: unknown[]): void {
-    validateArrayOf2(inners);
+    validateArray(inners, 2);
     inners.forEach(inner => validateInstanceType(inner, InnerComponent));
   }
 });
