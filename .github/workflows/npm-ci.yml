@@ -39,5 +39,5 @@ jobs:
       - name: Build project
         run: pnpm run build
 
-#      - name: Test project
-#        run: pnpm run test
+      - name: Test project
+        run: pnpm run test:ci
