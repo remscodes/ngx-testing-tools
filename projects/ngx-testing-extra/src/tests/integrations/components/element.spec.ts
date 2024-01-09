@@ -26,15 +26,20 @@ describe('Element finding utils', () => {
     expect(component).toBeTruthy();
   });
 
-  function validateArrayOf2(array: unknown[]): void {
+  function validateInstanceType<T extends Function>(instance: unknown, InstanceCtor: T): void {
+    expect(instance).toBeTruthy();
+    expect(instance).toBeInstanceOf(InstanceCtor);
+  }
 
+  function validateArrayOf2(array: unknown[]): void {
+    validateInstanceType(array, Array);
+    expect(array.length).toEqual(2);
   }
 
   describe('findDebugElement', () => {
 
     function validateDebugElement(debug: unknown): void {
-      expect(debug).toBeTruthy();
-      expect(debug instanceof DebugElement).toBeTrue();
+      validateInstanceType(debug, DebugElement);
     }
 
     it('should find InnerComponent debug element by selector', () => {
@@ -71,14 +76,8 @@ describe('Element finding utils', () => {
   describe('findAllDebugElements', () => {
 
     function validateArrayOfDebugElements(debugs: unknown[]): void {
-      expect(debugs).toBeTruthy();
-      expect(Array.isArray(debugs)).toBeTrue();
-      expect(debugs.length).toEqual(2);
-
-      debugs.forEach(debug => {
-        expect(debug).toBeTruthy();
-        expect(debug instanceof DebugElement).toBeTrue();
-      });
+      validateArrayOf2(debugs);
+      debugs.forEach(debug => validateInstanceType(debug, DebugElement));
     }
 
     describe('InnerComponent', () => {
@@ -126,8 +125,7 @@ describe('Element finding utils', () => {
   describe('findComponent', () => {
 
     function validateComponentInstance(component: unknown): void {
-      expect(component).toBeTruthy();
-      expect(component instanceof InnerComponent).toBeTrue();
+      validateInstanceType(component, InnerComponent);
     }
 
     it('should find InnerComponent instance by selector', () => {
@@ -159,14 +157,8 @@ describe('Element finding utils', () => {
     });
 
     function validateArrayOfComponentInstances(inners: unknown[]): void {
-      expect(inners).toBeTruthy();
-      expect(Array.isArray(inners)).toBeTrue();
-      expect(inners.length).toEqual(2);
-
-      inners.forEach(inner => {
-        expect(inner).toBeTruthy();
-        expect(inner instanceof InnerComponent).toBeTrue();
-      });
+      validateArrayOf2(inners);
+      inners.forEach(inner => validateInstanceType(inner, InnerComponent));
     }
 
     it('should find all InnerComponent instances by selector', () => {
@@ -193,8 +185,7 @@ describe('Element finding utils', () => {
   describe('findElement', () => {
 
     function validateNativeElement(element: unknown): void {
-      expect(element).toBeTruthy();
-      expect(element instanceof HTMLElement).toBeTrue();
+      validateInstanceType(element, HTMLElement);
     }
 
     describe('HTMLButtonElement', () => {
@@ -237,14 +228,8 @@ describe('Element finding utils', () => {
   describe('findAllElements', () => {
 
     function validateArrayOfNativeElements(elements: unknown[]): void {
-      expect(elements).toBeTruthy();
-      expect(Array.isArray(elements)).toBeTrue();
-      expect(elements.length).toEqual(2);
-
-      elements.forEach(element => {
-        expect(element).toBeTruthy();
-        expect(element instanceof HTMLElement).toBeTrue();
-      });
+      validateArrayOf2(elements);
+      elements.forEach(element => validateInstanceType(element, HTMLElement));
     }
 
     describe('HTMLButtonElement', () => {
