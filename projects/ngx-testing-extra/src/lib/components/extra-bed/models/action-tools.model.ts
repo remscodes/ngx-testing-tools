@@ -5,5 +5,7 @@ export interface ActionTools {
 
   click(directive: Type<any>): void;
 
-  emitChildOutput(directive: Type<any>, outputName: string, outputValue?: any): void;
+  emitOutput(selector: string, name: string, value?: any): void;
+
+  emitOutput(directive: Type<any>, name: string, value?: any): void;
 }
