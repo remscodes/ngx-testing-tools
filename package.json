@@ -13,6 +13,7 @@
     "test": "ng test ngx-testing-extra --code-coverage --browsers=ChromeHeadless",
     "test:demo": "ng test ngx-testing-extra-demo --browsers=ChromeHeadless",
     "test:ci": "pnpm run test --watch=false --progress=false",
+    "types": "tsc --noEmit",
     "copy-README": "pnpm run copy-to-dist -- README.md",
     "copy-LICENSE": "pnpm run copy-to-dist -- LICENSE",
     "copy-to-dist": "node scripts/copy-to-dist.cjs"
