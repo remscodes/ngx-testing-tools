@@ -1,8 +1,8 @@
 import { ComponentFixture } from '@angular/core/testing';
 import { click, emitOutput } from '../event';
-import { ActionTools } from './models/action-tools.model';
+import { ComponentActionTools } from './models/component-action-tools.model';
 
-export function buildActionTools(fixture: ComponentFixture<unknown>): ActionTools {
+export function buildComponentActionTools(fixture: ComponentFixture<unknown>): ComponentActionTools {
   return {
     click: (input) => click(fixture, input),
     emitOutput: (directive, name, val) => emitOutput(fixture, directive, name, val),

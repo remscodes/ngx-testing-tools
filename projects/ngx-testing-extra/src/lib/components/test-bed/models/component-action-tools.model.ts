@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 
-export interface ActionTools {
+export interface ComponentActionTools {
   click(selector: string): void;
 
   click(directive: Type<any>): void;

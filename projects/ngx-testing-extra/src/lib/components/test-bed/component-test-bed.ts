@@ -1,23 +1,23 @@
 import { Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { buildActionTools } from './action-tools';
+import { buildComponentActionTools } from './component-action-tools';
+import { buildComponentQueryTools } from './component-query-tools';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
-import { ExtraOptions } from './models';
-import { ActionTools } from './models/action-tools.model';
-import { ExtraBed, ExtraCb } from './models/extra-bed.models';
-import { QueryTools } from './models/query-tools.model';
-import { buildQueryTools } from './query-tools';
+import { ComponentExtraOptions } from './models';
+import { ComponentActionTools } from './models/component-action-tools.model';
+import { ComponentQueryTools } from './models/component-query-tools.model';
+import { ComponentAssertion, ComponentTestBed } from './models/component-test-bed.models';
 
-export function componentTestBed<T>(rootComponent: Type<T>): ExtraBed<T> {
+export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T> {
   const bed = new ComponentTestBedFactory(rootComponent);
 
-  const bedFn: ExtraBed<T> = ((cb: ExtraCb<T>, opts: ExtraOptions = {}) => {
+  const bedFn: ComponentTestBed<T> = ((assertionCb: ComponentAssertion<T>, options: ComponentExtraOptions = {}) => {
 
     const {
       startDetectChanges = true,
-    } = opts;
+    } = options;
 
-    const expectationFn = (done: DoneFn = null!) => {
+    const assertionFn = (done: DoneFn = null!) => {
       const fixture: ComponentFixture<T> = bed['fixture'];
       const {
         componentInstance: component,
@@ -28,18 +28,18 @@ export function componentTestBed<T>(rootComponent: Type<T>): ExtraBed<T> {
         injector,
       } = debug;
 
-      const query: QueryTools = buildQueryTools(fixture);
-      const action: ActionTools = buildActionTools(fixture);
+      const query: ComponentQueryTools = buildComponentQueryTools(fixture);
+      const action: ComponentActionTools = buildComponentActionTools(fixture);
 
       if (startDetectChanges) fixture.detectChanges();
 
-      return cb({ fixture, component, injector, debug, query, action }, done);
+      return assertionCb({ fixture, component, injector, debug, query, action }, done);
     };
 
-    return (cb.length > 1)
-      ? (done: DoneFn) => expectationFn(done)
-      : () => expectationFn();
-  }) as ExtraBed<T>;
+    return (assertionCb.length > 1)
+      ? (done: DoneFn) => assertionFn(done)
+      : () => assertionFn();
+  }) as ComponentTestBed<T>;
 
   bedFn.import = bed.import.bind(bed) as any;
   bedFn.provide = bed.provide.bind(bed) as any;
