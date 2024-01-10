@@ -4,6 +4,7 @@ import { buildComponentActionTools } from './component-action-tools';
 import { buildComponentQueryTools } from './component-query-tools';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
 import { ComponentExtraOptions } from './models';
+import { assertComponentFixture } from './models/assert-fixture';
 import { ComponentActionTools } from './models/component-action-tools.model';
 import { ComponentQueryTools } from './models/component-query-tools.model';
 import { ComponentAssertion, ComponentTestBed } from './models/component-test-bed.models';
@@ -19,6 +20,8 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
 
     const assertionFn = (done: DoneFn = null!) => {
       const fixture: ComponentFixture<T> = bed['fixture'];
+      assertComponentFixture(fixture);
+
       const destroyRef: DestroyRef = bed['destroyRef'];
       const {
         componentInstance: component,

@@ -2,7 +2,7 @@ import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Nullable } from '../../models/shared.model';
-import { throwCannotFind } from './debug-error';
+import { throwCannotFind } from './cannot-find';
 
 export function findDebugElement(fixture: ComponentFixture<any>, selector: string): DebugElement
 export function findDebugElement(fixture: ComponentFixture<any>, directive: Type<any>): DebugElement

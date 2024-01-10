@@ -2,6 +2,7 @@ import { DestroyRef, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic, TestModuleMetadata } from '@angular/core/testing';
 import { fromInjector } from '../../injector';
 import { MaybeArray } from '../../models/shared.model';
+import { assertComponentFixture } from './models/assert-fixture';
 
 export class ComponentTestBedFactory<ComponentType> {
 
@@ -39,6 +40,7 @@ export class ComponentTestBedFactory<ComponentType> {
 
   public shouldCreate(): void {
     it('should create', () => {
+      assertComponentFixture(this.fixture);
       expect(this.fixture.componentInstance).toBeTruthy();
     });
   }
