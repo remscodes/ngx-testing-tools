@@ -5,7 +5,7 @@ import { InnerComponent } from './inner.component';
 @Component({
   template: `
       <div id="outer-div">
-          <button id="my-outer-button" myButton>Outer Button</button>
+          <button id="my-outer-button" myButton (click)="clicked = true">Outer Button</button>
           <app-inner (clicked)="innerClicked = $event"/>
           @if (extraInner) {
               <app-inner/>
@@ -18,5 +18,6 @@ import { InnerComponent } from './inner.component';
 export class OuterComponent {
 
   public extraInner: boolean = false;
+  public clicked: boolean = false;
   public innerClicked: boolean = false;
 }
