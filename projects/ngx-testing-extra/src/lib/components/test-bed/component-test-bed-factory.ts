@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { DestroyRef, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
 import { MaybeArray } from '../../models/shared.model';
 
@@ -9,6 +9,7 @@ export class ComponentTestBedFactory<ComponentType> {
   ) { }
 
   private fixture: ComponentFixture<ComponentType> = null!;
+  private destroyRef: DestroyRef = null!;
 
   public import(imp: Type<any>): this
   public import(imps: Type<any>[]): this
@@ -46,5 +47,6 @@ export class ComponentTestBedFactory<ComponentType> {
     await TestBed.compileComponents();
 
     this.fixture = TestBed.createComponent(this.rootComponent);
+    this.destroyRef = this.fixture.debugElement.injector.get(DestroyRef);
   }
 }

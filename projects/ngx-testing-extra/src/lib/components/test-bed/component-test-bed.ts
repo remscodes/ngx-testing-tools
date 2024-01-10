@@ -19,21 +19,19 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
 
     const assertionFn = (done: DoneFn = null!) => {
       const fixture: ComponentFixture<T> = bed['fixture'];
+      const destroyRef = bed['destroyRef'];
       const {
         componentInstance: component,
         debugElement: debug,
       } = fixture;
-
-      const {
-        injector,
-      } = debug;
+      const { injector } = debug;
 
       const query: ComponentQueryTools = buildComponentQueryTools(fixture);
       const action: ComponentActionTools = buildComponentActionTools(fixture);
 
       if (startDetectChanges) fixture.detectChanges();
 
-      return assertionCb({ fixture, component, injector, debug, query, action }, done);
+      return assertionCb({ fixture, component, injector, destroyRef, debug, query, action }, done);
     };
 
     return (assertionCb.length > 1)
