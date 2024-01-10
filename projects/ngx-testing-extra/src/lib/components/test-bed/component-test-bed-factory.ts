@@ -1,5 +1,5 @@
 import { DestroyRef, Type } from '@angular/core';
-import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
+import { ComponentFixture, TestBed, TestBedStatic, TestModuleMetadata } from '@angular/core/testing';
 import { fromInjector } from '../../injector';
 import { MaybeArray } from '../../models/shared.model';
 
@@ -9,6 +9,7 @@ export class ComponentTestBedFactory<ComponentType> {
     private rootComponent: Type<ComponentType>,
   ) { }
 
+  private testBed: TestBedStatic = TestBed;
   private fixture: ComponentFixture<ComponentType> = null!;
   private destroyRef: DestroyRef = null!;
 
@@ -32,7 +33,7 @@ export class ComponentTestBedFactory<ComponentType> {
 
   private configure(key: keyof TestModuleMetadata, itemS: MaybeArray<unknown>): this {
     const defs: unknown[] = Array.isArray(itemS) ? itemS : [itemS];
-    TestBed.configureTestingModule({ [key]: defs });
+    this.testBed.configureTestingModule({ [key]: defs });
     return this;
   }
 
@@ -45,9 +46,9 @@ export class ComponentTestBedFactory<ComponentType> {
   public async compile(): Promise<void> {
     this.import(this.rootComponent);
 
-    await TestBed.compileComponents();
+    await this.testBed.compileComponents();
 
-    this.fixture = TestBed.createComponent(this.rootComponent);
+    this.fixture = this.testBed.createComponent(this.rootComponent);
     this.destroyRef = fromInjector(this.fixture, DestroyRef);
   }
 }
