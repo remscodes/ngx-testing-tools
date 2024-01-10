@@ -5,7 +5,7 @@ export interface ComponentActionTools {
 
   click(directive: Type<any>): void;
 
-  emitOutput(selector: string, name: string, value?: any): void;
+  emitOutput(selector: string, name: string, $event?: any): void;
 
-  emitOutput(directive: Type<any>, name: string, value?: any): void;
+  emitOutput(directive: Type<any>, name: string, $event?: any): void;
 }
