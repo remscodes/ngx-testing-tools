@@ -1,5 +1,6 @@
 import { DestroyRef, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
+import { fromInjector } from '../../injector';
 import { MaybeArray } from '../../models/shared.model';
 
 export class ComponentTestBedFactory<ComponentType> {
@@ -47,6 +48,6 @@ export class ComponentTestBedFactory<ComponentType> {
     await TestBed.compileComponents();
 
     this.fixture = TestBed.createComponent(this.rootComponent);
-    this.destroyRef = this.fixture.debugElement.injector.get(DestroyRef);
+    this.destroyRef = fromInjector(this.fixture, DestroyRef);
   }
 }

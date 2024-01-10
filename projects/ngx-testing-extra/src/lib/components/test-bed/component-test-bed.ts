@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { DestroyRef, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { buildComponentActionTools } from './component-action-tools';
 import { buildComponentQueryTools } from './component-query-tools';
@@ -19,7 +19,7 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
 
     const assertionFn = (done: DoneFn = null!) => {
       const fixture: ComponentFixture<T> = bed['fixture'];
-      const destroyRef = bed['destroyRef'];
+      const destroyRef: DestroyRef = bed['destroyRef'];
       const {
         componentInstance: component,
         debugElement: debug,
@@ -39,7 +39,7 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
       : () => assertionFn();
   }) as ComponentTestBed<T>;
 
-  bedFn.import = bed.import.bind(bed) as any;
+  bedFn.import = bed.import.bind(bed)! as any;
   bedFn.provide = bed.provide.bind(bed) as any;
   bedFn.declare = bed.declare.bind(bed) as any;
   bedFn.compile = bed.compile.bind(bed);
