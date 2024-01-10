@@ -84,13 +84,13 @@ Support jasmine `DoneFn`.
 
 ```ts
 describe('AppComponent', () => {
-  const bed = componentTestBed(AppComponent);
-  
-  beforeEach(() => bed.provide(AppService).compile());
-  
-  bed.shouldCreate();
+  const tb = componentTestBed(AppComponent);
 
-  it('should do something', bed(({ instance, query, action }, done) => {
+  beforeEach(() => tb.provide(AppService).compile());
+
+  tb.shouldCreate();
+
+  it('should do something', tb(({ instance, query, action }, done) => {
     // ...
   }));
 });
