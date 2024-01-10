@@ -1,6 +1,14 @@
 import { validateInstanceType } from './validate-instance-type';
 
-export function validateArrayOf2(array: unknown[]): void {
+interface ArrayExpectations {
+  size?: number;
+  equal?: any[];
+}
+
+export function validateArray(array: unknown[], expects: ArrayExpectations = {}): void {
+  const { size, equal } = expects;
+
   validateInstanceType(array, Array);
-  expect(array.length).toEqual(2);
+  if (size !== undefined) expect(array).toHaveSize(size);
+  if (equal !== undefined) expect(array).toEqual(equal);
 }

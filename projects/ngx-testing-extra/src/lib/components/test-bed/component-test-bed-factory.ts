@@ -1,14 +1,18 @@
-import { Type } from '@angular/core';
-import { ComponentFixture, TestBed, TestModuleMetadata } from '@angular/core/testing';
+import { DestroyRef, Type } from '@angular/core';
+import { ComponentFixture, TestBed, TestBedStatic, TestModuleMetadata } from '@angular/core/testing';
+import { fromInjector } from '../../injector';
 import { MaybeArray } from '../../models/shared.model';
+import { assertComponentFixture } from './models/assert-fixture';
 
-export class ExtraBedFactory<ComponentType> {
+export class ComponentTestBedFactory<ComponentType> {
 
   public constructor(
     private rootComponent: Type<ComponentType>,
   ) { }
 
+  private testBed: TestBedStatic = TestBed;
   private fixture: ComponentFixture<ComponentType> = null!;
+  private destroyRef: DestroyRef = null!;
 
   public import(imp: Type<any>): this
   public import(imps: Type<any>[]): this
@@ -30,12 +34,13 @@ export class ExtraBedFactory<ComponentType> {
 
   private configure(key: keyof TestModuleMetadata, itemS: MaybeArray<unknown>): this {
     const defs: unknown[] = Array.isArray(itemS) ? itemS : [itemS];
-    TestBed.configureTestingModule({ [key]: defs });
+    this.testBed.configureTestingModule({ [key]: defs });
     return this;
   }
 
   public shouldCreate(): void {
     it('should create', () => {
+      assertComponentFixture(this.fixture);
       expect(this.fixture.componentInstance).toBeTruthy();
     });
   }
@@ -43,8 +48,9 @@ export class ExtraBedFactory<ComponentType> {
   public async compile(): Promise<void> {
     this.import(this.rootComponent);
 
-    await TestBed.compileComponents();
+    await this.testBed.compileComponents();
 
-    this.fixture = TestBed.createComponent(this.rootComponent);
+    this.fixture = this.testBed.createComponent(this.rootComponent);
+    this.destroyRef = fromInjector(this.fixture, DestroyRef);
   }
 }

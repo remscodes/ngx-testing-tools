@@ -1,6 +1,6 @@
 import { DebugElement, Type } from '@angular/core';
 
-export interface QueryTools {
+export interface ComponentQueryTools {
   findComponent<T>(selector: string): T;
 
   findComponent<T>(directive: Type<T>): T;

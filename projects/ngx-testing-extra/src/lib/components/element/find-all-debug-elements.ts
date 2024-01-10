@@ -1,7 +1,7 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { throwCannotFind } from './debug-error';
+import { throwCannotFind } from './cannot-find';
 
 export function findAllDebugElements(fixture: ComponentFixture<any>, selector: string): DebugElement[]
 export function findAllDebugElements(fixture: ComponentFixture<any>, directive: Type<any>): DebugElement[]
@@ -11,7 +11,7 @@ export function findAllDebugElements(fixture: ComponentFixture<any>, selectorOrD
     ? fixture.debugElement.queryAll(By.css(selectorOrDirective))
     : fixture.debugElement.queryAll(By.directive(selectorOrDirective));
 
-  if (debugs.length === 0) throwCannotFind(selectorOrDirective, true);
+  if (debugs.length === 0) throwCannotFind(selectorOrDirective, 'many');
 
   return debugs;
 }

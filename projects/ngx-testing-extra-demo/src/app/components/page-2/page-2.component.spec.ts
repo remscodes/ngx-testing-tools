@@ -1,13 +1,14 @@
-import { createExtraBed } from 'ngx-testing-extra';
+import { componentTestBed } from 'ngx-testing-extra';
 import { Page2Component } from './page-2.component';
 
 describe('Page2Component', () => {
-  const bed = createExtraBed(Page2Component);
-  beforeEach(() => bed.compile());
+  const tb = componentTestBed(Page2Component);
 
-  bed.shouldCreate();
+  beforeEach(() => tb.compile());
 
-  it('should click', bed(({ component, action }) => {
+  tb.shouldCreate()
+
+  it('should click', tb(({ component, action }) => {
     expect(component.clicked).toBeFalse();
 
     action.click('#my-span');

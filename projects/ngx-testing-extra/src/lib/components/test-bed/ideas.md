@@ -74,6 +74,28 @@ describe('AppComponent', () => {
 });
 ```
 
+#### Improvement 2
+
+Rename `createExtraBed` to `componentTestBed`.
+
+Provide `query` and `action` into tools to use v1.0.0 high-level functions without fixture parameter.
+
+Support jasmine `DoneFn`.
+
+```ts
+describe('AppComponent', () => {
+  const bed = componentTestBed(AppComponent);
+  
+  beforeEach(() => bed.provide(AppService).compile());
+  
+  bed.shouldCreate();
+
+  it('should do something', bed(({ instance, query, action }, done) => {
+    // ...
+  }));
+});
+```
+
 ### Idea 2
 
 Use `ExtraBed` directly as static.
