@@ -10,8 +10,8 @@
   },
   "scripts": {
     "build": "ng build ngx-testing-extra && pnpm run copy-README && pnpm run copy-LICENSE",
-    "test": "ng test ngx-testing-extra --code-coverage --browsers=ChromeHeadless",
-    "test:demo": "ng test ngx-testing-extra-demo --browsers=ChromeHeadless",
+    "test": "ng test ngx-testing-extra",
+    "test:demo": "ng test ngx-testing-extra-demo",
     "test:ci": "pnpm run test --watch=false --progress=false",
     "types": "tsc --noEmit",
     "copy-README": "pnpm run copy-to-dist -- README.md",
@@ -59,5 +59,5 @@
     "angular",
     "testing"
   ],
-  "packageManager": "pnpm@8.14.0"
+  "packageManager": "pnpm@8.14.1"
 }
