@@ -5,6 +5,6 @@ export type GuardReturn =
   | Observable<boolean | UrlTree>
   | Promise<boolean | UrlTree>
   | boolean
-  | UrlTree;
+  | UrlTree
 
-export type DefaultGuardReturn = boolean;
+export type DefaultGuardReturn = boolean

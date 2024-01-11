@@ -10,23 +10,17 @@ import { ComponentQueryTools } from './models/component-query-tools.model';
 import { ComponentAssertion, ComponentTestBed } from './models/component-test-bed.models';
 
 export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T> {
-  const bed = new ComponentTestBedFactory(rootComponent);
+  const factory = new ComponentTestBedFactory(rootComponent);
 
-  const bedFn: ComponentTestBed<T> = ((assertionCb: ComponentAssertion<T>, options: ComponentExtraOptions = {}) => {
+  const tb: ComponentTestBed<T> = ((assertionCb: ComponentAssertion<T>, options: ComponentExtraOptions = {}) => {
+    const { startDetectChanges = true } = options;
 
-    const {
-      startDetectChanges = true,
-    } = options;
-
-    const assertionFn = (done: DoneFn = null!) => {
-      const fixture: ComponentFixture<T> = bed['fixture'];
+    const expectationFn = (done: DoneFn = null!) => {
+      const fixture: ComponentFixture<T> = factory['fixture'];
       assertComponentFixture(fixture);
 
-      const destroyRef: DestroyRef = bed['destroyRef'];
-      const {
-        componentInstance: component,
-        debugElement: debug,
-      } = fixture;
+      const destroyRef: DestroyRef = factory['destroyRef'];
+      const { componentInstance: component, debugElement: debug } = fixture;
       const { injector } = debug;
 
       const query: ComponentQueryTools = buildComponentQueryTools(fixture);
@@ -38,15 +32,15 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
     };
 
     return (assertionCb.length > 1)
-      ? (done: DoneFn) => assertionFn(done)
-      : () => assertionFn();
+      ? (done: DoneFn) => expectationFn(done)
+      : () => expectationFn();
   }) as ComponentTestBed<T>;
 
-  bedFn.import = bed.import.bind(bed)! as any;
-  bedFn.provide = bed.provide.bind(bed) as any;
-  bedFn.declare = bed.declare.bind(bed) as any;
-  bedFn.compile = bed.compile.bind(bed);
-  bedFn.shouldCreate = bed.shouldCreate.bind(bed);
+  tb.import = factory.import.bind(factory) as any;
+  tb.provide = factory.provide.bind(factory) as any;
+  tb.declare = factory.declare.bind(factory) as any;
+  tb.compile = factory.compile.bind(factory);
+  tb.shouldCreate = factory.shouldCreate.bind(factory);
 
-  return bedFn;
+  return tb;
 }
