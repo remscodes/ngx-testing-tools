@@ -7,7 +7,7 @@ export interface RouteSnapshotConfig {
 }
 
 export function buildRouteSnapshot(config?: RouteSnapshotConfig): ActivatedRouteSnapshot {
-  const route: ActivatedRouteSnapshot = new ActivatedRouteSnapshot();
+  const route = new ActivatedRouteSnapshot();
 
   if (config?.data) route.data = config.data;
   if (config?.params) route.params = config.params;
