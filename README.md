@@ -6,6 +6,7 @@
 <div align="center">
 
 [![github ci](https://img.shields.io/github/actions/workflow/status/remscodes/ngx-testing-extra/npm-ci.yml.svg?logo=github&label=CI&style=for-the-badge)](https://github.com/remscodes/ngx-testing-extra/actions/workflows/npm-ci.yml)
+[![codecov coverage](https://img.shields.io/codecov/c/github/remscodes/ngx-testing-extra/main.svg?style=for-the-badge&logo=codecov)](https://codecov.io/gh/remscodes/ngx-testing-extra)
 [![npm version](https://img.shields.io/npm/v/ngx-testing-extra.svg?style=for-the-badge&logo=npm)](https://www.npmjs.org/package/ngx-testing-extra)
 [![bundle size](https://img.shields.io/bundlephobia/minzip/ngx-testing-extra.svg?style=for-the-badge)](https://bundlephobia.com/package/ngx-testing-extra)
 [![license](https://img.shields.io/github/license/remscodes/ngx-testing-extra.svg?style=for-the-badge)](LICENSE)
