@@ -2,7 +2,7 @@ import { DestroyRef, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic, TestModuleMetadata } from '@angular/core/testing';
 import { fromInjector } from '../../injector';
 import { MaybeArray } from '../../models/shared.model';
-import { assertComponentFixture } from './models/assert-fixture';
+import { assertComponentFixture } from './assert-fixture';
 
 export class ComponentTestBedFactory<ComponentType> {
 
