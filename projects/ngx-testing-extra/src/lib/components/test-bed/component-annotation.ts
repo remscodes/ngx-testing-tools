@@ -8,6 +8,8 @@ export function isComponentAnnotation(annotation: Nullable<Component>): boolean 
 
 export function getComponentAnnotation(ComponentCtor: Type<any>): Nullable<Component> {
   const annotations = (ComponentCtor as any)['__annotations__'];
+  if (!annotations) return null;
+
   for (let i = annotations.length - 1; i >= 0; i --) {
     const annotation = annotations[i];
     if (annotation instanceof Component) return annotation;
