@@ -53,7 +53,9 @@ export class ComponentTestBedFactory<ComponentType> {
   }
 
   public async compile(): Promise<void> {
-    this.import(this.rootComponent);
+    (this.annotation?.standalone)
+      ? this.import(this.rootComponent)
+      : this.declare(this.rootComponent);
 
     await this.testBed.compileComponents();
 
