@@ -34,4 +34,15 @@ describe('Interceptors', () => {
         },
       });
   });
+
+  it('should makeInterceptorFail with status 500', (done: DoneFn) => {
+    makeInterceptorFail(interceptor)
+      .pipe(takeUntilDestroyed(destroyRef))
+      .subscribe({
+        error: ({ status }: HttpErrorResponse) => {
+          expect(status).toEqual(500);
+          done();
+        },
+      });
+  });
 });
