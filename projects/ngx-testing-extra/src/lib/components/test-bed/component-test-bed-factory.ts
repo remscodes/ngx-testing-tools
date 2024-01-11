@@ -1,14 +1,21 @@
-import { DestroyRef, Type } from '@angular/core';
+import { Component, DestroyRef, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic, TestModuleMetadata } from '@angular/core/testing';
 import { fromInjector } from '../../injector';
-import { MaybeArray } from '../../models/shared.model';
+import { MaybeArray, Nullable } from '../../models/shared.model';
+import { assertComponent } from './assert-component';
 import { assertComponentFixture } from './assert-fixture';
+import { getComponentAnnotation } from './component-annotation';
 
 export class ComponentTestBedFactory<ComponentType> {
 
   public constructor(
     private rootComponent: Type<ComponentType>,
-  ) { }
+  ) {
+    this.annotation = getComponentAnnotation(rootComponent);
+    assertComponent(rootComponent, this.annotation);
+  }
+
+  private readonly annotation: Nullable<Component>;
 
   private testBed: TestBedStatic = TestBed;
   private fixture: ComponentFixture<ComponentType> = null!;
@@ -46,7 +53,9 @@ export class ComponentTestBedFactory<ComponentType> {
   }
 
   public async compile(): Promise<void> {
-    this.import(this.rootComponent);
+    (this.annotation?.standalone)
+      ? this.import(this.rootComponent)
+      : this.declare(this.rootComponent);
 
     await this.testBed.compileComponents();
 
