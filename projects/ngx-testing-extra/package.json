@@ -15,13 +15,14 @@
     "url": "https://github.com/remscodes/ngx-testing-extra"
   },
   "engines": {
-    "node": ">=18.13.0"
+    "node": "^18.10.0 || ^20.9.0"
   },
   "peerDependencies": {
-    "@angular/common": "^17.0.0",
-    "@angular/core": "^17.0.0",
-    "@angular/platform-browser": "^17.0.0",
-    "@angular/router": "^17.0.0"
+    "@angular/common": "^15.0.0 || ^16.0.0 || ~17.0.0",
+    "@angular/core": "^15.0.0 || ^16.0.0 || ~17.0.0",
+    "@angular/platform-browser": "^15.0.0 || ^16.0.0 || ~17.0.0",
+    "@angular/router": "^15.0.0 || ^16.0.0 || ~17.0.0",
+    "rxjs": "^6.5.3 || ^7.4.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

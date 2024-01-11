@@ -26,7 +26,7 @@
     "url": "https://github.com/remscodes/ngx-testing-extra"
   },
   "engines": {
-    "node": ">=18.13.0"
+    "node": "^18.10.0 || ^20.9.0"
   },
   "dependencies": {
     "@angular/animations": "^17.0.0",
