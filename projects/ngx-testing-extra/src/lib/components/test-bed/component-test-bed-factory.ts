@@ -1,4 +1,4 @@
-import { Component, DestroyRef, ModuleWithProviders, Provider, Type } from '@angular/core';
+import { Component, DestroyRef, EnvironmentProviders, ModuleWithProviders, Provider, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic, TestModuleMetadata } from '@angular/core/testing';
 import { fromInjector } from '../../injector';
 import { MaybeArray, Nullable } from '../../models/shared.model';
@@ -27,9 +27,9 @@ export class ComponentTestBedFactory<ComponentType> {
     return this.configure('imports', oneOrManyImports);
   }
 
-  public provide(provider: Provider): this
-  public provide(providers: Provider[]): this
-  public provide(oneOrManyProviders: MaybeArray<Provider>): this {
+  public provide(provider: Provider | EnvironmentProviders): this
+  public provide(providers: (Provider | EnvironmentProviders)[]): this
+  public provide(oneOrManyProviders: MaybeArray<Provider | EnvironmentProviders>): this {
     return this.configure('providers', oneOrManyProviders);
   }
 
