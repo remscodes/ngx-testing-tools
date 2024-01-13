@@ -1,4 +1,4 @@
-# Querying elements functions
+# Element query
 
 #### Parameters
 
@@ -6,10 +6,10 @@ All the functions described below have the same required parameters :
 
 - fixture
   - type: `ComponentFixture<any>`.
-  - description: Root component fixture created with `TestBed`.
+  - description: the root component fixture created with `TestBed`.
 - selectorOrDirective
   - type: `string` or `Type<any>`.
-  - description: CSS selector or Angular directive.
+  - description: the CSS selector or Angular directive.
 
 ## Table of contents
 

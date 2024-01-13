@@ -1,4 +1,4 @@
-# Events functions
+# Event triggering
 
 ## Table of contents
 
@@ -15,10 +15,10 @@ Throws an Error if not found.
 
 - fixture
   - type: `ComponentFixture<any>`.
-  - description: Root component fixture created with `TestBed`.
+  - description: the root component fixture created with `TestBed`.
 - selectorOrDirective
   - type: `string` or `Type<any>`.
-  - description: CSS selector or Angular directive.
+  - description: the CSS selector or Angular directive.
 
 #### Example
 
@@ -57,16 +57,16 @@ Throws an Error if not found.
 
 - fixture
   - type: `ComponentFixture<any>`.
-  - description: Root component fixture created with `TestBed`.
+  - description: the root component fixture created with `TestBed`.
 - selectorOrDirective
   - type: `string` or `Type<any>`.
-  - description: CSS selector or Angular directive.
+  - description: the CSS selector or Angular directive.
 - name
   - type: `string`.
-  - description: Output's name.
+  - description: the output's name.
 - $event
   - type: `any`.
-  - description: Value that is emited into the output.
+  - description: the value that is emitted into the output.
 
 #### Example
 

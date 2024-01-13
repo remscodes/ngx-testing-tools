@@ -8,10 +8,10 @@ Get instance by token from the current component fixture injector.
 
 - fixture
   - type: `ComponentFixture<any>`.
-  - description: Root component fixture created with `TestBed`.
+  - description: the root component fixture created with `TestBed`.
 - token
   - type: `ProviderToken<T>`
-  - description: token associated to instance.
+  - description: the token associated to instance.
 
 #### Example
 
