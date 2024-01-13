@@ -9,6 +9,8 @@
 
 Click on the element found by selector or directive.
 
+Throws an Error if not found.
+
 #### Parameters
 
 - fixture
@@ -23,14 +25,14 @@ Click on the element found by selector or directive.
 ```ts
 import { emitOutput } from 'ngx-testing-extra';
 
-// [...]
+// (…)
 
 @Component({ template: `<app-inner (clicked)="clicked = $event;"/>` })
 class AppComponent {
   clicked = false;
 }
 
-// [...]
+// (…)
 
 it('should update state on button click', () => {
   expect(component.clicked).toBeFalse();
@@ -40,7 +42,7 @@ it('should update state on button click', () => {
 
 it('should have InnerComponent', () => {
   expect(component.clicked).toBeFalse();
-  emitOutput(fixture, InnerComponent, 'clicked', true); // by selector
+  emitOutput(fixture, InnerComponent, 'clicked', true); // by directive
   expect(component.clicked).toBeTrue();
 }); 
 ```
@@ -48,6 +50,8 @@ it('should have InnerComponent', () => {
 ## emitOutput(fixture, selectorOrDirective, name, $event)
 
 Emit output of element found by selector or directive.
+
+Throws an Error if not found.
 
 #### Parameters
 
@@ -58,10 +62,10 @@ Emit output of element found by selector or directive.
   - type: `string` or `Type<any>`.
   - description: CSS selector or Angular directive.
 - name
-  - type: `string`
+  - type: `string`.
   - description: Output's name.
 - $event
-  - type: `any`
+  - type: `any`.
   - description: Value that is emited into the output.
 
 #### Example
@@ -69,7 +73,7 @@ Emit output of element found by selector or directive.
 ```ts
 import { click } from 'ngx-testing-extra';
 
-// [...]
+// (…)
 
 it('should update state on button click', () => {
   expect(component.clicked).toBeFalse();
@@ -79,7 +83,7 @@ it('should update state on button click', () => {
 
 it('should have InnerComponent', () => {
   expect(component.clicked).toBeFalse();
-  click(fixture, MyButtonDirective); // by selector
+  click(fixture, MyButtonDirective); // by directive
   expect(component.clicked).toBeTrue();
-}); 
+});
 ```
