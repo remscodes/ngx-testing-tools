@@ -29,7 +29,18 @@
   },
   "keywords": [
     "angular",
-    "testing"
+    "test",
+    "testing",
+    "tools",
+    "component",
+    "directive",
+    "service",
+    "pipe",
+    "provider",
+    "fixture",
+    "jasmine",
+    "testbed",
+    "ngx"
   ],
   "sideEffects": false
 }

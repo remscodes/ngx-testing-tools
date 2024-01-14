@@ -57,7 +57,18 @@
   },
   "keywords": [
     "angular",
-    "testing"
+    "test",
+    "testing",
+    "ngx",
+    "component",
+    "directive",
+    "service",
+    "provider",
+    "fixture",
+    "jasmine",
+    "pipe",
+    "tools",
+    "testbed"
   ],
   "packageManager": "pnpm@8.14.1"
 }
