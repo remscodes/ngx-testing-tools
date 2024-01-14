@@ -33,7 +33,7 @@ describe('Component Annotation', () => {
       expect(getComponentAnnotation(NotAComponent)).toBeNull();
     });
 
-    it('should not get component annnotation', () => {
+    it('should not get component annotation', () => {
       @Directive({ selector: '[a]' })
       class ADirective {}
 

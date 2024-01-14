@@ -44,7 +44,7 @@ describe('AppInterceptor', () => {
 
 - interceptor
   - type: `HttpInterceptorFn`.
-  - description: the inteceptor to be tested.
+  - description: the interceptor to be tested.
 - config?
   - type: `ErrorInterceptorConfig`.
   - description: the config.

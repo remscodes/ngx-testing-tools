@@ -28,7 +28,7 @@ describe('AppComponent', () => {
 
 ### Idea 1
 
-A new `ExtraBed` is instanciated for each test suite.
+A new `ExtraBed` is instantiated for each test suite.
 
 Reduce boilerplate by providing `fixture`, `instance` (=`componentInstance`) and more for each test case thanks to created `ExtraBed` instance.  
 
