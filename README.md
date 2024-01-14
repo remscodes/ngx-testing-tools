@@ -1,15 +1,15 @@
 <div align="center">
-    <h1>Angular Testing Extra</h1>
+    <h1>Angular Testing Tools</h1>
     <p>Makes Angular testing easier</p>
 </div> 
 
 <div align="center">
 
-[![github ci](https://img.shields.io/github/actions/workflow/status/remscodes/ngx-testing-extra/npm-ci.yml.svg?logo=github&label=CI&style=for-the-badge)](https://github.com/remscodes/ngx-testing-extra/actions/workflows/npm-ci.yml)
-[![codecov coverage](https://img.shields.io/codecov/c/github/remscodes/ngx-testing-extra/main.svg?style=for-the-badge&logo=codecov)](https://codecov.io/gh/remscodes/ngx-testing-extra)
-[![npm version](https://img.shields.io/npm/v/ngx-testing-extra.svg?style=for-the-badge&logo=npm)](https://www.npmjs.org/package/ngx-testing-extra)
-[![bundle size](https://img.shields.io/bundlephobia/minzip/ngx-testing-extra.svg?style=for-the-badge)](https://bundlephobia.com/package/ngx-testing-extra)
-[![license](https://img.shields.io/github/license/remscodes/ngx-testing-extra.svg?style=for-the-badge)](LICENSE)
+[![github ci](https://img.shields.io/github/actions/workflow/status/remscodes/ngx-testing-tools/npm-ci.yml.svg?logo=github&label=CI&style=for-the-badge)](https://github.com/remscodes/ngx-testing-tools/actions/workflows/npm-ci.yml)
+[![codecov coverage](https://img.shields.io/codecov/c/github/remscodes/ngx-testing-tools/main.svg?style=for-the-badge&logo=codecov)](https://codecov.io/gh/remscodes/ngx-testing-tools)
+[![npm version](https://img.shields.io/npm/v/ngx-testing-tools.svg?style=for-the-badge&logo=npm)](https://www.npmjs.org/package/ngx-testing-tools)
+[![bundle size](https://img.shields.io/bundlephobia/minzip/ngx-testing-tools.svg?style=for-the-badge)](https://bundlephobia.com/package/ngx-testing-tools)
+[![license](https://img.shields.io/github/license/remscodes/ngx-testing-tools.svg?style=for-the-badge)](LICENSE)
 
 </div>
 
@@ -72,7 +72,7 @@ These utilities can also be accessed by importing them directly, but they need t
 ## Installation
 
 ```shell
-npm install -D ngx-testing-extra
+npm install -D ngx-testing-tools
 ```
 
 ## Table of contents

@@ -1,4 +1,4 @@
-import { componentTestBed } from 'ngx-testing-extra';
+import { componentTestBed } from 'ngx-testing-tools';
 import { Page2Component } from './page-2.component';
 
 describe('Page2Component', () => {

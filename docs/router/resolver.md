@@ -23,7 +23,7 @@ Returns the resolver output value.
 #### Example
 
 ```ts
-import { checkResolver } from 'ngx-testing-extra';
+import { checkResolver } from 'ngx-testing-tools';
 
 it('should resolve', (done) => {
   checkResolver(dataResolver)

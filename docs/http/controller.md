@@ -22,7 +22,7 @@ Expects the specified request (by url and method) and emits a fake success http 
 #### Example
 
 ```ts
-import { emitFakeSuccessResponse } from 'ngx-testing-extra';
+import { emitFakeSuccessResponse } from 'ngx-testing-tools';
 
 describe('AppService', () => {
   // (…) setup
@@ -66,7 +66,7 @@ Expects the specified request (by url and method) and emits a fake error http re
 #### Examples
 
 ```ts
-import { emitFakeErrorResponse } from 'ngx-testing-extra';
+import { emitFakeErrorResponse } from 'ngx-testing-tools';
 
 describe('AppService', () => {
   // (…) setup
@@ -112,7 +112,7 @@ Returns the expected `TestRequest`.
 #### Example
 
 ```ts
-import { expectHttpRequest } from 'ngx-testing-extra';
+import { expectHttpRequest } from 'ngx-testing-tools';
 
 describe('AppService', () => {
   // (…) setup

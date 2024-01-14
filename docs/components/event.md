@@ -23,7 +23,7 @@ Throws an Error if not found.
 #### Example
 
 ```ts
-import { click } from 'ngx-testing-extra';
+import { click } from 'ngx-testing-tools';
 
 // (…)
 
@@ -64,7 +64,7 @@ Throws an Error if not found.
 #### Example
 
 ```ts
-import { emitOutput } from 'ngx-testing-extra';
+import { emitOutput } from 'ngx-testing-tools';
 
 // (…)
 

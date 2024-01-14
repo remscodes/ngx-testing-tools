@@ -29,7 +29,7 @@ Returns the guard output value.
 #### Examples
 
 ```ts
-import { challengeGuardActivate } from 'ngx-testing-extra';
+import { challengeGuardActivate } from 'ngx-testing-tools';
 
 it('should activate', () => {
   expect(challengeGuardActivate(loginGuard, state)).toBeTrue();
@@ -72,7 +72,7 @@ Returns the guard output value.
 #### Examples
 
 ```ts
-import { challengeGuardDeactivate } from 'ngx-testing-extra';
+import { challengeGuardDeactivate } from 'ngx-testing-tools';
 
 it('should deactivate', () => {
   expect(challengeGuardDeactivate(component, backGuard, currentState, nextState)).toBeTrue();
@@ -109,7 +109,7 @@ Returns the guard output value.
 #### Examples
 
 ```ts
-import { challengeGuardMatch } from 'ngx-testing-extra';
+import { challengeGuardMatch } from 'ngx-testing-tools';
 
 it('should match', () => {
   expect(challengeGuardMatch(loadGuard, route, segments)).toBeTrue();

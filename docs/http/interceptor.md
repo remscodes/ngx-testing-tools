@@ -21,7 +21,7 @@ Utilities to check the behaviour of interceptors according to the success or fai
 #### Example
 
 ```ts
-import { makeInterceptorSucceed } from 'ngx-testing-extra';
+import { makeInterceptorSucceed } from 'ngx-testing-tools';
 
 describe('AppInterceptor', () => {
   // (…) setup
@@ -52,7 +52,7 @@ describe('AppInterceptor', () => {
 #### Example
 
 ```ts
-import { makeInterceptorFail } from 'ngx-testing-extra';
+import { makeInterceptorFail } from 'ngx-testing-tools';
 
 describe('AppInterceptor', () => {
   // (…) setup

@@ -1,5 +1,5 @@
 {
-  "name": "ngx-testing-extra",
+  "name": "ngx-testing-tools",
   "version": "1.0.0",
   "description": "Provides high-level utilities and reduces boilerplate for testing Angular applications",
   "license": "MIT",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/remscodes/ngx-testing-extra"
+    "url": "https://github.com/remscodes/ngx-testing-tools"
   },
   "engines": {
     "node": "^18.10.0 || ^20.9.0"

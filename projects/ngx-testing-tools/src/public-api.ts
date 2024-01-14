@@ -1,5 +1,5 @@
 /*
- * Public API Surface of ngx-testing-extra
+ * Public API Surface of ngx-testing-tools
  */
 
 export * from './lib/components';

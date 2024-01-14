@@ -16,7 +16,7 @@ Test the module creation.
 #### Example
 
 ```ts
-import { expectModuleToCreate } from 'ngx-testing-extra';
+import { expectModuleToCreate } from 'ngx-testing-tools';
 
 describe('AppModule', () => {
   expectModuleToCreate(AppModule);
