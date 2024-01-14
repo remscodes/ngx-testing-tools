@@ -85,8 +85,8 @@ npm install -D ngx-testing-extra
   - [Response](docs/http/controller.md#http-response)
   - [Interceptor](docs/http/interceptor.md#interceptors)
 - Router
-  - [Guard](docs/router/guard.md#)
-  - [Resolver](docs/router/resolver.md#)
+  - [Guard](docs/router/guard.md#guard)
+  - [Resolver](docs/router/resolver.md#resolver)
 - Pipe
   - [Expect values](docs/pipe.md#pipe)
 - Module
