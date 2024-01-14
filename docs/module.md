@@ -2,9 +2,10 @@
 
 ## expectModuleToCreate(module, providers?)
 
-Test module creation.
+Test the module creation.
 
 #### Parameters
+
 - module
   - type: `Type<T>`.
   - description: the module to be tested.

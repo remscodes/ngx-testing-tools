@@ -2,6 +2,8 @@
 
 ## testPipeValues(pipe, record)
 
+Test the pipe by successively transform the record's key and compare it to the expected record's value.
+
 #### Parameters
 
 - pipe

@@ -1,6 +1,6 @@
 <div align="center">
     <h1>Angular Testing Extra</h1>
-    <p>Utilities for testing an Angular application</p>
+    <p>Makes Angular testing easier</p>
 </div> 
 
 <div align="center">
@@ -15,198 +15,91 @@
 
 ## Introduction
 
-This library aims to reduce boilerplate for testing component, http response, guard and everything else related to the Angular mechanism.
+This library aims to **reduce boilerplate** and **provides high-level** ways for testing component, http response, guard and everything else related to the Angular mechanism.
 
-All the utilities provided make it easy to read and carry out the tests.
+It makes testing easier to read and more enjoyable.
+
+#### Before
+
+```ts
+describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should render title', () => {
+    expect(component.title).toEqual('app-v17');
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('.content span')?.textContent).toContain('app-v17 app is running!');
+  });
+});
+```
+
+#### After
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent);
+  beforeEach(() => tb.compile());
+
+  tb.shouldCreate();
+
+  it('should render title', tb(({ component, query }) => {
+    expect(component.title).toEqual('app-v17');
+    const textContent = query.findElement('.content span').textContent;
+    expect(textContent).toContain('app-v17 app is running!');
+  }));
+});
+```
+
+ComponentTestBed gives you access to utilities (`query` and `action`).
+
+These utilities can also be accessed by importing them directly, but they need the current `fixture` as an extra parameter.
 
 ## Installation
 
 ```shell
-npm install ngx-testing-extra
+npm install -D ngx-testing-extra
 ```
 
 ## Table of contents
 
-- [Component](#component)
-  - [Instance](#instance)
-  - [Native Element](#native-element)
-  - [Debug Element](#debug-element)
-  - [Event](#event)
-- [Pipe](#pipe)
-- [HTTP](#http)
-  - [Response](#response)
-  - [Interceptor](#interceptor)
-- [Router](#router)
-  - [Guard](#guard)
-  - [Resolver](#resolver)
-- [Injector](#injector)
-- [Module](#module)
+- Component
+  - **[ComponentTestBed](docs/components/test-bed.md#componenttestbed)** 🤩
+  - [Element query](docs/components/element.md#element-query)
+  - [Event triggering](docs/components/event.md#event-triggering)
+- HTTP
+  - [Response](docs/http/controller.md#http-response)
+  - [Interceptor](docs/http/interceptor.md#interceptors)
+- Router
+  - [Guard](docs/router/guard.md#)
+  - [Resolver](docs/router/resolver.md#)
+- Pipe
+  - [Expect values](docs/pipe.md#pipe)
+- Module
+  - [Expect creation](docs/module.md#module)
+- Injector
+  - [Get instance](docs/injector.md#injector)
 
-### Component
+## What's next ? 🤩
 
-#### Instance
-
-Query for one component instance :
-
-`findComponent<T>(fixture: ComponentFixture, selectorOrDirective: string | Type<T>): T`
-
-Query for all component instances :
-
-`findAllComponents<T>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<T>): T[]`
-
-#### Native element
-
-Query for one native element :
-
-`findElement<T extends HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T`
-
-Query for all native elements :
-
-`findAllElements<T extends HTMLElement>(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): T[]`
-
-#### Debug element
-
-Query for one debug element :
-
-`findDebugElement(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement`
-
-Query for all debug elements :
-
-`findAllDebugElements(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement[]`
-
-#### Event
-
-Trigger element click event :
-
-`click(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): void`
-
-Trigger child component output :
-
-`emitChildOutput(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>, outputName: string, outputValue?: any): void`
-
-### Pipe
-
-Use jasmine `it` to test pipe transform based on the provided record :
-
-`testPipeValues<T extends PipeTransform>(pipe: T, record: Record<any, string>): void`
-
-### HTTP
-
-#### Response
-
-Intercept http request and make response succeed :
-
-`emitFakeSuccessResponse(httpController: HttpTestingController, config: SuccessResponseConfig): void`
-
-```ts
-export interface SuccessResponseConfig {
-  url: string;
-  method: | 'GET'
-    | 'DELETE'
-    | 'HEAD'
-    | 'OPTIONS'
-    | 'POST'
-    | 'PUT'
-    | 'PATCH';
-  headers?: | HttpHeaders
-    | { [name: string]: string | string[] };
-  status?: number;
-  statusText?: string;
-  body: | ArrayBuffer
-    | Blob
-    | boolean
-    | string
-    | number
-    | Object
-    | (boolean | string | number | Object | null)[]
-    | null;
-}
-```
-
-Intercept http request and make response failed :
-
-`emitFakeErrorResponse(httpController: HttpTestingController, config: ErrorResponseConfig): void`
-
-```ts
-export interface ErrorResponseConfig {
-  url: string;
-  method: | 'GET'
-    | 'DELETE'
-    | 'HEAD'
-    | 'OPTIONS'
-    | 'POST'
-    | 'PUT'
-    | 'PATCH';
-  status?: number;
-  statusText?: string;
-}
-```
-
-#### Interceptor
-
-Make the provided interceptor succeed and observe the given `HttpEvent` :
-
-`makeInterceptorSucceed(interceptor: HttpInterceptorFn, config?: SuccessInterceptorConfig): Observable<HttpEvent<unknown>>`
-
-```ts
-export interface SuccessInterceptorConfig {
-  url: string;
-  method?: 'GET' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'JSONP';
-}
-```
-
-Make the provided interceptor fail and observe the given `HttpEvent` :
-
-`makeInterceptorFail(interceptor: HttpInterceptorFn, config?: ErrorInterceptorConfig): Observable<HttpEvent<unknown>>`
-
-```ts
-export interface ErrorInterceptorConfig {
-  url?: string;
-  status?: number;
-}
-```
-
-### Router
-
-#### Guard
-
-Verify the behavior of the provided CanActivate guard for the given route config :
-
-`challengeActivate(guard: CanActivateFn, state: RouterStateSnapshot, routeConfig?: RouteSnapshotConfig)`
-
-```ts
-export interface RouteSnapshotConfig {
-  data?: Data;
-  params?: Params;
-  queryParams?: Params;
-}
-```
-
-Verify the behavior of the provided CanDeactivate guard for the given route config :
-
-`challengeDeactivate<T>(guard: CanDeactivateFn<T>, component: T, currentState: RouterStateSnapshot, nextState: RouterStateSnapshot, routeConfig?: RouteSnapshotConfig)`
-
-Verify the behavior of the provided CanMatch guard for the given route and segments :
-
-`challengeMatch(guard: CanMatchFn, route: Route, segments: UrlSegment[])`
-
-#### Resolver
-
-Verify the provided resolver and observe the returned value :
-
-`checkResolver<T>(resolver: ResolveFn<T>, state: RouterStateSnapshot, routeConfig?: RouteSnapshotConfig)`
-
-### Injector
-
-Get instance from fixture injector based on the provided token :
-
-`fromInjector<T>(fixture: ComponentFixture<any>, directive: Type<T>): T`
-
-### Module
-
-Use jasmine `it` to test module creation :
-
-`expectModuleToCreate<T>(Module: Type<T>, providers?: (Provider | EnvironmentProviders)[]): void`
+Similar to `ComponentTestBed` :
+- `ServiceTestBed`
+- `PipeTestBed`
+- `RouterTestBed`
 
 ## License
 

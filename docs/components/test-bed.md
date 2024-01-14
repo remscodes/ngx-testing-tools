@@ -39,7 +39,7 @@ describe('AppComponent', () => {
 ## Table of contents
 
 - [componentTestBed(…)](#componenttestbedrootcomponent)
-- [ComponentTestBed](#componenttestbed)
+- [ComponentTestBed](#componenttestbed-1)
   - [compile()](#compile)
   - [import(…)](#importoneormanyimports)
   - [declare(…)](#declareoneormanycomponents)
@@ -78,7 +78,9 @@ Embed all methods required to configure the testing module and to wrap every exp
 
 Compiles the `ComponentTestBed` to be able to provide tools into tb()'s callback (see [below](#assertion-options)).
 
-**It has to be used into `beforeEach()` setup.** Or into `before()` setup if you don't want to create again the fixture for each test.
+**It has to be used into `beforeEach()` setup.** 
+
+(Or into `before()` setup if you don't want to create again the fixture for each test)
 
 Returns a `Promise<void>`.
 
@@ -211,7 +213,6 @@ it('should do something', tb(({ component, fixture, injector, action, query }) =
   action.click('#my-button');
 
   const appService = injector.get(AppService);
-
   // (…)
 })); 
 ```
