@@ -1,7 +1,7 @@
 {
   "name": "ngx-testing-extra",
   "version": "1.0.0",
-  "description": "Provides high-level utilities for testing Angular applications",
+  "description": "Provides high-level utilities and reduces boilerplate for testing Angular applications",
   "license": "MIT",
   "author": {
     "name": "Rémy Abitbol",
