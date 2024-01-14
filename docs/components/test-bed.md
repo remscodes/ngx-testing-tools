@@ -42,7 +42,7 @@ describe('AppComponent', () => {
 - [ComponentTestBed](#componenttestbed-1)
   - [compile()](#compile)
   - [import(…)](#importoneormanyimports)
-  - [declare(…)](#declareoneormanycomponents)
+  - [declare(…)](#declareoneormanydeclarations)
   - [provide(…)](#provideoneormanyproviders)
   - [call(…)](#assertion-options)
 
@@ -112,15 +112,15 @@ beforeEach(() => tb.import(AppService).compile());
 beforeEach(() => tb.import([AppService, MaterialModule]).compile());
 ```
 
-### declare(oneOrManyComponents)
+### declare(oneOrManyDeclarations)
 
-Declares required no standalone component(s) into testing module for your current tests.
+Declares required no standalone component(s), directive(s) and pipe(s) into testing module for your current tests.
 
 Returns the current `ComponentTestBed` instance.
 
 #### Parameters
 
-- oneOrManyComponents
+- oneOrManyDeclarations
   - type: `Type<any>` or `Type<any>[]`.
   - description: the Component(s) (no standalone).
 

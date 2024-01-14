@@ -33,10 +33,10 @@ export class ComponentTestBedFactory<ComponentType> {
     return this.configure('providers', oneOrManyProviders);
   }
 
-  public declare(component: Type<any>): this
-  public declare(components: Type<any>[]): this
-  public declare(oneOrManyComponents: MaybeArray<Type<any>>): this {
-    return this.configure('declarations', oneOrManyComponents);
+  public declare(declaration: Type<any>): this
+  public declare(declarations: Type<any>[]): this
+  public declare(oneOrManyDeclarations: MaybeArray<Type<any>>): this {
+    return this.configure('declarations', oneOrManyDeclarations);
   }
 
   private configure(key: keyof TestModuleMetadata, itemS: MaybeArray<unknown>): this {
