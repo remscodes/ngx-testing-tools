@@ -71,7 +71,7 @@ jobs:
 
       - name: Publish to NPM
         run: |
-          cd dist/ngx-testing-extra
+          cd dist/ngx-testing-tools
           npm publish --provenance
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
