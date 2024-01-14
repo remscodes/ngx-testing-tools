@@ -1,3 +1,11 @@
+# 2.0.1 (2024-01-14)
+
+### Fixes
+
+- Remove `DestroyRef` from `ComponentTools`.
+
+> Commits : https://github.com/remscodes/ngx-testing-tools/commits/v2.0.1
+
 # 2.0.0 (2024-01-14)
 
 ### Features
