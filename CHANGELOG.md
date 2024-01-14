@@ -1,3 +1,18 @@
+# 2.0.0 (2024-01-14)
+
+### Features
+
+- `ComponentTestBed`.
+
+### Improvements
+
+- Documentation.
+- Add unit and integrations tests.
+- Add code coverage.
+- Add demo.
+
+> Commits : https://github.com/remscodes/ngx-testing-extra/commits/v2.0.0
+
 # 1.0.0 (2024-01-02)
 
 ### Features
