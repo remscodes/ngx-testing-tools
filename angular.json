@@ -3,23 +3,23 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ngx-testing-extra": {
+    "ngx-testing-tools": {
       "projectType": "library",
-      "root": "projects/ngx-testing-extra",
-      "sourceRoot": "projects/ngx-testing-extra/src",
+      "root": "projects/ngx-testing-tools",
+      "sourceRoot": "projects/ngx-testing-tools/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "project": "projects/ngx-testing-extra/ng-package.json"
+            "project": "projects/ngx-testing-tools/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/ngx-testing-extra/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-testing-tools/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/ngx-testing-extra/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-testing-tools/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -29,41 +29,41 @@
           "options": {
             "codeCoverage": true,
             "codeCoverageExclude": [
-              "projects/ngx-testing-extra/src/tests/**"
+              "projects/ngx-testing-tools/src/tests/**"
             ],
-            "tsConfig": "projects/ngx-testing-extra/tsconfig.spec.json",
+            "tsConfig": "projects/ngx-testing-tools/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
             ],
-            "karmaConfig": "projects/ngx-testing-extra/karma.conf.js"
+            "karmaConfig": "projects/ngx-testing-tools/karma.conf.js"
           }
         }
       }
     },
-    "ngx-testing-extra-demo": {
+    "ngx-testing-tools-demo": {
       "projectType": "application",
       "schematics": {},
-      "root": "projects/ngx-testing-extra-demo",
-      "sourceRoot": "projects/ngx-testing-extra-demo/src",
+      "root": "projects/ngx-testing-tools-demo",
+      "sourceRoot": "projects/ngx-testing-tools-demo/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ngx-testing-extra-demo",
-            "index": "projects/ngx-testing-extra-demo/src/index.html",
-            "browser": "projects/ngx-testing-extra-demo/src/main.ts",
+            "outputPath": "dist/ngx-testing-tools-demo",
+            "index": "projects/ngx-testing-tools-demo/src/index.html",
+            "browser": "projects/ngx-testing-tools-demo/src/main.ts",
             "polyfills": [
               "zone.js"
             ],
-            "tsConfig": "projects/ngx-testing-extra-demo/tsconfig.app.json",
+            "tsConfig": "projects/ngx-testing-tools-demo/tsconfig.app.json",
             "assets": [
-              "projects/ngx-testing-extra-demo/src/favicon.ico",
-              "projects/ngx-testing-extra-demo/src/assets"
+              "projects/ngx-testing-tools-demo/src/favicon.ico",
+              "projects/ngx-testing-tools-demo/src/assets"
             ],
             "styles": [
-              "projects/ngx-testing-extra-demo/src/styles.css"
+              "projects/ngx-testing-tools-demo/src/styles.css"
             ],
             "scripts": []
           },
@@ -95,10 +95,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ngx-testing-extra-demo:build:production"
+              "buildTarget": "ngx-testing-tools-demo:build:production"
             },
             "development": {
-              "buildTarget": "ngx-testing-extra-demo:build:development"
+              "buildTarget": "ngx-testing-tools-demo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -106,7 +106,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "ngx-testing-extra-demo:build"
+            "buildTarget": "ngx-testing-tools-demo:build"
           }
         },
         "test": {
@@ -116,16 +116,16 @@
               "zone.js",
               "zone.js/testing"
             ],
-            "tsConfig": "projects/ngx-testing-extra-demo/tsconfig.spec.json",
+            "tsConfig": "projects/ngx-testing-tools-demo/tsconfig.spec.json",
             "assets": [
-              "projects/ngx-testing-extra-demo/src/favicon.ico",
-              "projects/ngx-testing-extra-demo/src/assets"
+              "projects/ngx-testing-tools-demo/src/favicon.ico",
+              "projects/ngx-testing-tools-demo/src/assets"
             ],
             "styles": [
-              "projects/ngx-testing-extra-demo/src/styles.css"
+              "projects/ngx-testing-tools-demo/src/styles.css"
             ],
             "scripts": [],
-            "karmaConfig": "projects/ngx-testing-extra-demo/karma.conf.js"
+            "karmaConfig": "projects/ngx-testing-tools-demo/karma.conf.js"
           }
         }
       }
