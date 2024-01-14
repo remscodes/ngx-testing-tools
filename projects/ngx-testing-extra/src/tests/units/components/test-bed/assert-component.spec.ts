@@ -20,13 +20,13 @@ describe('assertComponent', () => {
     const annotation = getFirstAnnotation<Directive>(AppDirective);
 
     expect(() => assertComponent(AppDirective, annotation))
-      .toThrowError('The provided "AppDirective" is not a Component. Cannot create a ComponentTestBed.');
+      .toThrowError('The provided "AppDirective" is not a Component. The ComponentTestBed cannot be created.');
   });
 
   it('should throw error with [object Object] indication', () => {
     const annotation = getFirstAnnotation<Directive>(AppDirective);
 
     expect(() => assertComponent({} as any, annotation))
-      .toThrowError('The provided "[object Object]" is not a Component. Cannot create a ComponentTestBed.');
+      .toThrowError('The provided "[object Object]" is not a Component. The ComponentTestBed cannot be created.');
   });
 });

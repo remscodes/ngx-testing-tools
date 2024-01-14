@@ -1,7 +1,7 @@
 import { CanMatchFn, Route, UrlSegment } from '@angular/router';
-import { DefaultGuardReturn, GuardReturn } from './models/guard.model';
+import { GuardReturn } from './models/guard.model';
 
-export function challengeMatch<R extends GuardReturn = DefaultGuardReturn>(
+export function challengeGuardMatch<R extends GuardReturn = boolean>(
   guard: CanMatchFn,
   route: Route,
   segments: UrlSegment[],
