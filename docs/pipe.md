@@ -22,7 +22,7 @@ import { testPipeValues } from 'ngx-testing-extra';
 @Pipe({ name: 'multiply', standalone: true })
 class MultiplyPipe implements PipeTransform {
   transform(value: number): string {
-    return value * 2;
+    return `${value * 2}`;
   }
 }
 

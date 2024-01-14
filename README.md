@@ -65,7 +65,7 @@ describe('AppComponent', () => {
 });
 ```
 
-ComponentTestBed gives you access to utilities (`query` and `action`).
+`ComponentTestBed` gives you access to utilities (`query` and `action`) and more.
 
 These utilities can also be accessed by importing them directly, but they need the current `fixture` as an extra parameter.
 

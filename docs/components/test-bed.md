@@ -105,11 +105,11 @@ Returns the current `ComponentTestBed` instance.
 #### Examples
 
 ```ts
-beforeEach(() => tb.import(AppService).compile());
+beforeEach(() => tb.import(InnerComponent).compile());
 ```
 
 ```ts
-beforeEach(() => tb.import([AppService, MaterialModule]).compile());
+beforeEach(() => tb.import([InnerComponent, MaterialModule]).compile());
 ```
 
 ### declare(oneOrManyDeclarations)
@@ -122,7 +122,7 @@ Returns the current `ComponentTestBed` instance.
 
 - oneOrManyDeclarations
   - type: `Type<any>` or `Type<any>[]`.
-  - description: the Component(s) (no standalone).
+  - description: the component(s), directive(s) and pipe(s) (no standalone).
 
 #### Examples
 
@@ -131,7 +131,7 @@ beforeEach(() => tb.declare(AppFirstComponent).compile());
 ```
 
 ```ts
-beforeEach(() => tb.declare([AppFirstComponent, AppSecondComponent]).compile());
+beforeEach(() => tb.declare([AppFirstComponent, AppPipe]).compile());
 ```
 
 ### provide(oneOrManyProviders)
