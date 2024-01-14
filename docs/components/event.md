@@ -23,28 +23,21 @@ Throws an Error if not found.
 #### Example
 
 ```ts
-import { emitOutput } from 'ngx-testing-extra';
-
-// (…)
-
-@Component({ template: `<app-inner (clicked)="clicked = $event;"/>` })
-class AppComponent {
-  clicked = false;
-}
+import { click } from 'ngx-testing-extra';
 
 // (…)
 
 it('should update state on button click', () => {
   expect(component.clicked).toBeFalse();
-  emitOutput(fixture, 'app-inner', 'clicked', true); // by selector
+  click(fixture, '#my-button'); // by selector
   expect(component.clicked).toBeTrue();
 });
 
 it('should have InnerComponent', () => {
   expect(component.clicked).toBeFalse();
-  emitOutput(fixture, InnerComponent, 'clicked', true); // by directive
+  click(fixture, MyButtonDirective); // by directive
   expect(component.clicked).toBeTrue();
-}); 
+});
 ```
 
 ## emitOutput(fixture, selectorOrDirective, name, $event)
@@ -71,19 +64,26 @@ Throws an Error if not found.
 #### Example
 
 ```ts
-import { click } from 'ngx-testing-extra';
+import { emitOutput } from 'ngx-testing-extra';
+
+// (…)
+
+@Component({ template: `<app-inner (clicked)="clicked = $event;"/>` })
+class AppComponent {
+  clicked = false;
+}
 
 // (…)
 
 it('should update state on button click', () => {
   expect(component.clicked).toBeFalse();
-  click(fixture, '#my-button'); // by selector
+  emitOutput(fixture, 'app-inner', 'clicked', true); // by selector
   expect(component.clicked).toBeTrue();
 });
 
 it('should have InnerComponent', () => {
   expect(component.clicked).toBeFalse();
-  click(fixture, MyButtonDirective); // by directive
+  emitOutput(fixture, InnerComponent, 'clicked', true); // by directive
   expect(component.clicked).toBeTrue();
-});
+}); 
 ```

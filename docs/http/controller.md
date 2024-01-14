@@ -4,10 +4,11 @@
 
 - [emitFakeSuccessResponse(…)](#emitfakesuccessresponsehttpcontroller-config)
 - [emitFakeErrorResponse(…)](#emitfakeerrorresponsehttpcontroller-config)
+- [expectHttpRequest(…)](#expecthttprequesthttpcontroller-config)
 
 ## emitFakeSuccessResponse(httpController, config)
 
-Expects the specified request (by url and method) and emits a fake successful http response.
+Expects the specified request (by url and method) and emits a fake success http response.
 
 #### Parameters
 
@@ -95,13 +96,13 @@ describe('AppService', () => {
 
 ## expectHttpRequest(httpController, config)
 
-Expects one request by url and by method.
+Expects one request by url and method.
 
 Returns the expected `TestRequest`.
 
 #### Parameters
 
-- httpControler
+- httpController
   - type: `HttpTestingController`.
   - description: the injected `HttpTestingController`.
 - config

@@ -4,8 +4,8 @@ Utilities to check the behaviour of interceptors according to the success or fai
 
 ## Table of contents
 
-- [makeInterceptorSucceed](#makeinterceptorsucceedinterceptor-config)
-- [makeInterceptorFail](#makeinterceptorfailinterceptor-config)
+- [makeInterceptorSucceed(…)](#makeinterceptorsucceedinterceptor-config)
+- [makeInterceptorFail(…)](#makeinterceptorfailinterceptor-config)
 
 ## makeInterceptorSucceed(interceptor, config?)
 
