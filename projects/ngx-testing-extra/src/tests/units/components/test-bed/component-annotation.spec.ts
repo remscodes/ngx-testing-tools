@@ -27,7 +27,7 @@ describe('Component Annotation', () => {
       expect(getComponentAnnotation(AComponent)).toBeTruthy();
     });
 
-    it('should not get component annnotation', () => {
+    it('should not get component annotation', () => {
       class NotAComponent {}
 
       expect(getComponentAnnotation(NotAComponent)).toBeNull();
