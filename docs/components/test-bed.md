@@ -184,7 +184,6 @@ interface ComponentTools<T> {
   fixture: ComponentFixture<T>;
   component: T;
   injector: Injector;
-  destroyRef: DestroyRef;
   debug: DebugElement;
   query: ComponentQueryTools;
   action: ComponentActionTools;
