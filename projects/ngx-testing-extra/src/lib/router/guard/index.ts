@@ -1,3 +1,3 @@
-export { challengeActivate } from './activate';
-export { challengeDeactivate } from './deactivate';
-export { challengeMatch } from './match';
+export { challengeGuardActivate } from './activate';
+export { challengeGuardDeactivate } from './deactivate';
+export { challengeGuardMatch } from './match';

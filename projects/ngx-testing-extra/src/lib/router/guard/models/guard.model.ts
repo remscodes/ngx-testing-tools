@@ -6,5 +6,3 @@ export type GuardReturn =
   | Promise<boolean | UrlTree>
   | boolean
   | UrlTree
-
-export type DefaultGuardReturn = boolean
