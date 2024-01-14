@@ -1,5 +1,5 @@
 {
-  "name": "ngx-testing-extra-sources",
+  "name": "ngx-testing-tools-sources",
   "version": "1.0.0",
   "private": true,
   "description": "Provides high-level utilities and reduces boilerplate for testing Angular applications",
@@ -9,9 +9,9 @@
     "url": "https://github.com/remscodes"
   },
   "scripts": {
-    "build": "ng build ngx-testing-extra && pnpm run copy-README && pnpm run copy-LICENSE",
-    "test": "ng test ngx-testing-extra",
-    "test:demo": "ng test ngx-testing-extra-demo",
+    "build": "ng build ngx-testing-tools && pnpm run copy-README && pnpm run copy-LICENSE",
+    "test": "ng test ngx-testing-tools",
+    "test:demo": "ng test ngx-testing-tools-demo",
     "test:ci": "pnpm run test --watch=false --progress=false",
     "types": "tsc --noEmit",
     "copy-README": "pnpm run copy-to-dist -- README.md",
@@ -23,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/remscodes/ngx-testing-extra"
+    "url": "https://github.com/remscodes/ngx-testing-tools"
   },
   "engines": {
     "node": "^18.10.0 || ^20.9.0"

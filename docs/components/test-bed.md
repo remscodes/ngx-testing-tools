@@ -7,7 +7,7 @@ In addition, it provides the same utilities described in [element.md](element.md
 ## Preview example
 
 ```ts
-import { componentTestBed } from 'ngx-testing-extra';
+import { componentTestBed } from 'ngx-testing-tools';
 import { AppComponent } from './app.component';
 import { AppService } from './app.service';
 import { InnerComponent } from './inner.component';

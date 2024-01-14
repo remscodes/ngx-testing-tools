@@ -31,7 +31,7 @@ Throws an Error if not found.
 #### Examples
 
 ```ts
-import { findComponent } from 'ngx-testing-extra';
+import { findComponent } from 'ngx-testing-tools';
 
 // (…)
 
@@ -57,7 +57,7 @@ Throws an Error if not found.
 #### Examples
 
 ```ts
-import { findAllComponents } from 'ngx-testing-extra';
+import { findAllComponents } from 'ngx-testing-tools';
 
 // (…)
 
@@ -83,7 +83,7 @@ Throws an Error if not found.
 #### Examples
 
 ```ts
-import { findElement } from 'ngx-testing-extra';
+import { findElement } from 'ngx-testing-tools';
 
 // (…)
 
@@ -117,7 +117,7 @@ Throws an Error if not found.
 #### Examples 
 
 ```ts
-import { findAllElements } from 'ngx-testing-extra';
+import { findAllElements } from 'ngx-testing-tools';
 
 // (…)
 
@@ -155,7 +155,7 @@ Throws an Error if not found.
 #### Example
 
 ```ts
-import { findDebugElement } from 'ngx-testing-extra';
+import { findDebugElement } from 'ngx-testing-tools';
 
 // (…)
 
@@ -189,7 +189,7 @@ Throws an Error if not found.
 #### Example
 
 ```ts
-import { findAllDebugElements } from 'ngx-testing-extra';
+import { findAllDebugElements } from 'ngx-testing-tools';
 
 // (…)
 

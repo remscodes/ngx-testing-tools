@@ -16,7 +16,7 @@ Get instance by token from the current component fixture injector.
 #### Example
 
 ```ts
-import { fromInjector } from 'ngx-testing-extra';
+import { fromInjector } from 'ngx-testing-tools';
 
 // (…)
 

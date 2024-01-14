@@ -11,8 +11,8 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "paths": {
-      "ngx-testing-extra": [
-        "./dist/ngx-testing-extra"
+      "ngx-testing-tools": [
+        "./dist/ngx-testing-tools"
       ]
     },
     "esModuleInterop": true,

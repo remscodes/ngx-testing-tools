@@ -17,7 +17,7 @@ Test the pipe by successively transform the record's key and compare it to the e
 
 ```ts
 import { Pipe, PipeTransform } from '@angular/core';
-import { testPipeValues } from 'ngx-testing-extra';
+import { testPipeValues } from 'ngx-testing-tools';
 
 @Pipe({ name: 'multiply', standalone: true })
 class MultiplyPipe implements PipeTransform {

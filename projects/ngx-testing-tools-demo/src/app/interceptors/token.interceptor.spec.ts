@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpRequest } from '@angular/common/http';
 import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TestBed } from '@angular/core/testing';
-import { makeInterceptorFail, makeInterceptorSucceed } from 'ngx-testing-extra';
+import { makeInterceptorFail, makeInterceptorSucceed } from 'ngx-testing-tools';
 import { HEADER_KEY, HEADER_VALUE, tokenInterceptor } from './token.interceptor';
 
 describe('tokenInterceptor', () => {
