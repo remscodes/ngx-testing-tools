@@ -10,6 +10,7 @@
 - Add unit and integrations tests.
 - Add code coverage.
 - Add demo.
+- Rename package to `ngx-testing-tools`.
 
 > Commits : https://github.com/remscodes/ngx-testing-tools/commits/v2.0.0
 

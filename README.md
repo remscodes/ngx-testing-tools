@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>Angular Testing Extra</h1>
+    <h1>Angular Testing Tools</h1>
     <p>Makes Angular testing easier</p>
 </div> 
 
