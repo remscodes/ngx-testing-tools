@@ -1,4 +1,4 @@
-import { DestroyRef, Type } from '@angular/core';
+import { Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { assertComponentFixture } from './assert-fixture';
 import { buildComponentActionTools } from './component-action-tools';
@@ -19,7 +19,6 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
       const fixture: ComponentFixture<T> = factory['fixture'];
       assertComponentFixture(fixture);
 
-      const destroyRef: DestroyRef = factory['destroyRef'];
       const { componentInstance: component, debugElement: debug } = fixture;
       const { injector } = debug;
 
@@ -28,7 +27,7 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
 
       if (startDetectChanges) fixture.detectChanges();
 
-      return assertionCb({ fixture, component, injector, destroyRef, debug, query, action }, done);
+      return assertionCb({ fixture, component, injector, debug, query, action }, done);
     };
 
     return (assertionCb.length > 1)

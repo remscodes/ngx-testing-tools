@@ -1,6 +1,5 @@
-import { Component, DestroyRef, EnvironmentProviders, ModuleWithProviders, Provider, Type } from '@angular/core';
+import { Component, EnvironmentProviders, ModuleWithProviders, Provider, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic, TestModuleMetadata } from '@angular/core/testing';
-import { fromInjector } from '../../injector';
 import { MaybeArray, Nullable } from '../../models/shared.model';
 import { assertComponent } from './assert-component';
 import { assertComponentFixture } from './assert-fixture';
@@ -19,7 +18,6 @@ export class ComponentTestBedFactory<ComponentType> {
 
   private testBed: TestBedStatic = TestBed;
   private fixture: ComponentFixture<ComponentType> = null!;
-  private destroyRef: DestroyRef = null!;
 
   public import(importation: Type<any> | ModuleWithProviders<any>): this
   public import(imports: (Type<any> | ModuleWithProviders<any>)[]): this
@@ -60,6 +58,5 @@ export class ComponentTestBedFactory<ComponentType> {
     await this.testBed.compileComponents();
 
     this.fixture = this.testBed.createComponent(this.rootComponent);
-    this.destroyRef = fromInjector(this.fixture, DestroyRef);
   }
 }
