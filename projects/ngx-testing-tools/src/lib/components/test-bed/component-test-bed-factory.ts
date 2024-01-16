@@ -30,7 +30,6 @@ export class ComponentTestBedFactory<ComponentType, Injected extends InjectionSt
    * Import many modules or many standalone components / directives / pipes into the `ComponentTestBed`.
    */
   public import(imports: (Type<any> | ModuleWithProviders<any>)[]): this
-  public import(oneOrManyImports: MaybeArray<Type<any> | ModuleWithProviders<any>>): this
   public import(oneOrManyImports: MaybeArray<Type<any> | ModuleWithProviders<any>>): this {
     return this.configure('imports', oneOrManyImports);
   }
@@ -43,7 +42,6 @@ export class ComponentTestBedFactory<ComponentType, Injected extends InjectionSt
    * Add many providers into the `ComponentTestBed`.
    */
   public provide(providers: (Provider | EnvironmentProviders)[]): this
-  public provide(oneOrManyProviders: MaybeArray<Provider | EnvironmentProviders>): this
   public provide(oneOrManyProviders: MaybeArray<Provider | EnvironmentProviders>): this {
     return this.configure('providers', oneOrManyProviders);
   }
@@ -56,7 +54,6 @@ export class ComponentTestBedFactory<ComponentType, Injected extends InjectionSt
    * Declare many non standalone components, directives and pipes into `ComponentTestBed`.
    */
   public declare(declarations: Type<any>[]): this
-  public declare(oneOrManyDeclarations: MaybeArray<Type<any>>): this
   public declare(oneOrManyDeclarations: MaybeArray<Type<any>>): this {
     return this.configure('declarations', oneOrManyDeclarations);
   }

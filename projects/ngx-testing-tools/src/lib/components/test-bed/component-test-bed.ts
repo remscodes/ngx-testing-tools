@@ -45,16 +45,16 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
   return mergeFactoryToFn(factory, tb);
 }
 
-function mergeFactoryToFn<T>(factory: ComponentTestBedFactory<T, any>, tb: ComponentTestBed<T, any>): ComponentTestBed<T> {
-  tb.import = (imports) => {
+function mergeFactoryToFn<T>(factory: ComponentTestBedFactory<T>, tb: ComponentTestBed<T, any>): ComponentTestBed<T> {
+  tb.import = (imports: any) => {
     factory.import(imports);
     return tb;
   };
-  tb.provide = (providers) => {
+  tb.provide = (providers: any) => {
     factory.provide(providers);
     return tb;
   };
-  tb.declare = (declarations) => {
+  tb.declare = (declarations: any) => {
     factory.declare(declarations);
     return tb;
   };
