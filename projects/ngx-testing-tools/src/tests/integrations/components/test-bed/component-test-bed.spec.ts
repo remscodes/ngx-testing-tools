@@ -3,12 +3,13 @@ import { componentTestBed } from '../../../../lib/components';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
 import { validateArray } from '../../../fixtures/helpers/validators/validate-array';
+import { AppService } from '../../../fixtures/services/app.service';
 
 describe('componentTestBed', () => {
 
   describe('standalone', () => {
-
     const tb = componentTestBed(OuterComponent);
+
     beforeEach(() => tb.compile());
 
     tb.shouldCreate();
@@ -69,5 +70,19 @@ describe('componentTestBed', () => {
     beforeEach(() => tb.compile());
 
     tb.shouldCreate();
+  });
+
+  describe('inject method', () => {
+    const tb = componentTestBed(OuterComponent)
+      .inject('app', AppService);
+
+    beforeEach(() => tb.compile());
+
+    tb.shouldCreate();
+
+    it('should inject into test bed', tb(({ injected: { app } }) => {
+      expect(app).toBeTruthy();
+      expect(app.info).toBeTrue();
+    }));
   });
 });

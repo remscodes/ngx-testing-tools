@@ -1,11 +1,12 @@
-import { Component, EnvironmentProviders, ModuleWithProviders, Provider, Type } from '@angular/core';
+import { Component, EnvironmentProviders, ModuleWithProviders, Provider, ProviderToken, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic, TestModuleMetadata } from '@angular/core/testing';
-import { MaybeArray, Nullable } from '../../models/shared.model';
+import { MaybeArray, Merge, NonEmptyString, Nullable } from '../../models/shared.model';
 import { assertComponent } from './assert-component';
 import { assertComponentFixture } from './assert-fixture';
 import { getComponentAnnotation } from './component-annotation';
+import { ComponentTestBed } from './models';
 
-export class ComponentTestBedFactory<ComponentType> {
+export class ComponentTestBedFactory<ComponentType, Injected extends {}> {
 
   public constructor(
     private rootComponent: Type<ComponentType>,
@@ -18,15 +19,14 @@ export class ComponentTestBedFactory<ComponentType> {
 
   private testBed: TestBedStatic = TestBed;
   private fixture: ComponentFixture<ComponentType> = null!;
+  private injected: Map<ProviderToken<any>, string> = new Map();
 
   /**
    * Import one module or one standalone component / directive / pipe into the `ComponentTestBed`.
-   * @param importation
    */
   public import(importation: Type<any> | ModuleWithProviders<any>): this
   /**
    * Import many modules or many standalone components / directives / pipes into the `ComponentTestBed`.
-   * @param imports
    */
   public import(imports: (Type<any> | ModuleWithProviders<any>)[]): this
   public import(oneOrManyImports: MaybeArray<Type<any> | ModuleWithProviders<any>>): this {
@@ -35,12 +35,10 @@ export class ComponentTestBedFactory<ComponentType> {
 
   /**
    * Add one provider into the `ComponentTestBed`.
-   * @param provider
    */
   public provide(provider: Provider | EnvironmentProviders): this
   /**
    * Add many providers into the `ComponentTestBed`.
-   * @param providers
    */
   public provide(providers: (Provider | EnvironmentProviders)[]): this
   public provide(oneOrManyProviders: MaybeArray<Provider | EnvironmentProviders>): this {
@@ -49,16 +47,19 @@ export class ComponentTestBedFactory<ComponentType> {
 
   /**
    * Declare one non standalone component, directive or pipe into the `ComponentTestBed`.
-   * @param declaration
    */
   public declare(declaration: Type<any>): this
   /**
    * Declare many non standalone components, directives and pipes into `ComponentTestBed`.
-   * @param declarations
    */
   public declare(declarations: Type<any>[]): this
   public declare(oneOrManyDeclarations: MaybeArray<Type<any>>): this {
     return this.configure('declarations', oneOrManyDeclarations);
+  }
+
+  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): ComponentTestBed<ComponentType, Merge<Injected & { [k in key]: T }>> {
+    this.injected.set(token, name);
+    return this as any;
   }
 
   private configure(key: keyof TestModuleMetadata, itemS: MaybeArray<unknown>): this {

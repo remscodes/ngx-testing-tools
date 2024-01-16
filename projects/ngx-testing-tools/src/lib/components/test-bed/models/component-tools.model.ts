@@ -3,10 +3,13 @@ import { ComponentFixture } from '@angular/core/testing';
 import { ComponentActionTools } from './component-action-tools.model';
 import { ComponentQueryTools } from './component-query-tools.model';
 
-export interface ComponentTools<T> {
+export interface ComponentTools<T, I extends {}> {
   fixture: ComponentFixture<T>;
   component: T;
   injector: Injector;
+  query: ComponentQueryTools;
+  action: ComponentActionTools;
+  injected: I;
   /**
    * Will be removed in v3.
    *
@@ -14,6 +17,4 @@ export interface ComponentTools<T> {
    * @deprecated
    */
   debug: DebugElement;
-  query: ComponentQueryTools;
-  action: ComponentActionTools;
 }
