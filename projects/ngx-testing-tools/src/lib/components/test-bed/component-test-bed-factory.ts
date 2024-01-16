@@ -4,10 +4,10 @@ import { MaybeArray, Merge, NonEmptyString, Nullable } from '../../models/shared
 import { assertComponent } from './assert-component';
 import { assertComponentFixture } from './assert-fixture';
 import { getComponentAnnotation } from './component-annotation';
-import { InjectionStore } from './injected/models/injected-store.model';
 import { ComponentTestBed } from './models';
+import { InjectionStore } from './store';
 
-export class ComponentTestBedFactory<ComponentType, Injected extends InjectionStore<{}> = InjectionStore<{}>> {
+export class ComponentTestBedFactory<ComponentType, Injected extends InjectionStore = InjectionStore> {
 
   public constructor(
     private rootComponent: Type<ComponentType>,

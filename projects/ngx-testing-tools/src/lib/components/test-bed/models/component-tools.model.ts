@@ -1,8 +1,8 @@
 import { DebugElement, Injector } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
+import { InjectionStore } from '../store';
 import { ComponentActionTools } from './component-action-tools.model';
 import { ComponentQueryTools } from './component-query-tools.model';
-import { InjectionStore } from '../injected/models/injected-store.model';
 
 export interface ComponentTools<T, I extends {}> extends InjectionStore<I> {
   fixture: ComponentFixture<T>;

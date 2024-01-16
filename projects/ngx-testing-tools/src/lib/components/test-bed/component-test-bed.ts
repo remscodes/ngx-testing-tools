@@ -4,12 +4,12 @@ import { assertComponentFixture } from './assert-fixture';
 import { buildComponentActionTools } from './component-action-tools';
 import { buildComponentQueryTools } from './component-query-tools';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
-import { buildInjected } from './injected/injected';
-import { InjectionStore } from './injected/models/injected-store.model';
 import { ComponentExtraOptions } from './models';
 import { ComponentActionTools } from './models/component-action-tools.model';
 import { ComponentQueryTools } from './models/component-query-tools.model';
 import { ComponentAssertion, ComponentTestBed } from './models/component-test-bed.models';
+import { InjectionStore } from './store';
+import { buildInjected } from './store/injected';
 
 /**
  * Creates a new `ComponentTestBed` to configure the test bed and wrap the assertion test.
@@ -30,7 +30,7 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
 
       const query: ComponentQueryTools = buildComponentQueryTools(fixture);
       const action: ComponentActionTools = buildComponentActionTools(fixture);
-      const injected: InjectionStore<{}>['injected'] = buildInjected(factory);
+      const injected: InjectionStore['injected'] = buildInjected(factory);
 
       if (startDetectChanges) fixture.detectChanges();
 
