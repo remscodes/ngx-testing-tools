@@ -20,12 +20,12 @@ export class ComponentTestBedFactory<ComponentType> {
   private fixture: ComponentFixture<ComponentType> = null!;
 
   /**
-   * Import one standalone component, directive, pipe or module into the `ComponentTestBed`.
+   * Import one module or one standalone component / directive / pipe into the `ComponentTestBed`.
    * @param importation
    */
   public import(importation: Type<any> | ModuleWithProviders<any>): this
   /**
-   * Import many standalone components, directives, pipes or module into the `ComponentTestBed`.
+   * Import many modules or many standalone components / directives / pipes into the `ComponentTestBed`.
    * @param imports
    */
   public import(imports: (Type<any> | ModuleWithProviders<any>)[]): this

@@ -14,6 +14,7 @@ import { InnerComponent } from './inner.component';
 
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
+  
   beforeEach(() => tb.compile());
 
   tb.shouldCreate();
@@ -100,7 +101,7 @@ Returns the current `ComponentTestBed` instance.
 #### Parameters
 
 - oneOrManyImports
-  - type: `Type<any>` or `ModuleWithProviders<any>` or `(Type<any> | ModuleWithProviders<any>)[]`
+  - type: `Type<any>` or `Type<any>[]`.
   - description: the module(s) or standalone Component(s)
 
 #### Examples
@@ -140,6 +141,12 @@ beforeEach(() => tb.declare([AppFirstComponent, AppPipe]).compile());
 Provides injectable service(s) or other(s) provider(s) required into testing module for your current tests.
 
 Returns the current `ComponentTestBed` instance.
+
+#### Parameters
+
+- oneOrManyProviders
+  - type: `Provider` or `EnvironmentProviders` or `(Provider | EnvironmentProviders)[]`.
+  - description: the component to be described and from which the fixture will be created.
 
 #### Examples
 

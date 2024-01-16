@@ -10,7 +10,7 @@ import { ComponentQueryTools } from './models/component-query-tools.model';
 import { ComponentAssertion, ComponentTestBed } from './models/component-test-bed.models';
 
 /**
- * Create a new `ComponentTestBed` to wrap assertion test and provide high-level utilities.
+ * Creates a new `ComponentTestBed` to configure the test bed and wrap the assertion test.
  * @param rootComponent - The described Component.
  */
 export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T, {}> {
