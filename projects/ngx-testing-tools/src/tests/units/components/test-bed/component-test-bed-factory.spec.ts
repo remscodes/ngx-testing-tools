@@ -8,7 +8,7 @@ import { mockTestBedStatic } from '../../../fixtures/mocks/test-bed-static.mock'
 import { MockTestCompiler } from '../../../fixtures/mocks/test-compiler.mock';
 
 describe('ComponentTestBedFactory', () => {
-  let bedFactory: ComponentTestBedFactory<OuterComponent, {}>;
+  let bedFactory: ComponentTestBedFactory<OuterComponent>;
   let compiler: MockTestCompiler;
 
   beforeEach(() => {

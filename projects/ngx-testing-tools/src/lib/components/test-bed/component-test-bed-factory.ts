@@ -4,9 +4,10 @@ import { MaybeArray, Merge, NonEmptyString, Nullable } from '../../models/shared
 import { assertComponent } from './assert-component';
 import { assertComponentFixture } from './assert-fixture';
 import { getComponentAnnotation } from './component-annotation';
+import { InjectionStore } from './injected/models/injected-store.model';
 import { ComponentTestBed } from './models';
 
-export class ComponentTestBedFactory<ComponentType, Injected extends {}> {
+export class ComponentTestBedFactory<ComponentType, Injected extends InjectionStore<{}> = InjectionStore<{}>> {
 
   public constructor(
     private rootComponent: Type<ComponentType>,
@@ -29,6 +30,7 @@ export class ComponentTestBedFactory<ComponentType, Injected extends {}> {
    * Import many modules or many standalone components / directives / pipes into the `ComponentTestBed`.
    */
   public import(imports: (Type<any> | ModuleWithProviders<any>)[]): this
+  public import(oneOrManyImports: MaybeArray<Type<any> | ModuleWithProviders<any>>): this
   public import(oneOrManyImports: MaybeArray<Type<any> | ModuleWithProviders<any>>): this {
     return this.configure('imports', oneOrManyImports);
   }
@@ -41,6 +43,7 @@ export class ComponentTestBedFactory<ComponentType, Injected extends {}> {
    * Add many providers into the `ComponentTestBed`.
    */
   public provide(providers: (Provider | EnvironmentProviders)[]): this
+  public provide(oneOrManyProviders: MaybeArray<Provider | EnvironmentProviders>): this
   public provide(oneOrManyProviders: MaybeArray<Provider | EnvironmentProviders>): this {
     return this.configure('providers', oneOrManyProviders);
   }
@@ -53,11 +56,12 @@ export class ComponentTestBedFactory<ComponentType, Injected extends {}> {
    * Declare many non standalone components, directives and pipes into `ComponentTestBed`.
    */
   public declare(declarations: Type<any>[]): this
+  public declare(oneOrManyDeclarations: MaybeArray<Type<any>>): this
   public declare(oneOrManyDeclarations: MaybeArray<Type<any>>): this {
     return this.configure('declarations', oneOrManyDeclarations);
   }
 
-  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): ComponentTestBed<ComponentType, Merge<Injected & { [k in key]: T }>> {
+  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): ComponentTestBed<ComponentType, InjectionStore<Merge<Injected['injected'] & { [k in key]: T }>>> {
     this.injected.set(token, name);
     return this as any;
   }

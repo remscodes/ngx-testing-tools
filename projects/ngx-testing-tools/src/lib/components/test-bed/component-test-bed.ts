@@ -1,9 +1,11 @@
-import { ProviderToken, Type } from '@angular/core';
+import { Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { assertComponentFixture } from './assert-fixture';
 import { buildComponentActionTools } from './component-action-tools';
 import { buildComponentQueryTools } from './component-query-tools';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
+import { buildInjected } from './injected/injected';
+import { InjectionStore } from './injected/models/injected-store.model';
 import { ComponentExtraOptions } from './models';
 import { ComponentActionTools } from './models/component-action-tools.model';
 import { ComponentQueryTools } from './models/component-query-tools.model';
@@ -13,10 +15,10 @@ import { ComponentAssertion, ComponentTestBed } from './models/component-test-be
  * Creates a new `ComponentTestBed` to configure the test bed and wrap the assertion test.
  * @param rootComponent - The described Component.
  */
-export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T, {}> {
+export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T> {
   const factory = new ComponentTestBedFactory(rootComponent);
 
-  const tb: ComponentTestBed<T, any> = ((assertionCb: ComponentAssertion<T, any>, options: ComponentExtraOptions = {}) => {
+  const tb: ComponentTestBed<T> = ((assertionCb: ComponentAssertion<T, any>, options: ComponentExtraOptions = {}) => {
     const { startDetectChanges = true } = options;
 
     const expectationFn = (done: DoneFn = null!) => {
@@ -28,31 +30,41 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T,
 
       const query: ComponentQueryTools = buildComponentQueryTools(fixture);
       const action: ComponentActionTools = buildComponentActionTools(fixture);
-
-      const injected: Record<string, unknown> = {};
-      for (const [key, value] of factory['injected'].entries()) {
-        injected[value] = injector.get(key);
-      }
+      const injected: InjectionStore<{}>['injected'] = buildInjected(factory);
 
       if (startDetectChanges) fixture.detectChanges();
 
-      return assertionCb({ fixture, component, injector, injected, debug, query, action }, done);
+      return assertionCb({ fixture, component, injector, query, action, injected, debug }, done);
     };
 
     return (assertionCb.length > 1)
       ? (done: DoneFn) => expectationFn(done)
       : () => expectationFn();
-  }) as ComponentTestBed<T, any>;
+  }) as ComponentTestBed<T>;
 
-  tb.import = factory.import.bind(factory) as any;
-  tb.provide = factory.provide.bind(factory) as any;
-  tb.declare = factory.declare.bind(factory) as any;
-  tb.compile = factory.compile.bind(factory);
-  tb.shouldCreate = factory.shouldCreate.bind(factory);
-  tb.inject = (name: string, token: ProviderToken<unknown>) => {
+  return mergeFactoryToFn(factory, tb);
+}
+
+function mergeFactoryToFn<T>(factory: ComponentTestBedFactory<T, any>, tb: ComponentTestBed<T, any>): ComponentTestBed<T> {
+  tb.import = (imports) => {
+    factory.import(imports);
+    return tb;
+  };
+  tb.provide = (providers) => {
+    factory.provide(providers);
+    return tb;
+  };
+  tb.declare = (declarations) => {
+    factory.declare(declarations);
+    return tb;
+  };
+  tb.inject = (name, token) => {
     factory.inject(name, token);
     return tb;
   };
+
+  tb.shouldCreate = factory.shouldCreate.bind(factory);
+  tb.compile = factory.compile.bind(factory);
 
   return tb;
 }
