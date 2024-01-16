@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MyButtonDirective } from '../directives/my-button.directive';
+import { AppService } from '../services/app.service';
 import { InnerComponent } from './inner.component';
 
 @Component({
@@ -14,10 +15,13 @@ import { InnerComponent } from './inner.component';
   `,
   standalone: true,
   imports: [InnerComponent, MyButtonDirective],
+  providers: [AppService],
 })
 export class OuterComponent {
 
   public extraInner: boolean = false;
   public clicked: boolean = false;
   public innerClicked: boolean = false;
+
+  public service = inject(AppService);
 }
