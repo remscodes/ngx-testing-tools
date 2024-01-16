@@ -1,9 +1,10 @@
 import { ComponentTestBedFactory } from '../component-test-bed-factory';
+import { InjectionStore } from '../store';
 import { ComponentExtraOptions } from './component-extra-options.model';
 import { ComponentTools } from './component-tools.model';
 
-export interface ComponentTestBed<T> extends ComponentTestBedFn<T>, ComponentTestBedFactory<T> {}
+export interface ComponentTestBed<T, I extends InjectionStore = InjectionStore> extends ComponentTestBedFn<T, I>, ComponentTestBedFactory<T, I> {}
 
-export type ComponentTestBedFn<T> = (assertion: ComponentAssertion<T>, options?: ComponentExtraOptions) => jasmine.ImplementationCallback
+export type ComponentTestBedFn<T, I extends InjectionStore> = (assertion: ComponentAssertion<T, I['injected']>, options?: ComponentExtraOptions) => jasmine.ImplementationCallback
 
-export type ComponentAssertion<T> = (tools: ComponentTools<T>, done: DoneFn) => ReturnType<jasmine.ImplementationCallback>
+export type ComponentAssertion<T, I extends {}> = (tools: ComponentTools<T, I>, done: DoneFn) => ReturnType<jasmine.ImplementationCallback>
