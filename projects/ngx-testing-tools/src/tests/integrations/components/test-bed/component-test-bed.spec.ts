@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { Component, inject } from '@angular/core';
 import { componentTestBed } from '../../../../lib/components';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
@@ -7,24 +8,68 @@ import { AppService } from '../../../fixtures/services/app.service';
 
 describe('componentTestBed', () => {
 
-  describe('standalone', () => {
+  describe('standalone root component', () => {
+    const tb = componentTestBed(OuterComponent);
+    beforeEach(() => tb.compile());
+    tb.shouldCreate();
+  });
+
+  describe('non standalone root component', () => {
+    @Component({ template: `` })
+    class ClassicComponent {}
+
+    const tb = componentTestBed(ClassicComponent);
+    beforeEach(() => tb.compile());
+    tb.shouldCreate();
+  });
+
+  describe('import', () => {
+    const tb = componentTestBed(OuterComponent);
+
+    beforeEach(() => tb.import(HttpClientTestingModule).compile());
+
+    it('should import', tb(({ injector }) => {
+      const httpc = injector.get(HttpTestingController);
+      expect(httpc).toBeTruthy();
+    }));
+  });
+
+  describe('provide', () => {
+    @Component({ standalone: true, template: `` })
+    class AppComponent {
+      service = inject(AppService);
+    }
+
+    const tb = componentTestBed(AppComponent);
+    beforeEach(() => tb.provide(AppService).compile());
+
+    it('should provide', tb(({ injector }) => {
+      const service = injector.get(AppService);
+      expect(service).toBeTruthy();
+    }));
+  });
+
+  describe('declare', () => {
+    @Component({
+      template: `
+          <app-b/>
+      `,
+    })
+    class AComponent {}
+
+    @Component({ selector: 'app-b', template: `` })
+    class BComponent {}
+
+    const tb = componentTestBed(AComponent);
+    beforeEach(() => tb.declare(BComponent).compile());
+
+    tb.shouldCreate();
+  });
+
+  describe('query', () => {
     const tb = componentTestBed(OuterComponent);
 
     beforeEach(() => tb.compile());
-
-    tb.shouldCreate();
-
-    it('should click', tb(({ component, action }) => {
-      expect(component.clicked).toBeFalse();
-      action.click('#my-outer-button');
-      expect(component.clicked).toBeTrue();
-    }));
-
-    it('should emit InnerComponent output', tb(({ component, action }) => {
-      expect(component.innerClicked).toBeFalse();
-      action.emitOutput(InnerComponent, 'clicked', true);
-      expect(component.innerClicked).toBeTrue();
-    }));
 
     it('should find InnerComponent instance', tb(({ query }) => {
       expect(query.findComponent(InnerComponent)).toBeTruthy();
@@ -55,21 +100,24 @@ describe('componentTestBed', () => {
       fixture.detectChanges();
       validateArray(query.findAllDebugElements(InnerComponent), { size: 2 });
     }));
-
-    it('should support jasmine DoneFn', tb(({}, done: DoneFn) => {
-      expect().nothing();
-      done();
-    }));
   });
 
-  describe('classic', () => {
-    @Component({ template: `` })
-    class ClassicComponent {}
+  describe('action', () => {
+    const tb = componentTestBed(OuterComponent);
 
-    const tb = componentTestBed(ClassicComponent);
     beforeEach(() => tb.compile());
 
-    tb.shouldCreate();
+    it('should click', tb(({ component, action }) => {
+      expect(component.clicked).toBeFalse();
+      action.click('#my-outer-button');
+      expect(component.clicked).toBeTrue();
+    }));
+
+    it('should emit InnerComponent output', tb(({ component, action }) => {
+      expect(component.innerClicked).toBeFalse();
+      action.emitOutput(InnerComponent, 'clicked', true);
+      expect(component.innerClicked).toBeTrue();
+    }));
   });
 
   describe('inject method', () => {
@@ -78,11 +126,25 @@ describe('componentTestBed', () => {
 
     beforeEach(() => tb.compile());
 
-    tb.shouldCreate();
-
     it('should inject into test bed', tb(({ injected: { app } }) => {
       expect(app).toBeTruthy();
       expect(app.info).toBeTrue();
+    }));
+  });
+
+  describe('DoneFn and await/async support', () => {
+    const tb = componentTestBed(OuterComponent);
+
+    beforeEach(() => tb.compile());
+
+    it('should support jasmine DoneFn', tb(({}, done: DoneFn) => {
+      expect().nothing();
+      done();
+    }));
+
+    it('should support jasmine DoneFn', tb(async ({}) => {
+      await Promise.resolve();
+      expect().nothing();
     }));
   });
 });
