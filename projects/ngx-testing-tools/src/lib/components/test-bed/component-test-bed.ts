@@ -9,6 +9,10 @@ import { ComponentActionTools } from './models/component-action-tools.model';
 import { ComponentQueryTools } from './models/component-query-tools.model';
 import { ComponentAssertion, ComponentTestBed } from './models/component-test-bed.models';
 
+/**
+ * Creates a new `ComponentTestBed` to configure the test bed and wrap the assertion test.
+ * @param rootComponent - The described Component.
+ */
 export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T> {
   const factory = new ComponentTestBedFactory(rootComponent);
 
