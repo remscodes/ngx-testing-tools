@@ -13,7 +13,7 @@ import { ComponentAssertion, ComponentTestBed } from './models/component-test-be
  * Creates a new `ComponentTestBed` to configure the test bed and wrap the assertion test.
  * @param rootComponent - The described Component.
  */
-export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T, {}> {
+export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T> {
   const factory = new ComponentTestBedFactory(rootComponent);
 
   const tb: ComponentTestBed<T> = ((assertionCb: ComponentAssertion<T>, options: ComponentExtraOptions = {}) => {
