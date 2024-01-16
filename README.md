@@ -53,6 +53,7 @@ describe('AppComponent', () => {
 ```ts
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
+  
   beforeEach(() => tb.compile());
 
   tb.shouldCreate();
