@@ -7,6 +7,12 @@ export interface ComponentTools<T> {
   fixture: ComponentFixture<T>;
   component: T;
   injector: Injector;
+  /**
+   * Will be removed in v3.
+   *
+   * Use `fixture.debugElement` instead.
+   * @deprecated
+   */
   debug: DebugElement;
   query: ComponentQueryTools;
   action: ComponentActionTools;
