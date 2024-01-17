@@ -10,7 +10,7 @@ describe('componentTestBed', () => {
 
   describe('standalone root component', () => {
     const tb = componentTestBed(OuterComponent);
-    beforeEach(() => tb.compile());
+    tb.compileEach();
     tb.shouldCreate();
   });
 
@@ -19,8 +19,31 @@ describe('componentTestBed', () => {
     class ClassicComponent {}
 
     const tb = componentTestBed(ClassicComponent);
-    beforeEach(() => tb.compile());
+    tb.compileEach();
     tb.shouldCreate();
+  });
+
+  describe('setup', () => {
+
+    describe('beforeEach', () => {
+      const tb = componentTestBed(OuterComponent)
+        .inject('app', AppService);
+
+      tb.compileEach();
+      tb.shouldCreate();
+
+      beforeEach(tb.setup(({ component }) => {
+        component.innerClicked = true;
+      }));
+
+      it('should 1', tb(({ component, injected: {} }) => {
+        expect(component.innerClicked).toBeTrue();
+      }));
+
+      it('should 2', tb(({ component, injected: {} }) => {
+        expect(component.innerClicked).toBeTrue();
+      }));
+    });
   });
 
   describe('import', () => {

@@ -4,7 +4,7 @@ import { InjectionStore } from '../store';
 import { ComponentActionTools } from './component-action-tools.model';
 import { ComponentQueryTools } from './component-query-tools.model';
 
-export interface ComponentTools<T, I extends {}> extends InjectionStore<I> {
+export interface ComponentTools<T, I extends {} = {}> extends InjectionStore<I> {
   fixture: ComponentFixture<T>;
   component: T;
   injector: Injector;
