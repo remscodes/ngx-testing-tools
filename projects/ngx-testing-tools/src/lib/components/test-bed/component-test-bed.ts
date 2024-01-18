@@ -1,15 +1,8 @@
 import { Type } from '@angular/core';
-import { ComponentFixture } from '@angular/core/testing';
-import { assertComponentFixture } from './assert-fixture';
-import { buildComponentActionTools } from './component-action-tools';
-import { buildComponentQueryTools } from './component-query-tools';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
-import { ComponentExtraOptions } from './models';
-import { ComponentActionTools } from './models/component-action-tools.model';
-import { ComponentQueryTools } from './models/component-query-tools.model';
+import { buildComponentTools } from './component-tools';
+import { ComponentExtraOptions, ComponentTools } from './models';
 import { ComponentAssertion, ComponentTestBed } from './models/component-test-bed.models';
-import { InjectionStore } from './store';
-import { buildInjected } from './store/injected';
 
 /**
  * Creates a new `ComponentTestBed` to configure the test bed and wrap the assertion test.
@@ -22,19 +15,11 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
     const { startDetectChanges = true } = options;
 
     const expectationFn = (done: DoneFn = null!) => {
-      const fixture: ComponentFixture<T> = factory['fixture'];
-      assertComponentFixture(fixture);
+      const tools: ComponentTools<T> = buildComponentTools(factory);
 
-      const { componentInstance: component, debugElement: debug } = fixture;
-      const { injector } = debug;
+      if (startDetectChanges) tools.fixture.detectChanges();
 
-      const query: ComponentQueryTools = buildComponentQueryTools(fixture);
-      const action: ComponentActionTools = buildComponentActionTools(fixture);
-      const injected: InjectionStore['injected'] = buildInjected(factory);
-
-      if (startDetectChanges) fixture.detectChanges();
-
-      return assertionCb({ fixture, component, injector, query, action, injected, debug }, done);
+      return assertionCb(tools, done);
     };
 
     return (assertionCb.length > 1)
@@ -45,16 +30,16 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
   return mergeFactoryToFn(factory, tb);
 }
 
-function mergeFactoryToFn<T>(factory: ComponentTestBedFactory<T, any>, tb: ComponentTestBed<T, any>): ComponentTestBed<T> {
-  tb.import = (imports) => {
+function mergeFactoryToFn<T>(factory: ComponentTestBedFactory<T>, tb: ComponentTestBed<T, any>): ComponentTestBed<T> {
+  tb.import = (imports: any) => {
     factory.import(imports);
     return tb;
   };
-  tb.provide = (providers) => {
+  tb.provide = (providers: any) => {
     factory.provide(providers);
     return tb;
   };
-  tb.declare = (declarations) => {
+  tb.declare = (declarations: any) => {
     factory.declare(declarations);
     return tb;
   };
@@ -63,8 +48,10 @@ function mergeFactoryToFn<T>(factory: ComponentTestBedFactory<T, any>, tb: Compo
     return tb;
   };
 
-  tb.shouldCreate = factory.shouldCreate.bind(factory);
   tb.compile = factory.compile.bind(factory);
+  tb.compileEach = factory.compileEach.bind(factory);
+  tb.setup = factory.setup.bind(factory);
+  tb.shouldCreate = factory.shouldCreate.bind(factory);
 
   return tb;
 }

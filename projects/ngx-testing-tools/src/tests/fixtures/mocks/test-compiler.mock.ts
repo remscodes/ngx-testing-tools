@@ -1,11 +1,11 @@
-import { Provider, Type } from '@angular/core';
 import { TestModuleMetadata } from '@angular/core/testing';
+import { AnyProvider, Declaration, Importation } from '../../../lib/components/test-bed/models/metadata-type.model';
 
 export class MockTestCompiler {
 
-  public declarations: Type<any>[] = [];
-  public imports: Type<any>[] = [];
-  public providers: Provider[] = [];
+  public declarations: Declaration[] = [];
+  public imports: Importation[] = [];
+  public providers: AnyProvider[] = [];
 
   public configureTestingModule(moduleDef: TestModuleMetadata): void {
     if (Array.isArray(moduleDef.declarations)) {
