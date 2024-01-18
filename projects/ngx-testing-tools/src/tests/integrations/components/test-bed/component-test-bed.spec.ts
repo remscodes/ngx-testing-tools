@@ -34,8 +34,9 @@ describe('componentTestBed', () => {
       component.innerClicked = true;
     }));
 
-    afterEach(tb.setup(({ component }) => {
+    afterEach(tb.setup(({ component }, done) => {
       component.innerClicked = false;
+      done()
     }));
 
     it('should be true', tb(({ component }) => {

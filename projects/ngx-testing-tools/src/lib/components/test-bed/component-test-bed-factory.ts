@@ -26,9 +26,9 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
   private testBed: TestBedStatic = TestBed;
   private fixture: ComponentFixture<ComponentType> = null!;
 
-  private imports: Importation[] = [];
-  private declarations: Declaration[] = [];
-  private providers: AnyProvider[] = [];
+  private imports: Set<Importation> = new Set();
+  private declarations: Set<Declaration> = new Set();
+  private providers: Set<AnyProvider> = new Set();
 
   private injectedMap: Map<ProviderToken<any>, string> = new Map();
 
@@ -41,7 +41,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
    */
   public import(imports: Importation[]): this
   public import(oneOrManyImports: MaybeArray<Importation>): this {
-    this.imports.push(...makeArray(oneOrManyImports));
+    makeArray(oneOrManyImports).forEach(v => this.imports.add(v));
     return this;
   }
 
@@ -54,7 +54,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
    */
   public provide(providers: AnyProvider[]): this
   public provide(oneOrManyProviders: MaybeArray<AnyProvider>): this {
-    this.providers.push(...makeArray(oneOrManyProviders));
+    makeArray(oneOrManyProviders).forEach(v => this.providers.add(v));
     return this;
   }
 
@@ -67,15 +67,15 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
    */
   public declare(declarations: Declaration[]): this
   public declare(oneOrManyDeclarations: MaybeArray<Declaration>): this {
-    this.declarations.push(...makeArray(oneOrManyDeclarations));
+    makeArray(oneOrManyDeclarations).forEach(v => this.declarations.add(v));
     return this;
   }
 
   private async configureModule(): Promise<void> {
     this.testBed.configureTestingModule({
-      imports: this.imports,
-      declarations: this.declarations,
-      providers: this.providers,
+      imports: [...this.imports.values()],
+      declarations: [...this.declarations.values()],
+      providers: [...this.providers.values()],
     });
 
     await this.testBed.compileComponents();
