@@ -1,6 +1,8 @@
 import { Component, ProviderToken, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic } from '@angular/core/testing';
-import { MaybeArray, PrettyMerge, NonEmptyString, Nullable } from '../../models/shared.model';
+import { shouldCreate } from '../../common/expectation/should-create';
+import { MaybeArray, NonEmptyString, Nullable, PrettyMerge } from '../../models/shared.model';
+import { makeArray } from '../../util/array.util';
 import { assertComponent } from './assert-component';
 import { assertComponentFixture } from './assert-fixture';
 import { getComponentAnnotation } from './component-annotation';
@@ -125,13 +127,9 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
    * **To be called outside jasmine `it` callback.**
    */
   public shouldCreate(): void {
-    it('should create', () => {
+    shouldCreate(() => {
       assertComponentFixture(this.fixture);
-      expect(this.fixture.componentInstance).toBeTruthy();
+      return this.fixture.componentInstance;
     });
   }
-}
-
-function makeArray<T>(itemS: MaybeArray<T>): T[] {
-  return (Array.isArray(itemS)) ? itemS : [itemS];
 }
