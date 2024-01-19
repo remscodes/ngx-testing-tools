@@ -30,7 +30,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
   private declarations: Set<Declaration> = new Set();
   private providers: Set<AnyProvider> = new Set();
 
-  private injectedMap: Map<ProviderToken<any>, string> = new Map();
+  private injectedMap: Map<string, ProviderToken<any>> = new Map();
 
   /**
    * Import one module or one standalone component / directive / pipe into the `ComponentTestBed`.
@@ -89,7 +89,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
    * @param token the provider token.
    */
   public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): ComponentTestBed<ComponentType, InjectionStore<Merge<Store['injected'] & { [k in key]: T }>>> {
-    this.injectedMap.set(token, name);
+    this.injectedMap.set(name, token);
     return this as any;
   }
 
