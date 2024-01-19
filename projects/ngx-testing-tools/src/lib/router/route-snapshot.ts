@@ -6,12 +6,13 @@ export interface RouteSnapshotConfig {
   queryParams?: Params;
 }
 
-export function buildRouteSnapshot(config?: RouteSnapshotConfig): ActivatedRouteSnapshot {
+export function buildRouteSnapshot(config: RouteSnapshotConfig = {}): ActivatedRouteSnapshot {
+  const { data, params, queryParams } = config;
   const route = new ActivatedRouteSnapshot();
 
-  if (config?.data) route.data = config.data;
-  if (config?.params) route.params = config.params;
-  if (config?.queryParams) route.queryParams = config.queryParams;
+  if (data) route.data = data;
+  if (params) route.params = params;
+  if (queryParams) route.queryParams = queryParams;
 
   return route;
 }
