@@ -59,11 +59,11 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
   }
 
   /**
-   * Declare one non standalone component, directive or pipe into the `ComponentTestBed`.
+   * Declare one non-standalone component, directive or pipe into the `ComponentTestBed`.
    */
   public declare(declaration: Declaration): this
   /**
-   * Declare many non standalone components, directives and pipes into `ComponentTestBed`.
+   * Declare many non-standalone components, directives and pipes into `ComponentTestBed`.
    */
   public declare(declarations: Declaration[]): this
   public declare(oneOrManyDeclarations: MaybeArray<Declaration>): this {
@@ -109,7 +109,9 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
   }
 
   /**
-   * Not compatible with `beforeAll` and `afterAll`.
+   * Setups extra stuffs using the `ComponentTestBed` enhanced tools.
+   *
+   * **Works only for `beforeEach` and `afterEach`**.
    */
   public setup(action: ComponentSetup<ComponentType, Store['injected']>): jasmine.ImplementationCallback {
     return (action.length > 1)

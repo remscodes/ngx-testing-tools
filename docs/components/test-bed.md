@@ -13,10 +13,11 @@ import { AppService } from './app.service';
 import { InnerComponent } from './inner.component';
 
 describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent);
-  
-  beforeEach(() => tb.compile());
+  const tb = componentTestBed(AppComponent)
+    .provide(AppService)
+    .inject('service', AppService);
 
+  tb.compileEach()
   tb.shouldCreate();
 
   it('should update `clicked` on button click', tb(({ component, action }) => {
@@ -25,14 +26,13 @@ describe('AppComponent', () => {
     expect(component.clicked).toBeTrue();
   }));
 
-  it('should store in AppService when InnerComponent input is true', tb(({ query, fixture, injector }) => {
+  it('should store in AppService when InnerComponent state is true', tb(({ query, fixture, injected: { service } }) => {
     const inner = query.findComponent(InnerComponent);
-    inner.myInput = true;
+    inner.myState = true;
 
     fixture.detectChanges();
 
-    const appService = injector.get(AppService);
-    expect(appService.something).toBeEqual({ status: 'OK' });
+    expect(service.status).toBeEqual({ status: 'OK' });
   }));
 });
 ```
@@ -41,16 +41,18 @@ describe('AppComponent', () => {
 
 - [componentTestBed(…)](#componenttestbedrootcomponent)
 - [ComponentTestBed](#componenttestbed-1)
+  - [import(..)](#importoneormanyimports)
+  - [declare(..)](#declareoneormanydeclarations)
+  - [provide(..)](#provideoneormanyproviders)
+  - [compileEach()](#compileeach)
   - [compile()](#compile)
-  - [import(…)](#importoneormanyimports)
-  - [declare(…)](#declareoneormanydeclarations)
-  - [provide(…)](#provideoneormanyproviders)
   - [shouldCreate()](#shouldcreate)
-  - [call(…)](#assertion-options)
+  - [(..) (direct call)](#assertion-options)
+  - [setup(..)](#setupaction)
 
 ## componentTestBed(rootComponent)
 
-Return the `ComponentTestBed` associated to the described component.
+Returns the `ComponentTestBed` associated to the described component.
 
 It will check that the provided `rootComponent` is definitely a component.
 
@@ -74,23 +76,7 @@ const tb = componentTestBed(MyButtonDirective); // Not OK, throws an Error
 
 ## ComponentTestBed
 
-Embed all methods required to configure the testing module and to wrap every expectation functions.
-
-### compile()
-
-Compiles the `ComponentTestBed` to be able to provide tools into tb()'s callback (see [below](#assertion-options)).
-
-**It has to be used into `beforeEach()` setup.** 
-
-(Or into `before()` setup if you don't want to create again the fixture for each test)
-
-Returns a `Promise<void>`.
-
-#### Usage
-
-```ts
-beforeEach(() => tb.compile());
-```
+Includes all the methods required to configure the test module and wrap every expectation functions.
 
 ### import(oneOrManyImports)
 
@@ -102,21 +88,21 @@ Returns the current `ComponentTestBed` instance.
 
 - oneOrManyImports
   - type: `Type<any>` or `Type<any>[]`.
-  - description: the module(s) or standalone Component(s)
+  - description: the module(s) or standalone component(s).
 
-#### Examples
-
-```ts
-beforeEach(() => tb.import(InnerComponent).compile());
-```
+#### Example
 
 ```ts
-beforeEach(() => tb.import([InnerComponent, MaterialModule]).compile());
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .import(SharedModule)
+    .import([InnerComponent, MaterialModule]);
+});
 ```
 
 ### declare(oneOrManyDeclarations)
 
-Declares required no standalone component(s), directive(s) and pipe(s) into testing module for your current tests.
+Declares required non-standalone component(s), directive(s) and pipe(s) into testing module for your current tests.
 
 Returns the current `ComponentTestBed` instance.
 
@@ -124,16 +110,16 @@ Returns the current `ComponentTestBed` instance.
 
 - oneOrManyDeclarations
   - type: `Type<any>` or `Type<any>[]`.
-  - description: the component(s), directive(s) and pipe(s) (no standalone).
+  - description: the component(s), directive(s) and pipe(s) (non-standalone).
 
-#### Examples
-
-```ts
-beforeEach(() => tb.declare(AppFirstComponent).compile());
-```
+#### Example
 
 ```ts
-beforeEach(() => tb.declare([AppFirstComponent, AppPipe]).compile());
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .declare(AppFirstComponent)
+    .declare([AppSecondComponent, AppPipe]);
+});
 ```
 
 ### provide(oneOrManyProviders)
@@ -146,21 +132,57 @@ Returns the current `ComponentTestBed` instance.
 
 - oneOrManyProviders
   - type: `Provider` or `EnvironmentProviders` or `(Provider | EnvironmentProviders)[]`.
-  - description: the component to be described and from which the fixture will be created.
+  - description: the providers.
 
-#### Examples
+#### Example
 
 ```ts
-beforeEach(() => tb.provide(AppService).compile());
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .provide(AppService)
+    .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
+});
 ```
 
+### compileEach()
+
+Compiles the `ComponentTestBed` to be able to provide tools into `tb()`'s callback (see [below](#assertion-options)).
+
+**It has to be used just after the `ComponentTestBed` creation.**
+
+#### Usage
+
 ```ts
-beforeEach(() => tb.provide([AppService, { provide: MY_TOKEN, useValue: mockValue }]).compile());
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent);
+  tb.compileEach();
+});
+```
+
+### compile()
+
+Use it if you need to do extra setups before compiling the `ComponentTestBed`.
+
+**It has to be used into `beforeEach()` setup.**
+
+Returns a `Promise<void>`.
+
+#### Usage
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent);
+
+  beforeEach(() => {
+    // (..) my extra setup
+    return tb.compile();
+  });
+});
 ```
 
 ### shouldCreate()
 
-Set up the redondant "should create" test generated by angular schematic.
+Sets up the redondant "should create" test generated by Angular schematic.
 
 **It must be used outside an `it` test.**
 
@@ -168,14 +190,47 @@ Set up the redondant "should create" test generated by angular schematic.
 
 ```ts
 describe('AppComponent', () => {
-  // (…) setup
+  const tb = componentTestBed(AppComponent);
+  tb.compileEach();
   tb.shouldCreate();
+});
+```
+
+### inject(name, token)
+
+Inject an instance by token into the `ComponentTestBed`.
+
+Retrieve it into the `ComponentTools.injected` by autocompletion.
+
+#### Parameters
+
+- name
+  - type: `string`.
+  - description: the name of the injection.
+- token
+  - type: `TokenProvider<T>`.
+  - description: the token provider.
+
+#### Example
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .inject('auth', AuthService)
+    .import(HttpClientTestingModule)
+    .inject('httpc', HttpTestingController);
+
+  tb.compileEach();
+  
+  it('should do something', tb(({ injected: { auth, httpc }}) => {
+    // (…) expectations
+  }));
 });
 ```
 
 ### (assertion, options?)
 
-Wraps the function of the `it` assertion and provides enhanced tools for testing component expectations.
+Wraps the `it` assertion function and provides enhanced tools for testing component expectations.
 
 It supports the jasmine `DoneFn` and `async`/`await` (check examples below).
 
@@ -189,12 +244,30 @@ It automatically starts the assertion by running `fixture.detectChanges()` (can 
 
 ```ts
 interface ComponentTools<T> {
+  /**
+   * The described component fixture.
+   */
   fixture: ComponentFixture<T>;
+  /**
+   * The described component instance.
+   */
   component: T;
+  /**
+   * The fixture injector.
+   */
   injector: Injector;
-  debug: DebugElement;
+  /**
+   * Enhanced tools to query elements.
+   */
   query: ComponentQueryTools;
+  /**
+   * Enhanced tools to perform action on elements.
+   */
   action: ComponentActionTools;
+  /**
+   * Store from which we can retrieve injection instances created by the `inject()` function.
+   */
+  injected: { [name: string]: any };
 }
 ```
 
@@ -220,19 +293,31 @@ it('should do something', tb(({ component, fixture, injector, action, query }) =
   action.click('#my-button');
 
   const appService = injector.get(AppService);
-  // (…)
+  // (…) expectations
 })); 
 ```
 
 ```ts
 it('should do something', tb(({ component, fixture }, done) => {
-  // (…)
+  // (…) expectations
   done();
 }, { startDetectChanges: false })); 
 ```
 
 ```ts
 it('should do something', tb(async ({ component, fixture }) => {
-  // (…) async code 
+  // (…) async expectations 
 })); 
+```
+
+### setup(action)
+
+
+
+#### Parameters
+
+#### Example
+
+```ts
+
 ```
