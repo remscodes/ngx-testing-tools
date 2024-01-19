@@ -8,7 +8,7 @@ export type MaybeArray<T> =
 
 export type NonEmptyString<T extends string> = T extends '' ? never : T;
 
-export type Merge<T extends {}> = {
+export type PrettyMerge<T extends {}> = {
   [K in keyof T]: T[K];
 } & {};
 
