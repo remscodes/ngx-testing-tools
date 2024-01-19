@@ -14,7 +14,7 @@ export function buildComponentTools(factory: ComponentTestBedFactory<any>): Comp
   const fixture: ComponentFixture<unknown> = factory['fixture'];
   assertComponentFixture(fixture);
 
-  const injectedMap: Map<ProviderToken<any>, string> = factory['injectedMap'];
+  const injectedMap: Map<string, ProviderToken<any>> = factory['injectedMap'];
 
   const { componentInstance: component, debugElement: debug } = fixture;
   const { injector } = debug;

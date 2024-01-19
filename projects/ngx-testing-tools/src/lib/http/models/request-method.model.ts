@@ -6,5 +6,4 @@ export type RequestMethod =
   | 'POST'
   | 'PUT'
   | 'PATCH'
-  // | 'CONNECT'
-  // | 'TRACE'
+  | 'JSONP'

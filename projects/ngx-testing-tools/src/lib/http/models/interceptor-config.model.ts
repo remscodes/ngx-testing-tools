@@ -1,6 +1,8 @@
+import { RequestMethod } from './request-method.model';
+
 export interface SuccessInterceptorConfig {
-  url: string;
-  method?: 'GET' | 'HEAD' | 'DELETE' | 'OPTIONS' | 'JSONP';
+  url?: string;
+  method?: RequestMethod;
 }
 
 export interface ErrorInterceptorConfig {

@@ -3,10 +3,10 @@ import { assertComponent } from '../../../../lib/components/test-bed/assert-comp
 import { getFirstAnnotation } from '../../../fixtures/helpers/annotations/get-first-annotation';
 
 describe('assertComponent', () => {
-  @Component({ template: `` })
+  @Component({ template: ``, standalone: true })
   class AppComponent {}
 
-  @Directive({ selector: '' })
+  @Directive({ selector: '', standalone: true })
   class AppDirective {}
 
   it('should pass', () => {

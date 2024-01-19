@@ -1,6 +1,6 @@
 import { Component, ProviderToken, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic } from '@angular/core/testing';
-import { MaybeArray, Merge, NonEmptyString, Nullable } from '../../models/shared.model';
+import { MaybeArray, PrettyMerge, NonEmptyString, Nullable } from '../../models/shared.model';
 import { assertComponent } from './assert-component';
 import { assertComponentFixture } from './assert-fixture';
 import { getComponentAnnotation } from './component-annotation';
@@ -30,7 +30,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
   private declarations: Set<Declaration> = new Set();
   private providers: Set<AnyProvider> = new Set();
 
-  private injectedMap: Map<ProviderToken<any>, string> = new Map();
+  private injectedMap: Map<string, ProviderToken<any>> = new Map();
 
   /**
    * Import one module or one standalone component / directive / pipe into the `ComponentTestBed`.
@@ -88,8 +88,8 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
    * @param name the key to access the instance.
    * @param token the provider token.
    */
-  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): ComponentTestBed<ComponentType, InjectionStore<Merge<Store['injected'] & { [k in key]: T }>>> {
-    this.injectedMap.set(token, name);
+  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): ComponentTestBed<ComponentType, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
+    this.injectedMap.set(name, token);
     return this as any;
   }
 
