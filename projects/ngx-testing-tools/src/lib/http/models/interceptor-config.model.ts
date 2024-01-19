@@ -1,7 +1,7 @@
 import { RequestMethod } from './request-method.model';
 
 export interface SuccessInterceptorConfig {
-  url: string;
+  url?: string;
   method?: RequestMethod;
 }
 
