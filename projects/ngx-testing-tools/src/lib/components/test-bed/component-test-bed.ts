@@ -11,26 +11,26 @@ import { ComponentAssertion, ComponentTestBed } from './models/component-test-be
 export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T> {
   const factory = new ComponentTestBedFactory(rootComponent);
 
-  const tb: ComponentTestBed<T> = ((assertionCb: ComponentAssertion<T, any>, options: ComponentExtraOptions = {}) => {
+  const tb: ComponentTestBed<T> = ((assertion: ComponentAssertion<T, any>, options: ComponentExtraOptions = {}) => {
     const { startDetectChanges = true } = options;
 
-    const expectationFn = (done: DoneFn = null!) => {
+    const assertionWrapper = (done: DoneFn = null!) => {
       const tools: ComponentTools<T> = buildComponentTools(factory);
 
       if (startDetectChanges) tools.fixture.detectChanges();
 
-      return assertionCb(tools, done);
+      return assertion(tools, done);
     };
 
-    return (assertionCb.length > 1)
-      ? (done: DoneFn) => expectationFn(done)
-      : () => expectationFn();
+    return (assertion.length > 1)
+      ? (done: DoneFn) => assertionWrapper(done)
+      : () => assertionWrapper();
   }) as ComponentTestBed<T>;
 
-  return mergeFactoryToFn(factory, tb);
+  return mergeFactoryToTestBed(factory, tb);
 }
 
-function mergeFactoryToFn<T>(factory: ComponentTestBedFactory<T>, tb: ComponentTestBed<T, any>): ComponentTestBed<T> {
+function mergeFactoryToTestBed<T>(factory: ComponentTestBedFactory<T>, tb: ComponentTestBed<T, any>): ComponentTestBed<T> {
   tb.import = (imports: any) => {
     factory.import(imports);
     return tb;
