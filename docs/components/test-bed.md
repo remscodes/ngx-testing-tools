@@ -320,6 +320,7 @@ Works only for `beforeEach` and `afterEach`.
 
 - action
   - type: `(tools: ComponentTools, done: DoneFn) => (void | PromiseLike<any>)`.
+  - description: action callback.
 
 #### Example
 
