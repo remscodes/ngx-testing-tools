@@ -54,19 +54,18 @@ describe('AppComponent', () => {
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
   
-  beforeEach(() => tb.compile());
-
+  tb.compileEach();
   tb.shouldCreate();
 
   it('should render title', tb(({ component, query }) => {
     expect(component.title).toEqual('app-v17');
-    const textContent = query.findElement('.content span').textContent;
-    expect(textContent).toContain('app-v17 app is running!');
+    const span = query.findElement('.content span');
+    expect(span.textContent).toContain('app-v17 app is running!');
   }));
 });
 ```
 
-`ComponentTestBed` gives you access to utilities (`query` and `action`) and more.
+The `ComponentTestBed` gives you access to utilities (`query` and `action`) and more.
 
 These utilities can also be accessed by importing them directly, but they need the current `fixture` as an extra parameter.
 

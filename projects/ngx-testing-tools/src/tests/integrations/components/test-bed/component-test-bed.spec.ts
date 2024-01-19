@@ -15,7 +15,7 @@ describe('componentTestBed', () => {
     tb.shouldCreate();
   });
 
-  describe('non standalone root component', () => {
+  describe('non-standalone root component', () => {
     @Component({ template: `` })
     class ClassicComponent {}
 
