@@ -1,6 +1,6 @@
 {
   "name": "ngx-testing-tools",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "description": "Provides high-level utilities and reduces boilerplate for testing Angular applications",
   "license": "MIT",
   "author": {
@@ -18,10 +18,10 @@
     "node": "^18.10.0 || ^20.9.0"
   },
   "peerDependencies": {
-    "@angular/common": "^15.2.0 || ^16.0.0 || ^17.0.0",
-    "@angular/core": "^15.2.0 || ^16.0.0 || ^17.0.0",
-    "@angular/platform-browser": "^15.2.0 || ^16.0.0 || ^17.0.0",
-    "@angular/router": "^15.2.0 || ^16.0.0 || ^17.0.0",
+    "@angular/common": "~15.2.0 || ^16.0.0 || ^17.0.0",
+    "@angular/core": "~15.2.0 || ^16.0.0 || ^17.0.0",
+    "@angular/platform-browser": "~15.2.0 || ^16.0.0 || ^17.0.0",
+    "@angular/router": "~15.2.0 || ^16.0.0 || ^17.0.0",
     "rxjs": "^6.5.3 || ^7.4.0"
   },
   "dependencies": {

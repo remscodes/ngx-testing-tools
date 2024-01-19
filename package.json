@@ -1,6 +1,6 @@
 {
   "name": "ngx-testing-tools-sources",
-  "version": "2.0.1",
+  "version": "2.1.0",
   "private": true,
   "description": "Provides high-level utilities and reduces boilerplate for testing Angular applications",
   "license": "MIT",
@@ -59,7 +59,6 @@
     "angular",
     "test",
     "testing",
-    "ngx",
     "component",
     "directive",
     "service",
@@ -68,7 +67,8 @@
     "jasmine",
     "pipe",
     "tools",
-    "testbed"
+    "testbed",
+    "ngx"
   ],
   "packageManager": "pnpm@8.14.1"
 }
