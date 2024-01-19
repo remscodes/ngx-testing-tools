@@ -1,1 +1,1 @@
-export { testPipeValues } from './pipe';
+export { testPipeValues } from './test-pipe-values';

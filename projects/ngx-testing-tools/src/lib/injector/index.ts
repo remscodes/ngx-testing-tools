@@ -1,1 +1,1 @@
-export { fromInjector } from './injector';
+export { fromInjector } from './from-injector';

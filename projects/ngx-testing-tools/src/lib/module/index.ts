@@ -1,1 +1,1 @@
-export { expectModuleToCreate } from './module';
+export { expectModuleToCreate } from './export-module-to-create';
