@@ -101,6 +101,10 @@ Similar to `ComponentTestBed` :
 - `PipeTestBed`
 - `RouterTestBed`
 
+## Version compatibility
+
+Angular `v15.2.x`, `v16.x` and `v17.x`. 
+
 ## License
 
 [MIT](LICENSE) © Rémy Abitbol.
