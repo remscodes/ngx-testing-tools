@@ -73,7 +73,7 @@ describe('ComponentTestBedFactory', () => {
   });
 
   it('should declare one', async () => {
-    @Component({ template: `` })
+    @Component({ template: ``, standalone: true })
     class TestComponent {}
 
     await factory
@@ -84,10 +84,10 @@ describe('ComponentTestBedFactory', () => {
   });
 
   it('should declare many', async () => {
-    @Component({ template: `` })
+    @Component({ template: ``, standalone: true })
     class TestComponent1 {}
 
-    @Component({ template: `` })
+    @Component({ template: ``, standalone: true })
     class TestComponent2 {}
 
     await factory
@@ -98,7 +98,7 @@ describe('ComponentTestBedFactory', () => {
   });
 
   it('should chain methods', async () => {
-    @Component({ template: `` })
+    @Component({ template: ``, standalone: true })
     class TestComponent {}
 
     @Injectable()

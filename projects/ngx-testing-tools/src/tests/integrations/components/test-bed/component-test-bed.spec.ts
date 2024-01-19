@@ -16,7 +16,7 @@ describe('componentTestBed', () => {
   });
 
   describe('non-standalone root component', () => {
-    @Component({ template: `` })
+    @Component({ template: ``, standalone: false })
     class ClassicComponent {}
 
     const tb = componentTestBed(ClassicComponent);
@@ -57,7 +57,7 @@ describe('componentTestBed', () => {
   });
 
   describe('provide', () => {
-    @Component({ standalone: true, template: `` })
+    @Component({ template: ``, standalone: true })
     class AppComponent {
       service = inject(AppService);
     }
@@ -78,10 +78,11 @@ describe('componentTestBed', () => {
       template: `
           <app-b/>
       `,
+      standalone: false,
     })
     class AComponent {}
 
-    @Component({ selector: 'app-b', template: `` })
+    @Component({ selector: 'app-b', template: ``, standalone: false })
     class BComponent {}
 
     const tb = componentTestBed(AComponent)
