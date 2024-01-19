@@ -1,1 +1,1 @@
-export { checkResolver } from './resolver';
+export { checkResolver } from './check-resolver';
