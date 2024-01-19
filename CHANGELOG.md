@@ -1,3 +1,23 @@
+# 2.1.0 (2024-01-19)
+
+### Features
+
+- `tb.compileEach()`.
+- `tb.setup(..)`.
+- `tb.inject(..)`.
+- Angular `17.x` compatibility (instead of `17.0.x`).
+
+### Improvements
+
+- Docs.
+- Tests.
+
+### Deprecation
+
+- `ComponentTools.debug`.
+
+> Commits : https://github.com/remscodes/ngx-testing-tools/commits/v2.1.0
+
 # 2.0.1 (2024-01-14)
 
 ### Fixes
