@@ -1,12 +1,10 @@
-import { ProviderToken } from '@angular/core';
-import { ComponentFixture } from '@angular/core/testing';
-import { fromInjector } from '../../../injector';
+import { Injector, ProviderToken } from '@angular/core';
 import { InjectionStore } from './models/injected-store.model';
 
-export function buildInjected(fixture: ComponentFixture<unknown>, injectedMap: Map<string, ProviderToken<any>>): InjectionStore['injected'] {
+export function buildInjected(injector: Injector, injectedMap: Map<string, ProviderToken<any>>): InjectionStore['injected'] {
   const injected: InjectionStore<any>['injected'] = {};
-  for (const [key, value] of injectedMap.entries()) {
-    injected[key] = fromInjector(fixture, value);
+  for (const [name, token] of injectedMap.entries()) {
+    injected[name] = injector.get(token);
   }
   return injected;
 }

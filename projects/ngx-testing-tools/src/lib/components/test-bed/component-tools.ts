@@ -21,7 +21,7 @@ export function buildComponentTools(factory: ComponentTestBedFactory<any>): Comp
 
   const query: ComponentQueryTools = buildComponentQueryTools(fixture);
   const action: ComponentActionTools = buildComponentActionTools(fixture);
-  const injected: InjectionStore['injected'] = buildInjected(fixture, injectedMap);
+  const injected: InjectionStore['injected'] = buildInjected(injector, injectedMap);
 
   return { fixture, component, injector, query, action, injected, debug };
 }
