@@ -2,7 +2,7 @@
  * Public API Surface of ngx-testing-tools
  */
 
-export * from './lib/components';
+export * from './lib/component';
 export * from './lib/http';
 export * from './lib/injector';
 export * from './lib/module';
