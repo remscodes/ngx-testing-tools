@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { Nullable } from '../../models/shared.model';
+import { Nullable } from '../../shared.model';
 
 type MetadataName =
   | 'Component'

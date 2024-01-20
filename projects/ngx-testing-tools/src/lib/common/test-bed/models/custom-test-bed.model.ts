@@ -1,4 +1,4 @@
-import { PrettyMerge } from '../../../models/shared.model';
+import { PrettyMerge } from '../../../shared.model';
 import { CommonTestBedFactory } from '../common-test-bed-factory';
 
 export type CustomTestBed<

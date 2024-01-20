@@ -1,6 +1,6 @@
 import { Injectable, Type } from '@angular/core';
 import { getInjectableAnnotation } from '../../common/annotation/injectable-annotation';
-import { Nullable } from '../../models/shared.model';
+import { Nullable } from '../../shared.model';
 
 export function assertService(ServiceCtor: Type<unknown>): void {
   const annotation: Nullable<Injectable> = getInjectableAnnotation(ServiceCtor);

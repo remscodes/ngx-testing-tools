@@ -4,7 +4,7 @@ import { getComponentAnnotation } from '../../common/annotation/component-annota
 import { shouldCreate } from '../../common/expectation/should-create';
 import { CommonTestBedFactory } from '../../common/test-bed/common-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store';
-import { MaybeArray, NonEmptyString, PrettyMerge } from '../../models/shared.model';
+import { MaybeArray, NonEmptyString, PrettyMerge } from '../../shared.model';
 import { makeArray } from '../../util/array.util';
 import { assertComponent } from './assertions/assert-component';
 import { assertComponentFixture } from './assertions/assert-fixture';

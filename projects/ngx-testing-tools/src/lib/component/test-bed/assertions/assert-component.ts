@@ -1,6 +1,6 @@
 import { Component, Type } from '@angular/core';
 import { getComponentAnnotation, isComponentAnnotation } from '../../../common/annotation/component-annotation';
-import { Nullable } from '../../../models/shared.model';
+import { Nullable } from '../../../shared.model';
 
 export function assertComponent(ComponentCtor: Type<any>): void {
   const annotation: Nullable<Component> = getComponentAnnotation(ComponentCtor);

@@ -1,7 +1,7 @@
 import { ProviderToken, Type } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
 import { AnyProvider, Importation } from '../../component/test-bed/models/metadata-type.model';
-import { MaybeArray, NonEmptyString, PrettyMerge } from '../../models/shared.model';
+import { MaybeArray, NonEmptyString, PrettyMerge } from '../../shared.model';
 import { makeArray } from '../../util/array.util';
 import { EnhancedJasmineCallback } from './models/enhanced-jasmine-callback.model';
 import { InjectionStore } from './store';
