@@ -1,5 +1,6 @@
+import { EnhancedCallback } from '../../../common/test-bed/models/enhanced-callback.model';
+import { InjectionStore } from '../../../common/test-bed/store';
 import { ComponentTestBedFactory } from '../component-test-bed-factory';
-import { InjectionStore } from '../store';
 import { ComponentExtraOptions } from './component-extra-options.model';
 import { ComponentTools } from './component-tools.model';
 
@@ -7,4 +8,4 @@ export interface ComponentTestBed<T, I extends InjectionStore = InjectionStore> 
 
 export type ComponentTestBedFn<T, I extends InjectionStore> = (assertion: ComponentAssertion<T, I['injected']>, options?: ComponentExtraOptions) => jasmine.ImplementationCallback
 
-export type ComponentAssertion<T, I extends {}> = (tools: ComponentTools<T, I>, done: DoneFn) => ReturnType<jasmine.ImplementationCallback>
+export type ComponentAssertion<T, I extends {}> = EnhancedCallback<ComponentTools<T, I>>

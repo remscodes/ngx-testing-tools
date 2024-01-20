@@ -4,8 +4,7 @@ import { InjectionStore } from '../../components';
 import { AnyProvider, Declaration, Importation } from '../../components/test-bed/models/metadata-type.model';
 import { MaybeArray, NonEmptyString, PrettyMerge } from '../../models/shared.model';
 import { makeArray } from '../../util/array.util';
-import { CommonSetup } from './models/common-setup.model';
-import { CommonTestBed } from './models/common-test-bed.model';
+import { EnhancedCallback } from './models/enhanced-callback.model';
 
 export abstract class CommonTestBedFactory<Instance, Store extends InjectionStore = InjectionStore> {
 
@@ -62,7 +61,7 @@ export abstract class CommonTestBedFactory<Instance, Store extends InjectionStor
    * @param name the key to access the instance.
    * @param token the provider token.
    */
-  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): CommonTestBed<Instance, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
+  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): CommonTestBedFactory<Instance, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
     this.injectedMap.set(name, token);
     return this as any;
   }
@@ -86,7 +85,7 @@ export abstract class CommonTestBedFactory<Instance, Store extends InjectionStor
    *
    * **Works only for `beforeEach` and `afterEach`**.
    */
-  public setup<Action extends CommonSetup<Store['injected']>>(action: Action): jasmine.ImplementationCallback {
+  public setup<Action extends EnhancedCallback<any>>(action: Action): jasmine.ImplementationCallback {
     return null!;
   }
 

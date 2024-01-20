@@ -1,16 +1,16 @@
 import { Component, ProviderToken, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic } from '@angular/core/testing';
 import { shouldCreate } from '../../common/expectation/should-create';
+import { InjectionStore } from '../../common/test-bed/store';
 import { MaybeArray, NonEmptyString, Nullable, PrettyMerge } from '../../models/shared.model';
 import { makeArray } from '../../util/array.util';
-import { assertComponent } from './assert-component';
-import { assertComponentFixture } from './assert-fixture';
+import { assertComponent } from './assertions/assert-component';
+import { assertComponentFixture } from './assertions/assert-fixture';
 import { getComponentAnnotation } from './component-annotation';
 import { buildComponentTools } from './component-tools';
 import { ComponentTestBed } from './models';
+import { ComponentSetup } from './models/component-setup.model';
 import { AnyProvider, Declaration, Importation } from './models/metadata-type.model';
-import { ComponentSetup } from './models/setup-fn.model';
-import { InjectionStore } from './store';
 
 export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> {
 

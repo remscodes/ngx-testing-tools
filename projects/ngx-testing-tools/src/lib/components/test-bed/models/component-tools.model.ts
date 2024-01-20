@@ -1,10 +1,10 @@
-import { DebugElement, Injector } from '@angular/core';
+import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { InjectionStore } from '../store';
+import { CommonTools } from '../../../common/test-bed/models/common-tools.model';
 import { ComponentActionTools } from './component-action-tools.model';
 import { ComponentQueryTools } from './component-query-tools.model';
 
-export interface ComponentTools<T, I extends {} = {}> extends InjectionStore<I> {
+export interface ComponentTools<T, I extends {} = {}> extends CommonTools<I> {
   /**
    * The described component fixture.
    */
@@ -13,10 +13,6 @@ export interface ComponentTools<T, I extends {} = {}> extends InjectionStore<I> 
    * The described component instance.
    */
   component: T;
-  /**
-   * The fixture injector.
-   */
-  injector: Injector;
   /**
    * Enhanced tools to query elements.
    */

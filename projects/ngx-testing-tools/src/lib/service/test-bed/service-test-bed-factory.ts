@@ -2,7 +2,7 @@ import { Type } from '@angular/core';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { CommonTestBedFactory } from '../../common/test-bed/common-test-bed-factory';
 import { InjectionStore } from '../../components';
-import { ComponentSetup } from '../../components/test-bed/models/setup-fn.model';
+import { ComponentSetup } from '../../components/test-bed/models/component-setup.model';
 import { assertService } from './assert-service';
 
 export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore> extends CommonTestBedFactory<ServiceType, Store> {

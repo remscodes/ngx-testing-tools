@@ -1,4 +1,4 @@
-import { assertComponentFixture } from '../../../../lib/components/test-bed/assert-fixture';
+import { assertComponentFixture } from '../../../../lib/components/test-bed/assertions/assert-fixture';
 
 describe('assertComponentFixture', () => {
 
