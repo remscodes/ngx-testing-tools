@@ -24,14 +24,15 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
   }
 
   private fixture: ComponentFixture<ComponentType> = null!;
+
   private declarations: Set<Declaration> = new Set();
 
   /**
-   * Declare one non-standalone component, directive or pipe into the `ComponentTestBed`.
+   * Declares one non-standalone component, directive or pipe into the `ComponentTestBed`.
    */
   public declare(declaration: Declaration): this
   /**
-   * Declare many non-standalone components, directives and pipes into `ComponentTestBed`.
+   * Declares many non-standalone components, directives and pipes into `ComponentTestBed`.
    */
   public declare(declarations: Declaration[]): this
   public declare(oneOrManyDeclarations: MaybeArray<Declaration>): this {

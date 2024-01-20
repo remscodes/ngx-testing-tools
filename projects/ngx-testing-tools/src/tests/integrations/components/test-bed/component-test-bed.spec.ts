@@ -51,8 +51,8 @@ describe('componentTestBed', () => {
     tb.compileEach();
 
     it('should import', tb(({ injector }) => {
-      const httpc = injector.get(HttpTestingController);
-      expect(httpc).toBeTruthy();
+      const controller = injector.get(HttpTestingController);
+      expect(controller).toBeTruthy();
     }));
   });
 
