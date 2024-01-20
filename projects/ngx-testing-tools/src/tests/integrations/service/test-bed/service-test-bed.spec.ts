@@ -63,7 +63,7 @@ describe('ServiceTestBed', () => {
 
     beforeEach(tb.setup(({ service }, done) => {
       service.info = false;
-      done()
+      done();
     }));
 
     it('should be true', tb(({ service }) => {

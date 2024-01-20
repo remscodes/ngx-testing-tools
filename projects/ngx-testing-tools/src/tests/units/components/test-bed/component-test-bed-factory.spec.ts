@@ -28,7 +28,7 @@ describe('ComponentTestBedFactory', () => {
   });
 
   it('should configure root component', async () => {
-    expect(factory['rootComponent']).toEqual(OuterComponent);
+    expect(factory['described']).toEqual(OuterComponent);
 
     await factory.compile();
 

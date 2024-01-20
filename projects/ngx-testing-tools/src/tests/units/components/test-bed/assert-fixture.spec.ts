@@ -2,8 +2,13 @@ import { assertComponentFixture } from '../../../../lib/components/test-bed/asse
 
 describe('assertComponentFixture', () => {
 
+  it('should pass', () => {
+    expect(() => assertComponentFixture({}))
+      .not.toThrowError();
+  });
+
   it('should throw error', () => {
     expect(() => assertComponentFixture(null))
-      .toThrowError('ComponentFixture is falsy. You need to use `testBed.compile()` before running expectation.');
+      .toThrowError('ComponentFixture is falsy. You need to use `beforeEach(() => tb.compile());` of `tb.compileEach();` before running expectations.');
   });
 });

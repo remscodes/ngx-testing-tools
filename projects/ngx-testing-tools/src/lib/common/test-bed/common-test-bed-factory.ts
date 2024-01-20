@@ -1,6 +1,6 @@
 import { ProviderToken, Type } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
-import { AnyProvider, Declaration, Importation } from '../../components/test-bed/models/metadata-type.model';
+import { AnyProvider, Importation } from '../../components/test-bed/models/metadata-type.model';
 import { MaybeArray, NonEmptyString, PrettyMerge } from '../../models/shared.model';
 import { makeArray } from '../../util/array.util';
 import { EnhancedJasmineCallback } from './models/enhanced-jasmine-callback.model';
@@ -15,7 +15,6 @@ export abstract class CommonTestBedFactory<Instance, Store extends InjectionStor
   protected testBed: TestBedStatic = TestBed;
 
   protected imports: Set<Importation> = new Set();
-  protected declarations: Set<Declaration> = new Set();
   protected providers: Set<AnyProvider> = new Set();
 
   protected injectedMap: Map<string, ProviderToken<any>> = new Map();
@@ -46,14 +45,6 @@ export abstract class CommonTestBedFactory<Instance, Store extends InjectionStor
     return this;
   }
 
-  private configureModule(): void {
-    this.testBed.configureTestingModule({
-      imports: [...this.imports.values()],
-      declarations: [...this.declarations.values()],
-      providers: [...this.providers.values()],
-    });
-  }
-
   /**
    * Inject an instance by token into the custom test bed.
    *
@@ -78,7 +69,10 @@ export abstract class CommonTestBedFactory<Instance, Store extends InjectionStor
    * Compile the custom test bed to make enhanced tools available.
    */
   public async compile(): Promise<void> {
-    this.configureModule();
+    this.testBed.configureTestingModule({
+      imports: [...this.imports.values()],
+      providers: [...this.providers.values()],
+    });
   }
 
   /**

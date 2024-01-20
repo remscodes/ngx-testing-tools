@@ -1,8 +1,9 @@
 import { Component, Type } from '@angular/core';
-import { isComponentAnnotation } from '../../../common/annotation/component-annotation';
+import { getComponentAnnotation, isComponentAnnotation } from '../../../common/annotation/component-annotation';
 import { Nullable } from '../../../models/shared.model';
 
-export function assertComponent(TypeCtor: Type<any>, annotation: Nullable<Component>): void {
+export function assertComponent(ComponentCtor: Type<any>): void {
+  const annotation: Nullable<Component> = getComponentAnnotation(ComponentCtor);
   if (!annotation || !isComponentAnnotation(annotation))
-    throw new Error(`The provided "${TypeCtor.name ?? TypeCtor}" is not a Component. The ComponentTestBed cannot be created.`);
+    throw new Error(`The provided "${ComponentCtor.name ?? ComponentCtor}" is not a Component. The ComponentTestBed cannot be created.`);
 }
