@@ -1,5 +1,5 @@
 import { Component, Directive } from '@angular/core';
-import { assertComponent } from '../../../../lib/components/test-bed/assert-component';
+import { assertComponent } from '../../../../lib/components/test-bed/assertions/assert-component';
 import { getFirstAnnotation } from '../../../fixtures/helpers/annotations/get-first-annotation';
 
 describe('assertComponent', () => {

@@ -23,6 +23,10 @@ describe('ComponentTestBedFactory', () => {
     validateArray(compiler['providers'], { size: 0 });
   });
 
+  it('should create', () => {
+    expect(factory).toBeTruthy();
+  });
+
   it('should configure root component', async () => {
     expect(factory['rootComponent']).toEqual(OuterComponent);
 

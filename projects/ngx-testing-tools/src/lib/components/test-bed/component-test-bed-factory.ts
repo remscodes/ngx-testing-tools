@@ -1,14 +1,16 @@
 import { Component, ProviderToken, Type } from '@angular/core';
 import { ComponentFixture, TestBed, TestBedStatic } from '@angular/core/testing';
-import { MaybeArray, PrettyMerge, NonEmptyString, Nullable } from '../../models/shared.model';
-import { assertComponent } from './assert-component';
-import { assertComponentFixture } from './assert-fixture';
-import { getComponentAnnotation } from './component-annotation';
+import { getComponentAnnotation } from '../../common/annotation/component-annotation';
+import { shouldCreate } from '../../common/expectation/should-create';
+import { InjectionStore } from '../../common/test-bed/store';
+import { MaybeArray, NonEmptyString, Nullable, PrettyMerge } from '../../models/shared.model';
+import { makeArray } from '../../util/array.util';
+import { assertComponent } from './assertions/assert-component';
+import { assertComponentFixture } from './assertions/assert-fixture';
 import { buildComponentTools } from './component-tools';
 import { ComponentTestBed } from './models';
+import { ComponentSetup } from './models/component-setup.model';
 import { AnyProvider, Declaration, Importation } from './models/metadata-type.model';
-import { ComponentSetup } from './models/setup-fn.model';
-import { InjectionStore } from './store';
 
 export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> {
 
@@ -88,7 +90,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
    * @param name the key to access the instance.
    * @param token the provider token.
    */
-  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): ComponentTestBed<ComponentType, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
+  public inject<S extends string, T>(name: NonEmptyString<S>, token: ProviderToken<T>): ComponentTestBed<ComponentType, InjectionStore<PrettyMerge<Store['injected'] & { [K in S]: T }>>> {
     this.injectedMap.set(name, token);
     return this as any;
   }
@@ -125,13 +127,9 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
    * **To be called outside jasmine `it` callback.**
    */
   public shouldCreate(): void {
-    it('should create', () => {
+    shouldCreate(() => {
       assertComponentFixture(this.fixture);
-      expect(this.fixture.componentInstance).toBeTruthy();
+      return this.fixture.componentInstance;
     });
   }
-}
-
-function makeArray<T>(itemS: MaybeArray<T>): T[] {
-  return (Array.isArray(itemS)) ? itemS : [itemS];
 }
