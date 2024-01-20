@@ -1,5 +1,6 @@
 import { Type } from '@angular/core';
 import { CommonTestBedFactory } from '../../../../lib/common/test-bed/common-test-bed-factory';
+import { EnhancedJasmineCallback } from '../../../../lib/common/test-bed/models/enhanced-jasmine-callback.model';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
 import { MyButtonDirective } from '../../../fixtures/directives/my-button.directive';
@@ -11,6 +12,14 @@ import { AppService } from '../../../fixtures/services/app.service';
 
 class NonAbstractCommonTestBedFactory<T> extends CommonTestBedFactory<T> {
   public constructor(x: Type<any>) {super(x);}
+
+  public override setup<Action extends EnhancedJasmineCallback<any>>(action: Action): jasmine.ImplementationCallback {
+    throw new Error('Method not implemented.');
+  }
+
+  public override shouldCreate(): void {
+    throw new Error('Method not implemented.');
+  }
 }
 
 describe('CommonTestBedFactory', () => {
@@ -71,14 +80,5 @@ describe('CommonTestBedFactory', () => {
       .inject('service', AppService);
 
     validateMap(factory['injectedMap'], { size: 1, entries: { service: AppService } });
-  });
-
-  it('should do nothing', () => {
-    expect(factory.setup(() => {})).toBeNull();
-  });
-
-  it('should do nothing', () => {
-    factory.shouldCreate();
-    expect().nothing();
   });
 });

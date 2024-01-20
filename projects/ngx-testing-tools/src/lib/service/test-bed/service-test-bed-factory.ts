@@ -6,6 +6,7 @@ import { NonEmptyString, PrettyMerge } from '../../models/shared.model';
 import { assertService } from './assert-service';
 import { ServiceTestBed } from './models';
 import { ServiceSetup } from './models/service-setup.model';
+import { buildServiceTools } from './service-tools';
 
 export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = InjectionStore> extends CommonTestBedFactory<ServiceType, Store> {
 
@@ -18,7 +19,9 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
   private instance: ServiceType = null!;
 
   public override setup(action: ServiceSetup<ServiceType, InjectionStore["injected"]>): jasmine.ImplementationCallback {
-    return super.setup(action);
+    return (action.length > 1)
+      ? (done: DoneFn) => action(buildServiceTools(this), done)
+      : () => action(buildServiceTools(this), null!);
   }
 
   public override async compile(): Promise<void> {

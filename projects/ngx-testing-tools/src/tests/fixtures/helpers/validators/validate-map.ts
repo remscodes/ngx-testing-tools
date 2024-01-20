@@ -9,6 +9,6 @@ export function validateMap(map: Map<unknown, unknown>, expects: MapExpectations
   const { size, entries } = expects;
 
   validateInstanceType(map, Map);
-  if (size !== undefined) expect(map.size).toEqual(size);
+  if (size !== undefined) expect(map).toHaveSize(size);
   if (entries !== undefined) expect([...map.entries()]).toEqual(Object.entries(entries));
 }
