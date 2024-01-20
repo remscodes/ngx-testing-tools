@@ -19,9 +19,9 @@ import { InnerComponent } from './inner.component';
 })
 export class OuterComponent {
 
+  public service = inject(AppService);
+
   public extraInner: boolean = false;
   public clicked: boolean = false;
   public innerClicked: boolean = false;
-
-  public service = inject(AppService);
 }
