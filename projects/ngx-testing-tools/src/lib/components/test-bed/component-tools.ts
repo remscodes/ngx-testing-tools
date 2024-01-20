@@ -10,7 +10,7 @@ import { ComponentTools } from './models';
 import { ComponentActionTools } from './models/component-action-tools.model';
 import { ComponentQueryTools } from './models/component-query-tools.model';
 
-export function buildComponentTools(factory: ComponentTestBedFactory<any>): ComponentTools<any, any> {
+export function buildComponentTools(factory: ComponentTestBedFactory<any>): ComponentTools<any> {
   const fixture: ComponentFixture<unknown> = factory['fixture'];
   assertComponentFixture(fixture);
 
@@ -23,5 +23,5 @@ export function buildComponentTools(factory: ComponentTestBedFactory<any>): Comp
   const action: ComponentActionTools = buildComponentActionTools(fixture);
   const injected: InjectionStore['injected'] = buildInjected(injector, injectedMap);
 
-  return { fixture, component, injector, query, action, injected, debug };
+  return { action, component, debug, fixture, injected, injector, query };
 }

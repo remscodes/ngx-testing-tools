@@ -1,5 +1,5 @@
 import { Injector } from '@angular/core';
-import { InjectionStore } from '../../../components';
+import { InjectionStore } from '../store';
 
 export interface CommonTools<I extends {} = {}> extends InjectionStore<I> {
   /**
