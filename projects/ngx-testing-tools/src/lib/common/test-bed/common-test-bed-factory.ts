@@ -21,11 +21,11 @@ export abstract class CommonTestBedFactory<Instance, Store extends InjectionStor
   protected injectedMap: Map<string, ProviderToken<any>> = new Map();
 
   /**
-   * Import one module or one standalone component / directive / pipe into the `ComponentTestBed`.
+   * Import one module or one standalone component / directive / pipe into the custom test bed.
    */
   public import(importation: Importation): this
   /**
-   * Import many modules or many standalone components / directives / pipes into the `ComponentTestBed`.
+   * Import many modules or many standalone components / directives / pipes into the custom test bed.
    */
   public import(imports: Importation[]): this
   public import(oneOrManyImports: MaybeArray<Importation>): this {
@@ -34,11 +34,11 @@ export abstract class CommonTestBedFactory<Instance, Store extends InjectionStor
   }
 
   /**
-   * Add one provider into the `ComponentTestBed`.
+   * Add one provider into the custom test bed.
    */
   public provide(provider: AnyProvider): this
   /**
-   * Add many providers into the `ComponentTestBed`.
+   * Add many providers into the custom test bed.
    */
   public provide(providers: AnyProvider[]): this
   public provide(oneOrManyProviders: MaybeArray<AnyProvider>): this {
@@ -55,7 +55,7 @@ export abstract class CommonTestBedFactory<Instance, Store extends InjectionStor
   }
 
   /**
-   * Inject an instance by token into the `ComponentTestBed`.
+   * Inject an instance by token into the custom test bed.
    *
    * Retrieve it into the `ComponentTools.injected` by autocompletion.
    * @param name the key to access the instance.
@@ -68,20 +68,21 @@ export abstract class CommonTestBedFactory<Instance, Store extends InjectionStor
 
   /**
    * Compile the test bed before each test.
+   * @see compile
    */
   public compileEach(): void {
     beforeEach(() => this.compile());
   }
 
   /**
-   * Compile the `ComponentTestBed` to create the `rootComponent` fixture.
+   * Compile the custom test bed to make enhanced tools available.
    */
   public async compile(): Promise<void> {
     this.configureModule();
   }
 
   /**
-   * Setups extra stuffs using the `ComponentTestBed` enhanced tools.
+   * Setups extra stuffs using the enhanced tools.
    *
    * **Works only for `beforeEach` and `afterEach`**.
    */

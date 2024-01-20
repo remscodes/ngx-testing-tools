@@ -10,8 +10,8 @@ import { ComponentTools } from './models';
 import { ComponentActionTools } from './models/component-action-tools.model';
 import { ComponentQueryTools } from './models/component-query-tools.model';
 
-export function buildComponentTools(factory: ComponentTestBedFactory<any>): ComponentTools<any> {
-  const fixture: ComponentFixture<unknown> = factory['fixture'];
+export function buildComponentTools<T>(factory: ComponentTestBedFactory<T>): ComponentTools<T> {
+  const fixture: ComponentFixture<T> = factory['fixture'];
   assertComponentFixture(fixture);
 
   const injectedMap: Map<string, ProviderToken<any>> = factory['injectedMap'];

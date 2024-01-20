@@ -1,7 +1,7 @@
 import { ProviderToken, Type } from '@angular/core';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { CommonTestBedFactory } from '../../common/test-bed/common-test-bed-factory';
-import { InjectionStore } from '../../components';
+import { InjectionStore } from '../../common/test-bed/store';
 import { NonEmptyString, PrettyMerge } from '../../models/shared.model';
 import { assertService } from './assert-service';
 import { ServiceTestBed } from './models';
@@ -18,7 +18,7 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
   private instance: ServiceType = null!;
 
   public override setup(action: ServiceSetup<ServiceType, InjectionStore["injected"]>): jasmine.ImplementationCallback {
-    return super.setup(action as any);
+    return super.setup(action);
   }
 
   public override async compile(): Promise<void> {
@@ -30,7 +30,7 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
     shouldCreate(() => this.instance);
   }
 
-  public override inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): ServiceTestBed<ServiceType, InjectionStore<PrettyMerge<Store["injected"] & { [k in key]: T }>>> {
+  public override inject<S extends string, T>(name: NonEmptyString<S>, token: ProviderToken<T>): ServiceTestBed<ServiceType, InjectionStore<PrettyMerge<Store["injected"] & { [K in S]: T }>>> {
     return super.inject(name, token) as any;
   }
 }

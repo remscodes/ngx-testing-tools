@@ -1,5 +1,5 @@
 import { Component, Directive } from '@angular/core';
-import { getComponentAnnotation, isComponentAnnotation } from '../../../../lib/components/test-bed/component-annotation';
+import { getComponentAnnotation, isComponentAnnotation } from '../../../../lib/common/annotation/component-annotation';
 
 describe('Component Annotation', () => {
 
