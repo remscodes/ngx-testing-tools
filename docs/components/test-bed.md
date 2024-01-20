@@ -47,6 +47,7 @@ describe('AppComponent', () => {
   - [compileEach()](#compileeach)
   - [compile()](#compile)
   - [shouldCreate()](#shouldcreate)
+  - [inject(..)](#injectname-token)
   - [(..) (direct call)](#assertion-options)
   - [setup(..)](#setupaction)
 
