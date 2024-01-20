@@ -1,6 +1,6 @@
 import { Injector } from '@angular/core';
-import { InjectionStore } from '../../common/test-bed/store';
 import { buildInjected } from '../../common/test-bed/store/injected';
+import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { ServiceTools } from './models';
 import { ServiceTestBedFactory } from './service-test-bed-factory';
 

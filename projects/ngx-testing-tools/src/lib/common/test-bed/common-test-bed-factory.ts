@@ -4,7 +4,7 @@ import { AnyProvider, Importation } from '../../component/test-bed/models/metada
 import { MaybeArray, NonEmptyString, PrettyMerge } from '../../shared.model';
 import { makeArray } from '../../util/array.util';
 import { EnhancedJasmineCallback } from './models/enhanced-jasmine-callback.model';
-import { InjectionStore } from './store';
+import { InjectionStore } from './store/models/injected-store.model';
 
 export abstract class CommonTestBedFactory<Instance, Store extends InjectionStore = InjectionStore> {
 
