@@ -1,3 +1,3 @@
-export * from './element';
-export * from './event';
+export * from './query';
+export * from './action';
 export * from './test-bed';

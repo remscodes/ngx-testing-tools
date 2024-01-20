@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { click, emitOutput } from '../event';
+import { click, emitOutput } from '../action';
 import { ComponentActionTools } from './models/component-action-tools.model';
 
 export function buildComponentActionTools(fixture: ComponentFixture<unknown>): ComponentActionTools {
