@@ -1,6 +1,7 @@
+import { inject } from '@angular/core';
 import { CanDeactivateFn } from '@angular/router';
-import { of } from 'rxjs';
+import { AuthInfo } from '../services/auth-info.service';
 
 export function noBackGuard<T>(): CanDeactivateFn<T> {
-  return () => of(true);
+  return () => !inject(AuthInfo).isAuthenticated();
 }

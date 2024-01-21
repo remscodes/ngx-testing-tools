@@ -1,6 +1,7 @@
+import { inject } from '@angular/core';
 import { CanMatchFn } from '@angular/router';
-import { of } from 'rxjs';
+import { AuthInfo } from '../services/auth-info.service';
 
 export function loadLazyGuard(): CanMatchFn {
-  return () => of(true);
+  return () => inject(AuthInfo).isAuthenticated();
 }
