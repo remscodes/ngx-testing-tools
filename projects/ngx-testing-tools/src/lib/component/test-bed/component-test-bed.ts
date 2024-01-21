@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
 import { buildComponentTools } from './component-tools';
 import { ComponentExtraOptions, ComponentTools } from './models';
@@ -27,31 +28,9 @@ export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T>
       : () => assertionWrapper(null!);
   }) as ComponentTestBed<T>;
 
-  return mergeFactoryToTestBed(factory, tb);
-}
-
-function mergeFactoryToTestBed<T>(factory: ComponentTestBedFactory<T>, tb: ComponentTestBed<T, any>): ComponentTestBed<T> {
-  tb.import = (imports: any) => {
-    factory.import(imports);
-    return tb;
-  };
-  tb.provide = (providers: any) => {
-    factory.provide(providers);
-    return tb;
-  };
   tb.declare = (declarations: any) => {
     factory.declare(declarations);
     return tb;
   };
-  tb.inject = (name, token) => {
-    factory.inject(name, token);
-    return tb;
-  };
-
-  tb.compile = factory.compile.bind(factory);
-  tb.compileEach = factory.compileEach.bind(factory);
-  tb.setup = factory.setup.bind(factory);
-  tb.shouldCreate = factory.shouldCreate.bind(factory);
-
-  return tb;
+  return mergeFactoryToTestBed(factory, tb) as ComponentTestBed<T>;
 }
