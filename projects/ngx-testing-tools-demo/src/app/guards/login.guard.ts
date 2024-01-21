@@ -1,6 +1,7 @@
+import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
-import { of } from 'rxjs';
+import { AuthInfo } from '../services/auth-info.service';
 
 export function loginGuard(): CanActivateFn {
-  return () => of(true);
+  return () => inject(AuthInfo).isAuthenticated();
 }
