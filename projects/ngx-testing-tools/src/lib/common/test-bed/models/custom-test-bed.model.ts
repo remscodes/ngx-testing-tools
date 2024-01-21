@@ -1,8 +1,8 @@
 import { PrettyMerge } from '../../../shared.model';
-import { CommonTestBedFactory } from '../common-test-bed-factory';
+import { CustomTestBedFactory } from '../custom-test-bed-factory';
 
 export type CustomTestBed<
   Fn extends (...args: any[]) => jasmine.ImplementationCallback,
-  Factory extends CommonTestBedFactory<any>
+  Factory extends CustomTestBedFactory<any>
 > = PrettyMerge<Fn & Factory>
 

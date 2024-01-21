@@ -6,7 +6,7 @@ import { makeArray } from '../../util/array.util';
 import { EnhancedJasmineCallback } from './models/enhanced-jasmine-callback.model';
 import { InjectionStore } from './store/models/injected-store.model';
 
-export abstract class CommonTestBedFactory<Instance, Store extends InjectionStore = InjectionStore> {
+export abstract class CustomTestBedFactory<Instance, Store extends InjectionStore = InjectionStore> {
 
   protected constructor(
     protected described: Type<Instance>,
@@ -52,7 +52,7 @@ export abstract class CommonTestBedFactory<Instance, Store extends InjectionStor
    * @param name the key to access the instance.
    * @param token the provider token.
    */
-  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): CommonTestBedFactory<Instance, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
+  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): CustomTestBedFactory<Instance, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
     this.injectedMap.set(name, token);
     return this;
   }

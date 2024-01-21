@@ -1,10 +1,10 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { CommonTools } from '../../../common/test-bed/models/common-tools.model';
+import { CustomTools } from '../../../common/test-bed/models/custom-tools.model';
 import { ComponentActionTools } from './component-action-tools.model';
 import { ComponentQueryTools } from './component-query-tools.model';
 
-export interface ComponentTools<T, I extends {} = {}> extends CommonTools<I> {
+export interface ComponentTools<T, I extends {} = {}> extends CustomTools<I> {
   /**
    * The described component fixture.
    */

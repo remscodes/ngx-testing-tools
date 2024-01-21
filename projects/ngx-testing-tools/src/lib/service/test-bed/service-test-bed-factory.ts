@@ -1,6 +1,6 @@
 import { ProviderToken, Type } from '@angular/core';
 import { shouldCreate } from '../../common/expectation/should-create';
-import { CommonTestBedFactory } from '../../common/test-bed/common-test-bed-factory';
+import { CustomTestBedFactory } from '../../common/test-bed/custom-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { assertService } from './assert-service';
@@ -8,7 +8,7 @@ import { ServiceTestBed } from './models';
 import { ServiceSetup } from './models/service-setup.model';
 import { buildServiceTools } from './service-tools';
 
-export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = InjectionStore> extends CommonTestBedFactory<ServiceType, Store> {
+export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = InjectionStore> extends CustomTestBedFactory<ServiceType, Store> {
 
   public constructor(rootService: Type<ServiceType>) {
     assertService(rootService);

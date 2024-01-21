@@ -2,7 +2,7 @@ import { ProviderToken, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { getComponentAnnotation } from '../../common/annotation/component-annotation';
 import { shouldCreate } from '../../common/expectation/should-create';
-import { CommonTestBedFactory } from '../../common/test-bed/common-test-bed-factory';
+import { CustomTestBedFactory } from '../../common/test-bed/custom-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { MaybeArray, NonEmptyString, PrettyMerge } from '../../shared.model';
 import { makeArray } from '../../util/array.util';
@@ -13,7 +13,7 @@ import { ComponentTestBed } from './models';
 import { ComponentSetup } from './models/component-setup.model';
 import { Declaration } from './models/metadata-type.model';
 
-export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends CommonTestBedFactory<ComponentType, Store> {
+export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends CustomTestBedFactory<ComponentType, Store> {
 
   public constructor(rootComponent: Type<ComponentType>) {
     assertComponent(rootComponent);

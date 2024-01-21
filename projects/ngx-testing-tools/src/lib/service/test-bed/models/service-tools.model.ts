@@ -1,6 +1,6 @@
-import { CommonTools } from '../../../common/test-bed/models/common-tools.model';
+import { CustomTools } from '../../../common/test-bed/models/custom-tools.model';
 
-export interface ServiceTools<T, I extends {} = {}> extends CommonTools<I> {
+export interface ServiceTools<T, I extends {} = {}> extends CustomTools<I> {
   /**
    * Service instance.
    */
