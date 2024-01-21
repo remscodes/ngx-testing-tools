@@ -2,38 +2,24 @@ import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { TestBed } from '@angular/core/testing';
+import { serviceTestBed } from 'ngx-testing-tools';
 import { AppService, CatFact } from './app.service';
 
 describe('AppService', () => {
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [
-        provideHttpClient(),
-        provideHttpClientTesting(),
-      ],
-    });
-  });
+  const tb = serviceTestBed(AppService)
+    .provide([provideHttpClient(), provideHttpClientTesting()])
+    .inject('httpController', HttpTestingController)
+    .inject('destroyRef', DestroyRef);
 
-  let service: AppService;
-  beforeEach(() => service = TestBed.inject(AppService));
+  tb.compileEach();
+  tb.shouldCreate();
 
-  let httpController: HttpTestingController;
-  beforeEach(() => httpController = TestBed.inject(HttpTestingController));
-  afterEach(() => httpController.verify());
+  afterEach(tb.setup(({ injected: { httpController } }) => {
+    httpController.verify();
+  }));
 
-  let destroyRef: DestroyRef;
-  beforeEach(() => destroyRef = TestBed.inject(DestroyRef));
-
-  it('should create', () => {
-    expect(service).toBeTruthy();
-  });
-
-  it('should fetch cat fact', (done: DoneFn) => {
-    const mockRes: CatFact = {
-      fact: 'string',
-      length: 6,
-    };
+  it('should fetch cat fact', tb(({ service, injected: { httpController, destroyRef } }, done: DoneFn) => {
+    const mockRes: CatFact = { fact: 'string', length: 6 };
 
     service
       .getCatFact()
@@ -50,5 +36,5 @@ describe('AppService', () => {
     httpController
       .expectOne(service.CAT_FACT_URL)
       .flush(mockRes);
-  });
+  }));
 });
