@@ -27,7 +27,7 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
     this.instance = this.testBed.inject(this.described);
   }
 
-  public override setup(action: ServiceSetup<ServiceType, InjectionStore["injected"]>): jasmine.ImplementationCallback {
+  public override setup(action: ServiceSetup<ServiceType, Store["injected"]>): jasmine.ImplementationCallback {
     return (action.length > 1)
       ? (done: DoneFn) => action(buildServiceTools(this), done)
       : () => action(buildServiceTools(this), null!);

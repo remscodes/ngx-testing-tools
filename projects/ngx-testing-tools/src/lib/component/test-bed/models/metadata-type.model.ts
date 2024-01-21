@@ -1,16 +1,11 @@
-import { ClassProvider, ConstructorProvider, EnvironmentProviders, ExistingProvider, FactoryProvider, ModuleWithProviders, Type, TypeProvider, ValueProvider } from '@angular/core';
+import { EnvironmentProviders, ModuleWithProviders, Provider, Type } from '@angular/core';
 
 export type Importation =
   | Type<any>
   | ModuleWithProviders<any>
 
 export type AnyProvider =
-  | TypeProvider
-  | ValueProvider
-  | ClassProvider
-  | ConstructorProvider
-  | ExistingProvider
-  | FactoryProvider
+  | Provider
   | EnvironmentProviders
 
 export type Declaration =
