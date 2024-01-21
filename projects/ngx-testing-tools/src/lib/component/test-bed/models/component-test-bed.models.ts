@@ -1,5 +1,5 @@
 import { EnhancedJasmineCallback } from '../../../common/test-bed/models/enhanced-jasmine-callback.model';
-import { InjectionStore } from '../../../common/test-bed/store';
+import { InjectionStore } from '../../../common/test-bed/store/models/injected-store.model';
 import { ComponentTestBedFactory } from '../component-test-bed-factory';
 import { ComponentExtraOptions } from './component-extra-options.model';
 import { ComponentTools } from './component-tools.model';

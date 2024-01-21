@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Component, inject } from '@angular/core';
-import { componentTestBed } from '../../../../lib/components';
+import { componentTestBed } from '../../../../lib/component';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
 import { validateArray } from '../../../fixtures/helpers/validators/validate-array';
@@ -51,8 +51,8 @@ describe('componentTestBed', () => {
     tb.compileEach();
 
     it('should import', tb(({ injector }) => {
-      const httpc = injector.get(HttpTestingController);
-      expect(httpc).toBeTruthy();
+      const controller = injector.get(HttpTestingController);
+      expect(controller).toBeTruthy();
     }));
   });
 

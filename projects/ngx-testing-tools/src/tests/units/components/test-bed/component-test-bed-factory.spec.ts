@@ -1,5 +1,5 @@
 import { Component, Injectable } from '@angular/core';
-import { ComponentTestBedFactory } from '../../../../lib/components/test-bed/component-test-bed-factory';
+import { ComponentTestBedFactory } from '../../../../lib/component/test-bed/component-test-bed-factory';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { NoWhereComponent } from '../../../fixtures/components/no-where.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
@@ -28,7 +28,7 @@ describe('ComponentTestBedFactory', () => {
   });
 
   it('should configure root component', async () => {
-    expect(factory['rootComponent']).toEqual(OuterComponent);
+    expect(factory['described']).toEqual(OuterComponent);
 
     await factory.compile();
 

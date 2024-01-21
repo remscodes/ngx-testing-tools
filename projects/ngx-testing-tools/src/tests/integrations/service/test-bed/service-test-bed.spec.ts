@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Injectable } from '@angular/core';
-import { serviceTestBed } from '../../../../lib/service/test-bed';
+import { serviceTestBed } from '../../../../lib';
 import { AppService } from '../../../fixtures/services/app.service';
 
 describe('ServiceTestBed', () => {
@@ -63,7 +63,7 @@ describe('ServiceTestBed', () => {
 
     beforeEach(tb.setup(({ service }, done) => {
       service.info = false;
-      done()
+      done();
     }));
 
     it('should be true', tb(({ service }) => {

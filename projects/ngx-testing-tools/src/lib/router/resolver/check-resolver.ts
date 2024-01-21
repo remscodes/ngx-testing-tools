@@ -1,6 +1,6 @@
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ResolveReturn } from '../models/resolver.models';
+import { ResolveReturn } from './models/resolver.models';
 import { buildRouteSnapshot, RouteSnapshotConfig } from '../route-snapshot';
 
 export function checkResolver<T, R extends ResolveReturn<T> = Observable<T>>(

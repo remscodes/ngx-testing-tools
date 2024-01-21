@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { CommonTestBedFactory } from '../../../../lib/common/test-bed/common-test-bed-factory';
+import { CustomTestBedFactory } from '../../../../lib/common/test-bed/custom-test-bed-factory';
 import { EnhancedJasmineCallback } from '../../../../lib/common/test-bed/models/enhanced-jasmine-callback.model';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
@@ -10,7 +10,7 @@ import { mockTestBedStatic } from '../../../fixtures/mocks/test-bed-static.mock'
 import { MockTestCompiler } from '../../../fixtures/mocks/test-compiler.mock';
 import { AppService } from '../../../fixtures/services/app.service';
 
-class NonAbstractCommonTestBedFactory<T> extends CommonTestBedFactory<T> {
+class NonAbstractCommonTestBedFactory<T> extends CustomTestBedFactory<T> {
   public constructor(x: Type<any>) {super(x);}
 
   public override setup<Action extends EnhancedJasmineCallback<any>>(action: Action): jasmine.ImplementationCallback {
@@ -23,7 +23,7 @@ class NonAbstractCommonTestBedFactory<T> extends CommonTestBedFactory<T> {
 }
 
 describe('CommonTestBedFactory', () => {
-  let factory: CommonTestBedFactory<OuterComponent>;
+  let factory: CustomTestBedFactory<OuterComponent>;
   let compiler: MockTestCompiler;
 
   beforeEach(() => {

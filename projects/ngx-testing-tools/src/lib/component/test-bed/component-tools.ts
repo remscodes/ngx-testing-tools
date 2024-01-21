@@ -1,7 +1,7 @@
 import { ProviderToken } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { InjectionStore } from '../../common/test-bed/store';
 import { buildInjected } from '../../common/test-bed/store/injected';
+import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { assertComponentFixture } from './assertions/assert-fixture';
 import { buildComponentActionTools } from './component-action-tools';
 import { buildComponentQueryTools } from './component-query-tools';

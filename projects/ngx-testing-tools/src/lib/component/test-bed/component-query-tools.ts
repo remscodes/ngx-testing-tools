@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { findAllComponents, findAllDebugElements, findAllElements, findComponent, findDebugElement, findElement } from '../element';
+import { findAllComponents, findAllDebugElements, findAllElements, findComponent, findDebugElement, findElement } from '../query';
 import { ComponentQueryTools } from './models/component-query-tools.model';
 
 export function buildComponentQueryTools(fixture: ComponentFixture<unknown>): ComponentQueryTools {

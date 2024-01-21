@@ -1,5 +1,5 @@
 import { Directive, Type } from '@angular/core';
-import { Nullable } from '../../models/shared.model';
+import { Nullable } from '../../shared.model';
 import { getAnnotation } from './annotation';
 
 export function getDirectiveAnnotation<T>(DirectiveCtor: Type<T>): Nullable<Directive> {
