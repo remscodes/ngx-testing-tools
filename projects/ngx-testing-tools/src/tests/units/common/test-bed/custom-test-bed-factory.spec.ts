@@ -10,7 +10,7 @@ import { mockTestBedStatic } from '../../../fixtures/mocks/test-bed-static.mock'
 import { MockTestCompiler } from '../../../fixtures/mocks/test-compiler.mock';
 import { AppService } from '../../../fixtures/services/app.service';
 
-class NonAbstractCommonTestBedFactory<T> extends CustomTestBedFactory<T> {
+class NonAbstractCustomTestBedFactory<T> extends CustomTestBedFactory<T> {
   public constructor(x: Type<any>) {super(x);}
 
   public override setup<Action extends EnhancedJasmineCallback<any>>(action: Action): jasmine.ImplementationCallback {
@@ -22,12 +22,12 @@ class NonAbstractCommonTestBedFactory<T> extends CustomTestBedFactory<T> {
   }
 }
 
-describe('CommonTestBedFactory', () => {
+describe('CustomTestBedFactory', () => {
   let factory: CustomTestBedFactory<OuterComponent>;
   let compiler: MockTestCompiler;
 
   beforeEach(() => {
-    factory = new NonAbstractCommonTestBedFactory(OuterComponent);
+    factory = new NonAbstractCustomTestBedFactory(OuterComponent);
     compiler = new MockTestCompiler();
     factory['testBed'] = mockTestBedStatic(compiler);
   });
