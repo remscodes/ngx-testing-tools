@@ -6,13 +6,17 @@ import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { assertService } from './assert-service';
 import { ServiceTestBed } from './models';
 import { ServiceSetup } from './models/service-setup.model';
+import { ServiceTestBedOptions } from './models/service-test-bed-options.model';
 import { buildServiceTools } from './service-tools';
 
 export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = InjectionStore> extends CustomTestBedFactory<ServiceType, Store> {
 
-  public constructor(rootService: Type<ServiceType>) {
+  public constructor(
+    rootService: Type<ServiceType>,
+    private options: ServiceTestBedOptions = {},
+  ) {
     assertService(rootService);
-    super(rootService);
+    super(rootService, options);
     this.provide(this.described);
   }
 

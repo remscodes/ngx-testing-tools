@@ -12,7 +12,10 @@ describe('ComponentTestBedFactory', () => {
   let compiler: MockTestCompiler;
 
   beforeEach(() => {
-    factory = new ComponentTestBedFactory(OuterComponent);
+    factory = new ComponentTestBedFactory(OuterComponent, {
+      autoCompile: false,
+      checkCreate: false,
+    });
     compiler = new MockTestCompiler();
     factory['testBed'] = mockTestBedStatic(compiler);
   });
@@ -120,11 +123,13 @@ describe('ComponentTestBedFactory', () => {
   });
 
   describe('should invoke "should create"', () => {
-    const bedFactory2 = new ComponentTestBedFactory(OuterComponent);
+    const bedFactory2 = new ComponentTestBedFactory(OuterComponent, {
+      autoCompile: false,
+      checkCreate: false,
+    });
     bedFactory2['testBed'] = mockTestBedStatic(new MockTestCompiler());
 
     bedFactory2.compileEach();
-
     bedFactory2.shouldCreate();
   });
 });

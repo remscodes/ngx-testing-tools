@@ -6,17 +6,12 @@ import { AppService } from '../../../fixtures/services/app.service';
 describe('ServiceTestBed', () => {
 
   describe('instance', () => {
-    const tb = serviceTestBed(AppService);
-
-    tb.compileEach();
-    tb.shouldCreate();
+    serviceTestBed(AppService);
   });
 
   describe('import', () => {
-    const tb = serviceTestBed(AppService)
+    const tb = serviceTestBed(AppService, { checkCreate: false })
       .import(HttpClientTestingModule);
-
-    tb.compileEach();
 
     it('should import', tb(({ injector }) => {
       expect(injector.get(HttpTestingController)).toBeTruthy();
@@ -27,10 +22,8 @@ describe('ServiceTestBed', () => {
     @Injectable()
     class SubService {}
 
-    const tb = serviceTestBed(AppService)
+    const tb = serviceTestBed(AppService, { checkCreate: false })
       .provide(SubService);
-
-    tb.compileEach();
 
     it('should provide', tb(({ injector }) => {
       expect(injector.get(SubService)).toBeTruthy();
@@ -41,11 +34,9 @@ describe('ServiceTestBed', () => {
     @Injectable()
     class SubService {}
 
-    const tb = serviceTestBed(AppService)
+    const tb = serviceTestBed(AppService, { checkCreate: false })
       .provide(SubService)
       .inject('sub', SubService);
-
-    tb.compileEach();
 
     it('should inject', tb(({ injected: { sub } }) => {
       expect(sub).toBeTruthy();
@@ -53,9 +44,7 @@ describe('ServiceTestBed', () => {
   });
 
   describe('setup', () => {
-    const tb = serviceTestBed(AppService);
-    tb.compileEach();
-    tb.shouldCreate();
+    const tb = serviceTestBed(AppService, { checkCreate: false });
 
     beforeEach(tb.setup(({ service }) => {
       expect(service.info).toBeTrue();
@@ -72,8 +61,7 @@ describe('ServiceTestBed', () => {
   });
 
   describe('async/await and DoneFn support', () => {
-    const tb = serviceTestBed(AppService);
-    tb.compileEach();
+    const tb = serviceTestBed(AppService, { checkCreate: false });
 
     it('should support DoneFn', tb(({}, done) => {
       expect().nothing();

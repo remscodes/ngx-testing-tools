@@ -3,17 +3,21 @@ import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
 import { buildComponentTools } from './component-tools';
 import { ComponentExtraOptions, ComponentTools } from './models';
+import { ComponentTestBedOptions } from './models/component-test-bed-options.model';
 import { ComponentAssertion, ComponentTestBed } from './models/component-test-bed.models';
 
 /**
  * Creates a new `ComponentTestBed` to configure the custom test bed and wrap the assertion test.
  * @param rootComponent - The described Component.
+ * @param options
  */
-export function componentTestBed<T>(rootComponent: Type<T>): ComponentTestBed<T> {
-  const factory = new ComponentTestBedFactory(rootComponent);
+export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTestBedOptions = {}): ComponentTestBed<T> {
+  const { startDetectChanges: globalStartDetectChanges } = options;
+
+  const factory = new ComponentTestBedFactory(rootComponent, options);
 
   const tb: ComponentTestBed<T> = ((assertion: ComponentAssertion<T, any>, options: ComponentExtraOptions = {}) => {
-    const { startDetectChanges = true } = options;
+    const { startDetectChanges = globalStartDetectChanges ?? true } = options;
 
     const assertionWrapper = (done: DoneFn) => {
       const tools: ComponentTools<T> = buildComponentTools(factory);

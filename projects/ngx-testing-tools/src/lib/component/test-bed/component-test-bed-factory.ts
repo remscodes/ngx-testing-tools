@@ -11,21 +11,23 @@ import { assertComponentFixture } from './assertions/assert-fixture';
 import { buildComponentTools } from './component-tools';
 import { ComponentTestBed } from './models';
 import { ComponentSetup } from './models/component-setup.model';
+import { ComponentTestBedOptions } from './models/component-test-bed-options.model';
 import { Declaration } from './models/metadata-type.model';
 
 export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends CustomTestBedFactory<ComponentType, Store> {
 
-  public constructor(rootComponent: Type<ComponentType>) {
+  public constructor(
+    rootComponent: Type<ComponentType>,
+    private options: ComponentTestBedOptions = {},
+  ) {
     assertComponent(rootComponent);
-    super(rootComponent);
+    super(rootComponent, options);
     (getComponentAnnotation(rootComponent)?.standalone)
       ? this.import(this.described)
       : this.declare(this.described);
   }
 
   private fixture: ComponentFixture<ComponentType> = null!;
-
-  private declarations: Set<Declaration> = new Set();
 
   /**
    * Declares one non-standalone component, directive or pipe into the `ComponentTestBed`.

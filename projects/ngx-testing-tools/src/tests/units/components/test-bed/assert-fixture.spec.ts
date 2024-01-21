@@ -9,6 +9,6 @@ describe('assertComponentFixture', () => {
 
   it('should throw error', () => {
     expect(() => assertComponentFixture(null))
-      .toThrowError('ComponentFixture is falsy. You need to use `beforeEach(() => tb.compile());` of `tb.compileEach();` before running expectations.');
+      .toThrowError('ComponentFixture is falsy. You need to set componentTestBed options `autoCompile = true` or use `tb.compileEach();` or use `beforeEach(() => tb.compile());` before running expectations.');
   });
 });

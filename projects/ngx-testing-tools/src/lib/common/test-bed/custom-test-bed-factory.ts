@@ -1,8 +1,9 @@
 import { ProviderToken, Type } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
-import { AnyProvider, Importation } from '../../component/test-bed/models/metadata-type.model';
+import { AnyProvider, Declaration, Importation } from '../../component/test-bed/models/metadata-type.model';
 import { MaybeArray, NonEmptyString, PrettyMerge } from '../../shared.model';
 import { makeArray } from '../../util/array.util';
+import { CustomTestBedOptions } from './models/custom-test-bed-options.model';
 import { EnhancedJasmineCallback } from './models/enhanced-jasmine-callback.model';
 import { InjectionStore } from './store/models/injected-store.model';
 
@@ -10,12 +11,18 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
 
   protected constructor(
     protected described: Type<Instance>,
-  ) { }
+    options: CustomTestBedOptions = {},
+  ) {
+    const { autoCompile = true, checkCreate = true } = options;
+    if (autoCompile) this.compileEach();
+    if (checkCreate) this.shouldCreate();
+  }
 
   protected testBed: TestBedStatic = TestBed;
 
   protected imports: Set<Importation> = new Set();
   protected providers: Set<AnyProvider> = new Set();
+  protected declarations: Set<Declaration> = new Set();
 
   protected injectedMap: Map<string, ProviderToken<any>> = new Map();
 
@@ -58,8 +65,8 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
   }
 
   /**
-   * Compiles the custom test bed before each test.
-
+   * Manually compiles the custom test bed before each test (when `autoCompile = false`).
+   *
    * **To be called outside jasmine `beforeEach` callback.**
    * @see compile
    */
@@ -68,7 +75,9 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
   }
 
   /**
-   * Compiles the custom test bed to make enhanced tools available.
+   * Manually compiles the custom test bed to make enhanced tools available (when `autoCompile = false`).
+   *
+   * **To be called inside jasmine `beforeEach` callback.**
    */
   public async compile(): Promise<void> {
     this.testBed.configureTestingModule({
