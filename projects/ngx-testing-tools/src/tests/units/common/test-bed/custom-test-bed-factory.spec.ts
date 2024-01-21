@@ -1,6 +1,5 @@
 import { Type } from '@angular/core';
 import { CustomTestBedFactory } from '../../../../lib/common/test-bed/custom-test-bed-factory';
-import { CustomTestBedOptions } from '../../../../lib/common/test-bed/models/custom-test-bed-options.model';
 import { EnhancedJasmineCallback } from '../../../../lib/common/test-bed/models/enhanced-jasmine-callback.model';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';

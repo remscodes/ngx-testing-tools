@@ -1,7 +1,5 @@
-import { ProviderToken } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { buildInjected } from '../../common/test-bed/store/injected';
-import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
+import { buildCustomTools } from '../../common/test-bed/custom-tools';
 import { assertComponentFixture } from './assertions/assert-fixture';
 import { buildComponentActionTools } from './component-action-tools';
 import { buildComponentQueryTools } from './component-query-tools';
@@ -14,14 +12,11 @@ export function buildComponentTools<T>(factory: ComponentTestBedFactory<T>): Com
   const fixture: ComponentFixture<T> = factory['fixture'];
   assertComponentFixture(fixture);
 
-  const injectedMap: Map<string, ProviderToken<any>> = factory['injectedMap'];
-
   const { componentInstance: component, debugElement: debug } = fixture;
-  const { injector } = debug;
 
   const query: ComponentQueryTools = buildComponentQueryTools(fixture);
   const action: ComponentActionTools = buildComponentActionTools(fixture);
-  const injected: InjectionStore['injected'] = buildInjected(injector, injectedMap);
+  const { injected, injector } = buildCustomTools(factory, { thisInjector: debug.injector });
 
   return { action, component, debug, fixture, injected, injector, query };
 }

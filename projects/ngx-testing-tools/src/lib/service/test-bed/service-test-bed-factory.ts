@@ -20,7 +20,7 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
     this.provide(this.described);
   }
 
-  private instance: ServiceType = null!;
+  private service: ServiceType = null!;
 
   public override inject<S extends string, T>(name: NonEmptyString<S>, token: ProviderToken<T>): ServiceTestBed<ServiceType, InjectionStore<PrettyMerge<Store["injected"] & { [K in S]: T }>>> {
     return super.inject(name, token) as any;
@@ -28,7 +28,7 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
 
   public override async compile(): Promise<void> {
     await super.compile();
-    this.instance = this.testBed.inject(this.described);
+    this.service = this.injectDescribed();
   }
 
   public override setup(action: ServiceSetup<ServiceType, Store["injected"]>): jasmine.ImplementationCallback {
@@ -38,6 +38,6 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
   }
 
   public override shouldCreate(): void {
-    shouldCreate(() => this.instance);
+    shouldCreate(() => this.service);
   }
 }

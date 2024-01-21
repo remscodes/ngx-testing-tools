@@ -1,6 +1,6 @@
 import { ProviderToken, Type } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
-import { AnyProvider, Declaration, Importation } from '../../component/test-bed/models/metadata-type.model';
+import { AnyProvider, Importation } from '../../component/test-bed/models/metadata-type.model';
 import { MaybeArray, NonEmptyString, PrettyMerge } from '../../shared.model';
 import { makeArray } from '../../util/array.util';
 import { CustomTestBedOptions } from './models/custom-test-bed-options.model';
@@ -22,7 +22,6 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
 
   protected imports: Set<Importation> = new Set();
   protected providers: Set<AnyProvider> = new Set();
-  protected declarations: Set<Declaration> = new Set();
 
   protected injectedMap: Map<string, ProviderToken<any>> = new Map();
 
@@ -55,7 +54,7 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
   /**
    * Injects an instance by token into the custom test bed.
    *
-   * Retrieve it into the `ComponentTools.injected` by autocompletion.
+   * Retrieve it into the tools `injected` by autocompletion.
    * @param name the key to access the instance.
    * @param token the provider token.
    */
@@ -99,4 +98,8 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
    * **To be called outside jasmine `it` callback.**
    */
   public abstract shouldCreate(): void;
+
+  protected injectDescribed(): Instance {
+    return this.testBed.inject(this.described);
+  }
 }

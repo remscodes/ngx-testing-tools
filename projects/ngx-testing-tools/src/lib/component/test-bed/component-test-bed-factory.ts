@@ -2,19 +2,17 @@ import { ProviderToken, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { getComponentAnnotation } from '../../common/annotation/component-annotation';
 import { shouldCreate } from '../../common/expectation/should-create';
-import { CustomTestBedFactory } from '../../common/test-bed/custom-test-bed-factory';
+import { DeclarativeTestBedFactory } from '../../common/test-bed/declarative-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
-import { MaybeArray, NonEmptyString, PrettyMerge } from '../../shared.model';
-import { makeArray } from '../../util/array.util';
+import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { assertComponent } from './assertions/assert-component';
 import { assertComponentFixture } from './assertions/assert-fixture';
 import { buildComponentTools } from './component-tools';
 import { ComponentTestBed } from './models';
 import { ComponentSetup } from './models/component-setup.model';
 import { ComponentTestBedOptions } from './models/component-test-bed-options.model';
-import { Declaration } from './models/metadata-type.model';
 
-export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends CustomTestBedFactory<ComponentType, Store> {
+export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends DeclarativeTestBedFactory<ComponentType, Store> {
 
   public constructor(
     rootComponent: Type<ComponentType>,
@@ -29,28 +27,12 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
 
   private fixture: ComponentFixture<ComponentType> = null!;
 
-  /**
-   * Declares one non-standalone component, directive or pipe into the `ComponentTestBed`.
-   */
-  public declare(declaration: Declaration): this
-  /**
-   * Declares many non-standalone components, directives and pipes into `ComponentTestBed`.
-   */
-  public declare(declarations: Declaration[]): this
-  public declare(oneOrManyDeclarations: MaybeArray<Declaration>): this {
-    makeArray(oneOrManyDeclarations).forEach(v => this.declarations.add(v));
-    return this;
-  }
-
   public override inject<S extends string, T>(name: NonEmptyString<S>, token: ProviderToken<T>): ComponentTestBed<ComponentType, InjectionStore<PrettyMerge<Store['injected'] & { [K in S]: T }>>> {
     return super.inject(name, token) as any;
   }
 
   public override async compile(): Promise<void> {
     await super.compile();
-    this.testBed.configureTestingModule({
-      declarations: [...this.declarations.values()],
-    });
     await this.testBed.compileComponents();
     this.fixture = this.testBed.createComponent(this.described);
   }
