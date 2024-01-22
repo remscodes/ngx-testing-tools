@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
-import { ModuleTestBedOptions } from './models/module-test-bed-options.model';
+import { ModuleTestBedOptions } from './models';
 import { ModuleAssertion, ModuleTestBed } from './models/module-test-bed.model';
 import { ModuleTestBedFactory } from './module-test-bed-factory';
 import { buildModuleTools } from './module-tools';

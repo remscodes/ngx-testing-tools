@@ -1,7 +1,6 @@
 import { Type } from '@angular/core';
 import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
-import { ServiceTestBed } from './models';
-import { ServiceTestBedOptions } from './models/service-test-bed-options.model';
+import { ServiceTestBed, ServiceTestBedOptions } from './models';
 import { ServiceAssertion } from './models/service-test-bed.model';
 import { ServiceTestBedFactory } from './service-test-bed-factory';
 import { buildServiceTools } from './service-tools';

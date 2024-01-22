@@ -5,12 +5,11 @@ import { shouldCreate } from '../../common/expectation/should-create';
 import { DeclarativeTestBedFactory } from '../../common/test-bed/declarative-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
-import { assertComponent } from './assertions/assert-component';
+import { assertComponentCtor } from './assertions/assert-component-ctor';
 import { assertComponentFixture } from './assertions/assert-fixture';
 import { buildComponentTools } from './component-tools';
-import { ComponentTestBed } from './models';
+import { ComponentTestBed, ComponentTestBedOptions } from './models';
 import { ComponentSetup } from './models/component-setup.model';
-import { ComponentTestBedOptions } from './models/component-test-bed-options.model';
 
 export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends DeclarativeTestBedFactory<ComponentType, Store> {
 
@@ -18,7 +17,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
     rootComponent: Type<ComponentType>,
     private options: ComponentTestBedOptions = {},
   ) {
-    assertComponent(rootComponent);
+    assertComponentCtor(rootComponent);
     super(rootComponent, options);
     (getComponentAnnotation(rootComponent)?.standalone)
       ? this.import(this.described)

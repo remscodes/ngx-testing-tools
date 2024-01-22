@@ -2,8 +2,7 @@ import { Type } from '@angular/core';
 import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
 import { buildComponentTools } from './component-tools';
-import { ComponentExtraOptions, ComponentTools } from './models';
-import { ComponentTestBedOptions } from './models/component-test-bed-options.model';
+import { ComponentExtraOptions, ComponentTestBedOptions, ComponentTools } from './models';
 import { ComponentAssertion, ComponentTestBed } from './models/component-test-bed.models';
 
 /**

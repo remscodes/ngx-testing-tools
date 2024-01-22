@@ -1,13 +1,12 @@
 import { ProviderToken, Type } from '@angular/core';
 import { shouldCreate } from '../../common/expectation/should-create';
-import { CustomTestBedFactory } from '../../common/test-bed/custom-test-bed-factory';
 import { DeclarativeTestBedFactory } from '../../common/test-bed/declarative-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
+import { assertModule } from './assertions/assert-module';
 import { assertModuleCtor } from './assertions/assert-module-ctor';
+import { ModuleTestBed, ModuleTestBedOptions } from './models';
 import { ModuleSetup } from './models/module-setup.model';
-import { ModuleTestBedOptions } from './models/module-test-bed-options.model';
-import { ModuleTestBed } from './models/module-test-bed.model';
 import { buildModuleTools } from './module-tools';
 
 export class ModuleTestBedFactory<ModuleType, Store extends InjectionStore = InjectionStore> extends DeclarativeTestBedFactory<ModuleType, Store> {
@@ -38,6 +37,9 @@ export class ModuleTestBedFactory<ModuleType, Store extends InjectionStore = Inj
   }
 
   public override shouldCreate(): void {
-    shouldCreate(() => this.module);
+    shouldCreate(() => {
+      assertModule(this.module);
+      return this.module;
+    });
   }
 }

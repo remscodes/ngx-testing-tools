@@ -70,7 +70,7 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
    * @see compile
    */
   public compileEach(): void {
-    beforeEach(() => this.compile());
+    globalThis.beforeEach(() => this.compile());
   }
 
   /**

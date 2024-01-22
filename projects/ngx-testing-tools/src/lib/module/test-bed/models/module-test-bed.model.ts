@@ -5,6 +5,6 @@ import { ModuleTools } from './module-tools.model';
 
 export interface ModuleTestBed<T, I extends InjectionStore = InjectionStore> extends ModuleTestBedFn<T, I>, ModuleTestBedFactory<T, I> {}
 
-export type ModuleTestBedFn<T, I extends InjectionStore> = (assertion: ModuleAssertion<T, I['injected']>) => jasmine.ImplementationCallback
+type ModuleTestBedFn<T, I extends InjectionStore> = (assertion: ModuleAssertion<T, I['injected']>) => jasmine.ImplementationCallback
 
 export type ModuleAssertion<T, I extends {}> = EnhancedJasmineCallback<ModuleTools<T, I>>

@@ -1,7 +1,7 @@
 import { Directive, Injectable } from '@angular/core';
-import { assertService } from '../../../lib/service/test-bed/assert-service';
+import { assertServiceCtor } from '../../../lib/service/test-bed/assertions/assert-service-ctor';
 
-describe('assertService', () => {
+describe('assertServiceCtor', () => {
   @Injectable()
   class AppService {}
 
@@ -9,17 +9,17 @@ describe('assertService', () => {
   class AppDirective {}
 
   it('should pass', () => {
-    expect(() => assertService(AppService))
+    expect(() => assertServiceCtor(AppService))
       .not.toThrowError();
   });
 
   it('should throw error with AppDirective indication', () => {
-    expect(() => assertService(AppDirective))
+    expect(() => assertServiceCtor(AppDirective))
       .toThrowError('The provided "AppDirective" is not a Injectable Service. The ServiceTestBed cannot be created.');
   });
 
   it('should throw error with AppDirective indication', () => {
-    expect(() => assertService({} as any))
+    expect(() => assertServiceCtor({} as any))
       .toThrowError('The provided "[object Object]" is not a Injectable Service. The ServiceTestBed cannot be created.');
   });
 });

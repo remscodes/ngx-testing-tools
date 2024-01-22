@@ -3,10 +3,10 @@ import { shouldCreate } from '../../common/expectation/should-create';
 import { CustomTestBedFactory } from '../../common/test-bed/custom-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
-import { assertService } from './assert-service';
-import { ServiceTestBed } from './models';
+import { assertService } from './assertions/assert-service';
+import { assertServiceCtor } from './assertions/assert-service-ctor';
+import { ServiceTestBed, ServiceTestBedOptions } from './models';
 import { ServiceSetup } from './models/service-setup.model';
-import { ServiceTestBedOptions } from './models/service-test-bed-options.model';
 import { buildServiceTools } from './service-tools';
 
 export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = InjectionStore> extends CustomTestBedFactory<ServiceType, Store> {
@@ -15,7 +15,7 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
     rootService: Type<ServiceType>,
     private options: ServiceTestBedOptions = {},
   ) {
-    assertService(rootService);
+    assertServiceCtor(rootService);
     super(rootService, options);
     this.provide(this.described);
   }
@@ -38,6 +38,9 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
   }
 
   public override shouldCreate(): void {
-    shouldCreate(() => this.service);
+    shouldCreate(() => {
+      assertService(this.service);
+      return this.service;
+    });
   }
 }
