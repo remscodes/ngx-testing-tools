@@ -1,12 +1,13 @@
 import { ProviderToken, Type } from '@angular/core';
 import { shouldCreate } from '../../common/expectation/should-create';
+import { buildJasmineCallback } from '../../common/test-bed/action-callback';
 import { DeclarativeTestBedFactory } from '../../common/test-bed/declarative-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { assertModule } from './assertions/assert-module';
 import { assertModuleCtor } from './assertions/assert-module-ctor';
 import { ModuleTestBed, ModuleTestBedOptions } from './models';
-import { ModuleSetup } from './models/module-setup.model';
+import { ModuleCallback } from './models/module-test-bed.model';
 import { buildModuleTools } from './module-tools';
 
 export class ModuleTestBedFactory<ModuleType, Store extends InjectionStore = InjectionStore> extends DeclarativeTestBedFactory<ModuleType, Store> {
@@ -30,10 +31,8 @@ export class ModuleTestBedFactory<ModuleType, Store extends InjectionStore = Inj
     this.module = this.injectDescribed();
   }
 
-  public override setup(action: ModuleSetup<ModuleType, Store["injected"]>): jasmine.ImplementationCallback {
-    return (action.length > 1)
-      ? (done: DoneFn) => action(buildModuleTools(this), done)
-      : () => action(buildModuleTools(this), null!);
+  public override setup(action: ModuleCallback<ModuleType, Store["injected"]>): jasmine.ImplementationCallback {
+    return buildJasmineCallback(this, action, buildModuleTools);
   }
 
   public override shouldCreate(): void {

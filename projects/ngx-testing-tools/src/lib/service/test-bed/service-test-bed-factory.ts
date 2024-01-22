@@ -1,12 +1,13 @@
 import { ProviderToken, Type } from '@angular/core';
 import { shouldCreate } from '../../common/expectation/should-create';
+import { buildJasmineCallback } from '../../common/test-bed/action-callback';
 import { CustomTestBedFactory } from '../../common/test-bed/custom-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { assertService } from './assertions/assert-service';
 import { assertServiceCtor } from './assertions/assert-service-ctor';
 import { ServiceTestBed, ServiceTestBedOptions } from './models';
-import { ServiceSetup } from './models/service-setup.model';
+import { ServiceCallback } from './models/service-test-bed.model';
 import { buildServiceTools } from './service-tools';
 
 export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = InjectionStore> extends CustomTestBedFactory<ServiceType, Store> {
@@ -31,10 +32,8 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
     this.service = this.injectDescribed();
   }
 
-  public override setup(action: ServiceSetup<ServiceType, Store["injected"]>): jasmine.ImplementationCallback {
-    return (action.length > 1)
-      ? (done: DoneFn) => action(buildServiceTools(this), done)
-      : () => action(buildServiceTools(this), null!);
+  public override setup(action: ServiceCallback<ServiceType, Store["injected"]>): jasmine.ImplementationCallback {
+    return buildJasmineCallback(this, action, buildServiceTools);
   }
 
   public override shouldCreate(): void {
