@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from '@angular/comm
 import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TestBed } from '@angular/core/testing';
-import { makeInterceptorFail, makeInterceptorSucceed } from '../../../lib/http';
+import { makeInterceptorFail, makeInterceptorSucceed } from '../../../lib';
 import { oneInterceptor } from '../../fixtures/interceptors/one.interceptor';
 
 describe('Interceptors', () => {

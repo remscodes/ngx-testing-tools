@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ResolveFn, Router, RouterStateSnapshot } from '@angular/router';
 import { of, tap } from 'rxjs';
-import { checkResolver } from '../../../../lib/router';
+import { checkResolver } from '../../../../lib';
 
 describe('checkResolver', () => {
   function resolverFactory(): ResolveFn<string> {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { CanDeactivateFn, Router, RouterStateSnapshot } from '@angular/router';
-import { challengeGuardDeactivate } from '../../../../lib/router';
+import { challengeGuardDeactivate } from '../../../../lib';
 
 describe('challengeGuardDeactivate', () => {
   @Component({ template: ``, standalone: true })

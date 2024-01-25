@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { testPipeValues } from '../../../lib/pipe';
+import { testPipeValues } from '../../../lib';
 
 describe('testPipeValues', () => {
   @Pipe({ name: 'multiply', standalone: true })
