@@ -1,6 +1,5 @@
-import { ProviderToken, Type } from '@angular/core';
+import { isStandalone, ProviderToken, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { getComponentAnnotation } from '../../common/annotation/component-annotation';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { buildJasmineCallback } from '../../common/test-bed/action-callback';
 import { DeclarativeTestBedFactory } from '../../common/test-bed/declarative-test-bed-factory';
@@ -20,7 +19,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
   ) {
     assertComponentCtor(rootComponent);
     super(rootComponent, options);
-    (getComponentAnnotation(rootComponent)?.standalone)
+    (isStandalone(this.described))
       ? this.import(this.described)
       : this.declare(this.described);
   }
