@@ -1,22 +1,7 @@
 import { Component, Directive } from '@angular/core';
-import { getComponentAnnotation, isComponentAnnotation } from '../../../../lib/common/annotation/component-annotation';
+import { getComponentAnnotation } from '../../../../lib/common/annotation/component-annotation';
 
 describe('Component Annotation', () => {
-
-  describe('isComponentAnnotation', () => {
-
-    it('should be a component annotation', () => {
-      expect(isComponentAnnotation({ templateUrl: '' })).toBeTrue();
-    });
-
-    it('should be a component annotation', () => {
-      expect(isComponentAnnotation({ template: '' })).toBeTrue();
-    });
-
-    it('should not be a component annotation', () => {
-      expect(isComponentAnnotation({ standalone: true })).toBeFalse();
-    });
-  });
 
   describe('getComponentAnnotation', () => {
 
