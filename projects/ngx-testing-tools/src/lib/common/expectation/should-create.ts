@@ -1,5 +1,5 @@
 export function shouldCreate(factory: () => unknown): void {
-  it('should create', () => {
+  globalThis.it('should create', () => {
     expect(factory()).toBeTruthy();
   });
 }

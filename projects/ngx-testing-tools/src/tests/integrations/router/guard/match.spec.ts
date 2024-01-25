@@ -1,5 +1,5 @@
 import { CanMatchFn } from '@angular/router';
-import { challengeGuardMatch } from '../../../../lib/router';
+import { challengeGuardMatch } from '../../../../lib';
 
 describe('challengeGuardMatch', () => {
   function matchGuardFactory(): CanMatchFn {

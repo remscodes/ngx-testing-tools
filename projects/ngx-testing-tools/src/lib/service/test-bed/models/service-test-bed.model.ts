@@ -5,6 +5,6 @@ import { ServiceTools } from './service-tools.model';
 
 export interface ServiceTestBed<T, I extends InjectionStore = InjectionStore> extends ServiceTestBedFn<T, I>, ServiceTestBedFactory<T, I> {}
 
-export type ServiceTestBedFn<T, I extends InjectionStore> = (assertion: ServiceAssertion<T, I['injected']>) => jasmine.ImplementationCallback
+type ServiceTestBedFn<T, I extends InjectionStore> = (assertion: ServiceCallback<T, I['injected']>) => jasmine.ImplementationCallback
 
-export type ServiceAssertion<T, I extends {}> = EnhancedJasmineCallback<ServiceTools<T, I>>
+export type ServiceCallback<T, I extends {}> = EnhancedJasmineCallback<ServiceTools<T, I>>

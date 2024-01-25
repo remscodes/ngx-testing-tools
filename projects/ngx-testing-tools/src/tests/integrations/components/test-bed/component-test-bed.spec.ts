@@ -1,6 +1,6 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Component, inject } from '@angular/core';
-import { componentTestBed } from '../../../../lib/component';
+import { componentTestBed } from '../../../../lib';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
 import { validateArray } from '../../../fixtures/helpers/validators/validate-array';
@@ -9,26 +9,18 @@ import { AppService } from '../../../fixtures/services/app.service';
 describe('componentTestBed', () => {
 
   describe('standalone root component', () => {
-    const tb = componentTestBed(OuterComponent);
-
-    tb.compileEach();
-    tb.shouldCreate();
+    componentTestBed(OuterComponent);
   });
 
   describe('non-standalone root component', () => {
     @Component({ template: ``, standalone: false })
     class ClassicComponent {}
 
-    const tb = componentTestBed(ClassicComponent);
-
-    tb.compileEach();
-    tb.shouldCreate();
+    componentTestBed(ClassicComponent);
   });
 
   describe('setup', () => {
-    const tb = componentTestBed(OuterComponent);
-
-    tb.compileEach();
+    const tb = componentTestBed(OuterComponent, { checkCreate: false });
 
     beforeEach(tb.setup(({ component }) => {
       component.innerClicked = true;
@@ -45,10 +37,8 @@ describe('componentTestBed', () => {
   });
 
   describe('import', () => {
-    const tb = componentTestBed(OuterComponent)
+    const tb = componentTestBed(OuterComponent, { checkCreate: false })
       .import(HttpClientTestingModule);
-
-    tb.compileEach();
 
     it('should import', tb(({ injector }) => {
       const controller = injector.get(HttpTestingController);
@@ -62,10 +52,8 @@ describe('componentTestBed', () => {
       service = inject(AppService);
     }
 
-    const tb = componentTestBed(AppComponent)
+    const tb = componentTestBed(AppComponent, { checkCreate: false })
       .provide(AppService);
-
-    tb.compileEach();
 
     it('should provide', tb(({ injector }) => {
       const service = injector.get(AppService);
@@ -76,7 +64,7 @@ describe('componentTestBed', () => {
   describe('declare', () => {
     @Component({
       template: `
-          <app-b/>
+        <app-b/>
       `,
       standalone: false,
     })
@@ -85,17 +73,12 @@ describe('componentTestBed', () => {
     @Component({ selector: 'app-b', template: ``, standalone: false })
     class BComponent {}
 
-    const tb = componentTestBed(AComponent)
+    componentTestBed(AComponent)
       .declare(BComponent);
-
-    tb.compileEach();
-    tb.shouldCreate();
   });
 
   describe('query', () => {
-    const tb = componentTestBed(OuterComponent);
-
-    tb.compileEach();
+    const tb = componentTestBed(OuterComponent, { checkCreate: false });
 
     it('should find InnerComponent instance', tb(({ query }) => {
       expect(query.findComponent(InnerComponent)).toBeTruthy();
@@ -129,9 +112,7 @@ describe('componentTestBed', () => {
   });
 
   describe('action', () => {
-    const tb = componentTestBed(OuterComponent);
-
-    tb.compileEach();
+    const tb = componentTestBed(OuterComponent, { checkCreate: false });
 
     it('should click', tb(({ component, action }) => {
       expect(component.clicked).toBeFalse();
@@ -147,10 +128,8 @@ describe('componentTestBed', () => {
   });
 
   describe('inject method', () => {
-    const tb = componentTestBed(OuterComponent)
+    const tb = componentTestBed(OuterComponent, { checkCreate: false })
       .inject('app', AppService);
-
-    tb.compileEach();
 
     it('should inject into test bed', tb(({ injected: { app } }) => {
       expect(app).toBeTruthy();
@@ -159,9 +138,7 @@ describe('componentTestBed', () => {
   });
 
   describe('DoneFn and await/async support', () => {
-    const tb = componentTestBed(OuterComponent);
-
-    tb.compileEach();
+    const tb = componentTestBed(OuterComponent, { checkCreate: false });
 
     it('should support jasmine DoneFn', tb(({}, done: DoneFn) => {
       expect().nothing();

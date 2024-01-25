@@ -1,7 +1,7 @@
 import { Component, Directive } from '@angular/core';
-import { assertComponent } from '../../../../lib/component/test-bed/assertions/assert-component';
+import { assertComponentCtor } from '../../../../lib/component/test-bed/assertions/assert-component-ctor';
 
-describe('assertComponent', () => {
+describe('assertComponentCtor', () => {
   @Component({ template: ``, standalone: true })
   class AppComponent {}
 
@@ -9,17 +9,17 @@ describe('assertComponent', () => {
   class AppDirective {}
 
   it('should pass', () => {
-    expect(() => assertComponent(AppComponent))
+    expect(() => assertComponentCtor(AppComponent))
       .not.toThrowError();
   });
 
   it('should throw error with AppDirective indication', () => {
-    expect(() => assertComponent(AppDirective))
+    expect(() => assertComponentCtor(AppDirective))
       .toThrowError('The provided "AppDirective" is not a Component. The ComponentTestBed cannot be created.');
   });
 
   it('should throw error with [object Object] indication', () => {
-    expect(() => assertComponent({} as any))
+    expect(() => assertComponentCtor({} as any))
       .toThrowError('The provided "[object Object]" is not a Component. The ComponentTestBed cannot be created.');
   });
 });

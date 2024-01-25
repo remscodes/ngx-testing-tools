@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
-import { challengeGuardActivate } from '../../../../lib/router';
+import { challengeGuardActivate } from '../../../../lib';
 
 describe('activate', () => {
   function activateGuardFactory(): CanActivateFn {

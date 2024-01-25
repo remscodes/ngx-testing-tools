@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TestBed } from "@angular/core/testing";
-import { emitFakeErrorResponse, emitFakeSuccessResponse, expectHttpRequest } from '../../../lib/http';
+import { emitFakeErrorResponse, emitFakeSuccessResponse, expectHttpRequest } from '../../../lib';
 
 describe('HTTP responses', () => {
   let http: HttpClient;

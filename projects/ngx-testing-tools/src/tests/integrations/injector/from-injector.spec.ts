@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { fromInjector } from '../../../lib/injector';
+import { fromInjector } from '../../../lib';
 import { InnerComponent } from '../../fixtures/components/inner.component';
 import { OuterComponent } from '../../fixtures/components/outer.component';
 import { createOuterComponentFixture } from '../../fixtures/helpers/configuration/create-outer-component-fixture';

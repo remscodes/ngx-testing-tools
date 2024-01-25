@@ -9,7 +9,10 @@ describe('ServiceTestBedFactory', () => {
   let compiler: MockTestCompiler;
 
   beforeEach(() => {
-    factory = new ServiceTestBedFactory(AppService);
+    factory = new ServiceTestBedFactory(AppService, {
+      autoCompile: false,
+      checkCreate: false,
+    });
     compiler = new MockTestCompiler();
     factory['testBed'] = mockTestBedStatic(compiler);
   });

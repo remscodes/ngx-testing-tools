@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { expectModuleToCreate } from '../../../lib/module';
+import { expectModuleToCreate } from '../../../lib';
 
 describe('expectModuleToCreate', () => {
   @NgModule()
