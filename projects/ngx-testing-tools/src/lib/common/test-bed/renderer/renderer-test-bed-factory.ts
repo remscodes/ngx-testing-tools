@@ -1,4 +1,4 @@
-import { SchemaMetadata, Type } from '@angular/core';
+import { isStandalone, SchemaMetadata, Type } from '@angular/core';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { Declaration } from '../../../component/test-bed/models/metadata-type.model';
 import { MaybeArray } from '../../../shared.model';
@@ -15,13 +15,24 @@ export abstract class RendererTestBedFactory<Instance, Store extends InjectionSt
   ) {
     super(described, options);
 
-    const { noopAnimations = true, schemas = [] } = options;
+    const {
+      declarations = [],
+      schemas = [],
+      noopAnimations = true,
+      ingestDescribed = true,
+    } = options;
+
+    this.declarations = new Set(declarations);
+    this.schemas = new Set(schemas);
+
     if (noopAnimations) this.providers.add(provideNoopAnimations());
-    schemas.forEach(s => this.schemas.add(s));
+    if (ingestDescribed) (isStandalone(this.described))
+      ? this.import(this.described)
+      : this.declare(this.described);
   }
 
-  protected declarations: Set<Declaration> = new Set();
-  protected schemas: Set<SchemaMetadata> = new Set();
+  protected declarations: Set<Declaration>;
+  protected schemas: Set<SchemaMetadata>;
 
   /**
    * Declares one non-standalone component, directive or pipe into the custom test bed.

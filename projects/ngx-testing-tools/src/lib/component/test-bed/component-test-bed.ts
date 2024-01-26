@@ -11,7 +11,10 @@ import { ComponentCallback, ComponentTestBed } from './models/component-test-bed
  * @param options
  */
 export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTestBedOptions = {}): ComponentTestBed<T> {
-  const { startDetectChanges: globalStartDetectChanges } = options;
+  const {
+    startDetectChanges: globalStartDetectChanges,
+    noTemplate = false,
+  } = options;
 
   const factory = new ComponentTestBedFactory(rootComponent, options);
 
@@ -21,7 +24,7 @@ export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTe
     const assertionWrapper = (done: DoneFn) => {
       const tools: ComponentTools<T> = buildComponentTools(factory);
 
-      if (startDetectChanges) tools.fixture.detectChanges();
+      if (!noTemplate && startDetectChanges) tools.fixture.detectChanges();
 
       return assertion(tools, done);
     };

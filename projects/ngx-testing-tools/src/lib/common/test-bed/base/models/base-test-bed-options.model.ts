@@ -1,4 +1,14 @@
+import { AnyProvider, Importation } from '../../../../component/test-bed/models/metadata-type.model';
+
 export interface BaseTestBedOptions {
+  /**
+   * @default []
+   */
+  imports?: Importation[];
+  /**
+   * @default []
+   */
+  providers?: AnyProvider[];
   /**
    * Automatically compiles the custom test bed for each test.
    * @default true

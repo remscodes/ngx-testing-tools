@@ -1,4 +1,4 @@
-import { isStandalone, ProviderToken, Type } from '@angular/core';
+import { ProviderToken, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { buildJasmineCallback } from '../../common/test-bed/action-callback';
@@ -20,9 +20,11 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
     assertComponentCtor(rootComponent);
     super(rootComponent, options);
 
-    (isStandalone(this.described))
-      ? this.import(this.described)
-      : this.declare(this.described);
+    const {
+      noTemplate = false,
+    } = options;
+
+    if (noTemplate) this.testBed.overrideTemplateUsingTestingModule(this.described, '');
   }
 
   private fixture: ComponentFixture<ComponentType> = null!;

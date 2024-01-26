@@ -13,15 +13,24 @@ export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore 
     protected described: Type<Instance>,
     options: BaseTestBedOptions = {},
   ) {
-    const { autoCompile = true, checkCreate = true } = options;
+    const {
+      imports = [],
+      providers = [],
+      autoCompile = true,
+      checkCreate = true,
+    } = options;
+
+    this.imports = new Set(imports);
+    this.providers = new Set(providers);
+
     if (autoCompile) this.compileEach();
     if (checkCreate) this.shouldCreate();
   }
 
   protected testBed: TestBedStatic = TestBed;
 
-  protected imports: Set<Importation> = new Set();
-  protected providers: Set<AnyProvider> = new Set();
+  protected imports: Set<Importation>;
+  protected providers: Set<AnyProvider>;
 
   protected injectedMap: Map<string, ProviderToken<any>> = new Map();
 
@@ -74,7 +83,9 @@ export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore 
   }
 
   /**
-   * Manually compiles the custom test bed to make enhanced tools available (when `autoCompile = false`).
+   * Manually compiles the custom test bed to make enhanced tools available.
+   *
+   * To be used when `autoCompile = false`.
    *
    * **To be called inside jasmine `beforeEach` callback.**
    */
