@@ -1,17 +1,17 @@
 import { ProviderToken, Type } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
-import { AnyProvider, Importation } from '../../component/test-bed/models/metadata-type.model';
-import { MaybeArray, NonEmptyString, PrettyMerge } from '../../shared.model';
-import { makeArray } from '../../util/array.util';
-import { CustomTestBedOptions } from './models/custom-test-bed-options.model';
-import { EnhancedJasmineCallback } from './models/enhanced-jasmine-callback.model';
-import { InjectionStore } from './store/models/injected-store.model';
+import { AnyProvider, Importation } from '../../../component/test-bed/models/metadata-type.model';
+import { MaybeArray, NonEmptyString, PrettyMerge } from '../../../shared.model';
+import { makeArray } from '../../../util/array.util';
+import { EnhancedJasmineCallback } from '../models/enhanced-jasmine-callback.model';
+import { InjectionStore } from '../store/models/injected-store.model';
+import { BaseTestBedOptions } from './models/custom-test-bed-options.model';
 
-export abstract class CustomTestBedFactory<Instance, Store extends InjectionStore = InjectionStore> {
+export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore = InjectionStore> {
 
   protected constructor(
     protected described: Type<Instance>,
-    options: CustomTestBedOptions = {},
+    options: BaseTestBedOptions = {},
   ) {
     const { autoCompile = true, checkCreate = true } = options;
     if (autoCompile) this.compileEach();
@@ -58,7 +58,7 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
    * @param name the key to access the instance.
    * @param token the provider token.
    */
-  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): CustomTestBedFactory<Instance, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
+  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): BaseTestBedFactory<Instance, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
     this.injectedMap.set(name, token);
     return this;
   }

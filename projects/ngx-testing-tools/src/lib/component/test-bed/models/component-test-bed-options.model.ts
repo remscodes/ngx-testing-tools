@@ -1,15 +1,6 @@
-import { SchemaMetadata } from '@angular/core';
-import { CustomTestBedOptions } from '../../../common/test-bed/models/custom-test-bed-options.model';
+import { RendererTestBedOptions } from '../../../common/test-bed/renderer/models/renderer-test-bed-options.model';
 import { ComponentExtraOptions } from './component-extra-options.model';
 
-export interface ComponentTestBedOptions extends ComponentExtraOptions, CustomTestBedOptions {
-  /**
-   * @default []
-   */
-  schemas?: SchemaMetadata[];
-  /**
-   * Enable or disable angular animations.
-   * @default true
-   */
-  noopAnimations?: boolean;
+export interface ComponentTestBedOptions extends ComponentExtraOptions, RendererTestBedOptions {
+
 }

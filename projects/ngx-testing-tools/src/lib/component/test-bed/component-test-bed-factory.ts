@@ -2,7 +2,7 @@ import { isStandalone, ProviderToken, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { buildJasmineCallback } from '../../common/test-bed/action-callback';
-import { DeclarativeTestBedFactory } from '../../common/test-bed/declarative-test-bed-factory';
+import { RendererTestBedFactory } from '../../common/test-bed/renderer/renderer-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { assertComponentCtor } from './assertions/assert-component-ctor';
@@ -11,14 +11,15 @@ import { buildComponentTools } from './component-tools';
 import { ComponentTestBed, ComponentTestBedOptions } from './models';
 import { ComponentCallback } from './models/component-test-bed.models';
 
-export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends DeclarativeTestBedFactory<ComponentType, Store> {
+export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends RendererTestBedFactory<ComponentType, Store> {
 
   public constructor(
     rootComponent: Type<ComponentType>,
-    private options: ComponentTestBedOptions = {},
+    options: ComponentTestBedOptions = {},
   ) {
     assertComponentCtor(rootComponent);
     super(rootComponent, options);
+
     (isStandalone(this.described))
       ? this.import(this.described)
       : this.declare(this.described);

@@ -1,11 +1,11 @@
-import { CustomTestBedFactory } from './custom-test-bed-factory';
-import { CustomTools } from './models/custom-tools.model';
+import { BaseTestBedFactory } from './base/base-test-bed-factory';
+import { BaseTools } from './base/models/base-tools.model';
 import { EnhancedJasmineCallback } from './models/enhanced-jasmine-callback.model';
 
 export function buildJasmineCallback<
-  Factory extends CustomTestBedFactory<unknown>,
+  Factory extends BaseTestBedFactory<unknown>,
   Callback extends EnhancedJasmineCallback<Tools>,
-  Tools extends CustomTools = any,
+  Tools extends BaseTools = any,
 >(
   factory: Factory,
   action: Callback,

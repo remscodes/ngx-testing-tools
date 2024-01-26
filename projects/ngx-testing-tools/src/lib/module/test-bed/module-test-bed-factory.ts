@@ -1,7 +1,7 @@
 import { ProviderToken, Type } from '@angular/core';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { buildJasmineCallback } from '../../common/test-bed/action-callback';
-import { DeclarativeTestBedFactory } from '../../common/test-bed/declarative-test-bed-factory';
+import { RendererTestBedFactory } from '../../common/test-bed/renderer/renderer-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { assertModule } from './assertions/assert-module';
@@ -10,7 +10,7 @@ import { ModuleTestBed, ModuleTestBedOptions } from './models';
 import { ModuleCallback } from './models/module-test-bed.model';
 import { buildModuleTools } from './module-tools';
 
-export class ModuleTestBedFactory<ModuleType, Store extends InjectionStore = InjectionStore> extends DeclarativeTestBedFactory<ModuleType, Store> {
+export class ModuleTestBedFactory<ModuleType, Store extends InjectionStore = InjectionStore> extends RendererTestBedFactory<ModuleType, Store> {
 
   public constructor(
     rootModule: Type<ModuleType>,

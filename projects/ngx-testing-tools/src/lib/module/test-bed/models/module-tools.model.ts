@@ -1,6 +1,6 @@
-import { CustomTools } from '../../../common/test-bed/models/custom-tools.model';
+import { BaseTools } from '../../../common/test-bed/base/models/base-tools.model';
 
-export interface ModuleTools<T, I extends {} = {}> extends CustomTools<I> {
+export interface ModuleTools<T, I extends {} = {}> extends BaseTools<I> {
   /**
    * The described module instance.
    */

@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { CustomTestBedFactory } from '../../../../lib/common/test-bed/custom-test-bed-factory';
+import { BaseTestBedFactory } from '../../../../lib/common/test-bed/base/base-test-bed-factory';
 import { EnhancedJasmineCallback } from '../../../../lib/common/test-bed/models/enhanced-jasmine-callback.model';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
@@ -10,7 +10,7 @@ import { mockTestBedStatic } from '../../../fixtures/mocks/test-bed-static.mock'
 import { MockTestCompiler } from '../../../fixtures/mocks/test-compiler.mock';
 import { AppService } from '../../../fixtures/services/app.service';
 
-class NonAbstractCustomTestBedFactory<T> extends CustomTestBedFactory<T> {
+class NonAbstractBaseTestBedFactory<T> extends BaseTestBedFactory<T> {
   public constructor(x: Type<any>) {
     super(x, { autoCompile: false, checkCreate: false });
   }
@@ -24,12 +24,12 @@ class NonAbstractCustomTestBedFactory<T> extends CustomTestBedFactory<T> {
   }
 }
 
-describe('CustomTestBedFactory', () => {
-  let factory: CustomTestBedFactory<OuterComponent>;
+describe('BaseTestBedFactory', () => {
+  let factory: BaseTestBedFactory<OuterComponent>;
   let compiler: MockTestCompiler;
 
   beforeEach(() => {
-    factory = new NonAbstractCustomTestBedFactory(OuterComponent);
+    factory = new NonAbstractBaseTestBedFactory(OuterComponent);
     compiler = new MockTestCompiler();
     factory['testBed'] = mockTestBedStatic(compiler);
   });

@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { buildCustomTools } from '../../common/test-bed/custom-tools';
+import { buildBaseTools } from '../../common/test-bed/base/base-tools';
 import { assertComponentFixture } from './assertions/assert-fixture';
 import { buildComponentActionTools } from './component-action-tools';
 import { buildComponentQueryTools } from './component-query-tools';
@@ -16,7 +16,7 @@ export function buildComponentTools<T>(factory: ComponentTestBedFactory<T>): Com
 
   const query: ComponentQueryTools = buildComponentQueryTools(fixture);
   const action: ComponentActionTools = buildComponentActionTools(fixture);
-  const { injected, injector } = buildCustomTools(factory, { thisInjector: debug.injector });
+  const { injected, injector } = buildBaseTools(factory, { thisInjector: debug.injector });
 
   return { action, component, debug, fixture, injected, injector, query };
 }

@@ -1,4 +1,4 @@
-import { buildCustomTools } from '../../common/test-bed/custom-tools';
+import { buildBaseTools } from '../../common/test-bed/base/base-tools';
 import { assertModule } from './assertions/assert-module';
 import { ModuleTools } from './models';
 import { ModuleTestBedFactory } from './module-test-bed-factory';
@@ -7,7 +7,7 @@ export function buildModuleTools<T>(factory: ModuleTestBedFactory<T>): ModuleToo
   const module: T = factory['module'];
   assertModule(module);
 
-  const { injected, injector } = buildCustomTools(factory);
+  const { injected, injector } = buildBaseTools(factory);
 
   return { injected, injector, module };
 }

@@ -1,4 +1,4 @@
-export interface CustomTestBedOptions {
+export interface BaseTestBedOptions {
   /**
    * Automatically compiles the custom test bed for each test.
    * @default true

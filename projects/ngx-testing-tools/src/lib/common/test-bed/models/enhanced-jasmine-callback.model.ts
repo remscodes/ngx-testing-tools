@@ -1,3 +1,3 @@
-import { CustomTools } from './custom-tools.model';
+import { BaseTools } from '../base/models/base-tools.model';
 
-export type EnhancedJasmineCallback<Tools extends CustomTools = CustomTools> = (tools: Tools, done: DoneFn) => ReturnType<jasmine.ImplementationCallback>
+export type EnhancedJasmineCallback<Tools extends BaseTools = BaseTools> = (tools: Tools, done: DoneFn) => ReturnType<jasmine.ImplementationCallback>

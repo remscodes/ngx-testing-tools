@@ -15,6 +15,7 @@ describe('ComponentTestBedFactory', () => {
     factory = new ComponentTestBedFactory(OuterComponent, {
       autoCompile: false,
       checkCreate: false,
+      noopAnimations: false,
     });
     compiler = new MockTestCompiler();
     factory['testBed'] = mockTestBedStatic(compiler);
