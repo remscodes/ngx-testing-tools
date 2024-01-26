@@ -5,7 +5,7 @@ import { MaybeArray, NonEmptyString, PrettyMerge } from '../../../shared.model';
 import { makeArray } from '../../../util/array.util';
 import { EnhancedJasmineCallback } from '../models/enhanced-jasmine-callback.model';
 import { InjectionStore } from '../store/models/injected-store.model';
-import { BaseTestBedOptions } from './models/custom-test-bed-options.model';
+import { BaseTestBedOptions } from './models/base-test-bed-options.model';
 
 export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore = InjectionStore> {
 

@@ -24,11 +24,11 @@ export abstract class RendererTestBedFactory<Instance, Store extends InjectionSt
   protected schemas: Set<SchemaMetadata> = new Set();
 
   /**
-   * Declares one non-standalone component, directive or pipe into the `ComponentTestBed`.
+   * Declares one non-standalone component, directive or pipe into the custom test bed.
    */
   public declare(declaration: Declaration): this
   /**
-   * Declares many non-standalone components, directives and pipes into `ComponentTestBed`.
+   * Declares many non-standalone components, directives and pipes into the custom test bed.
    */
   public declare(declarations: Declaration[]): this
   public declare(oneOrManyDeclarations: MaybeArray<Declaration>): this {
