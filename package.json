@@ -70,5 +70,5 @@
     "testbed",
     "ngx"
   ],
-  "packageManager": "pnpm@8.14.1"
+  "packageManager": "pnpm@8.14.3"
 }
