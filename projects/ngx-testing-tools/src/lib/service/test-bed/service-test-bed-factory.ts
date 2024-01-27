@@ -21,11 +21,16 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
     assertServiceCtor(rootService);
     super(rootService, options);
 
-    this.provide([
-      this.described,
+    const {
+      httpTesting = false,
+    } = options;
+
+    if (httpTesting) this.provide([
       provideHttpClient(),
       provideHttpClientTesting(),
     ]);
+
+    this.provide(this.described);
   }
 
   private service: ServiceType = null!;

@@ -16,7 +16,7 @@ export function buildComponentTools<T>(factory: ComponentTestBedFactory<T>): Com
 
   const query: ComponentQueryTools = buildComponentQueryTools(fixture);
   const action: ComponentActionTools = buildComponentActionTools(fixture);
-  const { injected, injector } = buildBaseTools(factory, { thisInjector: debug.injector });
+  const { injected, injector, rx } = buildBaseTools(factory, { thisInjector: debug.injector });
 
-  return { action, component, debug, fixture, injected, injector, query };
+  return { action, component, debug, fixture, injected, injector, query, rx: rx };
 }

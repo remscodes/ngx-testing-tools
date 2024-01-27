@@ -19,14 +19,14 @@ export abstract class RendererTestBedFactory<Instance, Store extends InjectionSt
       declarations = [],
       schemas = [],
       noopAnimations = true,
-      ingestDescribed = true,
     } = options;
 
     this.declarations = new Set(declarations);
     this.schemas = new Set(schemas);
 
-    if (noopAnimations) this.providers.add(provideNoopAnimations());
-    if (ingestDescribed) (isStandalone(this.described))
+    if (noopAnimations) this.provide(provideNoopAnimations());
+
+    (isStandalone(this.described))
       ? this.import(this.described)
       : this.declare(this.described);
   }

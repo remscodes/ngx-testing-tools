@@ -12,3 +12,6 @@ export type PrettyMerge<T extends {}> = {
   [K in keyof T]: T[K];
 } & {};
 
+export type Methods<T> = {
+  [K in keyof T as T[K] extends () => void ? K : never]: T[K];
+}

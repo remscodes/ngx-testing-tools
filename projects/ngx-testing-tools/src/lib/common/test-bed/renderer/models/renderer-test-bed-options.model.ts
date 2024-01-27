@@ -23,5 +23,5 @@ export interface RendererTestBedOptions extends BaseTestBedOptions {
    * Imports (standalone) or declares (non-standalone) the described into the custom test bed.
    * @default true
    */
-  ingestDescribed?: boolean;
+  // ingestDescribed?: boolean;
 }

@@ -7,7 +7,7 @@ export function buildModuleTools<T>(factory: ModuleTestBedFactory<T>): ModuleToo
   const module: T = factory['module'];
   assertModule(module);
 
-  const { injected, injector } = buildBaseTools(factory);
+  const { injected, injector, rx } = buildBaseTools(factory);
 
-  return { injected, injector, module };
+  return { injected, injector, module, rx: rx };
 }

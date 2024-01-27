@@ -8,8 +8,8 @@ export function buildServiceTools<T>(factory: ServiceTestBedFactory<T>): Service
   const service: T = factory['service'];
   assertService(service);
 
-  const { injected, injector } = buildBaseTools(factory);
+  const { injected, injector, rx } = buildBaseTools(factory);
   const http = buildHttpTools(injector);
 
-  return { http, injected, injector, service };
+  return { http, injected, injector, rx, service };
 }

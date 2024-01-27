@@ -79,6 +79,7 @@ export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore 
    * @see compile
    */
   public compileEach(): void {
+    // todo error si autoCompile = true
     globalThis.beforeEach(() => this.compile());
   }
 
@@ -108,7 +109,7 @@ export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore 
    *
    * **To be called outside jasmine `it` callback.**
    */
-  public abstract shouldCreate(): void
+  public abstract shouldCreate(): void // todo warning si checkCreate = true
 
   protected injectDescribed(): Instance {
     return this.testBed.inject(this.described);
