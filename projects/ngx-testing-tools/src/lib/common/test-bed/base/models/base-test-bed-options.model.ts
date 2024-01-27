@@ -1,4 +1,4 @@
-import { AnyProvider, Importation } from '../../../../component/test-bed/models/metadata-type.model';
+import { AnyProvider, Importation } from '../../models/metadata-type.model';
 
 export interface BaseTestBedOptions {
   /**

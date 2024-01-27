@@ -1,9 +1,9 @@
 import { isStandalone, SchemaMetadata, Type } from '@angular/core';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { Declaration } from '../../../component/test-bed/models/metadata-type.model';
 import { MaybeArray } from '../../../shared.model';
 import { makeArray } from '../../../util/array.util';
 import { BaseTestBedFactory } from '../base/base-test-bed-factory';
+import { Declaration } from '../models/metadata-type.model';
 import { InjectionStore } from '../store/models/injected-store.model';
 import { RendererTestBedOptions } from './models/renderer-test-bed-options.model';
 

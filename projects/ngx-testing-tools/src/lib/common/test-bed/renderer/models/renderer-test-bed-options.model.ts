@@ -1,6 +1,6 @@
 import { SchemaMetadata } from '@angular/core';
-import { Declaration } from '../../../../component/test-bed/models/metadata-type.model';
 import { BaseTestBedOptions } from '../../base/models/base-test-bed-options.model';
+import { Declaration } from '../../models/metadata-type.model';
 
 export interface RendererTestBedOptions extends BaseTestBedOptions {
   /**
