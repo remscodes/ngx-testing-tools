@@ -8,10 +8,10 @@ export function buildJasmineCallback<
   Tools extends BaseTools = any,
 >(
   factory: Factory,
-  action: Callback,
+  cb: Callback,
   toolsBuilder: (factory: Factory) => Tools,
 ): jasmine.ImplementationCallback {
-  return (action.length > 1)
-    ? (done: DoneFn) => action(toolsBuilder(factory), done)
-    : () => action(toolsBuilder(factory), null!);
+  return (cb.length > 1)
+    ? (done: DoneFn) => cb(toolsBuilder(factory), done)
+    : () => cb(toolsBuilder(factory), null!);
 }

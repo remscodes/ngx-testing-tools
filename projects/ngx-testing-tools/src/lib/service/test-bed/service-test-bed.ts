@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { buildJasmineCallback } from '../../common/test-bed/action-callback';
 import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
 import { ServiceTestBed, ServiceTestBedOptions } from './models';
 import { ServiceCallback } from './models/service-test-bed.model';
@@ -9,9 +10,7 @@ export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedO
   const factory = new ServiceTestBedFactory(rootService, options);
 
   const tb: ServiceTestBed<T> = ((assertion: ServiceCallback<T, any>) => {
-    return (assertion.length > 1)
-      ? (done: DoneFn) => assertion(buildServiceTools(factory), done)
-      : () => assertion(buildServiceTools(factory), null!);
+    return buildJasmineCallback(factory, assertion, buildServiceTools);
   }) as ServiceTestBed<T>;
 
   return mergeFactoryToTestBed(factory, tb) as ServiceTestBed<T>;

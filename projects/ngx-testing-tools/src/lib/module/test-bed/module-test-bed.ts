@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { buildJasmineCallback } from '../../common/test-bed/action-callback';
 import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
 import { ModuleTestBedOptions } from './models';
 import { ModuleCallback, ModuleTestBed } from './models/module-test-bed.model';
@@ -9,9 +10,7 @@ export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOpti
   const factory = new ModuleTestBedFactory(rootModule, options);
 
   const tb: ModuleTestBed<T> = ((assertion: ModuleCallback<T, any>) => {
-    return (assertion.length > 1)
-      ? (done: DoneFn) => assertion(buildModuleTools(factory), done)
-      : () => assertion(buildModuleTools(factory), null!);
+    return buildJasmineCallback(factory, assertion, buildModuleTools)
   }) as ModuleTestBed<T>;
 
   return mergeFactoryToTestBed(factory, tb) as ModuleTestBed<T>;

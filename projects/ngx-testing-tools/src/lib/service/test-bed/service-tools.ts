@@ -1,4 +1,5 @@
 import { buildBaseTools } from '../../common/test-bed/base/base-tools';
+import { buildHttpTools } from '../../common/test-bed/http/http-tools';
 import { assertService } from './assertions/assert-service';
 import { ServiceTools } from './models';
 import { ServiceTestBedFactory } from './service-test-bed-factory';
@@ -8,6 +9,7 @@ export function buildServiceTools<T>(factory: ServiceTestBedFactory<T>): Service
   assertService(service);
 
   const { injected, injector } = buildBaseTools(factory);
+  const http = buildHttpTools(injector);
 
-  return { injected, injector, service };
+  return { http, injected, injector, service };
 }

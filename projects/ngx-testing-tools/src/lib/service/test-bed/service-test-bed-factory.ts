@@ -1,3 +1,5 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ProviderToken, Type } from '@angular/core';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { buildJasmineCallback } from '../../common/test-bed/action-callback';
@@ -14,11 +16,16 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
 
   public constructor(
     rootService: Type<ServiceType>,
-    private options: ServiceTestBedOptions = {},
+    options: ServiceTestBedOptions = {},
   ) {
     assertServiceCtor(rootService);
     super(rootService, options);
-    this.provide(this.described);
+
+    this.provide([
+      this.described,
+      provideHttpClient(),
+      provideHttpClientTesting(),
+    ]);
   }
 
   private service: ServiceType = null!;
