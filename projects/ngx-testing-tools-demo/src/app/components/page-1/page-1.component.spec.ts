@@ -25,9 +25,6 @@ describe('Page1Component', () => {
 describe('Page1Component', () => {
   const tb = componentTestBed(Page1Component);
 
-  tb.compileEach();
-  tb.shouldCreate();
-
   it('should click button by directive', tb(({ component, action }) => {
     expect(component.isClicked).toBeFalse();
     action.click(ButtonDirective);
