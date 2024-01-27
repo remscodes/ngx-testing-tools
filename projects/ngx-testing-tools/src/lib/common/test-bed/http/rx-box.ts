@@ -1,5 +1,5 @@
 import { Subject, Subscription } from 'rxjs';
-import { Methods } from '../../../shared.model';
+import { MethodsOf } from '../../../shared.model';
 
 type Remindable =
   | Subscription
@@ -28,7 +28,7 @@ export class RxBox {
     this.clean(this.subjects, 'complete');
   }
 
-  private clean<T>(array: T[], cleanFnKey: keyof Methods<T>): void {
+  private clean<T>(array: T[], cleanFnKey: keyof MethodsOf<T>): void {
     array.forEach(v => (v[cleanFnKey] as () => void)());
     array.length = 0;
   }

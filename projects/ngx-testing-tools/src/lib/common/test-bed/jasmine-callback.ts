@@ -9,9 +9,10 @@ export function buildJasmineCallback<
 >(
   factory: Factory,
   cb: Callback,
-  toolsBuilder: (factory: Factory) => Tools,
+  toolsBuilder: (factory: Factory, ...args: any[]) => Tools,
+  toolsBuilderArgs: any[] = [],
 ): jasmine.ImplementationCallback {
   return (cb.length > 1)
-    ? (done: DoneFn) => cb(toolsBuilder(factory), done)
-    : () => cb(toolsBuilder(factory), null!);
+    ? (done: DoneFn) => cb(toolsBuilder(factory, ...toolsBuilderArgs), done)
+    : () => cb(toolsBuilder(factory, ...toolsBuilderArgs), null!);
 }

@@ -12,8 +12,8 @@ import { ComponentCallback, ComponentTestBed } from './models/component-test-bed
  */
 export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTestBedOptions = {}): ComponentTestBed<T> {
   const {
-    startDetectChanges: globalStartDetectChanges,
     noTemplate = false,
+    startDetectChanges: globalStartDetectChanges,
   } = options;
 
   const factory = new ComponentTestBedFactory(rootComponent, options);

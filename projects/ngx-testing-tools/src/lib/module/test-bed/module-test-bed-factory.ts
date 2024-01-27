@@ -1,6 +1,6 @@
 import { ProviderToken, Type } from '@angular/core';
 import { shouldCreate } from '../../common/expectation/should-create';
-import { buildJasmineCallback } from '../../common/test-bed/action-callback';
+import { buildJasmineCallback } from '../../common/test-bed/jasmine-callback';
 import { BaseTestBedFactory } from '../../common/test-bed/base/base-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';

@@ -9,5 +9,5 @@ export function buildModuleTools<T>(factory: ModuleTestBedFactory<T>): ModuleToo
 
   const { injected, injector, rx } = buildBaseTools(factory);
 
-  return { injected, injector, module, rx: rx };
+  return { injected, injector, module, rx };
 }

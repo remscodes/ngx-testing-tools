@@ -1,4 +1,5 @@
 import { Type } from '@angular/core';
+import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
 import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
 import { ServiceTestBed, ServiceTestBedOptions, ServiceTools } from './models';
 import { ServiceExtraOptions } from './models/service-extra-options.model';
@@ -7,7 +8,12 @@ import { ServiceTestBedFactory } from './service-test-bed-factory';
 import { buildServiceTools } from './service-tools';
 
 export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedOptions = {}): ServiceTestBed<T> {
-  const { httpTesting = false, verifyHttp: globalVerifyHttp } = options;
+  const {
+    httpTesting = false,
+    verifyHttp: globalVerifyHttp,
+  } = options;
+
+  const httpOptions: HttpOptions = { httpTesting };
 
   const factory = new ServiceTestBedFactory(rootService, options);
 
@@ -15,7 +21,7 @@ export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedO
     const { verifyHttp = globalVerifyHttp ?? true } = opts;
 
     const assertionWrapper = (done: DoneFn) => {
-      const tools: ServiceTools<T> = buildServiceTools(factory);
+      const tools: ServiceTools<T> = buildServiceTools(factory, httpOptions);
 
       const implementation = assertion(tools, done);
 

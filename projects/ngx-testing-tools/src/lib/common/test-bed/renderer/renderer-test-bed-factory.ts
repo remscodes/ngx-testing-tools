@@ -1,7 +1,7 @@
 import { isStandalone, SchemaMetadata, Type } from '@angular/core';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { MaybeArray } from '../../../shared.model';
-import { makeArray } from '../../../util/array.util';
+import { appendSet } from '../../../util/set.util';
 import { BaseTestBedFactory } from '../base/base-test-bed-factory';
 import { Declaration } from '../models/metadata-type.model';
 import { InjectionStore } from '../store/models/injected-store.model';
@@ -43,7 +43,7 @@ export abstract class RendererTestBedFactory<Instance, Store extends InjectionSt
    */
   public declare(declarations: Declaration[]): this
   public declare(oneOrManyDeclarations: MaybeArray<Declaration>): this {
-    makeArray(oneOrManyDeclarations).forEach(v => this.declarations.add(v));
+    appendSet(this.declarations, oneOrManyDeclarations);
     return this;
   }
 

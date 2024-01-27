@@ -14,8 +14,8 @@ export function mergeFactoryToTestBed<T, F extends BaseTestBedFactory<T>>(factor
     return tb;
   };
   tb.compileEach = factory.compileEach.bind(factory);
-  tb.setup = factory.setup.bind(factory);
   tb.compile = factory.compile.bind(factory);
+  tb.setup = factory.setup.bind(factory);
   tb.shouldCreate = factory.shouldCreate.bind(factory);
 
   return tb;

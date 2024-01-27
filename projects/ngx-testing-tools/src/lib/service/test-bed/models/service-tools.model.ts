@@ -6,5 +6,8 @@ export interface ServiceTools<T, I extends {} = {}> extends BaseTools<I> {
    * The described service instance.
    */
   service: T;
+  /**
+   * Only when the test bed option `httpTesting` is `true`.
+   */
   http: HttpTools;
 }

@@ -1,7 +1,7 @@
 import { ProviderToken, Type } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
 import { MaybeArray, NonEmptyString, PrettyMerge } from '../../../shared.model';
-import { makeArray } from '../../../util/array.util';
+import { appendSet } from '../../../util/set.util';
 import { EnhancedJasmineCallback } from '../models/enhanced-jasmine-callback.model';
 import { AnyProvider, Importation } from '../models/metadata-type.model';
 import { InjectionStore } from '../store/models/injected-store.model';
@@ -43,7 +43,7 @@ export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore 
    */
   public import(imports: Importation[]): this
   public import(oneOrManyImports: MaybeArray<Importation>): this {
-    makeArray(oneOrManyImports).forEach(v => this.imports.add(v));
+    appendSet(this.imports, oneOrManyImports);
     return this;
   }
 
@@ -56,7 +56,7 @@ export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore 
    */
   public provide(providers: AnyProvider[]): this
   public provide(oneOrManyProviders: MaybeArray<AnyProvider>): this {
-    makeArray(oneOrManyProviders).forEach(v => this.providers.add(v));
+    appendSet(this.providers, oneOrManyProviders);
     return this;
   }
 

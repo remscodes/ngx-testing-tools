@@ -1,9 +1,8 @@
-import { Subject, Subscription } from 'rxjs';
-import { serviceTestBed } from '../../../../ngx-testing-tools/src/lib';
+import { serviceTestBed } from 'ngx-testing-tools';
 import { AppService, CatFact } from './app.service';
 
 describe('AppService', () => {
-  const tb = serviceTestBed(AppService);
+  const tb = serviceTestBed(AppService, { httpTesting: true });
 
   it('should fetch cat fact', tb(({ service, http, rx }, done: DoneFn) => {
     const mockRes: CatFact = { fact: 'string', length: 6 };
@@ -15,8 +14,6 @@ describe('AppService', () => {
         done();
       },
     });
-
-    rx.bigRemind([new Subject(), new Subscription()]);
 
     http.emitSuccessResponse({
       url: service.CAT_FACT_URL,
