@@ -1,6 +1,6 @@
 import { ComponentFixture } from '@angular/core/testing';
+import { assertInstance } from '../../common/assertion/assert-instance';
 import { buildBaseTools } from '../../common/test-bed/base/base-tools';
-import { assertComponentFixture } from './assertions/assert-fixture';
 import { buildComponentActionTools } from './component-action-tools';
 import { buildComponentQueryTools } from './component-query-tools';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
@@ -10,7 +10,7 @@ import { ComponentQueryTools } from './models/component-query-tools.model';
 
 export function buildComponentTools<T>(factory: ComponentTestBedFactory<T>): ComponentTools<T> {
   const fixture: ComponentFixture<T> = factory['fixture'];
-  assertComponentFixture(fixture);
+  assertInstance(fixture, ComponentFixture);
 
   const { componentInstance: component, debugElement: debug } = fixture;
 

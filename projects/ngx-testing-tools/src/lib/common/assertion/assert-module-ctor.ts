@@ -1,7 +1,7 @@
 import { NgModule, Type } from '@angular/core';
-import { getNgModuleAnnotation } from '../../../common/annotation/ng-module-annotation';
-import { throwCtorError } from '../../../common/error/throw-ctor-error';
-import { Nullable } from '../../../shared.model';
+import { Nullable } from '../../shared.model';
+import { getNgModuleAnnotation } from '../annotation/ng-module-annotation';
+import { throwCtorError } from '../error/throw-ctor-error';
 
 export function assertModuleCtor(ModuleCtor: Type<unknown>): void {
   const annotation: Nullable<NgModule> = getNgModuleAnnotation(ModuleCtor);

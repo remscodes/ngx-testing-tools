@@ -1,7 +1,7 @@
 import { Component, Type } from '@angular/core';
-import { getComponentAnnotation } from '../../../common/annotation/component-annotation';
-import { throwCtorError } from '../../../common/error/throw-ctor-error';
-import { Nullable } from '../../../shared.model';
+import { Nullable } from '../../shared.model';
+import { getComponentAnnotation } from '../annotation/component-annotation';
+import { throwCtorError } from '../error/throw-ctor-error';
 
 export function assertComponentCtor(ComponentCtor: Type<unknown>): void {
   const annotation: Nullable<Component> = getComponentAnnotation(ComponentCtor);

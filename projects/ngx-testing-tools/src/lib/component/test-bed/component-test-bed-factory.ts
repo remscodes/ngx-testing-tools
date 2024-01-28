@@ -1,12 +1,12 @@
 import { ProviderToken, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
+import { assertComponentCtor } from '../../common/assertion/assert-component-ctor';
+import { assertInstance } from '../../common/assertion/assert-instance';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine-callback';
 import { RendererTestBedFactory } from '../../common/test-bed/renderer/renderer-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
-import { assertComponentCtor } from './assertions/assert-component-ctor';
-import { assertComponentFixture } from './assertions/assert-fixture';
 import { buildComponentTools } from './component-tools';
 import { ComponentTestBed, ComponentTestBedOptions } from './models';
 import { ComponentCallback } from './models/component-test-bed.models';
@@ -45,7 +45,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
 
   public override shouldCreate(): void {
     shouldCreate(() => {
-      assertComponentFixture(this.fixture);
+      assertInstance(this.fixture, ComponentFixture);
       return this.fixture.componentInstance;
     });
   }
