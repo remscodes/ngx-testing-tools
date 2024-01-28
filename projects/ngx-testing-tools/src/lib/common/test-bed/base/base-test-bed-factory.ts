@@ -29,10 +29,10 @@ export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore 
 
   protected testBed: TestBedStatic = TestBed;
 
+  protected injectedMap: Map<string, ProviderToken<any>> = new Map();
+
   protected imports: Set<Importation>;
   protected providers: Set<AnyProvider>;
-
-  protected injectedMap: Map<string, ProviderToken<any>> = new Map();
 
   /**
    * Imports one module or one standalone component / directive / pipe into the custom test bed.
