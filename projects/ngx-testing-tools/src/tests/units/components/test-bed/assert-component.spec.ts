@@ -1,5 +1,5 @@
 import { Component, Directive } from '@angular/core';
-import { assertComponentCtor } from '../../../../lib/component/test-bed/assertions/assert-component-ctor';
+import { assertComponentCtor } from '../../../../lib/common/assertion/assert-component-ctor';
 
 describe('assertComponentCtor', () => {
   @Component({ template: ``, standalone: true })

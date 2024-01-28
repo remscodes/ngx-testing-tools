@@ -1,6 +1,6 @@
-import { CustomTestBedFactory } from './custom-test-bed-factory';
+import { BaseTestBedFactory } from './base/base-test-bed-factory';
 
-export function mergeFactoryToTestBed<T, F extends CustomTestBedFactory<T>>(factory: F, tb: F) {
+export function mergeFactoryToTestBed<T, F extends BaseTestBedFactory<T>>(factory: F, tb: F) {
   tb.import = (imports: any) => {
     factory.import(imports);
     return tb;
@@ -14,8 +14,8 @@ export function mergeFactoryToTestBed<T, F extends CustomTestBedFactory<T>>(fact
     return tb;
   };
   tb.compileEach = factory.compileEach.bind(factory);
-  tb.setup = factory.setup.bind(factory);
   tb.compile = factory.compile.bind(factory);
+  tb.setup = factory.setup.bind(factory);
   tb.shouldCreate = factory.shouldCreate.bind(factory);
 
   return tb;

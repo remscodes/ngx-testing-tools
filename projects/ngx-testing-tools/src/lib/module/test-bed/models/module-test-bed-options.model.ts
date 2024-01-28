@@ -1,3 +1,3 @@
-import { CustomTestBedOptions } from '../../../common/test-bed/models/custom-test-bed-options.model';
+import { BaseTestBedOptions } from '../../../common/test-bed/base/models/base-test-bed-options.model';
 
-export interface ModuleTestBedOptions extends CustomTestBedOptions {}
+export interface ModuleTestBedOptions extends BaseTestBedOptions {}

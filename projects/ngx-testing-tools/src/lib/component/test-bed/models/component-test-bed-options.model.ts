@@ -1,15 +1,12 @@
-import { SchemaMetadata } from '@angular/core';
-import { CustomTestBedOptions } from '../../../common/test-bed/models/custom-test-bed-options.model';
+import { RendererTestBedOptions } from '../../../common/test-bed/renderer/models/renderer-test-bed-options.model';
 import { ComponentExtraOptions } from './component-extra-options.model';
 
-export interface ComponentTestBedOptions extends ComponentExtraOptions, CustomTestBedOptions {
+export interface ComponentTestBedOptions extends ComponentExtraOptions, RendererTestBedOptions {
   /**
-   * @default []
+   * Useful when you only want to test the logic of the described component.
+   *
+   * If enabled, no template will be rendered and no change detections will be performed.
+   * @default false
    */
-  schemas?: SchemaMetadata[];
-  /**
-   * Enable or disable angular animations.
-   * @default true
-   */
-  noopAnimations?: boolean;
+  noTemplate?: boolean;
 }

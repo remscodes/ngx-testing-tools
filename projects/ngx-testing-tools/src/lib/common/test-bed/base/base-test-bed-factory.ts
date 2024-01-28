@@ -1,27 +1,36 @@
 import { ProviderToken, Type } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
-import { AnyProvider, Importation } from '../../component/test-bed/models/metadata-type.model';
-import { MaybeArray, NonEmptyString, PrettyMerge } from '../../shared.model';
-import { makeArray } from '../../util/array.util';
-import { CustomTestBedOptions } from './models/custom-test-bed-options.model';
-import { EnhancedJasmineCallback } from './models/enhanced-jasmine-callback.model';
-import { InjectionStore } from './store/models/injected-store.model';
+import { MaybeArray, NonEmptyString, PrettyMerge } from '../../../shared.model';
+import { appendSet } from '../../../util/set.util';
+import { EnhancedJasmineCallback } from '../models/enhanced-jasmine-callback.model';
+import { AnyProvider, Importation } from '../models/metadata-type.model';
+import { InjectionStore } from '../store/models/injected-store.model';
+import { BaseTestBedOptions } from './models/base-test-bed-options.model';
 
-export abstract class CustomTestBedFactory<Instance, Store extends InjectionStore = InjectionStore> {
+export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore = InjectionStore> {
 
   protected constructor(
     protected described: Type<Instance>,
-    options: CustomTestBedOptions = {},
+    options: BaseTestBedOptions = {},
   ) {
-    const { autoCompile = true, checkCreate = true } = options;
+    const {
+      imports = [],
+      providers = [],
+      autoCompile = true,
+      checkCreate = true,
+    } = options;
+
+    this.imports = new Set(imports);
+    this.providers = new Set(providers);
+
     if (autoCompile) this.compileEach();
     if (checkCreate) this.shouldCreate();
   }
 
   protected testBed: TestBedStatic = TestBed;
 
-  protected imports: Set<Importation> = new Set();
-  protected providers: Set<AnyProvider> = new Set();
+  protected imports: Set<Importation>;
+  protected providers: Set<AnyProvider>;
 
   protected injectedMap: Map<string, ProviderToken<any>> = new Map();
 
@@ -34,7 +43,7 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
    */
   public import(imports: Importation[]): this
   public import(oneOrManyImports: MaybeArray<Importation>): this {
-    makeArray(oneOrManyImports).forEach(v => this.imports.add(v));
+    appendSet(this.imports, oneOrManyImports);
     return this;
   }
 
@@ -47,7 +56,7 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
    */
   public provide(providers: AnyProvider[]): this
   public provide(oneOrManyProviders: MaybeArray<AnyProvider>): this {
-    makeArray(oneOrManyProviders).forEach(v => this.providers.add(v));
+    appendSet(this.providers, oneOrManyProviders);
     return this;
   }
 
@@ -58,7 +67,7 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
    * @param name the key to access the instance.
    * @param token the provider token.
    */
-  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): CustomTestBedFactory<Instance, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
+  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): BaseTestBedFactory<Instance, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
     this.injectedMap.set(name, token);
     return this;
   }
@@ -70,11 +79,14 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
    * @see compile
    */
   public compileEach(): void {
+    // todo error si autoCompile = true
     globalThis.beforeEach(() => this.compile());
   }
 
   /**
-   * Manually compiles the custom test bed to make enhanced tools available (when `autoCompile = false`).
+   * Manually compiles the custom test bed to make enhanced tools available.
+   *
+   * To be used when `autoCompile = false`.
    *
    * **To be called inside jasmine `beforeEach` callback.**
    */
@@ -97,7 +109,7 @@ export abstract class CustomTestBedFactory<Instance, Store extends InjectionStor
    *
    * **To be called outside jasmine `it` callback.**
    */
-  public abstract shouldCreate(): void
+  public abstract shouldCreate(): void // todo warning si checkCreate = true
 
   protected injectDescribed(): Instance {
     return this.testBed.inject(this.described);

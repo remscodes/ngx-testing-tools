@@ -1,6 +1,6 @@
 export interface ComponentExtraOptions {
   /**
-   * Run component fixture `detectChanges()` before executing each expectation function.
+   * Run component fixture `detectChanges()` before assertion.
    * @default true
    */
   startDetectChanges?: boolean;
