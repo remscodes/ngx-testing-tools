@@ -30,5 +30,5 @@ function unusableHttpTools(): Unusable<HttpTools> {
 }
 
 function throwDisabledHttpTesting(key: keyof HttpTools): never {
-  throw new ReferenceError(`Cannot use \`http.${key}\` because HttpTools are not injected. You need to set \`httpTesting:true\` into the test bed options.`);
+  throw new ReferenceError(`Cannot use \`http.${key}\` because HttpTools is not initialized. You need to set \`httpTesting:true\` into the test bed options.`);
 }
