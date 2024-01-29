@@ -19,6 +19,20 @@ describe('componentTestBed', () => {
     componentTestBed(ClassicComponent);
   });
 
+  describe('DoneFn and await/async support', () => {
+    const tb = componentTestBed(OuterComponent, { checkCreate: false });
+
+    it('should support jasmine DoneFn', tb(({}, done: DoneFn) => {
+      expect().nothing();
+      done();
+    }));
+
+    it('should support jasmine DoneFn', tb(async ({}) => {
+      await Promise.resolve();
+      expect().nothing();
+    }));
+  });
+
   describe('setup', () => {
     const tb = componentTestBed(OuterComponent, { checkCreate: false });
 
@@ -41,13 +55,12 @@ describe('componentTestBed', () => {
       .import(HttpClientTestingModule);
 
     it('should import', tb(({ injector }) => {
-      const controller = injector.get(HttpTestingController);
-      expect(controller).toBeTruthy();
+      expect(() => injector.get(HttpTestingController)).not.toThrowError();
     }));
   });
 
   describe('provide', () => {
-    @Component({ template: ``, standalone: true })
+    @Component({ selector: 'app-root1', template: ``, standalone: true })
     class AppComponent {
       service = inject(AppService);
     }
@@ -56,8 +69,7 @@ describe('componentTestBed', () => {
       .provide(AppService);
 
     it('should provide', tb(({ injector }) => {
-      const service = injector.get(AppService);
-      expect(service).toBeTruthy();
+      expect(() => injector.get(AppService)).not.toThrowError();
     }));
   });
 
@@ -73,42 +85,49 @@ describe('componentTestBed', () => {
     @Component({ selector: 'app-b', template: ``, standalone: false })
     class BComponent {}
 
-    componentTestBed(AComponent)
+    const tb = componentTestBed(AComponent, { checkCreate: false })
       .declare(BComponent);
+
+    tb.shouldCreate();
   });
 
   describe('query', () => {
     const tb = componentTestBed(OuterComponent, { checkCreate: false });
 
-    it('should find InnerComponent instance', tb(({ query }) => {
-      expect(query.findComponent(InnerComponent)).toBeTruthy();
-    }));
+    describe('one', () => {
 
-    it('should find InnerComponent native element', tb(({ query }) => {
-      expect(query.findElement(InnerComponent)).toBeTruthy();
-    }));
+      it('should find InnerComponent instance', tb(({ query }) => {
+        expect(query.findComponent(InnerComponent)).toBeTruthy();
+      }));
 
-    it('should find InnerComponent debug element', tb(({ query }) => {
-      expect(query.findDebugElement(InnerComponent)).toBeTruthy();
-    }));
+      it('should find InnerComponent native element', tb(({ query }) => {
+        expect(query.findElement(InnerComponent)).toBeTruthy();
+      }));
 
-    it('should find all InnerComponent instances', tb(({ component, fixture, query }) => {
-      component.extraInner = true;
-      fixture.detectChanges();
-      validateArray(query.findAllComponents(InnerComponent), { size: 2 });
-    }));
+      it('should find InnerComponent debug element', tb(({ query }) => {
+        expect(query.findDebugElement(InnerComponent)).toBeTruthy();
+      }));
+    });
 
-    it('should find all InnerComponent native elements', tb(({ component, fixture, query }) => {
-      component.extraInner = true;
-      fixture.detectChanges();
-      validateArray(query.findAllElements(InnerComponent), { size: 2 });
-    }));
+    describe('many', () => {
 
-    it('should find all InnerComponent debug elements', tb(({ component, fixture, query }) => {
-      component.extraInner = true;
-      fixture.detectChanges();
-      validateArray(query.findAllDebugElements(InnerComponent), { size: 2 });
-    }));
+      beforeEach(tb.setup(({ component, fixture }) => {
+        component.extraInner = true;
+        fixture.detectChanges();
+      }));
+
+      it('should find all InnerComponent instances', tb(({ query }) => {
+        validateArray(query.findAllComponents(InnerComponent), { size: 2 });
+      }));
+
+      it('should find all InnerComponent native elements', tb(({ query }) => {
+        validateArray(query.findAllElements(InnerComponent), { size: 2 });
+      }));
+
+      it('should find all InnerComponent debug elements', tb(({ query }) => {
+        validateArray(query.findAllDebugElements(InnerComponent), { size: 2 });
+      }));
+    });
   });
 
   describe('action', () => {
@@ -137,17 +156,14 @@ describe('componentTestBed', () => {
     }));
   });
 
-  describe('DoneFn and await/async support', () => {
-    const tb = componentTestBed(OuterComponent, { checkCreate: false });
+  describe('no template option', () => {
+    const tb = componentTestBed(OuterComponent, {
+      checkCreate: false,
+      noTemplate: true,
+    });
 
-    it('should support jasmine DoneFn', tb(({}, done: DoneFn) => {
-      expect().nothing();
-      done();
-    }));
-
-    it('should support jasmine DoneFn', tb(async ({}) => {
-      await Promise.resolve();
-      expect().nothing();
+    it('should have no template', tb(({ fixture }) => {
+      expect(fixture.nativeElement.innerHTML).toEqual('');
     }));
   });
 });

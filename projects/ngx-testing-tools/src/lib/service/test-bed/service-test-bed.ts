@@ -1,6 +1,9 @@
 import { Type } from '@angular/core';
 import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
+import { doneFactory } from '../../common/test-bed/jasmine-done';
 import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
+import { postAsync } from '../../common/util/post-async';
+import { Nullable } from '../../shared.model';
 import { ServiceTestBed, ServiceTestBedOptions, ServiceTools } from './models';
 import { ServiceExtraOptions } from './models/service-extra-options.model';
 import { ServiceCallback } from './models/service-test-bed.model';
@@ -20,21 +23,22 @@ export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedO
   const tb: ServiceTestBed<T> = ((assertion: ServiceCallback<T, any>, opts: ServiceExtraOptions = {}) => {
     const { verifyHttp = globalVerifyHttp ?? true } = opts;
 
-    const assertionWrapper = (done: DoneFn) => {
+    const assertionWrapper = (done: Nullable<DoneFn>) => {
       const tools: ServiceTools<T> = buildServiceTools(factory, httpOptions);
 
-      const implementation = assertion(tools, done);
+      const postTest = () => {
+        if (httpTesting && verifyHttp) tools.http.controller.verify();
+        tools.rx['cleanAll']();
+      };
 
-      tools.rx.unsubscribe();
-      tools.rx.complete();
-      if (httpTesting && verifyHttp) tools.http.controller.verify();
-
-      return implementation;
+      return (done)
+        ? assertion(tools, doneFactory(done, postTest))
+        : postAsync(assertion(tools, null!), postTest);
     };
 
     return (assertion.length > 1)
       ? (done: DoneFn) => assertionWrapper(done)
-      : () => assertionWrapper(null!);
+      : () => assertionWrapper(null);
   }) as ServiceTestBed<T>;
 
   return mergeFactoryToTestBed(factory, tb) as ServiceTestBed<T>;

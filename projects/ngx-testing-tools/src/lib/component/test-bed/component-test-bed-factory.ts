@@ -24,8 +24,10 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
       noTemplate = false,
     } = options;
 
-    if (noTemplate) this.testBed.overrideTemplateUsingTestingModule(this.described, '');
+    this.noTemplate = noTemplate;
   }
+
+  private readonly noTemplate: boolean;
 
   private fixture: ComponentFixture<ComponentType> = null!;
 
@@ -35,6 +37,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
 
   public override async compile(): Promise<void> {
     await super.compile();
+    if (this.noTemplate) this.testBed.overrideTemplateUsingTestingModule(this.described, '');
     await this.testBed.compileComponents();
     this.fixture = this.testBed.createComponent(this.described);
   }

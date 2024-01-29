@@ -1,5 +1,5 @@
 import { Injector } from '@angular/core';
-import { RxBox } from '../../http/rx-box';
+import { RxBox } from '../../rx/rx-box';
 import { InjectionStore } from '../../store/models/injected-store.model';
 
 export interface BaseTools<I extends {} = {}> extends InjectionStore<I> {

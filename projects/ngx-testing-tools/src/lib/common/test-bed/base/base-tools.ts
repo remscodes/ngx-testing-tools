@@ -1,5 +1,5 @@
 import { Injector } from '@angular/core';
-import { RxBox } from '../http/rx-box';
+import { RxBox } from '../rx/rx-box';
 import { buildInjected } from '../store/injected';
 import { InjectionStore } from '../store/models/injected-store.model';
 import { BaseTestBedFactory } from './base-test-bed-factory';
