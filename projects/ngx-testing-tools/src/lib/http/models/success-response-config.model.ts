@@ -3,7 +3,7 @@ import { RequestMethod } from './request-method.model';
 
 export interface SuccessResponseConfig<T extends BodyType> {
   url: string;
-  method: RequestMethod;
+  method?: RequestMethod;
   headers?: HeadersType;
   status?: number;
   statusText?: string;
