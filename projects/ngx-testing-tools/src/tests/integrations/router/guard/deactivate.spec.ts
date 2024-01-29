@@ -4,7 +4,7 @@ import { CanDeactivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { challengeGuardDeactivate } from '../../../../lib';
 
 describe('challengeGuardDeactivate', () => {
-  @Component({ template: ``, standalone: true })
+  @Component({ selector: 'app-deactivate', template: ``, standalone: true })
   class DeactivateComponent {
     canDeactivate = true;
   }
