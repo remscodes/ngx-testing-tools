@@ -1,3 +1,5 @@
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ProviderToken, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { assertComponentCtor } from '../../common/assertion/assert-component-ctor';
@@ -25,6 +27,11 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
       httpTesting = false,
       noTemplate = false,
     } = options;
+
+    if (httpTesting) this.provide([
+      provideHttpClient(),
+      provideHttpClientTesting(),
+    ]);
 
     this.httpOptions = { httpTesting };
     this.noTemplate = noTemplate;
