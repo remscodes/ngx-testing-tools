@@ -166,4 +166,27 @@ describe('componentTestBed', () => {
       expect(fixture.nativeElement.innerHTML).toEqual('');
     }));
   });
+
+  describe('http testing', () => {
+    const tb = componentTestBed(OuterComponent, {
+      httpTesting: true,
+      checkCreate: false,
+    });
+
+    it('should mock http', tb(({ http, rx }, done) => {
+      const mockValue = 'mock';
+
+      rx.remind = http.client.get('/test').subscribe({
+        next: (value) => {
+          expect(value).toEqual(mockValue);
+          done();
+        },
+      });
+
+      http.emitSuccessResponse({
+        url: '/test',
+        body: mockValue,
+      });
+    }));
+  });
 });
