@@ -1,10 +1,11 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { BaseTools } from '../../../common/test-bed/base/models/base-tools.model';
+import { HttpTestingTools } from '../../../common/test-bed/http/models/http-testing-tools.model';
 import { ComponentActionTools } from '../../action/models/component-action-tools.model';
 import { ComponentQueryTools } from '../../query/models/component-query-tools.model';
 
-export interface ComponentTools<T, I extends {} = {}> extends BaseTools<I> {
+export interface ComponentTools<T, I extends {} = {}> extends BaseTools<I>, HttpTestingTools {
   /**
    * The described component fixture.
    */

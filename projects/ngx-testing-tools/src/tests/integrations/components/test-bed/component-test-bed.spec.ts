@@ -27,7 +27,7 @@ describe('componentTestBed', () => {
       done();
     }));
 
-    it('should support jasmine DoneFn', tb(async ({}) => {
+    it('should support jasmine async/await', tb(async ({}) => {
       await Promise.resolve();
       expect().nothing();
     }));

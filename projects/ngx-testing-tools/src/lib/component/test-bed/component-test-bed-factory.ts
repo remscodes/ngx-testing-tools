@@ -3,6 +3,7 @@ import { ComponentFixture } from '@angular/core/testing';
 import { assertComponentCtor } from '../../common/assertion/assert-component-ctor';
 import { assertInstance } from '../../common/assertion/assert-instance';
 import { shouldCreate } from '../../common/expectation/should-create';
+import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine-callback';
 import { RendererTestBedFactory } from '../../common/test-bed/renderer/renderer-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
@@ -21,12 +22,15 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
     super(rootComponent, options);
 
     const {
+      httpTesting = false,
       noTemplate = false,
     } = options;
 
+    this.httpOptions = { httpTesting };
     this.noTemplate = noTemplate;
   }
 
+  private readonly httpOptions: HttpOptions;
   private readonly noTemplate: boolean;
 
   private fixture: ComponentFixture<ComponentType> = null!;
@@ -43,7 +47,7 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
   }
 
   public override setup(action: ComponentCallback<ComponentType, Store['injected']>): jasmine.ImplementationCallback {
-    return buildJasmineCallback(this, action, buildComponentTools);
+    return buildJasmineCallback(this, action, buildComponentTools, [this.httpOptions]);
   }
 
   public override shouldCreate(): void {
