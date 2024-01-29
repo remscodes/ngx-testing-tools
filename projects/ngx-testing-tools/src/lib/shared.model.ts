@@ -6,6 +6,10 @@ export type MaybeArray<T> =
   | T
   | T[]
 
+export type MaybePromise<T> =
+  | T
+  | PromiseLike<T>
+
 export type NonEmptyString<T extends string> = T extends '' ? never : T;
 
 export type PrettyMerge<T extends {}> = {

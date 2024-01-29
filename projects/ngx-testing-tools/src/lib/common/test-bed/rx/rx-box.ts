@@ -20,11 +20,16 @@ export class RxBox {
     values.forEach(v => (this.remind = v));
   }
 
-  public unsubscribe(): void {
+  private cleanAll(): void {
+    this.unsubscribe();
+    this.complete();
+  }
+
+  private unsubscribe(): void {
     this.clean(this.subs, 'unsubscribe');
   }
 
-  public complete(): void {
+  private complete(): void {
     this.clean(this.subjects, 'complete');
   }
 
