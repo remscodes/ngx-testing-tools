@@ -4,10 +4,22 @@ import { ErrorResponseConfig } from '../../../../http/models/error-response-conf
 import { BodyType, SuccessResponseConfig } from '../../../../http/models/success-response-config.model';
 
 export interface HttpTools {
+  /**
+   * @see HttpClient
+   */
   client: HttpClient;
+  /**
+   * @see HttpTestingController
+   */
   controller: HttpTestingController;
 
+  /**
+   * Fakes a http success response for the request that matches the url.
+   */
   emitSuccessResponse<T extends BodyType>(config: SuccessResponseConfig<T>): void;
 
+  /**
+   * Fakes a http error response for the request that matches the url.
+   */
   emitErrorResponse(config: ErrorResponseConfig): void;
 }
