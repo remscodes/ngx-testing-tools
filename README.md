@@ -13,61 +13,57 @@
 
 </div>
 
-## Introduction
+## In a nutshell
 
-This library aims to **reduce boilerplate** and **provides high-level** ways for testing component, http response, guard and everything else related to the Angular mechanism.
+This library aims to **reduce boilerplate** 😎 and **provides high-level**️ 🔥 ways for testing Component, Service, Router and everything else related to the Angular mechanism.
 
-It makes testing easier to read and more enjoyable.
+It makes tests **easier to read** 😌 and **faster to write** ⚡️!
 
-#### Before
+## Quick examples
 
-```ts
-describe('AppComponent', () => {
-  let fixture: ComponentFixture<AppComponent>;
-  let component: AppComponent;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(AppComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should render title', () => {
-    expect(component.title).toEqual('app-v17');
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('app-v17 app is running!');
-  });
-});
-```
-
-#### After
+#### Testing Component
 
 ```ts
 describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent);
-  
-  tb.compileEach();
-  tb.shouldCreate();
+  const tb = componentTestBed(AppComponent) // 🛠️ Creates the test bed which is re-compiled for each test
+    .inject('prefs', Preferences); // 💉 Make an injection available for all tests, see below 👇
 
-  it('should render title', tb(({ component, query }) => {
+  it('should render title', tb(({ component, query }) => { // 🔋 Access enhanced tools for testing components 
     expect(component.title).toEqual('app-v17');
     const span = query.findElement('.content span');
     expect(span.textContent).toContain('app-v17 app is running!');
   }));
+
+  it('should update preferences on click', tb(({ action, injected: { prefs } }) => { // 🤯 Retrieve injections by autocompletion
+    expect(prefs.approved).toBeFalse();
+    action.click('#my-button');
+    expect(prefs.approved).toBeTrue();
+  }));
 });
 ```
 
-The `ComponentTestBed` gives you access to utilities (`query` and `action`) and more.
+🫡 (The redundant "should create" test is even called up for you!)
 
-These utilities can also be accessed by importing them directly, but they need the current `fixture` as an extra parameter.
+#### Testing Service
+
+```ts
+describe('AppService', () => {
+  const tb = serviceTestBed(AppService, { httpTesting: true }); // 🛠️ Creates the test bed and enable http testing
+
+  it('should fetch cat fact', tb(({ service, http, rx }, done) => {
+    const mockRes = { fact: 'string', length: 6 };
+
+    rx.remind = service.getCatFact().subscribe({ // 🧯 Use rx.remind to auto unsubscribe after the end of the test
+      next: (res) => {
+        expect(res).toEqual(mockRes);
+        done();
+      },
+    });
+
+    http.emitSuccessResponse({ url: service.CAT_FACT_URL, body: mockRes }); // 🎭 Fakes the http response of the request that matches the url
+  }));
+});
+```
 
 ## Installation
 
@@ -75,35 +71,43 @@ These utilities can also be accessed by importing them directly, but they need t
 npm install -D ngx-testing-tools
 ```
 
-## Table of contents
+## Documentation
 
+- Custom test beds 🤩
+  - **[ComponentTestBed](docs/component/test-bed.md#componenttestbed)**
+  - **[ServiceTestBed](docs/service/test-bed.md#servicetestbed)**
+  - ModuleTestBed
+
+- Enhanced tools 🔋
+  - Base
+  - HttpTools
+  - RxBox
+
+- Utilities
+  - Pipe
+    - [Expect values](docs/pipe.md#pipe)
+  - Router
+    - [Guard](docs/router/guard.md#guard)
+    - [Resolver](docs/router/resolver.md#resolver)
+  - Http
+    - [Interceptor](docs/http/interceptor.md#interceptors)
 - Component
-  - **[ComponentTestBed](docs/components/test-bed.md#componenttestbed)** 🤩
   - [Element query](docs/components/element.md#element-query)
   - [Event triggering](docs/components/event.md#event-triggering)
-- HTTP
-  - [Response](docs/http/controller.md#http-response)
-  - [Interceptor](docs/http/interceptor.md#interceptors)
-- Router
-  - [Guard](docs/router/guard.md#guard)
-  - [Resolver](docs/router/resolver.md#resolver)
-- Pipe
-  - [Expect values](docs/pipe.md#pipe)
-- Module
-  - [Expect creation](docs/module.md#module)
-- Injector
-  - [Get instance](docs/injector.md#injector)
 
 ## What's next ? 🤩
 
-Similar to `ComponentTestBed` :
-- `ServiceTestBed`
-- `PipeTestBed`
-- `RouterTestBed`
+- More custom test beds
+  - `PipeTestBed`
+  - `DirectiveTestBed`
+  - `InterceptorTestBed`
+  - `RouterTestBed`
+- Mocks
+- Angular schematics
 
 ## Version compatibility
 
-Angular `v15.2.x`, `v16.x` and `v17.x`. 
+Compatible with Angular `>= 15.2.x`.
 
 ## License
 
