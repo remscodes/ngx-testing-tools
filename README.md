@@ -92,6 +92,10 @@ npm install -D ngx-testing-tools
   - Pipe
     - [Test values](#testpipevaluespipe-record)
 
+- [Demo](#demo)
+- [Version compatibility](#version-compatibility)
+- [What's next ?](#whats-next--)
+
 ## Custom test beds
 
 All custom test beds significantly reduce the boilerplate required to perform tests and provide enhanced tools.
@@ -962,20 +966,24 @@ describe('MultiplyPipe', () => {
 });
 ```
 
+## Demo
+
+Check [demo](./projects/ngx-testing-tools-demo) `.spec.ts` files.
+
+## Version compatibility
+
+Compatible with Angular `>= 15.2.x`.
+
 ## What's next ? 🤩
 
-- More custom test beds
+- More custom test beds :
   - `PipeTestBed`
   - `DirectiveTestBed`
   - `InterceptorTestBed`
   - `RouterTestBed`
 - Mocks
 - Angular schematics
-- Website docs
-
-## Version compatibility
-
-Compatible with Angular `>= 15.2.x`.
+- Website documentation
 
 ## License
 
