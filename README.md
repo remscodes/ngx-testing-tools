@@ -79,7 +79,7 @@ npm install -D ngx-testing-tools
   - [ModuleTestBed](#moduletestbed)
   - [Common definitions](#common-definitions)
 
-- Common enhanced tools 🔋
+- Common tools 🔋
   - [BaseTools](#basetools-3)
   - [HttpTestingTools](#httptestingtools-2)
 
@@ -158,11 +158,11 @@ Options :
 
 #### import(oneOrManyImports) -> ComponentTestBed
 
-Check common definitions [tb.import(..)](#importoneormanyimports---customtestbed).
+Check common definitions [tb.import(..)](#importoneormanyimports---basetestbed).
 
 #### provide(oneOrManyProviders) -> ComponentTestBed
 
-Check common definitions [tb.provide(..)](#provideoneormanyproviders---customtestbed).
+Check common definitions [tb.provide(..)](#provideoneormanyproviders---basetestbed).
 
 #### declare(oneOrManyDeclarations) -> ComponentTestBed
 
@@ -178,7 +178,7 @@ describe('AppComponent', () => {
 
 #### inject(name, token) -> ComponentTestBed
 
-Check common definitions [tb.inject(..)](#injectname-token---customtestbed).
+Check common definitions [tb.inject(..)](#injectname-token---basetestbed).
 
 #### setup(action) -> jasmine.ImplementationCallback
 
@@ -451,15 +451,15 @@ Options :
 
 #### import(oneOrManyImports) -> ServiceTestBed
 
-Check common definitions [tb.import(..)](#importoneormanyimports---customtestbed).
+Check common definitions [tb.import(..)](#importoneormanyimports---basetestbed).
 
 #### provide(oneOrManyProviders) -> ServiceTestBed
 
-Check common definitions [tb.provide(..)](#provideoneormanyproviders---customtestbed).
+Check common definitions [tb.provide(..)](#provideoneormanyproviders---basetestbed).
 
 #### inject(name, token) -> ServiceTestBed
 
-Check common definitions [tb.inject(..)](#injectname-token---customtestbed).
+Check common definitions [tb.inject(..)](#injectname-token---basetestbed).
 
 #### setup(action) -> jasmine.ImplementationCallback
 
@@ -571,15 +571,15 @@ Options :
 
 #### import(oneOrManyImports) -> ModuleTestBed
 
-Check common definitions [tb.import(..)](#importoneormanyimports---customtestbed).
+Check common definitions [tb.import(..)](#importoneormanyimports---basetestbed).
 
 #### provide(oneOrManyProviders) -> ModuleTestBed
 
-Check common definitions [tb.provide(..)](#provideoneormanyproviders---customtestbed).
+Check common definitions [tb.provide(..)](#provideoneormanyproviders---basetestbed).
 
 #### inject(name, token) -> ModuleTestBed
 
-Check common definitions [tb.inject(..)](#injectname-token---customtestbed).
+Check common definitions [tb.inject(..)](#injectname-token---basetestbed).
 
 #### setup(action) -> jasmine.ImplementationCallback
 
@@ -634,15 +634,15 @@ Check common tools [BaseTools](#basetools-3).
 ### Common definitions
 
 - Definitions
-  - [tb.import(..)](#importoneormanyimports---customtestbed)
-  - [tb.provide(..)](#provideoneormanyproviders---customtestbed)
-  - [tb.inject(..)](#injectname-token---customtestbed)
+  - [tb.import(..)](#importoneormanyimports---basetestbed)
+  - [tb.provide(..)](#provideoneormanyproviders---basetestbed)
+  - [tb.inject(..)](#injectname-token---basetestbed)
   - [tb.setup(..)](#setupaction---jasmineimplementationcallback-3)
   - [tb.compile()](#compile---promisevoid-3)
 
 #### Definitions
 
-#### import(oneOrManyImports) -> CustomTestBed
+#### import(oneOrManyImports) -> BaseTestBed
 
 Imports required module(s) and standalone component(s) into testing module for your current tests.
 
@@ -654,7 +654,7 @@ describe('AppComponent', () => {
 });
 ```
 
-#### provide(oneOrManyProviders) -> CustomTestBed
+#### provide(oneOrManyProviders) -> BaseTestBed
 
 Provides required injectable service(s) or other(s) provider(s) into testing module for your current tests.
 
@@ -666,7 +666,7 @@ describe('AppComponent', () => {
 });
 ```
 
-#### inject(name, token) -> CustomTestBed
+#### inject(name, token) -> BaseTestBed
 
 Links an injected instance to a key and retrieve it into the enhanced tools by autocompletion.
 
@@ -714,7 +714,7 @@ describe('AppComponent', () => {
 });
 ```
 
-### Common enhanced tools
+### Common tools
 
 - Tools
   - [BaseTools](#basetools-3)
@@ -750,7 +750,7 @@ it('should do something', tb(({ injector }) => {
 
 ##### injected
 
-Get instance injected with [tb.inject(..)](#injectname-token---customtestbed) by autocompletion.
+Get instance injected with [tb.inject(..)](#injectname-token---basetestbed) by autocompletion.
 
 ```ts
 describe('AppComponent', () => {
