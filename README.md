@@ -88,9 +88,9 @@ npm install -D ngx-testing-tools
     - [Guard](#guard)
     - [Resolver](#resolver)
   - Http
-    - [Interceptor]()
+    - [Interceptor](#interceptor)
   - Pipe
-    - [Expect values]()
+    - [Test values](#testpipevaluespipe-record)
 
 ## Custom test beds
 
@@ -838,11 +838,129 @@ it('should do something', tb(({ http }, done) => {
 
 ### External utilities
 
+External utilities to be used inside or outside the custom test beds.
+
 ### Router
 
 #### Guard
 
+- [challengeGuardActivate(…)](#challengeguardactivateguard-state-routeconfig---t)
+- [challengeGuardDeactivate(…)](#challengeguarddeactivateguard-component-currentstate-nextstate-routeconfig---t)
+- [challengeGuardMatch(…)](#challengeguardmatchguard-route-segments---t)
+
+##### challengeGuardActivate(guard, state, routeConfig?) -> T
+
+Tests the `CanActivate` guard and checks its output value.
+
+> Use the generic type to indicate the return type of the guard (`challengeGuardActivate<R>(…)`). Default is `boolean`.
+
+```ts
+it('should activate', () => {
+  const state = TestBed.inject(Router).routerState.snapshot;
+  expect(challengeGuardActivate(loginGuard, state)).toBeTrue();
+}); 
+```
+
+##### challengeGuardDeactivate(guard, component, currentState, nextState, routeConfig?) -> T
+
+Tests the `CanDeactivate` guard and checks its output value.
+
+> Use the generic type to indicate the return type of the guard (`challengeGuardDeactivate<R>(…)`). Default is `boolean`.
+
+```ts
+it('should deactivate', () => {
+  const state = TestBed.inject(Router).routerState.snapshot;
+  expect(challengeGuardDeactivate(component, backGuard, currentState, nextState)).toBeTrue();
+}); 
+```
+
+##### challengeGuardMatch(guard, route, segments) -> T
+
+Tests the `CanMatch` guard and checks its output value.
+
+> Use the generic type to indicate the return type of the guard (`challengeGuardMatch<T, R>(…)`). Default is `boolean`.
+
+```ts
+it('should match', () => {
+  expect(challengeGuardMatch(loadGuard, { data: { isAllowed: true } }, [])).toBeTrue();
+}); 
+```
+
 #### Resolver
+
+##### checkResolver(resolver, state, routeConfig?) -> T
+
+Checks resolver output.
+
+> Use the generic type to indicate the return type of the resolver (`checkResolver<T>(…)`). Default is `Observable<boolean>`.
+
+```ts
+it('should resolve', (done) => {
+  const state = TestBed.inject(Router).routerState.snapshot;
+  checkResolver(myResolver, state, { params: { id: 1 } }).subscribe({
+    next: (result) => {
+      // (…) expectations
+      done();
+    },
+  });
+}); 
+```
+
+### Http
+
+#### Interceptor
+
+Utilities to check the behaviour of interceptors according to the success or failure of the request/response.
+
+- [makeInterceptorSucceed(…)](#makeinterceptorsucceedinterceptor-config)
+- [makeInterceptorFail(…)](#makeinterceptorfailinterceptor-config)
+
+##### makeInterceptorSucceed(interceptor, config?)
+
+Makes interceptor succeed to observe the output `HttpRequest`.
+
+```ts
+it('should intercept and add header', (done) => {
+  makeInterceptorSucceed(myInterceptor).subscribe({
+    next: ({ headers }: HttpRequest<unknown>) => {
+      expect(headers.get('x-my-header')).toEqual('my-header-value');
+      done();
+    },
+  });
+});
+```
+
+##### makeInterceptorFail(interceptor, config?)
+
+Makes interceptor fail to observe the output `HttpErrorResponse`.
+
+```ts
+it('should intercept and error', (done) => {
+  makeInterceptorFail(myInterceptor, { status: 401 }).subscribe({
+    error: ({ status }: HttpErrorResponse) => {
+      expect(status).toEqual(401);
+      done();
+    },
+  });
+});
+```
+
+### Pipe
+
+#### testPipeValues(pipe, record)
+
+Tests the pipe by successively transform the record's key and compare it to the expected record's value.
+
+```ts
+describe('MultiplyPipe', () => {
+  const pipe = new MultiplyPipe();
+
+  testPipeValues(pipe, {
+    1: '2',
+    2: '4',
+  });
+});
+```
 
 ## What's next ? 🤩
 
