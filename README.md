@@ -68,7 +68,7 @@ describe('AppService', () => {
 ## Installation
 
 ```shell
-npm install -D ngx-testing-tools
+npm install --save-dev ngx-testing-tools
 ```
 
 ## Table of contents
