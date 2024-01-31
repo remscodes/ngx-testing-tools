@@ -536,7 +536,7 @@ Check common tools [HttpTestingTools](#httptestingtools-2).
   - [tb.inject(..)](#injectname-token---moduletestbed)
   - [tb.setup(..)](#setupaction---jasmineimplementationcallback-2)
   - [tb.compile()](#compile---promisevoid-2)
-  - [tb(..)](#assertion-options---jasmineimplementationcallback-2)
+  - [tb(..)](#assertion---jasmineimplementationcallback)
 - Tools
   - [ModuleTools](#moduletools)
   - [BaseTools](#basetools-2)
@@ -589,7 +589,7 @@ Check common definitions [tb.setup(..)](#setupaction---jasmineimplementationcall
 
 Check common definitions [tb.compile(..)](#compile---promisevoid-3).
 
-#### (assertion, options?) -> jasmine.ImplementationCallback
+#### (assertion) -> jasmine.ImplementationCallback
 
 Wraps the `it` assertion function and provides enhanced tools for testing component expectations.
 
@@ -844,11 +844,11 @@ External utilities to be used inside or outside the custom test beds.
 
 #### Guard
 
-- [challengeGuardActivate(…)](#challengeguardactivateguard-state-routeconfig---t)
-- [challengeGuardDeactivate(…)](#challengeguarddeactivateguard-component-currentstate-nextstate-routeconfig---t)
-- [challengeGuardMatch(…)](#challengeguardmatchguard-route-segments---t)
+- [challengeGuardActivate(…)](#challengeguardactivateguard-state-routeconfig---r)
+- [challengeGuardDeactivate(…)](#challengeguarddeactivateguard-component-currentstate-nextstate-routeconfig---r)
+- [challengeGuardMatch(…)](#challengeguardmatchguard-route-segments---r)
 
-##### challengeGuardActivate(guard, state, routeConfig?) -> T
+##### challengeGuardActivate(guard, state, routeConfig?) -> R
 
 Tests the `CanActivate` guard and checks its output value.
 
@@ -861,7 +861,7 @@ it('should activate', () => {
 }); 
 ```
 
-##### challengeGuardDeactivate(guard, component, currentState, nextState, routeConfig?) -> T
+##### challengeGuardDeactivate(guard, component, currentState, nextState, routeConfig?) -> R
 
 Tests the `CanDeactivate` guard and checks its output value.
 
@@ -874,7 +874,7 @@ it('should deactivate', () => {
 }); 
 ```
 
-##### challengeGuardMatch(guard, route, segments) -> T
+##### challengeGuardMatch(guard, route, segments) -> R
 
 Tests the `CanMatch` guard and checks its output value.
 
@@ -888,11 +888,11 @@ it('should match', () => {
 
 #### Resolver
 
-##### checkResolver(resolver, state, routeConfig?) -> T
+##### checkResolver(resolver, state, routeConfig?) -> R
 
 Checks resolver output.
 
-> Use the generic type to indicate the return type of the resolver (`checkResolver<T>(…)`). Default is `Observable<boolean>`.
+> Use the generic type to indicate the return type of the resolver (`checkResolver<R>(…)`). Default is `Observable<boolean>`.
 
 ```ts
 it('should resolve', (done) => {
