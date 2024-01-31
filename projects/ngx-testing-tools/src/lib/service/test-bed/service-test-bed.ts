@@ -10,6 +10,11 @@ import { ServiceCallback } from './models/service-test-bed.model';
 import { ServiceTestBedFactory } from './service-test-bed-factory';
 import { buildServiceTools } from './service-tools';
 
+/**
+ * Creates a new `ServiceTestBed` to configure the custom test bed and wrap the assertion test.
+ * @param rootService - The described Service.
+ * @param options
+ */
 export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedOptions = {}): ServiceTestBed<T> {
   const {
     httpTesting = false,

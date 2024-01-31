@@ -8,6 +8,11 @@ import { ModuleCallback, ModuleTestBed } from './models/module-test-bed.model';
 import { ModuleTestBedFactory } from './module-test-bed-factory';
 import { buildModuleTools } from './module-tools';
 
+/**
+ * Creates a new `ModuleTestBed` to configure the custom test bed and wrap the assertion test.
+ * @param rootModule - The described Module.
+ * @param options
+ */
 export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOptions = {}) {
   const factory = new ModuleTestBedFactory(rootModule, options);
 
