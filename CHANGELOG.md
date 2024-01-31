@@ -1,3 +1,40 @@
+# 2.2.0 (2024-01-31)
+
+### Features
+
+- `ServiceTestBed`.
+- `ModuleTestBed`.
+- `HttpTestingTools`.
+- Many custom test beds options.
+
+### Improvements
+
+- Codebase.
+- Tests.
+- Docs.
+
+### Deprecations
+
+Will be removed in v3.
+
+- `tb.compileEach()` (use test bed option `autoCompile` instead (true by default)).
+- `tb.shouldCreate()` (use test bed option `checkCreate` instead (true by default)).
+- `findComponent(fixture, ..)` (use `ComponentTools.query` instead).
+- `findAllComponents(fixture, ..)` (use `ComponentTools.query` instead).
+- `findElement(fixture, ..)` (use `ComponentTools.query` instead).
+- `findAllElements(fixture, ..)` (use `ComponentTools.query` instead).
+- `findDebugElement(fixture, ..)` (use `ComponentTools.query` instead).
+- `findAllDebugElements(fixture, ..)` (use `ComponentTools.query` instead).
+- `click(fixture, ..)` (use `ComponentTools.action` instead).
+- `emitOutput(fixture, ..)` (use `ComponentTools.action` instead).
+- `emitFakeSuccessResponse(httpController, ..)` (use `HttpTools` instead).
+- `emitFakeErrorResponse(httpController, ..)` (use `HttpTools` instead).
+- `expectHttpRequest(httpController, ..)` (use `HttpTools` instead).
+- `fromInjector(..)` (use `BaseTools.injector` instead).
+- `exportModuleToCreate(..)` (use `ModuleTestBed` instead).
+
+> Commits : https://github.com/remscodes/ngx-testing-tools/commits/v2.2.0
+
 # 2.1.0 (2024-01-19)
 
 ### Features
@@ -5,7 +42,7 @@
 - `tb.compileEach()`.
 - `tb.setup(..)`.
 - `tb.inject(..)`.
-- Angular `17.x` compatibility (instead of `17.0.x`).
+- Update Angular 17 compatibility (`17.x`  instead of `17.0.x`).
 
 ### Improvements
 
@@ -13,6 +50,8 @@
 - Tests.
 
 ### Deprecation
+
+Will be removed in v3.
 
 - `ComponentTools.debug`.
 

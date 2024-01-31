@@ -11,6 +11,6 @@ describe('assertInstance', () => {
 
   it('should throw', () => {
     expect(() => assertInstance(null, Foo))
-      .toThrowError('Foo instance is falsy. You need to set `autoCompile = true` or use `tb.compileEach();` or use `beforeEach(() => tb.compile());` before running expectations.');
+      .toThrowError('Foo instance is falsy. You need to set `autoCompile = true` (default) or set `beforeEach(() => tb.compile());` and `autoCompile = false` before running expectations.');
   });
 });
