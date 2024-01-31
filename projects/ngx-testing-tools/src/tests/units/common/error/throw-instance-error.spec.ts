@@ -4,6 +4,6 @@ describe('throwInstanceError', () => {
 
   it('should throw with specific message', () => {
     expect(() => throwInstanceError({ name: 'AppComponent' }))
-      .toThrowError('AppComponent instance is falsy. You need to set `autoCompile = true` or use `tb.compileEach();` or use `beforeEach(() => tb.compile());` before running expectations.');
+      .toThrowError('AppComponent instance is falsy. You need to set `autoCompile = true` (default) or set `beforeEach(() => tb.compile());` and `autoCompile = false` before running expectations.');
   });
 });
