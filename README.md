@@ -80,13 +80,13 @@ npm install -D ngx-testing-tools
   - [Common definitions](#common-definitions)
 
 - Common enhanced tools 🔋
-  - [BaseTools](#basetools)
-  - [HttpTestingTools](#httptestingtools)
+  - [BaseTools](#basetools-3)
+  - [HttpTestingTools](#httptestingtools-2)
 
 - External utilities 🔧
   - Router
-    - [Guard]()
-    - [Resolver]()
+    - [Guard](#guard)
+    - [Resolver](#resolver)
   - Http
     - [Interceptor]()
   - Pipe
@@ -104,9 +104,9 @@ All custom test beds significantly reduce the boilerplate required to perform te
   - [tb.provide(..)](#provideoneormanyproviders---componenttestbed)
   - [tb.declare(..)](#declareoneormanydeclarations---componenttestbed)
   - [tb.inject(..)](#injectname-token---componenttestbed)
-  - [tb(..)](#assertion-options---jasmineimplementationcallback)
   - [tb.setup(..)](#setupaction---jasmineimplementationcallback)
   - [tb.compile()](#compile---promisevoid)
+  - [tb(..)](#assertion-options---jasmineimplementationcallback)
 - Tools
   - [ComponentTools](#componenttools)
   - [ComponentQueryTools](#componentquerytools)
@@ -142,6 +142,9 @@ Options :
   noTemplate?: boolean = false;
   // Enables `HttpTools`.
   httpTesting?: boolean = false;
+  // When enabled, the assertion will end by `HttpTestingController.verify()`.
+  // Works only when `httpTesting` test bed option is `true`, otherwise has no effect.
+  verifyHttp?: boolean = true;
   // Automatically compiles the custom test bed for each test.
   autoCompile?: boolean = true;
   // Automatically invokes the "should create" test.
@@ -150,6 +153,8 @@ Options :
 }
 ```
 [//]: # (@formatter:on)
+
+#### Definitions
 
 #### import(oneOrManyImports) -> ComponentTestBed
 
@@ -174,6 +179,14 @@ describe('AppComponent', () => {
 #### inject(name, token) -> ComponentTestBed
 
 Check common definitions [tb.inject(..)](#injectname-token---customtestbed).
+
+#### setup(action) -> jasmine.ImplementationCallback
+
+Check common definitions [tb.setup(..)](#setupaction---jasmineimplementationcallback-3).
+
+#### compile() -> Promise\<void\>
+
+Check common definitions [tb.compile(..)](#compile---promisevoid-3).
 
 #### (assertion, options?) -> jasmine.ImplementationCallback
 
@@ -204,7 +217,7 @@ it('should do something', tb(({ component, fixture, injector, action, query }) =
   component.myInput = true;
   fixture.detectChanges();
 
-  const appService = injector.get(AppService);
+  const auth = injector.get(AuthService);
 
   const inner = query.findComponent(InnerComponent);
 
@@ -227,13 +240,7 @@ it('should do something', tb(async ({ component }) => {
 })); 
 ```
 
-#### setup(action) -> jasmine.ImplementationCallback
-
-Check common definitions [tb.setup(..)](#setupaction---jasmineimplementationcallback-1).
-
-#### compile() -> Promise\<void\>
-
-Check common definitions [tb.compile(..)](#compile---promisevoid-1).
+#### Tools
 
 #### ComponentTools
 
@@ -250,7 +257,13 @@ Check common definitions [tb.compile(..)](#compile---promisevoid-1).
 }
 ```
 
--> It extends [BaseTools](#basetools) and [HttpTestingTools](#httptestingtools).
+#### BaseTools
+
+Check common tools [BaseTools](#basetools-3).
+
+#### HttpTestingTools
+
+Check common tools [HttpTestingTools](#httptestingtools-2).
 
 #### ComponentQueryTools
 
@@ -390,28 +403,244 @@ it('should do something when output emitted', tb(({ action }) => {
 
 ### ServiceTestBed
 
-- [Options]()
+- [Options](#servicetestbed-options)
 - Definitions
-  - [tb.import(..)]()
-  - [tb.provide(..)]()
-  - [tb.inject(..)]()
-  - [tb(..)]()
-  - [tb.setup(..)]()
-  - [tb.compile()]()
+  - [tb.import(..)](#importoneormanyimports---servicetestbed)
+  - [tb.provide(..)](#provideoneormanyproviders---servicetestbed)
+  - [tb.inject(..)](#injectname-token---servicetestbed)
+  - [tb.setup(..)](#setupaction---jasmineimplementationcallback-1)
+  - [tb.compile()](#compile---promisevoid-1)
+  - [tb(..)](#assertion-options---jasmineimplementationcallback-1)
 - Tools
-  - [ServiceTools]()
-  - [BaseTools]()
-  - [HttpTestingTools]()
+  - [ServiceTools](#servicetools)
+  - [BaseTools](#basetools-1)
+  - [HttpTestingTools](#httptestingtools-1)
+
+#### ServiceTestBed Options
+
+```ts
+describe('AppService', () => {
+  const tb = serviceTestBed(ServiceComponent, {
+    // ... options (see below)
+  });
+});
+```
+
+Options :
+
+[//]: # (@formatter:off)
+```ts
+{
+  imports?: Importation[] = [];
+  providers?: AnyProvider[] = [];
+  // Enables `HttpTools`.
+  httpTesting?: boolean = false;
+  // When enabled, the assertion will end by `HttpTestingController.verify()`.
+  // Works only when `httpTesting` test bed option is `true`, otherwise has no effect.
+  verifyHttp?: boolean = true;
+  // Automatically compiles the custom test bed for each test.
+  autoCompile?: boolean = true;
+  // Automatically invokes the "should create" test.
+  // It checks if the provided `described` instance is truthy. 
+  checkCreate?: boolean = true;
+}
+```
+[//]: # (@formatter:on)
+
+#### Definitions
+
+#### import(oneOrManyImports) -> ServiceTestBed
+
+Check common definitions [tb.import(..)](#importoneormanyimports---customtestbed).
+
+#### provide(oneOrManyProviders) -> ServiceTestBed
+
+Check common definitions [tb.provide(..)](#provideoneormanyproviders---customtestbed).
+
+#### inject(name, token) -> ServiceTestBed
+
+Check common definitions [tb.inject(..)](#injectname-token---customtestbed).
+
+#### setup(action) -> jasmine.ImplementationCallback
+
+Check common definitions [tb.setup(..)](#setupaction---jasmineimplementationcallback-3).
+
+#### compile() -> Promise\<void\>
+
+Check common definitions [tb.compile(..)](#compile---promisevoid-3).
+
+#### (assertion, options?) -> jasmine.ImplementationCallback
+
+Wraps the `it` assertion function and provides enhanced tools for testing component expectations.
+
+It supports the jasmine `DoneFn` and `async`/`await` (check examples below).
+
+Options :
+
+[//]: # (@formatter:off)
+```ts
+{
+  // When enabled, the assertion will end by `HttpTestingController.verify()`.
+  // Works only when `httpTesting` test bed option is `true`, otherwise has no effect.
+  verifyHttp?: boolean = true;
+}
+```
+[//]: # (@formatter:on)
+
+Examples :
+
+```ts
+it('should do something', tb(({ service, injector }) => {
+  // (…) expectations
+})); 
+```
+
+```ts
+it('should do something', tb(({ service }, done) => {
+  // (…) expectations
+  done();
+})); 
+```
+
+```ts
+it('should do something', tb(async ({ service }) => {
+  // (…) async expectations 
+})); 
+```
+
+#### Tools
+
+#### ServiceTools
+
+```ts
+{
+  // The described service instance.
+  service: T;
+}
+```
+
+#### BaseTools
+
+Check common tools [BaseTools](#basetools-3).
+
+#### HttpTestingTools
+
+Check common tools [HttpTestingTools](#httptestingtools-2).
 
 ### ModuleTestBed
 
+- [Options](#moduletestbed-options)
+- Definitions
+  - [tb.import(..)](#importoneormanyimports---moduletestbed)
+  - [tb.provide(..)](#provideoneormanyproviders---moduletestbed)
+  - [tb.inject(..)](#injectname-token---moduletestbed)
+  - [tb.setup(..)](#setupaction---jasmineimplementationcallback-2)
+  - [tb.compile()](#compile---promisevoid-2)
+  - [tb(..)](#assertion-options---jasmineimplementationcallback-2)
+- Tools
+  - [ModuleTools](#moduletools)
+  - [BaseTools](#basetools-2)
+
+#### ModuleTestBed Options
+
+```ts
+describe('AppModule', () => {
+  const tb = moduleTestBed(AppModule, {
+    // ... options (see below)
+  });
+});
+```
+
+Options :
+
+[//]: # (@formatter:off)
+```ts
+{
+  imports?: Importation[] = [];
+  providers?: AnyProvider[] = [];
+  // Automatically compiles the custom test bed for each test.
+  autoCompile?: boolean = true;
+  // Automatically invokes the "should create" test.
+  // It checks if the provided `described` instance is truthy. 
+  checkCreate?: boolean = true;
+}
+```
+[//]: # (@formatter:on)
+
+#### Definitions
+
+#### import(oneOrManyImports) -> ModuleTestBed
+
+Check common definitions [tb.import(..)](#importoneormanyimports---customtestbed).
+
+#### provide(oneOrManyProviders) -> ModuleTestBed
+
+Check common definitions [tb.provide(..)](#provideoneormanyproviders---customtestbed).
+
+#### inject(name, token) -> ModuleTestBed
+
+Check common definitions [tb.inject(..)](#injectname-token---customtestbed).
+
+#### setup(action) -> jasmine.ImplementationCallback
+
+Check common definitions [tb.setup(..)](#setupaction---jasmineimplementationcallback-3).
+
+#### compile() -> Promise\<void\>
+
+Check common definitions [tb.compile(..)](#compile---promisevoid-3).
+
+#### (assertion, options?) -> jasmine.ImplementationCallback
+
+Wraps the `it` assertion function and provides enhanced tools for testing component expectations.
+
+It supports the jasmine `DoneFn` and `async`/`await` (check examples below).
+
+Examples :
+
+```ts
+it('should do something', tb(({ module }) => {
+  // (…) expectations
+})); 
+```
+
+```ts
+it('should do something', tb(({ module }, done) => {
+  // (…) expectations
+  done();
+})); 
+```
+
+```ts
+it('should do something', tb(async ({ module }) => {
+  // (…) async expectations 
+})); 
+```
+
+#### Tools
+
+#### ModuleTools
+
+```ts
+{
+  // The described module instance.
+  module: T;
+}
+```
+
+#### BaseTools
+
+Check common tools [BaseTools](#basetools-3).
+
 ### Common definitions
 
-- [tb.import(..)](#importoneormanyimports---customtestbed)
-- [tb.provide(..)](#provideoneormanyproviders---customtestbed)
-- [tb.inject(..)](#injectname-token---customtestbed)
-- [tb.setup(..)](#setupaction---jasmineimplementationcallback)
-- [tb.compile()](#compile---promisevoid-1)
+- Definitions
+  - [tb.import(..)](#importoneormanyimports---customtestbed)
+  - [tb.provide(..)](#provideoneormanyproviders---customtestbed)
+  - [tb.inject(..)](#injectname-token---customtestbed)
+  - [tb.setup(..)](#setupaction---jasmineimplementationcallback-3)
+  - [tb.compile()](#compile---promisevoid-3)
+
+#### Definitions
 
 #### import(oneOrManyImports) -> CustomTestBed
 
@@ -485,23 +714,32 @@ describe('AppComponent', () => {
 });
 ```
 
-## Common enhanced tools
+### Common enhanced tools
 
-### BaseTools
+- Tools
+  - [BaseTools](#basetools-3)
+  - [HttpTestingTools](#httptestingtools-2)
 
+#### BaseTools
+
+[//]: # (@formatter:off)
 ```ts
 {
   // The root injector.
   injector: Injector;
+  // Injected instances (check tb.inject(..) method).
+  injected: { [k: string]: any; };
   // Box that automatically clears all supplied "Subscription" and "Subject".
   rx: RxBox;
 }
 ```
+[//]: # (@formatter:on)
 
 - [injector](#injector)
+- [injected](#injected)
 - [rx](#rx)
 
-#### injector
+##### injector
 
 ```ts
 it('should do something', tb(({ injector }) => {
@@ -510,7 +748,23 @@ it('should do something', tb(({ injector }) => {
 }));
 ```
 
-#### rx
+##### injected
+
+Get instance injected with [tb.inject(..)](#injectname-token---customtestbed) by autocompletion.
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .inject('storage', StorageService)
+    .inject('auth', AuthService);
+});
+
+it('should do something', tb(({ injected: { storage, auth } }) => {
+  // (…) expectations
+}));
+```
+
+##### rx
 
 ```ts
 it('should do something', tb(({ rx }) => {
@@ -524,7 +778,7 @@ it('should do something', tb(({ rx }) => {
 })); 
 ```
 
-### HttpTestingTools
+#### HttpTestingTools
 
 ```ts
 {
@@ -538,15 +792,15 @@ it('should do something', tb(({ rx }) => {
 - [emitSuccessResponse](#emitsuccessresponseconfig)
 - [emitErrorResponse](#emiterrorresponseconfig)
 
-#### client
+##### client
 
 Angular `HttpClient`.
 
-#### controller
+##### controller
 
 Angular `HttpTestingController`.
 
-#### emitSuccessResponse(config)
+##### emitSuccessResponse(config)
 
 Fakes a http success response for the request that matches the url.
 
@@ -565,7 +819,7 @@ it('should do somehting', tb(({ http }, done) => {
 })); 
 ```
 
-#### emitErrorResponse(config)
+##### emitErrorResponse(config)
 
 Fakes a http error response for the request that matches the url.
 
@@ -581,6 +835,14 @@ it('should do something', tb(({ http }, done) => {
   http.emitErrorResponse({ url: '/test', status: 401 });
 })); 
 ```
+
+### External utilities
+
+### Router
+
+#### Guard
+
+#### Resolver
 
 ## What's next ? 🤩
 
