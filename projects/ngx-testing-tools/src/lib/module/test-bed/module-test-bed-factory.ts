@@ -3,7 +3,7 @@ import { assertInstance } from '../../common/assertion/assert-instance';
 import { assertModuleCtor } from '../../common/assertion/assert-module-ctor';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { BaseTestBedFactory } from '../../common/test-bed/base/base-test-bed-factory';
-import { buildJasmineCallback } from '../../common/test-bed/jasmine-callback';
+import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { ModuleTestBed, ModuleTestBedOptions } from './models';
@@ -32,7 +32,10 @@ export class ModuleTestBedFactory<ModuleType, Store extends InjectionStore = Inj
   }
 
   public override setup(action: ModuleCallback<ModuleType, Store["injected"]>): jasmine.ImplementationCallback {
-    return buildJasmineCallback(this, action, buildModuleTools);
+    return buildJasmineCallback({
+      callback: action,
+      deferredTools: () => buildModuleTools(this),
+    });
   }
 
   public override shouldCreate(): void {

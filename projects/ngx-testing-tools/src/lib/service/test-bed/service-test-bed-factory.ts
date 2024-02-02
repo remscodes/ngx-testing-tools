@@ -1,12 +1,11 @@
-import { provideHttpClient } from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ProviderToken, Type } from '@angular/core';
 import { assertInstance } from '../../common/assertion/assert-instance';
 import { assertServiceCtor } from '../../common/assertion/assert-service-ctor';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { BaseTestBedFactory } from '../../common/test-bed/base/base-test-bed-factory';
+import { HTTP_PROVIDERS } from '../../common/test-bed/http/http-providers';
 import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
-import { buildJasmineCallback } from '../../common/test-bed/jasmine-callback';
+import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { ServiceTestBed, ServiceTestBedOptions } from './models';
@@ -26,10 +25,7 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
       httpTesting = false,
     } = options;
 
-    if (httpTesting) this.provide([
-      provideHttpClient(),
-      provideHttpClientTesting(),
-    ]);
+    if (httpTesting) this.provide(HTTP_PROVIDERS);
 
     this.provide(this.described);
     this.httpOptions = { httpTesting };
@@ -49,7 +45,10 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
   }
 
   public override setup(action: ServiceCallback<ServiceType, Store["injected"]>): jasmine.ImplementationCallback {
-    return buildJasmineCallback(this, action, buildServiceTools, [this.httpOptions]);
+    return buildJasmineCallback({
+      callback: action,
+      deferredTools: () => buildServiceTools(this, this.httpOptions),
+    });
   }
 
   public override shouldCreate(): void {

@@ -23,3 +23,5 @@ export type MethodsOf<T> = {
 export type Unusable<T> = {
   [K in keyof T]: T[K] extends Function ? () => never : never;
 }
+
+export type Deferred<T> = () => T
