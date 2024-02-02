@@ -809,7 +809,7 @@ Angular `HttpTestingController`.
 Fakes a http success response for the request that matches the url.
 
 ```ts
-it('should do somehting', tb(({ http }, done) => {
+it('should do something', tb(({ http }, done) => {
   const mockRes = 'result';
 
   http.get('/test').subscribe({

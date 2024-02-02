@@ -1,4 +1,4 @@
-import { doneFactory } from '../../../../lib/common/test-bed/jasmine-done';
+import { doneFactory } from '../../../../lib/common/test-bed/jasmine/jasmine-done';
 
 describe('doneFactory', () => {
   const mockDone: any = () => {};

@@ -1,12 +1,10 @@
 import { Type } from '@angular/core';
 import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
-import { doneFactory } from '../../common/test-bed/jasmine-done';
+import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
-import { postAsync } from '../../common/util/post-async';
-import { Nullable } from '../../shared.model';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
 import { buildComponentTools } from './component-tools';
-import { ComponentExtraOptions, ComponentTestBedOptions, ComponentTools } from './models';
+import { ComponentExtraOptions, ComponentTestBedOptions } from './models';
 import { ComponentCallback, ComponentTestBed } from './models/component-test-bed.models';
 
 /**
@@ -32,24 +30,17 @@ export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTe
       verifyHttp = globalVerifyHttp ?? true,
     } = opts;
 
-    const assertionWrapper = (done: Nullable<DoneFn>) => {
-      const tools: ComponentTools<T> = buildComponentTools(factory, httpOptions);
-
-      if (!noTemplate && startDetectChanges) tools.fixture.detectChanges();
-
-      const postTest = () => {
+    return buildJasmineCallback({
+      callback: assertion,
+      deferredTools: () => buildComponentTools(factory, httpOptions),
+      preTest: (tools) => {
+        if (!noTemplate && startDetectChanges) tools.fixture.detectChanges();
+      },
+      postTest: (tools) => {
         if (httpTesting && verifyHttp) tools.http.controller.verify();
         tools.rx['cleanAll']();
-      };
-
-      return (done)
-        ? assertion(tools, doneFactory(done, postTest))
-        : postAsync(assertion(tools, null!), postTest);
-    };
-
-    return (assertion.length > 1)
-      ? (done: DoneFn) => assertionWrapper(done)
-      : () => assertionWrapper(null);
+      },
+    });
   }) as ComponentTestBed<T>;
 
   tb.declare = (declarations: any) => {
