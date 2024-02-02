@@ -14,7 +14,7 @@ interface JasmineCallbackArgs<Tools extends BaseTools> {
 export function buildJasmineCallback<Tools extends BaseTools>(args: JasmineCallbackArgs<Tools>): jasmine.ImplementationCallback {
   const { callback, deferredTools, preTest, postTest } = args;
 
-  const assertionWrapper = (done: Nullable<DoneFn>) => {
+  const callbackWrapper = (done: Nullable<DoneFn>) => {
     const tools: Tools = deferredTools();
 
     preTest?.(tools);
@@ -25,6 +25,6 @@ export function buildJasmineCallback<Tools extends BaseTools>(args: JasmineCallb
   };
 
   return (callback.length > 1)
-    ? (done: DoneFn) => assertionWrapper(done)
-    : () => assertionWrapper(null);
+    ? (done: DoneFn) => callbackWrapper(done)
+    : () => callbackWrapper(null);
 }
