@@ -8,4 +8,13 @@ describe('PipeTestBed', () => {
     const result = pipe.transform('suffix', 'my-');
     expect(result).toEqual('my-suffix');
   }));
+
+  it('should verify', tb(({ verify }) => {
+    verify({ data: 'suffix', parameters: ['my-'], expected: 'my-suffix' });
+
+    verify.many([
+      { data: 'suffix', parameters: ['a-'], expected: 'a-suffix' },
+      { data: 'suffix', parameters: ['a-', '-b'], expected: 'a-suffix-b' },
+    ]);
+  }));
 });
