@@ -1,10 +1,10 @@
 import { Type } from '@angular/core';
 import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
-import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
+import { mergeBaseFactory } from '../../common/test-bed/merge-factory/merge-base-factory';
 import { ServiceTestBed, ServiceTestBedOptions } from './models';
+import { ServiceCallback } from './models/service-callback.model';
 import { ServiceExtraOptions } from './models/service-extra-options.model';
-import { ServiceCallback } from './models/service-test-bed.model';
 import { ServiceTestBedFactory } from './service-test-bed-factory';
 import { buildServiceTools } from './service-tools';
 
@@ -36,5 +36,5 @@ export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedO
     });
   }) as ServiceTestBed<T>;
 
-  return mergeFactoryToTestBed(factory, tb) as ServiceTestBed<T>;
+  return mergeBaseFactory(factory, tb) as ServiceTestBed<T>;
 }

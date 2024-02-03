@@ -1,4 +1,4 @@
-import { ProviderToken, Type } from '@angular/core';
+import { Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { assertComponentCtor } from '../../common/assertion/assert-component-ctor';
 import { assertInstance } from '../../common/assertion/assert-instance';
@@ -8,10 +8,9 @@ import { HttpOptions } from '../../common/test-bed/http/models/http-options.mode
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { RendererTestBedFactory } from '../../common/test-bed/renderer/renderer-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
-import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { buildComponentTools } from './component-tools';
-import { ComponentTestBed, ComponentTestBedOptions } from './models';
-import { ComponentCallback } from './models/component-test-bed.models';
+import { ComponentTestBedOptions } from './models';
+import { ComponentCallback } from './models/component-callback.model';
 
 export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends RendererTestBedFactory<ComponentType, Store> {
 
@@ -37,10 +36,6 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
   private readonly noTemplate: boolean;
 
   private fixture: ComponentFixture<ComponentType> = null!;
-
-  public override inject<S extends string, T>(name: NonEmptyString<S>, token: ProviderToken<T>): ComponentTestBed<ComponentType, InjectionStore<PrettyMerge<Store['injected'] & { [K in S]: T }>>> {
-    return super.inject(name, token) as any;
-  }
 
   public override async compile(): Promise<void> {
     await super.compile();

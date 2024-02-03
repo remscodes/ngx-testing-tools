@@ -1,8 +1,8 @@
 import { Type } from '@angular/core';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
-import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
-import { ModuleTestBedOptions } from './models';
-import { ModuleCallback, ModuleTestBed } from './models/module-test-bed.model';
+import { mergeBaseFactory } from '../../common/test-bed/merge-factory/merge-base-factory';
+import { ModuleTestBed, ModuleTestBedOptions } from './models';
+import { ModuleCallback } from './models/module-callback.model';
 import { ModuleTestBedFactory } from './module-test-bed-factory';
 import { buildModuleTools } from './module-tools';
 
@@ -24,5 +24,5 @@ export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOpti
     });
   }) as ModuleTestBed<T>;
 
-  return mergeFactoryToTestBed(factory, tb) as ModuleTestBed<T>;
+  return mergeBaseFactory(factory, tb) as ModuleTestBed<T>;
 }
