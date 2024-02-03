@@ -1,13 +1,12 @@
-import { ProviderToken, Type } from '@angular/core';
+import { Type } from '@angular/core';
 import { assertServiceCtor } from '../../common/assertion/assert-service-ctor';
 import { BaseTestBedFactory } from '../../common/test-bed/base/base-test-bed-factory';
 import { HTTP_PROVIDERS } from '../../common/test-bed/http/http-providers';
 import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
-import { NonEmptyString, PrettyMerge } from '../../shared.model';
-import { ServiceTestBed, ServiceTestBedOptions } from './models';
-import { ServiceCallback } from './models/service-test-bed.model';
+import { ServiceTestBedOptions } from './models';
+import { ServiceCallback } from './models/service-callback.model';
 import { buildServiceTools } from './service-tools';
 
 export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = InjectionStore> extends BaseTestBedFactory<ServiceType, Store> {
@@ -30,10 +29,6 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
   }
 
   private readonly httpOptions: HttpOptions;
-
-  public override inject<S extends string, T>(name: NonEmptyString<S>, token: ProviderToken<T>): ServiceTestBed<ServiceType, InjectionStore<PrettyMerge<Store["injected"] & { [K in S]: T }>>> {
-    return super.inject(name, token) as any;
-  }
 
   public override async compile(): Promise<void> {
     await super.compile();

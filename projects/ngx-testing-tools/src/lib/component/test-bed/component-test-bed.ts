@@ -4,8 +4,8 @@ import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-call
 import { mergeRendererFactory } from '../../common/test-bed/merge-factory/merge-renderer-factory';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
 import { buildComponentTools } from './component-tools';
-import { ComponentExtraOptions, ComponentTestBedOptions } from './models';
-import { ComponentCallback, ComponentTestBed } from './models/component-test-bed.models';
+import { ComponentExtraOptions, ComponentTestBed, ComponentTestBedOptions } from './models';
+import { ComponentCallback } from './models/component-callback.model';
 
 /**
  * Creates a new `ComponentTestBed` to configure the custom test bed and wrap the assertion test.

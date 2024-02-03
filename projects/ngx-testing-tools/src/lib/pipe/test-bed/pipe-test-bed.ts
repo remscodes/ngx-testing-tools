@@ -2,7 +2,7 @@ import { PipeTransform, Type } from '@angular/core';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { mergeRendererFactory } from '../../common/test-bed/merge-factory/merge-renderer-factory';
 import { PipeTestBed, PipeTestBedOptions } from './models';
-import { PipeCallback } from './models/pipe-test-bed.models';
+import { PipeCallback } from './models/pipe-callback.model';
 import { PipeTestBedFactory } from './pipe-test-bed-factory';
 import { buildPipeTools } from './pipe-tools';
 

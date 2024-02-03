@@ -1,11 +1,12 @@
-import { EnhancedJasmineCallback } from '../../../common/test-bed/models/enhanced-jasmine-callback.model';
+import { ProviderToken } from '@angular/core';
 import { InjectionStore } from '../../../common/test-bed/store/models/injected-store.model';
+import { NonEmptyString, PrettyMerge } from '../../../shared.model';
 import { ComponentTestBedFactory } from '../component-test-bed-factory';
+import { ComponentCallback } from './component-callback.model';
 import { ComponentExtraOptions } from './component-extra-options.model';
-import { ComponentTools } from './component-tools.model';
 
 export interface ComponentTestBed<T, I extends InjectionStore = InjectionStore> extends ComponentTestBedFactory<T, I> {
   (assertion: ComponentCallback<T, I['injected']>, options?: ComponentExtraOptions): jasmine.ImplementationCallback;
-}
 
-export type ComponentCallback<T, I extends {}> = EnhancedJasmineCallback<ComponentTools<T, I>>
+  inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): ComponentTestBed<T, InjectionStore<PrettyMerge<I['injected'] & { [k in key]: instance }>>>;
+}

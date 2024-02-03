@@ -3,8 +3,8 @@ import { HttpOptions } from '../../common/test-bed/http/models/http-options.mode
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { mergeBaseFactory } from '../../common/test-bed/merge-factory/merge-base-factory';
 import { ServiceTestBed, ServiceTestBedOptions } from './models';
+import { ServiceCallback } from './models/service-callback.model';
 import { ServiceExtraOptions } from './models/service-extra-options.model';
-import { ServiceCallback } from './models/service-test-bed.model';
 import { ServiceTestBedFactory } from './service-test-bed-factory';
 import { buildServiceTools } from './service-tools';
 
