@@ -5,14 +5,12 @@ import { assertInstance } from '../../common/assertion/assert-instance';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { HTTP_PROVIDERS } from '../../common/test-bed/http/http-providers';
 import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
-import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { RendererTestBedFactory } from '../../common/test-bed/renderer/renderer-test-bed-factory';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
 import { buildComponentTools } from './component-tools';
-import { ComponentTestBedOptions } from './models';
-import { ComponentCallback } from './models/component-callback.model';
+import { ComponentTestBedOptions, ComponentTools } from './models';
 
-export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends RendererTestBedFactory<ComponentType, Store> {
+export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends RendererTestBedFactory<ComponentType, Store, ComponentTools<ComponentType, Store['injected']>> {
 
   public constructor(
     rootComponent: Type<ComponentType>,
@@ -37,18 +35,13 @@ export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore
 
   private fixture: ComponentFixture<ComponentType> = null!;
 
+  protected override deferredTools = () => buildComponentTools(this, this.httpOptions);
+
   public override async compile(): Promise<void> {
     await super.compile();
     if (this.noTemplate) this.testBed.overrideTemplateUsingTestingModule(this.described, '');
     await this.testBed.compileComponents();
     this.fixture = this.testBed.createComponent(this.described);
-  }
-
-  public override setup(action: ComponentCallback<ComponentType, Store['injected']>): jasmine.ImplementationCallback {
-    return buildJasmineCallback({
-      callback: action,
-      deferredTools: () => buildComponentTools(this, this.httpOptions),
-    });
   }
 
   public override shouldCreate(): void {

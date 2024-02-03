@@ -1,9 +1,7 @@
 import { Type } from '@angular/core';
-import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { mergeRendererFactory } from '../../common/test-bed/merge-factory/merge-renderer-factory';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
-import { buildComponentTools } from './component-tools';
 import { ComponentExtraOptions, ComponentTestBed, ComponentTestBedOptions } from './models';
 import { ComponentCallback } from './models/component-callback.model';
 
@@ -20,8 +18,6 @@ export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTe
     startDetectChanges: globalStartDetectChanges,
   } = options;
 
-  const httpOptions: HttpOptions = { httpTesting };
-
   const factory = new ComponentTestBedFactory(rootComponent, options);
 
   const tb: ComponentTestBed<T> = ((assertion: ComponentCallback<T, any>, opts: ComponentExtraOptions = {}) => {
@@ -32,7 +28,7 @@ export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTe
 
     return buildJasmineCallback({
       callback: assertion,
-      deferredTools: () => buildComponentTools(factory, httpOptions),
+      deferredTools: factory['deferredTools'],
       preTest: (tools) => {
         if (!noTemplate && startDetectChanges) tools.fixture.detectChanges();
       },

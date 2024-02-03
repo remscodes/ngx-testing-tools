@@ -9,4 +9,6 @@ export interface ComponentTestBed<T, I extends InjectionStore = InjectionStore> 
   (assertion: ComponentCallback<T, I['injected']>, options?: ComponentExtraOptions): jasmine.ImplementationCallback;
 
   inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): ComponentTestBed<T, InjectionStore<PrettyMerge<I['injected'] & { [k in key]: instance }>>>;
+
+  setup(action: ComponentCallback<T, I['injected']>): jasmine.ImplementationCallback;
 }

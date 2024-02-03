@@ -3,13 +3,11 @@ import { assertServiceCtor } from '../../common/assertion/assert-service-ctor';
 import { BaseTestBedFactory } from '../../common/test-bed/base/base-test-bed-factory';
 import { HTTP_PROVIDERS } from '../../common/test-bed/http/http-providers';
 import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
-import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
-import { ServiceTestBedOptions } from './models';
-import { ServiceCallback } from './models/service-callback.model';
+import { ServiceTestBedOptions, ServiceTools } from './models';
 import { buildServiceTools } from './service-tools';
 
-export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = InjectionStore> extends BaseTestBedFactory<ServiceType, Store> {
+export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = InjectionStore> extends BaseTestBedFactory<ServiceType, Store, ServiceTools<ServiceType, Store['injected']>> {
 
   public constructor(
     rootService: Type<ServiceType>,
@@ -30,15 +28,10 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
 
   private readonly httpOptions: HttpOptions;
 
+  protected override deferredTools = () => buildServiceTools(this, this.httpOptions);
+
   public override async compile(): Promise<void> {
     await super.compile();
     this.instance = this.injectDescribed();
-  }
-
-  public override setup(action: ServiceCallback<ServiceType, Store["injected"]>): jasmine.ImplementationCallback {
-    return buildJasmineCallback({
-      callback: action,
-      deferredTools: () => buildServiceTools(this, this.httpOptions),
-    });
   }
 }
