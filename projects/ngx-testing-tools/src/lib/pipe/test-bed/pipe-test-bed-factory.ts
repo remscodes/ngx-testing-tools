@@ -1,4 +1,4 @@
-import { ProviderToken, Type } from '@angular/core';
+import { PipeTransform, ProviderToken, Type } from '@angular/core';
 import { assertPipeCtor } from '../../common/assertion/assert-pipe-ctor';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { RendererTestBedFactory } from '../../common/test-bed/renderer/renderer-test-bed-factory';
@@ -8,7 +8,7 @@ import { PipeTestBed, PipeTestBedOptions } from './models';
 import { PipeCallback } from './models/pipe-test-bed.models';
 import { buildPipeTools } from './pipe-tools';
 
-export class PipeTestBedFactory<PipeType, Store extends InjectionStore = InjectionStore> extends RendererTestBedFactory<PipeType, Store> {
+export class PipeTestBedFactory<PipeType extends PipeTransform, Store extends InjectionStore = InjectionStore> extends RendererTestBedFactory<PipeType, Store> {
 
   public constructor(
     rootPipe: Type<PipeType>,
