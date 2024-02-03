@@ -1,6 +1,6 @@
 import { ProviderToken, Type } from '@angular/core';
-import { assertComponentCtor } from '../../common/assertion/assert-component-ctor';
 import { assertInstance } from '../../common/assertion/assert-instance';
+import { assertPipeCtor } from '../../common/assertion/assert-pipe-ctor';
 import { shouldCreate } from '../../common/expectation/should-create';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
 import { RendererTestBedFactory } from '../../common/test-bed/renderer/renderer-test-bed-factory';
@@ -16,8 +16,10 @@ export class PipeTestBedFactory<PipeType, Store extends InjectionStore = Injecti
     rootPipe: Type<PipeType>,
     options: PipeTestBedOptions = {},
   ) {
-    assertComponentCtor(rootPipe);
+    assertPipeCtor(rootPipe);
     super(rootPipe, options);
+
+    this.provide(rootPipe);
   }
 
   private pipe: PipeType = null!;
