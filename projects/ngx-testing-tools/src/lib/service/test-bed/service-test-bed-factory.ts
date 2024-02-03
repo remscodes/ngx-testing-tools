@@ -32,6 +32,6 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
 
   public override async compile(): Promise<void> {
     await super.compile();
-    this.instance = this.injectDescribed();
+    this.injectDescribed();
   }
 }

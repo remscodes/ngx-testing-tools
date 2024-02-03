@@ -19,6 +19,6 @@ export class ModuleTestBedFactory<ModuleType, Store extends InjectionStore = Inj
 
   public override async compile(): Promise<void> {
     await super.compile();
-    this.instance = this.injectDescribed();
+    this.injectDescribed();
   }
 }

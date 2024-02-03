@@ -36,17 +36,26 @@ export abstract class BaseTestBedFactory<
     if (checkCreate) this.shouldCreate();
   }
 
-  protected instance: InstanceType = null!;
-
   protected testBed: TestBedStatic = TestBed;
+
+  protected _instance: InstanceType = null!;
+
+  protected get instance(): InstanceType {
+    assertInstance(this._instance, this.described);
+    return this._instance;
+  }
+
+  protected abstract deferredTools: DeferredTools<Tools>;
 
   protected injectedMap: Map<string, ProviderToken<any>> = new Map();
 
   protected imports: Set<Importation>;
   protected providers: Set<AnyProvider>;
 
-  protected abstract deferredTools: DeferredTools<Tools>;
-
+  protected injectDescribed(): void {
+    this._instance = this.testBed.inject(this.described);
+  }
+  
   /**
    * Imports one module or one standalone component / directive / pipe into the custom test bed.
    */
@@ -129,13 +138,6 @@ export abstract class BaseTestBedFactory<
    * @deprecated Invoked by default with custom test beds, set `checkCreate` to `false` to disable it. Will be removed in v3.
    */
   public shouldCreate(): void {
-    shouldCreate(() => {
-      assertInstance(this.instance, this.described);
-      return this.instance;
-    });
-  }
-
-  protected injectDescribed(): InstanceType {
-    return this.testBed.inject(this.described);
+    shouldCreate(() => this.instance);
   }
 }
