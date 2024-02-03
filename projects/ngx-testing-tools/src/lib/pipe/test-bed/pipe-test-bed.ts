@@ -1,6 +1,6 @@
 import { PipeTransform, Type } from '@angular/core';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
-import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
+import { mergeRendererFactory } from '../../common/test-bed/merge-factory/merge-renderer-factory';
 import { PipeTestBed, PipeTestBedOptions } from './models';
 import { PipeCallback } from './models/pipe-test-bed.models';
 import { PipeTestBedFactory } from './pipe-test-bed-factory';
@@ -24,9 +24,5 @@ export function pipeTestBed<T extends PipeTransform>(rootPipe: Type<T>, options:
     });
   }) as PipeTestBed<T>;
 
-  tb.declare = (declarations: any) => {
-    factory.declare(declarations);
-    return tb;
-  };
-  return mergeFactoryToTestBed(factory, tb) as PipeTestBed<T>;
+  return mergeRendererFactory(factory, tb) as PipeTestBed<T>;
 }

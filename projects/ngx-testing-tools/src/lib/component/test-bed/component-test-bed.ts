@@ -1,7 +1,7 @@
 import { Type } from '@angular/core';
 import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
 import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
-import { mergeFactoryToTestBed } from '../../common/test-bed/merge-factory';
+import { mergeRendererFactory } from '../../common/test-bed/merge-factory/merge-renderer-factory';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
 import { buildComponentTools } from './component-tools';
 import { ComponentExtraOptions, ComponentTestBedOptions } from './models';
@@ -43,9 +43,5 @@ export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTe
     });
   }) as ComponentTestBed<T>;
 
-  tb.declare = (declarations: any) => {
-    factory.declare(declarations);
-    return tb;
-  };
-  return mergeFactoryToTestBed(factory, tb) as ComponentTestBed<T>;
+  return mergeRendererFactory(factory, tb) as ComponentTestBed<T>;
 }
