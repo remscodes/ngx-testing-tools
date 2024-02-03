@@ -4,7 +4,6 @@ import { mergeBaseFactory } from '../../common/test-bed/merge-factory/merge-base
 import { ModuleTestBed, ModuleTestBedOptions } from './models';
 import { ModuleCallback } from './models/module-callback.model';
 import { ModuleTestBedFactory } from './module-test-bed-factory';
-import { buildModuleTools } from './module-tools';
 
 /**
  * Creates a new `ModuleTestBed` to configure the custom test bed and wrap the assertion test.
@@ -17,7 +16,7 @@ export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOpti
   const tb: ModuleTestBed<T> = ((assertion: ModuleCallback<T, any>) => {
     return buildJasmineCallback({
       callback: assertion,
-      deferredTools: () => buildModuleTools(factory),
+      deferredTools: factory['deferredTools'],
       postTest: (tools) => {
         tools.rx['cleanAll']();
       },
