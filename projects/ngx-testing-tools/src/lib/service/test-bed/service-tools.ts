@@ -9,7 +9,7 @@ import { ServiceTestBedFactory } from './service-test-bed-factory';
 interface ServiceToolsBuilderOptions extends HttpOptions {}
 
 export function buildServiceTools<T>(factory: ServiceTestBedFactory<T>, options: ServiceToolsBuilderOptions): ServiceTools<T> {
-  const service: T = factory['service'];
+  const service: T = factory['instance'];
   assertInstance(service, factory['described']);
 
   const { injected, injector, rx } = buildBaseTools(factory);

@@ -2,6 +2,8 @@ import { ProviderToken, Type } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
 import { MaybeArray, NonEmptyString, PrettyMerge } from '../../../shared.model';
 import { appendSet } from '../../../util/set.util';
+import { assertInstance } from '../../assertion/assert-instance';
+import { shouldCreate } from '../../expectation/should-create';
 import { EnhancedJasmineCallback } from '../models/enhanced-jasmine-callback.model';
 import { AnyProvider, Importation } from '../models/metadata-type.model';
 import { InjectionStore } from '../store/models/injected-store.model';
@@ -26,6 +28,8 @@ export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore 
     if (autoCompile) this.compileEach();
     if (checkCreate) this.shouldCreate();
   }
+
+  protected instance: Instance = null!;
 
   protected testBed: TestBedStatic = TestBed;
 
@@ -110,7 +114,12 @@ export abstract class BaseTestBedFactory<Instance, Store extends InjectionStore 
    * **To be called outside jasmine `it` callback.**
    * @deprecated Invoked by default with custom test beds, set `checkCreate` to `false` to disable it. Will be removed in v3.
    */
-  public abstract shouldCreate(): void
+  public shouldCreate(): void {
+    shouldCreate(() => {
+      assertInstance(this.instance, this.described);
+      return this.instance;
+    });
+  }
 
   protected injectDescribed(): Instance {
     return this.testBed.inject(this.described);
