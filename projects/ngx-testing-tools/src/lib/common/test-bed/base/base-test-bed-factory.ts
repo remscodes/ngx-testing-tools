@@ -1,9 +1,9 @@
 import { ProviderToken, Type } from '@angular/core';
 import { TestBed, TestBedStatic } from '@angular/core/testing';
 import { MaybeArray, NonEmptyString, PrettyMerge } from '../../../shared.model';
-import { appendSet } from '../../../util/set.util';
 import { assertInstance } from '../../assertion/assert-instance';
 import { shouldCreate } from '../../expectation/should-create';
+import { appendSet } from '../../util/set.util';
 import { buildJasmineCallback } from '../jasmine/jasmine-callback';
 import { DeferredTools } from '../models/deferred-tools.model';
 import { EnhancedJasmineCallback } from '../models/enhanced-jasmine-callback.model';
@@ -55,7 +55,7 @@ export abstract class BaseTestBedFactory<
   protected injectDescribed(): void {
     this._instance = this.testBed.inject(this.described);
   }
-  
+
   /**
    * Imports one module or one standalone component / directive / pipe into the custom test bed.
    */

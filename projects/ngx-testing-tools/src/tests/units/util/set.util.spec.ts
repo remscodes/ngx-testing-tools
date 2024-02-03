@@ -1,4 +1,4 @@
-import { appendSet } from '../../../lib/util/set.util';
+import { appendSet } from '../../../lib/common/util/set.util';
 import { validateSet } from '../../fixtures/helpers/validators/validate-set';
 
 describe('appendSet', () => {

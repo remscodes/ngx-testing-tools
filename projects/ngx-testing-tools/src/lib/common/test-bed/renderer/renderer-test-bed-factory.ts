@@ -1,7 +1,7 @@
 import { isStandalone, SchemaMetadata, Type } from '@angular/core';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { MaybeArray } from '../../../shared.model';
-import { appendSet } from '../../../util/set.util';
+import { appendSet } from '../../util/set.util';
 import { BaseTestBedFactory } from '../base/base-test-bed-factory';
 import { BaseTools } from '../base/models/base-tools.model';
 import { Declaration } from '../models/metadata-type.model';

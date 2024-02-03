@@ -1,5 +1,5 @@
 import { Nullable } from '../../../shared.model';
-import { postAsync } from '../../util/post-async';
+import { postAsync } from '../../util/async.util';
 import { BaseTools } from '../base/models/base-tools.model';
 import { DeferredTools } from '../models/deferred-tools.model';
 import { EnhancedJasmineCallback } from '../models/enhanced-jasmine-callback.model';
