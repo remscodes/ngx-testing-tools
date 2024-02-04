@@ -1,4 +1,4 @@
-export * from './component';
+export * from './component-test-bed';
 export * from './http';
 export * from './injector';
 export * from './module';

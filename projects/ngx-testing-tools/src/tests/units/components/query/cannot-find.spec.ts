@@ -1,4 +1,4 @@
-import { throwCannotFind } from '../../../../lib/component/query/utils/cannot-find';
+import { throwCannotFind } from '../../../../lib/component-test-bed/tools/query/utils/cannot-find';
 import { NoWhereDirective } from '../../../fixtures/directives/no-where.directive';
 
 describe('throwCannotFind', () => {

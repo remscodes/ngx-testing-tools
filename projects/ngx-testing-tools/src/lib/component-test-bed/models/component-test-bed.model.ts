@@ -1,6 +1,6 @@
 import { ProviderToken } from '@angular/core';
-import { InjectionStore } from '../../../common/test-bed/store/models/injected-store.model';
-import { NonEmptyString, PrettyMerge } from '../../../shared.model';
+import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
+import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { ComponentTestBedFactory } from '../component-test-bed-factory';
 import { ComponentCallback } from './component-callback.model';
 import { ComponentExtraOptions } from './component-extra-options.model';
