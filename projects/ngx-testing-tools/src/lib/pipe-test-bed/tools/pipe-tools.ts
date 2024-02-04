@@ -1,5 +1,5 @@
 import { PipeTransform } from '@angular/core';
-import { buildBaseTools } from '../../common/test-bed/base/base-tools';
+import { buildBaseTools } from '../../common/tools/base/base-tools';
 import { PipeTestBedFactory } from '../pipe-test-bed-factory';
 import { PipeTools } from './models';
 import { VerifyTools } from './verify/models/verify-tools.model';

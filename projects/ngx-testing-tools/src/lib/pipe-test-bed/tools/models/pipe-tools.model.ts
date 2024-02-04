@@ -1,4 +1,4 @@
-import { BaseTools } from '../../../common/test-bed/base/models/base-tools.model';
+import { BaseTools } from '../../../common/tools/base/models/base-tools.model';
 import { VerifyTools } from '../verify/models/verify-tools.model';
 
 export interface PipeTools<T, I extends {} = {}> extends BaseTools<I> {

@@ -1,7 +1,7 @@
 import { ProviderToken } from '@angular/core';
-import { EnhancedJasmineCallback } from '../../common/test-bed/models/enhanced-jasmine-callback.model';
-import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
-import { NonEmptyString, PrettyMerge } from '../../shared.model';
+import { EnhancedJasmineCallback } from '../../common/jasmine/models/enhanced-jasmine-callback.model';
+import { NonEmptyString, PrettyMerge } from '../../common/shared.models';
+import { InjectionStore } from '../../common/tools/store/models/injected-store.model';
 import { ComponentTestBedFactory } from '../component-test-bed-factory';
 import { ComponentTools } from '../tools';
 import { ComponentExtraOptions } from './component-extra-options.model';

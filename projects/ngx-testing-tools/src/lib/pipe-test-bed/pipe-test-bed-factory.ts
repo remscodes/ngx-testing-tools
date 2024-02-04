@@ -1,7 +1,7 @@
 import { PipeTransform, Type } from '@angular/core';
-import { assertPipeCtor } from '../common/assertion/assert-pipe-ctor';
-import { RendererTestBedFactory } from '../common/test-bed/renderer/renderer-test-bed-factory';
-import { InjectionStore } from '../common/test-bed/store/models/injected-store.model';
+import { assertPipeCtor } from '../common/assertions/assert-pipe-ctor';
+import { RendererTestBedFactory } from '../common/test-beds/renderer/renderer-test-bed-factory';
+import { InjectionStore } from '../common/tools/store/models/injected-store.model';
 import { PipeTestBedOptions } from './models';
 import { PipeTools } from './tools';
 import { buildPipeTools } from './tools/pipe-tools';

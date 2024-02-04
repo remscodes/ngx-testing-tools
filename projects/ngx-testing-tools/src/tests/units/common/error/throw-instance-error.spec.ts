@@ -1,4 +1,4 @@
-import { throwInstanceError } from '../../../../lib/common/error/throw-instance-error';
+import { throwInstanceError } from '../../../../lib/common/errors/throw-instance-error';
 
 describe('throwInstanceError', () => {
 

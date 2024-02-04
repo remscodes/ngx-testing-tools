@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
-import { BaseTestBedFactory } from '../../../../lib/common/test-bed/base/base-test-bed-factory';
-import { DeferredTools } from '../../../../lib/common/test-bed/models/deferred-tools.model';
+import { BaseTestBedFactory } from '../../../../lib/common/test-beds/base/base-test-bed-factory';
+import { DeferredTools } from '../../../../lib/common/tools/models/deferred-tools.model';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
 import { MyButtonDirective } from '../../../fixtures/directives/my-button.directive';

@@ -1,5 +1,5 @@
 import { Component, Directive } from '@angular/core';
-import { assertComponentCtor } from '../../../../../lib/common/assertion/assert-component-ctor';
+import { assertComponentCtor } from '../../../../../lib/common/assertions/assert-component-ctor';
 
 describe('assertComponentCtor', () => {
   @Component({ selector: 'app-root2', template: ``, standalone: true })

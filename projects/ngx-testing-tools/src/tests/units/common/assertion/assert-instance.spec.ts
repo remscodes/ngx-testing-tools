@@ -1,4 +1,4 @@
-import { assertInstance } from '../../../../lib/common/assertion/assert-instance';
+import { assertInstance } from '../../../../lib/common/assertions/assert-instance';
 
 describe('assertInstance', () => {
   class Foo {}

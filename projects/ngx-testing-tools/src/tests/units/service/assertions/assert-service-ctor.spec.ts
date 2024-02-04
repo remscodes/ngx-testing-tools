@@ -1,5 +1,5 @@
 import { Directive, Injectable } from '@angular/core';
-import { assertServiceCtor } from '../../../../lib/common/assertion/assert-service-ctor';
+import { assertServiceCtor } from '../../../../lib/common/assertions/assert-service-ctor';
 
 describe('assertServiceCtor', () => {
   @Injectable()

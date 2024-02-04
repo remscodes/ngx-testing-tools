@@ -1,5 +1,5 @@
 import { TestModuleMetadata } from '@angular/core/testing';
-import { AnyProvider, Declaration, Importation } from '../../../lib/common/test-bed/models/metadata-type.model';
+import { AnyProvider, Declaration, Importation } from '../../../lib/common/test-beds/models/metadata-type.models';
 
 export class MockTestCompiler {
 

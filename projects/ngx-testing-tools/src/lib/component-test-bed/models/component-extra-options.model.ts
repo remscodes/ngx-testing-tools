@@ -1,4 +1,4 @@
-import { HttpExtraOptions } from '../../common/test-bed/http/models/http-extra-options.model';
+import { HttpExtraOptions } from '../../common/tools/http/models/http-extra-options.model';
 
 export interface ComponentExtraOptions extends HttpExtraOptions {
   /**

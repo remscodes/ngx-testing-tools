@@ -1,4 +1,4 @@
-import { makeArray } from '../../../lib/common/util/array.util';
+import { makeArray } from '../../../lib/common/utils/array.util';
 import { validateArray } from '../../fixtures/helpers/validators/validate-array';
 
 describe('makeArray', () => {

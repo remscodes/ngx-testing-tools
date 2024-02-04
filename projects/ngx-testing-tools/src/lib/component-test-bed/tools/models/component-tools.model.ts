@@ -1,7 +1,7 @@
 import { DebugElement } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { BaseTools } from '../../../common/test-bed/base/models/base-tools.model';
-import { HttpTestingTools } from '../../../common/test-bed/http/models/http-testing-tools.model';
+import { BaseTools } from '../../../common/tools/base/models/base-tools.model';
+import { HttpTestingTools } from '../../../common/tools/http/models/http-testing-tools.model';
 import { ComponentActionTools } from '../action/models/component-action-tools.model';
 import { ComponentQueryTools } from '../query/models/component-query-tools.model';
 

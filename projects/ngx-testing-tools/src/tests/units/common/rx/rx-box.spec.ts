@@ -1,5 +1,5 @@
 import { BehaviorSubject, ReplaySubject, Subject, Subscription } from 'rxjs';
-import { RxBox } from '../../../../lib/common/test-bed/rx/rx-box';
+import { RxBox } from '../../../../lib/common/tools/base/rx/rx-box';
 import { validateArray } from '../../../fixtures/helpers/validators/validate-array';
 
 describe('RxBox', () => {

@@ -1,4 +1,4 @@
-import { buildBaseTools } from '../../common/test-bed/base/base-tools';
+import { buildBaseTools } from '../../common/tools/base/base-tools';
 import { ModuleTestBedFactory } from '../module-test-bed-factory';
 import { ModuleTools } from './models';
 

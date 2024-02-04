@@ -1,4 +1,4 @@
-import { BaseTools } from '../../../common/test-bed/base/models/base-tools.model';
+import { BaseTools } from '../../../common/tools/base/models/base-tools.model';
 
 export interface ModuleTools<T, I extends {} = {}> extends BaseTools<I> {
   /**

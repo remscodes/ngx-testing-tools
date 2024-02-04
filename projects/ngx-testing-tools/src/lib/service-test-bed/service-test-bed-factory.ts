@@ -1,9 +1,9 @@
 import { Type } from '@angular/core';
-import { assertServiceCtor } from '../common/assertion/assert-service-ctor';
-import { BaseTestBedFactory } from '../common/test-bed/base/base-test-bed-factory';
-import { HTTP_PROVIDERS } from '../common/test-bed/http/http-providers';
-import { HttpOptions } from '../common/test-bed/http/models/http-options.model';
-import { InjectionStore } from '../common/test-bed/store/models/injected-store.model';
+import { assertServiceCtor } from '../common/assertions/assert-service-ctor';
+import { BaseTestBedFactory } from '../common/test-beds/base/base-test-bed-factory';
+import { HTTP_PROVIDERS } from '../common/tools/http/http-providers';
+import { HttpOptions } from '../common/tools/http/models/http-options.model';
+import { InjectionStore } from '../common/tools/store/models/injected-store.model';
 import { ServiceTestBedOptions } from './models';
 import { ServiceTools } from './tools';
 import { buildServiceTools } from './tools/service-tools';

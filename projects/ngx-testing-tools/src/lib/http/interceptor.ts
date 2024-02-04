@@ -1,7 +1,7 @@
 import { HttpErrorResponse, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ErrorInterceptorConfig, SuccessInterceptorConfig } from '../common/tools/http/utils/models/interceptor-config.model';
 import { mockErrorHandlerFnFactory, mockSuccessHandlerFnFactory } from './mocks/handler.mock';
-import { ErrorInterceptorConfig, SuccessInterceptorConfig } from './models/interceptor-config.model';
 
 export function makeInterceptorSucceed(interceptor: HttpInterceptorFn, config: SuccessInterceptorConfig = {}): Observable<HttpRequest<unknown>> {
   const { url = '/test', method = 'GET' } = config;

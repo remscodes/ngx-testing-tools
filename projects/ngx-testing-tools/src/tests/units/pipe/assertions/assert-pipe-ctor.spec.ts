@@ -1,5 +1,5 @@
 import { Pipe } from '@angular/core';
-import { assertPipeCtor } from '../../../../lib/common/assertion/assert-pipe-ctor';
+import { assertPipeCtor } from '../../../../lib/common/assertions/assert-pipe-ctor';
 
 describe('assertPipeCtor', () => {
   @Pipe({ name: 'app' })

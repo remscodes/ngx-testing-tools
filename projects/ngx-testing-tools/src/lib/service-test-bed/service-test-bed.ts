@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
-import { buildJasmineCallback } from '../common/test-bed/jasmine/jasmine-callback';
-import { mergeBaseFactory } from '../common/test-bed/merge-factory/merge-base-factory';
+import { buildJasmineCallback } from '../common/jasmine/jasmine-callback';
+import { mergeBaseFactory } from '../common/test-beds/base/merge-base-factory';
 import { ServiceTestBed, ServiceTestBedOptions } from './models';
 import { ServiceTestBedFactory } from './service-test-bed-factory';
 

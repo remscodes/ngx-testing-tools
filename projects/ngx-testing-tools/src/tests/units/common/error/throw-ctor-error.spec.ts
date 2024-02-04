@@ -1,4 +1,4 @@
-import { throwCtorError } from '../../../../lib/common/error/throw-ctor-error';
+import { throwCtorError } from '../../../../lib/common/errors/throw-ctor-error';
 
 describe('throwCtorError', () => {
 
