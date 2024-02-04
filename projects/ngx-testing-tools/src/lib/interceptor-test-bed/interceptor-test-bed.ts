@@ -1,3 +1,4 @@
+import { HttpInterceptor, HttpInterceptorFn } from '@angular/common/http';
 import { Type } from '@angular/core';
 import { buildJasmineCallback } from '../common/jasmine/jasmine-callback';
 import { mergeBaseFactory } from '../common/test-beds/base/merge-base-factory';
@@ -6,15 +7,15 @@ import { InterceptorTestBed, InterceptorTestBedOptions } from './models';
 
 /**
  * Creates a new `InterceptorTestBed` to configure the custom test bed and wrap the assertion test.
- * @param rootModule - The described Interceptor.
+ * @param rootInterceptor - The described Interceptor.
  * @param options
  */
-export function interceptorTestBed<T>(rootModule: Type<T>, options: InterceptorTestBedOptions = {}) {
+export function interceptorTestBed<T extends HttpInterceptor>(rootInterceptor: Type<T> | HttpInterceptorFn, options: InterceptorTestBedOptions = {}) {
   const {
     verifyHttp: globalVerifyHttp,
   } = options;
 
-  const factory = new InterceptorTestBedFactory(rootModule, options);
+  const factory = new InterceptorTestBedFactory(rootInterceptor, options);
 
   const tb: InterceptorTestBed<T> = ((assertion, opts = {}) => {
     const { verifyHttp = globalVerifyHttp ?? true } = opts;

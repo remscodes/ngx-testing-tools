@@ -3,7 +3,7 @@ import { HttpTestingTools } from '../../../common/tools/http/models/http-testing
 
 export interface InterceptorTools<T, I extends {} = {}> extends HttpTestingTools, BaseTools<I> {
   /**
-   * The described module instance.
+   * The described interceptor instance.
    */
-  module: T;
+  interceptor: any;
 }
