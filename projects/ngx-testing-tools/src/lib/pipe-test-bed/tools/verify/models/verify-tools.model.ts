@@ -1,7 +1,7 @@
 export interface VerifyTools {
-  (matcher: VerifyArgs): void;
+  (spec: VerifyArgs): void;
 
-  many(matchers: VerifyArgs[]): void;
+  many(specs: VerifyArgs[]): void;
 }
 
 interface VerifyArgs {
