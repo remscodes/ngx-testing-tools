@@ -1,9 +1,9 @@
 import { PipeTransform } from '@angular/core';
 import { buildBaseTools } from '../../common/test-bed/base/base-tools';
-import { VerifyTools } from '../verify/models/verify-tools.model';
-import { buildVerifyTools } from '../verify/verify-tools';
+import { PipeTestBedFactory } from '../pipe-test-bed-factory';
 import { PipeTools } from './models';
-import { PipeTestBedFactory } from './pipe-test-bed-factory';
+import { VerifyTools } from './verify/models/verify-tools.model';
+import { buildVerifyTools } from './verify/verify-tools';
 
 export function buildPipeTools<T extends PipeTransform>(factory: PipeTestBedFactory<T>): PipeTools<T> {
   const pipe: T = factory['instance'];
