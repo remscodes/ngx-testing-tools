@@ -1,19 +1,20 @@
 import { Type } from '@angular/core';
-import { assertModuleCtor } from '../common/assertions/assert-module-ctor';
+import { assertServiceCtor } from '../common/assertions/assert-service-ctor';
 import { BaseTestBedFactory } from '../common/test-beds/base/base-test-bed-factory';
 import { HTTP_PROVIDERS } from '../common/tools/http/http-providers';
 import { InjectionStore } from '../common/tools/store/models/injected-store.model';
 import { InterceptorTestBedOptions } from './models';
+import { InterceptorTools } from './tools';
 import { buildInterceptorTools } from './tools/interceptor-tools';
 
-export class InterceptorTestBedFactory<ModuleType, Store extends InjectionStore = InjectionStore> extends BaseTestBedFactory<ModuleType, Store> {
+export class InterceptorTestBedFactory<InterceptorType, Store extends InjectionStore = InjectionStore> extends BaseTestBedFactory<InterceptorType, Store, InterceptorTools<InterceptorType, Store['injected']>> {
 
   public constructor(
-    rootModule: Type<ModuleType>,
+    rootInterceptor: Type<InterceptorType>,
     options: InterceptorTestBedOptions = {},
   ) {
-    assertModuleCtor(rootModule);
-    super(rootModule, options);
+    assertServiceCtor(rootInterceptor);
+    super(rootInterceptor, options);
 
     this.provide(HTTP_PROVIDERS);
   }
