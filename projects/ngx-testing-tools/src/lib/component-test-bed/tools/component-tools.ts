@@ -5,9 +5,9 @@ import { buildHttpTools } from '../../common/test-bed/http/http-tools';
 import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
 import { HttpTools } from '../../common/test-bed/http/models/http-tools.model';
 import { ComponentTestBedFactory } from '../component-test-bed-factory';
-import { ComponentTools } from '../models';
 import { buildComponentActionTools } from './action/component-action-tools';
 import { ComponentActionTools } from './action/models/component-action-tools.model';
+import { ComponentTools } from './models';
 import { buildComponentQueryTools } from './query/component-query-tools';
 import { ComponentQueryTools } from './query/models/component-query-tools.model';
 

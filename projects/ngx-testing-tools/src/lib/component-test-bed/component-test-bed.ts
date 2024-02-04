@@ -2,8 +2,7 @@ import { Type } from '@angular/core';
 import { buildJasmineCallback } from '../common/test-bed/jasmine/jasmine-callback';
 import { mergeRendererFactory } from '../common/test-bed/merge-factory/merge-renderer-factory';
 import { ComponentTestBedFactory } from './component-test-bed-factory';
-import { ComponentExtraOptions, ComponentTestBed, ComponentTestBedOptions } from './models';
-import { ComponentCallback } from './models/component-callback.model';
+import { ComponentTestBed, ComponentTestBedOptions } from './models';
 
 /**
  * Creates a new `ComponentTestBed` to configure the custom test bed and wrap the assertion test.
@@ -20,7 +19,7 @@ export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTe
 
   const factory = new ComponentTestBedFactory(rootComponent, options);
 
-  const tb: ComponentTestBed<T> = ((assertion: ComponentCallback<T, any>, opts: ComponentExtraOptions = {}) => {
+  const tb: ComponentTestBed<T> = ((assertion, opts = {}) => {
     const {
       startDetectChanges = globalStartDetectChanges ?? true,
       verifyHttp = globalVerifyHttp ?? true,

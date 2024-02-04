@@ -7,7 +7,8 @@ import { HTTP_PROVIDERS } from '../common/test-bed/http/http-providers';
 import { HttpOptions } from '../common/test-bed/http/models/http-options.model';
 import { RendererTestBedFactory } from '../common/test-bed/renderer/renderer-test-bed-factory';
 import { InjectionStore } from '../common/test-bed/store/models/injected-store.model';
-import { ComponentTestBedOptions, ComponentTools } from './models';
+import { ComponentTestBedOptions } from './models';
+import { ComponentTools } from './tools';
 import { buildComponentTools } from './tools/component-tools';
 
 export class ComponentTestBedFactory<ComponentType, Store extends InjectionStore = InjectionStore> extends RendererTestBedFactory<ComponentType, Store, ComponentTools<ComponentType, Store['injected']>> {
