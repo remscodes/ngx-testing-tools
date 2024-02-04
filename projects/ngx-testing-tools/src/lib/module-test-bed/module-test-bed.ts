@@ -1,8 +1,7 @@
 import { Type } from '@angular/core';
-import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
-import { mergeBaseFactory } from '../../common/test-bed/merge-factory/merge-base-factory';
+import { buildJasmineCallback } from '../common/test-bed/jasmine/jasmine-callback';
+import { mergeBaseFactory } from '../common/test-bed/merge-factory/merge-base-factory';
 import { ModuleTestBed, ModuleTestBedOptions } from './models';
-import { ModuleCallback } from './models/module-callback.model';
 import { ModuleTestBedFactory } from './module-test-bed-factory';
 
 /**
@@ -13,7 +12,7 @@ import { ModuleTestBedFactory } from './module-test-bed-factory';
 export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOptions = {}) {
   const factory = new ModuleTestBedFactory(rootModule, options);
 
-  const tb: ModuleTestBed<T> = ((assertion: ModuleCallback<T, any>) => {
+  const tb: ModuleTestBed<T> = ((assertion) => {
     return buildJasmineCallback({
       callback: assertion,
       deferredTools: factory['deferredTools'],

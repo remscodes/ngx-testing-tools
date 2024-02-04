@@ -1,9 +1,9 @@
 import { Type } from '@angular/core';
-import { assertModuleCtor } from '../../common/assertion/assert-module-ctor';
-import { BaseTestBedFactory } from '../../common/test-bed/base/base-test-bed-factory';
-import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
+import { assertModuleCtor } from '../common/assertion/assert-module-ctor';
+import { BaseTestBedFactory } from '../common/test-bed/base/base-test-bed-factory';
+import { InjectionStore } from '../common/test-bed/store/models/injected-store.model';
 import { ModuleTestBedOptions } from './models';
-import { buildModuleTools } from './module-tools';
+import { buildModuleTools } from './tools/module-tools';
 
 export class ModuleTestBedFactory<ModuleType, Store extends InjectionStore = InjectionStore> extends BaseTestBedFactory<ModuleType, Store> {
 
