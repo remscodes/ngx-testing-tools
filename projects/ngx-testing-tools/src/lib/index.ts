@@ -1,7 +1,8 @@
-export * from './component';
-export * from './http';
-export * from './injector';
-export * from './module';
-export * from './pipe';
+export * from './component-test-bed';
+export * from './interceptor-test-bed';
+export * from './module-test-bed';
+export * from './pipe-test-bed';
 export * from './router';
-export * from './service';
+export * from './service-test-bed';
+
+export * from './v3-removed';
