@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 import { BaseTestBedFactory } from '../../../../lib/common/test-bed/base/base-test-bed-factory';
-import { EnhancedJasmineCallback } from '../../../../lib/common/test-bed/models/enhanced-jasmine-callback.model';
+import { DeferredTools } from '../../../../lib/common/test-bed/models/deferred-tools.model';
 import { InnerComponent } from '../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../fixtures/components/outer.component';
 import { MyButtonDirective } from '../../../fixtures/directives/my-button.directive';
@@ -15,13 +15,7 @@ class NonAbstractBaseTestBedFactory<T> extends BaseTestBedFactory<T> {
     super(x, { autoCompile: false, checkCreate: false });
   }
 
-  public override setup<Action extends EnhancedJasmineCallback<any>>(action: Action): jasmine.ImplementationCallback {
-    throw new Error('Method not implemented.');
-  }
-
-  public override shouldCreate(): void {
-    throw new Error('Method not implemented.');
-  }
+  protected override deferredTools: DeferredTools = () => ({} as any);
 }
 
 describe('BaseTestBedFactory', () => {

@@ -4,7 +4,6 @@ import { mergeRendererFactory } from '../../common/test-bed/merge-factory/merge-
 import { PipeTestBed, PipeTestBedOptions } from './models';
 import { PipeCallback } from './models/pipe-callback.model';
 import { PipeTestBedFactory } from './pipe-test-bed-factory';
-import { buildPipeTools } from './pipe-tools';
 
 /**
  * Creates a new `PipeTestBed` to configure the custom test bed and wrap the assertion test.
@@ -17,7 +16,7 @@ export function pipeTestBed<T extends PipeTransform>(rootPipe: Type<T>, options:
   const tb: PipeTestBed<T> = ((assertion: PipeCallback<T, any>) => {
     return buildJasmineCallback({
       callback: assertion,
-      deferredTools: () => buildPipeTools(factory),
+      deferredTools: factory['deferredTools'],
       postTest: (tools) => {
         tools.rx['cleanAll']();
       },

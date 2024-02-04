@@ -1,12 +1,13 @@
-import { Deferred, Nullable } from '../../../shared.model';
-import { postAsync } from '../../util/post-async';
+import { Nullable } from '../../../shared.model';
+import { postAsync } from '../../util/async.util';
 import { BaseTools } from '../base/models/base-tools.model';
+import { DeferredTools } from '../models/deferred-tools.model';
 import { EnhancedJasmineCallback } from '../models/enhanced-jasmine-callback.model';
 import { doneFactory } from './jasmine-done';
 
 interface JasmineCallbackArgs<Tools extends BaseTools> {
   callback: EnhancedJasmineCallback<Tools>;
-  deferredTools: Deferred<Tools>,
+  deferredTools: DeferredTools<Tools>,
   preTest?: (tools: Tools) => void;
   postTest?: (tools: Tools) => void;
 }
