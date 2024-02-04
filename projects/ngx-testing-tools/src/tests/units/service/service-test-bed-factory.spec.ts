@@ -1,4 +1,4 @@
-import { ServiceTestBedFactory } from '../../../lib/service/test-bed/service-test-bed-factory';
+import { ServiceTestBedFactory } from '../../../lib/service-test-bed/service-test-bed-factory';
 import { validateArray } from '../../fixtures/helpers/validators/validate-array';
 import { mockTestBedStatic } from '../../fixtures/mocks/test-bed-static.mock';
 import { MockTestCompiler } from '../../fixtures/mocks/test-compiler.mock';

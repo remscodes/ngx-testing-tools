@@ -2,8 +2,8 @@ import { buildBaseTools } from '../../common/test-bed/base/base-tools';
 import { buildHttpTools } from '../../common/test-bed/http/http-tools';
 import { HttpOptions } from '../../common/test-bed/http/models/http-options.model';
 import { HttpTools } from '../../common/test-bed/http/models/http-tools.model';
+import { ServiceTestBedFactory } from '../service-test-bed-factory';
 import { ServiceTools } from './models';
-import { ServiceTestBedFactory } from './service-test-bed-factory';
 
 interface ServiceToolsBuilderOptions extends HttpOptions {}
 

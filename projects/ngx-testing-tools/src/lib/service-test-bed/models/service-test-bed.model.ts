@@ -1,8 +1,9 @@
 import { ProviderToken } from '@angular/core';
-import { InjectionStore } from '../../../common/test-bed/store/models/injected-store.model';
-import { NonEmptyString, PrettyMerge } from '../../../shared.model';
+import { EnhancedJasmineCallback } from '../../common/test-bed/models/enhanced-jasmine-callback.model';
+import { InjectionStore } from '../../common/test-bed/store/models/injected-store.model';
+import { NonEmptyString, PrettyMerge } from '../../shared.model';
 import { ServiceTestBedFactory } from '../service-test-bed-factory';
-import { ServiceCallback } from './service-callback.model';
+import { ServiceTools } from '../tools';
 import { ServiceExtraOptions } from './service-extra-options.model';
 
 export interface ServiceTestBed<T, I extends InjectionStore = InjectionStore> extends ServiceTestBedFactory<T, I> {
@@ -12,3 +13,5 @@ export interface ServiceTestBed<T, I extends InjectionStore = InjectionStore> ex
 
   setup(action: ServiceCallback<T, I['injected']>): jasmine.ImplementationCallback;
 }
+
+type ServiceCallback<T, I extends {}> = EnhancedJasmineCallback<ServiceTools<T, I>>

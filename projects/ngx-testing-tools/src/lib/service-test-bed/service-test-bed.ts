@@ -1,9 +1,7 @@
 import { Type } from '@angular/core';
-import { buildJasmineCallback } from '../../common/test-bed/jasmine/jasmine-callback';
-import { mergeBaseFactory } from '../../common/test-bed/merge-factory/merge-base-factory';
+import { buildJasmineCallback } from '../common/test-bed/jasmine/jasmine-callback';
+import { mergeBaseFactory } from '../common/test-bed/merge-factory/merge-base-factory';
 import { ServiceTestBed, ServiceTestBedOptions } from './models';
-import { ServiceCallback } from './models/service-callback.model';
-import { ServiceExtraOptions } from './models/service-extra-options.model';
 import { ServiceTestBedFactory } from './service-test-bed-factory';
 
 /**
@@ -19,7 +17,7 @@ export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedO
 
   const factory = new ServiceTestBedFactory(rootService, options);
 
-  const tb: ServiceTestBed<T> = ((assertion: ServiceCallback<T, any>, opts: ServiceExtraOptions = {}) => {
+  const tb: ServiceTestBed<T> = ((assertion, opts = {}) => {
     const { verifyHttp = globalVerifyHttp ?? true } = opts;
 
     return buildJasmineCallback({
