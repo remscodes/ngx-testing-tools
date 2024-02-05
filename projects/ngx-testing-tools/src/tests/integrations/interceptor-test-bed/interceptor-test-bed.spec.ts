@@ -3,10 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { interceptorTestBed } from '../../../lib';
 
-function oneInterceptor(): HttpInterceptorFn {
-  return (req, next) => next(req.clone({ setHeaders: { 'x-test': 'test' } }));
-}
-
 @Injectable()
 class OneInterceptor implements HttpInterceptor {
 
@@ -15,13 +11,17 @@ class OneInterceptor implements HttpInterceptor {
   }
 }
 
+function oneInterceptor(): HttpInterceptorFn {
+  return (req, next) => next(req.clone({ setHeaders: { 'x-test': 'test' } }));
+}
+
 describe('InterceptorTestBed', () => {
 
   describe('with class', () => {
     const tb = interceptorTestBed(OneInterceptor);
 
     it('should ', tb(({ interceptor }) => {
-      console.log(interceptor);
+
     }));
   });
 
@@ -29,7 +29,6 @@ describe('InterceptorTestBed', () => {
     const tb = interceptorTestBed(oneInterceptor());
 
     it('should ', tb(({ interceptor }) => {
-      console.log(interceptor);
     }));
   });
 });

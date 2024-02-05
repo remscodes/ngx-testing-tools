@@ -5,5 +5,5 @@ export interface InterceptorTools<T, I extends {} = {}> extends HttpTestingTools
   /**
    * The described interceptor instance.
    */
-  interceptor: any;
+  interceptor: T;
 }

@@ -1,6 +1,6 @@
-import { HttpInterceptor, HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptor } from '@angular/common/http';
 
-export interface InterceptorWrapper<InterceptorType> extends HttpInterceptor {
+export interface InterceptorWrapper<T> extends HttpInterceptor {
   isRootCtor: boolean;
-  rootInstance: InterceptorType | HttpInterceptorFn;
+  rootInstance: T;
 }

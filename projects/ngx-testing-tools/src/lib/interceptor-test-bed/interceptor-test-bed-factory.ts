@@ -1,5 +1,5 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { inject, Injectable, Type } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
 import { assertFn } from '../common/assertions/assert-fn';
@@ -13,7 +13,8 @@ import { InterceptorTools } from './tools';
 import { buildInterceptorTools } from './tools/interceptor-tools';
 import { InterceptorWrapper } from './tools/models/interceptor-wrapper.model';
 
-export class InterceptorTestBedFactory<InterceptorType extends HttpInterceptor, Store extends InjectionStore = InjectionStore> extends BaseTestBedFactory<InterceptorWrapper<InterceptorType>, Store, InterceptorTools<InterceptorType, Store['injected']>> {
+export class InterceptorTestBedFactory<InterceptorType, Store extends InjectionStore = InjectionStore>
+  extends BaseTestBedFactory<InterceptorWrapper<InterceptorType>, Store, InterceptorTools<InterceptorType, Store['injected']>> {
 
   public constructor(
     rootInterceptor: Type<InterceptorType> | HttpInterceptorFn,
@@ -26,22 +27,22 @@ export class InterceptorTestBedFactory<InterceptorType extends HttpInterceptor, 
       : assertFn(rootInterceptor);
 
     @Injectable()
-    class InterceptorWrapperImpl implements InterceptorWrapper<InterceptorType>, HttpInterceptor {
+    class InterceptorWrapperImpl implements InterceptorWrapper<InterceptorType | HttpInterceptorFn>, HttpInterceptor {
 
-      public isRootCtor: boolean = isRootCtor;
+      public isRootCtor = isRootCtor;
 
       public readonly rootInstance: InterceptorType | HttpInterceptorFn = (isRootCtor)
-        ? TestBed.inject(rootInterceptor) // TODO use BaseTestBedFactory.testBed
+        ? TestBed.inject(rootInterceptor) // TODO: use BaseTestBedFactory.testBed
         : rootInterceptor;
 
       public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return (isRootCtor)
-          ? (this.rootInstance as InterceptorType).intercept(req, next)
+          ? (this.rootInstance as HttpInterceptor).intercept(req, next)
           : (this.rootInstance as HttpInterceptorFn)(req, next.handle);
       }
     }
 
-    super(InterceptorWrapperImpl, options);
+    super(InterceptorWrapperImpl as any, options);
 
     if (isRootCtor) this.provide(rootInterceptor);
     this.provide(InterceptorWrapperImpl);
