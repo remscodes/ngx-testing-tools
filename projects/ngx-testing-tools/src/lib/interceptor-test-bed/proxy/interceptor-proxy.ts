@@ -1,5 +1,5 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, Injector, runInInjectionContext } from '@angular/core';
 import { Observable } from 'rxjs';
 import { INTERCEPTOR_INFO } from './interceptor-info';
 
@@ -14,9 +14,14 @@ export class InterceptorProxy implements HttpInterceptor {
     ? inject(this.info.rootInterceptor)
     : this.info.rootInterceptor;
 
+  /** Set in buildInterceptorTools(...) */
+  public injector: Injector = null!;
+
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return (this.isRootCtor)
-      ? (this.instance as HttpInterceptor).intercept(req, next)
-      : (this.instance as HttpInterceptorFn)(req, next.handle);
+    if (this.isRootCtor) return (this.instance as HttpInterceptor).intercept(req, next);
+
+    return runInInjectionContext(this.injector, () => {
+      return (this.instance as HttpInterceptorFn)(req, next.handle);
+    });
   }
 }
