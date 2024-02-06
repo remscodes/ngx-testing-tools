@@ -34,7 +34,7 @@ export class InterceptorTestBedFactory<InterceptorType, Store extends InjectionS
     if (isRootCtor) {
       this.provide([
         rootInterceptor,
-        { provide: HTTP_INTERCEPTORS, useClass: rootInterceptor },
+        { provide: HTTP_INTERCEPTORS, useClass: rootInterceptor, multi: true },
         httpProviders(withInterceptorsFromDi()),
       ]);
     }

@@ -1,26 +1,28 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { interceptorTestBed } from '../../../lib';
 import { validateHeader } from '../../fixtures/helpers/validators/validate-http-header';
 
 describe('InterceptorTestBed', () => {
 
   @Injectable()
-  class AuthStore {}
+  class Store {}
 
   describe('with class', () => {
     @Injectable()
     class OneInterceptor implements HttpInterceptor {
-      constructor(public authStore: AuthStore) {}
+      constructor(public store: Store) {}
 
       public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req.clone({ setHeaders: { 'x-header': 'my-value' } }));
+        return next.handle(req.clone({ setHeaders: { 'x-custom-header': 'my-value' } })).pipe(
+          tap({}),
+        );
       }
     }
 
     const tb = interceptorTestBed(OneInterceptor)
-      .provide(AuthStore);
+      .provide(Store);
 
     it('should interceptor be an instance', tb(({ interceptor }) => {
       expect(typeof interceptor === 'object').toBeTrue();
@@ -28,17 +30,17 @@ describe('InterceptorTestBed', () => {
 
     it('should set custom header', tb(({ inspect, rx }, done) => {
       const req = new HttpRequest('GET', '/test');
-      validateHeader(req.headers, { name: 'x-header', value: null });
+      validateHeader(req.headers, { name: 'x-custom-header', value: null });
 
       rx.remind = inspect.request(req).subscribe({
         next: ({ headers }) => {
-          validateHeader(headers, { name: 'x-header', value: 'my-value' });
+          validateHeader(headers, { name: 'x-custom-header', value: 'my-value' });
           done();
         },
       });
     }));
 
-    it('should ', tb(({ rx, inspect }, done) => {
+    it('should inspect success', tb(({ rx, inspect }, done) => {
       const res = new HttpResponse({});
 
       rx.remind = inspect.successResponse(res).subscribe({
@@ -49,7 +51,7 @@ describe('InterceptorTestBed', () => {
       });
     }));
 
-    it('should ', tb(({ rx, inspect }, done) => {
+    it('should inspect error response', tb(({ rx, inspect }, done) => {
       const err = new HttpErrorResponse({});
 
       rx.remind = inspect.errorResponse(err).subscribe({
@@ -59,18 +61,30 @@ describe('InterceptorTestBed', () => {
         },
       });
     }));
+
+    it('should update header with http tools', tb(({ http }, done) => {
+      http.client.get('/test').subscribe({
+        next: () => done(),
+      });
+
+      const req = http.controller.expectOne('/test');
+
+      expect(req.request.headers.has('x-custom-header')).toBeTrue();
+
+      req.flush({});
+    }));
   });
 
   describe('with fn', () => {
     function oneInterceptor(): HttpInterceptorFn {
       return (req, next) => {
-        inject(AuthStore);
-        return next(req.clone({ setHeaders: { 'x-header': 'my-value' } }));
+        inject(Store);
+        return next(req.clone({ setHeaders: { 'x-custom-header': 'my-value' } }));
       };
     }
 
     const tb = interceptorTestBed(oneInterceptor())
-      .provide(AuthStore);
+      .provide(Store);
 
     it('should interceptor be a function', tb(({ interceptor }) => {
       expect(typeof interceptor === 'function').toBeTrue();
@@ -78,14 +92,26 @@ describe('InterceptorTestBed', () => {
 
     it('should set custom header', tb(({ inspect, rx }, done) => {
       const req = new HttpRequest('GET', '/test');
-      validateHeader(req.headers, { name: 'x-header', value: null });
+      validateHeader(req.headers, { name: 'x-custom-header', value: null });
 
       rx.remind = inspect.request(req).subscribe({
         next: ({ headers }) => {
-          validateHeader(headers, { name: 'x-header', value: 'my-value' });
+          validateHeader(headers, { name: 'x-custom-header', value: 'my-value' });
           done();
         },
       });
+    }));
+
+    it('should update header with http tools', tb(({ http }, done) => {
+      http.client.get('/test').subscribe({
+        next: () => done(),
+      });
+
+      const req = http.controller.expectOne('/test');
+
+      expect(req.request.headers.has('x-custom-header')).toBeTrue();
+
+      req.flush({});
     }));
   });
 });
