@@ -15,3 +15,5 @@ export { emitOutput } from '../component-test-bed/tools/action/utils/output';
 export { emitFakeSuccessResponse } from '../common/tools/http/utils/emit-success-response';
 export { emitFakeErrorResponse } from '../common/tools/http/utils/emit-error-response';
 export { expectHttpRequest } from './expect-http-response';
+
+export { makeInterceptorSucceed, makeInterceptorFail } from './interceptor';
