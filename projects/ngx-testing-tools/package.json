@@ -30,17 +30,18 @@
   "keywords": [
     "angular",
     "test",
-    "tests",
     "testing",
     "tools",
+    "mock",
     "component",
     "directive",
     "service",
+    "interceptor",
+    "testbed",
     "pipe",
     "provider",
-    "fixture",
     "jasmine",
-    "testbed",
+    "fixture",
     "ngx"
   ],
   "sideEffects": false
