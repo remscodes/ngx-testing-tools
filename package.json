@@ -2,7 +2,7 @@
   "name": "ngx-testing-tools-sources",
   "version": "2.2.0",
   "private": true,
-  "description": "Provides high-level utilities and reduces boilerplate for testing Angular applications",
+  "description": "Makes Angular testing easier",
   "license": "MIT",
   "author": {
     "name": "Rémy Abitbol",
