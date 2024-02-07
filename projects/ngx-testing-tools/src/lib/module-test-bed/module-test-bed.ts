@@ -9,7 +9,7 @@ import { ModuleTestBedFactory } from './module-test-bed-factory';
  * @param rootModule - The described Module.
  * @param options
  */
-export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOptions = {}) {
+export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOptions = {}): ModuleTestBed<T> {
   const factory = new ModuleTestBedFactory(rootModule, options);
 
   const tb: ModuleTestBed<T> = ((assertion) => {

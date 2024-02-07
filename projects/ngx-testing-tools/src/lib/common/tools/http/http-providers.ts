@@ -1,8 +1,12 @@
-import { provideHttpClient } from '@angular/common/http';
+import { HttpFeature, provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { EnvironmentProviders, Provider } from '@angular/core';
+import { AnyProvider } from '../../test-beds/models/metadata-type.models';
 
-export const HTTP_PROVIDERS: (Provider | EnvironmentProviders)[] = [
-  provideHttpClient(),
-  provideHttpClientTesting(),
-];
+export function httpProviders(...features: HttpFeature<any>[]): AnyProvider[] {
+  return [
+    provideHttpClient(...features),
+    provideHttpClientTesting(),
+  ];
+}
+
+export const HTTP_PROVIDERS: AnyProvider[] = httpProviders();

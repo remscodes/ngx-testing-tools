@@ -1,6 +1,6 @@
 import { HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { ErrorInterceptorConfig, SuccessInterceptorConfig } from '../common/tools/http/utils/models/interceptor-config.model';
+import { ErrorInterceptorConfig, SuccessInterceptorConfig } from '../../common/tools/http/utils/models/interceptor-config.model';
 
 function mockSuccessHandlerFnFactory(): HttpHandlerFn {
   return (req: HttpRequest<unknown>) => of(req) as any;

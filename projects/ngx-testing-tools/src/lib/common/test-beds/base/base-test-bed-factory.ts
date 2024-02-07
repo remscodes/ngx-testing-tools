@@ -124,7 +124,7 @@ export abstract class BaseTestBedFactory<
    *
    * **Works only for `beforeEach` and `afterEach`**.
    */
-  public setup<Action extends EnhancedJasmineCallback<Tools>>(action: Action): jasmine.ImplementationCallback {
+  public setup(action: EnhancedJasmineCallback<Tools>): jasmine.ImplementationCallback {
     return buildJasmineCallback({
       callback: action,
       deferredTools: this.deferredTools,
