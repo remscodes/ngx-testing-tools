@@ -1,11 +1,12 @@
 import { HttpErrorResponse, HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { ErrorInterceptorConfig, SuccessInterceptorConfig } from '../../common/tools/http/utils/models/interceptor-config.model';
+import { ErrorInterceptorConfig, SuccessInterceptorConfig } from '../common/tools/http/utils/models/interceptor-config.model';
 
 function mockSuccessHandlerFnFactory(): HttpHandlerFn {
   return (req: HttpRequest<unknown>) => of(req) as any;
 }
 
+/** @deprecated Use the `InterceptorTestBed` with `InspectTools` instead. Will be removed in v3. */
 export function makeInterceptorSucceed(interceptor: HttpInterceptorFn, config: SuccessInterceptorConfig = {}): Observable<HttpRequest<unknown>> {
   const { url = '/test', method = 'GET' } = config;
   const req = new HttpRequest<unknown>(method, url, null);
@@ -17,6 +18,7 @@ function mockErrorHandlerFnFactory(err: HttpErrorResponse): HttpHandlerFn {
   return () => throwError(() => err);
 }
 
+/** @deprecated Use the `InterceptorTestBed` with `InspectTools` instead. Will be removed in v3. */
 export function makeInterceptorFail(interceptor: HttpInterceptorFn, config: ErrorInterceptorConfig = {}): Observable<HttpRequest<unknown>> {
   const { url = '/test', status = 500 } = config;
   const req = new HttpRequest<unknown>('GET', url);
