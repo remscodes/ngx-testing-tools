@@ -15,7 +15,7 @@
 
 ## In a nutshell
 
-This library aims to **reduce boilerplate** 😎 and **provides high-level tools**️ 🔥 for testing Component, Service, Router and everything else related to the Angular mechanism.
+This library aims to **reduce boilerplate** 😎 and **provides high-level tools**️ 🔥 for testing Component, Service, Interceptor and everything else related to the Angular mechanism.
 
 It makes tests **easier to read** 😌 and **faster to write** ⚡️!
 
