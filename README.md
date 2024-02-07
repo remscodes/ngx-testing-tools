@@ -76,21 +76,19 @@ npm install --save-dev ngx-testing-tools
 - Custom test beds 🤩
   - [ComponentTestBed](#componenttestbed)
   - [ServiceTestBed](#servicetestbed)
+  - [PipeTestBed](#pipetestbed)
+  - [InterceptorTestBed](#interceptortestbed)
   - [ModuleTestBed](#moduletestbed)
   - [Common definitions](#common-definitions)
 
 - Common tools 🔋
-  - [BaseTools](#basetools-3)
-  - [HttpTestingTools](#httptestingtools-2)
+  - [BaseTools](#basetools)
+  - [HttpTestingTools](#httptestingtools)
 
 - External utilities 🔧
   - Router
     - [Guard](#guard)
     - [Resolver](#resolver)
-  - Http
-    - [Interceptor](#interceptor)
-  - Pipe
-    - [Test values](#testpipevaluespipe-record)
 
 - [Demo](#demo)
 - [Version compatibility](#version-compatibility)
@@ -103,20 +101,11 @@ All custom test beds significantly reduce the boilerplate required to perform te
 ### ComponentTestBed
 
 - [Options](#componenttestbed-options)
-- Definitions
-  - [tb.import(..)](#importoneormanyimports---componenttestbed)
-  - [tb.provide(..)](#provideoneormanyproviders---componenttestbed)
-  - [tb.declare(..)](#declareoneormanydeclarations---componenttestbed)
-  - [tb.inject(..)](#injectname-token---componenttestbed)
-  - [tb.setup(..)](#setupaction---jasmineimplementationcallback)
-  - [tb.compile()](#compile---promisevoid)
-  - [tb(..)](#assertion-options---jasmineimplementationcallback)
-- Tools
+- [Definitions](#componenttestbed-definitions)
+- [Tools](#componenttestbed-tools)
   - [ComponentTools](#componenttools)
   - [ComponentQueryTools](#componentquerytools)
   - [ComponentActionTools](#componentactiontools)
-  - [BaseTools](#basetools)
-  - [HttpTestingTools](#httptestingtools)
 
 #### ComponentTestBed Options
 
@@ -158,47 +147,18 @@ Options :
 ```
 [//]: # (@formatter:on)
 
-#### Definitions
+#### ComponentTestBed Definitions
 
-#### import(oneOrManyImports) -> ComponentTestBed
+Check common definitions :
 
-Check common definitions [tb.import(..)](#importoneormanyimports---basetestbed).
-
-#### provide(oneOrManyProviders) -> ComponentTestBed
-
-Check common definitions [tb.provide(..)](#provideoneormanyproviders---basetestbed).
-
-#### declare(oneOrManyDeclarations) -> ComponentTestBed
-
-Declares required non-standalone component(s), directive(s) and pipe(s) into testing module for your current tests.
-
-```ts
-describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent)
-    .declare(AppFirstComponent)
-    .declare([AppSecondComponent, AppPipe]);
-});
-```
-
-#### inject(name, token) -> ComponentTestBed
-
-Check common definitions [tb.inject(..)](#injectname-token---basetestbed).
-
-#### setup(action) -> jasmine.ImplementationCallback
-
-Check common definitions [tb.setup(..)](#setupaction---jasmineimplementationcallback-3).
-
-#### compile() -> Promise\<void\>
-
-Check common definitions [tb.compile(..)](#compile---promisevoid-3).
+- [tb.import(..)](#importoneormanyimports---basetestbed)
+- [tb.provide(..)](#provideoneormanyproviders---basetestbed)
+- [tb.declare(..)](#declareoneormanydeclarations---renderertestbed)
+- [tb.inject(..)](#injectname-token---basetestbed)
+- [tb.setup(..)](#setupaction---jasmineimplementationcallback)
+- [tb.compile(..)](#compile---promisevoid)
 
 #### (assertion, options?) -> jasmine.ImplementationCallback
-
-Wraps the `it` assertion function and provides enhanced tools for testing component expectations.
-
-It supports the jasmine `DoneFn` and `async`/`await` (check examples below).
-
-It automatically starts the assertion by running `fixture.detectChanges()` (can be disabled, check options below).
 
 Options :
 
@@ -213,6 +173,8 @@ Options :
 }
 ```
 [//]: # (@formatter:on)
+
+Check examples : [tb(..)](#assertion-options---jasmineimplementationcallback-2).
 
 Examples :
 
@@ -244,7 +206,7 @@ it('should do something', tb(async ({ component }) => {
 })); 
 ```
 
-#### Tools
+#### ComponentTestBed Tools
 
 #### ComponentTools
 
@@ -261,13 +223,10 @@ it('should do something', tb(async ({ component }) => {
 }
 ```
 
-#### BaseTools
+Check common tools :
 
-Check common tools [BaseTools](#basetools-3).
-
-#### HttpTestingTools
-
-Check common tools [HttpTestingTools](#httptestingtools-2).
+- [BaseTools](#basetools)
+- [HttpTestingTools](#httptestingtools)
 
 #### ComponentQueryTools
 
@@ -408,17 +367,9 @@ it('should do something when output emitted', tb(({ action }) => {
 ### ServiceTestBed
 
 - [Options](#servicetestbed-options)
-- Definitions
-  - [tb.import(..)](#importoneormanyimports---servicetestbed)
-  - [tb.provide(..)](#provideoneormanyproviders---servicetestbed)
-  - [tb.inject(..)](#injectname-token---servicetestbed)
-  - [tb.setup(..)](#setupaction---jasmineimplementationcallback-1)
-  - [tb.compile()](#compile---promisevoid-1)
-  - [tb(..)](#assertion-options---jasmineimplementationcallback-1)
-- Tools
+- [Definitions](#servicetestbed-definitions)
+- [Tools](#servicetestbed-tools)
   - [ServiceTools](#servicetools)
-  - [BaseTools](#basetools-1)
-  - [HttpTestingTools](#httptestingtools-1)
 
 #### ServiceTestBed Options
 
@@ -451,33 +402,18 @@ Options :
 ```
 [//]: # (@formatter:on)
 
-#### Definitions
+#### ServiceTestBed Definitions
 
-#### import(oneOrManyImports) -> ServiceTestBed
+Check common definitions :
 
-Check common definitions [tb.import(..)](#importoneormanyimports---basetestbed).
+- [tb.import(..)](#importoneormanyimports---basetestbed)
+- [tb.provide(..)](#provideoneormanyproviders---basetestbed)
+- [tb.inject(..)](#injectname-token---basetestbed)
+- [tb.provide(..)](#provideoneormanyproviders---basetestbed)
+- [tb.setup(..)](#setupaction---jasmineimplementationcallback)
+- [tb.compile(..)](#compile---promisevoid).
 
-#### provide(oneOrManyProviders) -> ServiceTestBed
-
-Check common definitions [tb.provide(..)](#provideoneormanyproviders---basetestbed).
-
-#### inject(name, token) -> ServiceTestBed
-
-Check common definitions [tb.inject(..)](#injectname-token---basetestbed).
-
-#### setup(action) -> jasmine.ImplementationCallback
-
-Check common definitions [tb.setup(..)](#setupaction---jasmineimplementationcallback-3).
-
-#### compile() -> Promise\<void\>
-
-Check common definitions [tb.compile(..)](#compile---promisevoid-3).
-
-#### (assertion, options?) -> jasmine.ImplementationCallback
-
-Wraps the `it` assertion function and provides enhanced tools for testing component expectations.
-
-It supports the jasmine `DoneFn` and `async`/`await` (check examples below).
+##### (assertion, options?) -> jasmine.ImplementationCallback
 
 Options :
 
@@ -491,28 +427,9 @@ Options :
 ```
 [//]: # (@formatter:on)
 
-Examples :
+Check examples : [tb(..)](#assertion-options---jasmineimplementationcallback-2)
 
-```ts
-it('should do something', tb(({ service, injector }) => {
-  // (…) expectations
-})); 
-```
-
-```ts
-it('should do something', tb(({ service }, done) => {
-  // (…) expectations
-  done();
-})); 
-```
-
-```ts
-it('should do something', tb(async ({ service }) => {
-  // (…) async expectations 
-})); 
-```
-
-#### Tools
+#### ServiceTestBed Tools
 
 #### ServiceTools
 
@@ -523,27 +440,276 @@ it('should do something', tb(async ({ service }) => {
 }
 ```
 
-#### BaseTools
+Check common tools :
 
-Check common tools [BaseTools](#basetools-3).
+- [BaseTools](#basetools)
+- [HttpTestingTools](#httptestingtools)
 
-#### HttpTestingTools
+### PipeTestBed
 
-Check common tools [HttpTestingTools](#httptestingtools-2).
+- [Options](#pipetestbed-options)
+- [Definitions](#pipetestbed-definitions)
+- [Tools](#pipetestbed-tools)
+  - [PipeTools](#pipetools)
+  - [VerifyTools](#verifytools)
+
+#### PipeTestBed Options
+
+```ts
+describe('AppPipe', () => {
+  const tb = pipeTestBed(AppPipe, {
+    // ... options (see below)
+  });
+});
+```
+
+Options :
+
+[//]: # (@formatter:off)
+```ts
+{
+  imports?: Importation[] = [];
+  providers?: AnyProvider[] = [];
+  declarations?: Declaration[] = [];
+  schemas?: SchemaMetadata[] = [];
+  // Automatically compiles the custom test bed for each test.
+  autoCompile?: boolean = true;
+  // Automatically invokes the "should create" test.
+  // It checks if the provided `described` instance is truthy. 
+  checkCreate?: boolean = true;
+}
+```
+[//]: # (@formatter:on)
+
+#### PipeTestBed Definitions
+
+Check common definitions :
+
+- [tb.import(..)](#importoneormanyimports---basetestbed)
+- [tb.provide(..)](#provideoneormanyproviders---basetestbed)
+- [tb.declare(..)](#declareoneormanydeclarations---renderertestbed)
+- [tb.inject(..)](#injectname-token---basetestbed)
+- [tb.provide(..)](#provideoneormanyproviders---basetestbed)
+- [tb.setup(..)](#setupaction---jasmineimplementationcallback)
+- [tb.compile(..)](#compile---promisevoid).
+- [tb(..)](#assertion-options---jasmineimplementationcallback-2)
+
+#### PipeTestBed Tools
+
+#### PipeTools
+
+```ts
+{
+  // The described pipe instance.
+  pipe: T;
+  // Enhanced tools to verify transformed value by the pipe.
+  verify: VerifyTools;
+}
+```
+
+Check common tools :
+
+- [BaseTools](#basetools)
+
+#### VerifyTools
+
+- [verify(..)](#spec-verifyspec)
+- [verify.many(..)](#manyspecs-verifyspec)
+
+##### (spec: VerifySpec)
+
+Verifies the expected value with the provided data and parameters transformed by the pipe.
+
+Uses `expect()` under the hood.
+
+```ts
+it('should transform data', tb(({ verify }) => {
+  verify({ data: 'value', parameters: ['prefix-'], expected: 'prefix-value' });
+})); 
+```
+
+##### many(specs: VerifySpec[])
+
+Verifies many expected values for each data and parameters transformed by the pipe.
+
+Uses `expect()` under the hood.
+
+```ts
+it('should transform data', tb(({ verify }) => {
+  verify.many([
+    { data: 'value', parameters: ['prefix-'], expected: 'prefix-value' },
+    { data: 'value', parameters: ['prefix-'], expected: 'prefix-value' },
+  ]);
+})); 
+```
+
+### InterceptorTestBed
+
+- [Options](#interceptortestbed-options)
+- [Definitions](#interceptortestbed-definitions)
+- [Tools](#interceptortestbed-tools)
+  - [InterceptorTools](#interceptortools)
+
+#### InterceptorTestBed Options
+
+Compatible with class (that extends `HttpInterceptor`) and `HttpInterceptorFn`.
+
+```ts
+describe('AuthInterceptor', () => {
+  const tb = interceptorTestBed(AuthInterceptor, {
+    // ... options (see below)
+  });
+});
+```
+
+Options :
+
+[//]: # (@formatter:off)
+```ts
+{
+  imports?: Importation[] = [];
+  providers?: AnyProvider[] = [];
+  // When enabled, the assertion will end by `HttpTestingController.verify()`.
+  // Works only when `httpTesting` test bed option is `true`, otherwise has no effect.
+  verifyHttp?: boolean = true;
+  // Automatically compiles the custom test bed for each test.
+  autoCompile?: boolean = true;
+  // Automatically invokes the "should create" test.
+  // It checks if the provided `described` instance is truthy. 
+  checkCreate?: boolean = true;
+}
+```
+[//]: # (@formatter:on)
+
+#### InterceptorTestBed Definitions
+
+Check common definitions :
+
+- [tb.import(..)](#importoneormanyimports---basetestbed)
+- [tb.provide(..)](#provideoneormanyproviders---basetestbed)
+- [tb.inject(..)](#injectname-token---basetestbed)
+- [tb.provide(..)](#provideoneormanyproviders---basetestbed)
+- [tb.setup(..)](#setupaction---jasmineimplementationcallback)
+- [tb.compile(..)](#compile---promisevoid).
+
+##### (assertion, options?) -> jasmine.ImplementationCallback
+
+Options :
+
+[//]: # (@formatter:off)
+```ts
+{
+  // When enabled, the assertion will end by `HttpTestingController.verify()`.
+  // Works only when `httpTesting` test bed option is `true`, otherwise has no effect.
+  verifyHttp?: boolean = true;
+}
+```
+[//]: # (@formatter:on)
+
+Check examples : [tb(..)](#assertion-options---jasmineimplementationcallback-2)
+
+#### InterceptorTestBed Tools
+
+#### InterceptorTools
+
+```ts
+{
+  // The described interceptor instance.
+  interceptor: T;
+  // Enhanced tools to inspect outgoing request and incoming response.
+  inspect: InpectTools;
+}
+```
+
+Check common tools :
+
+- [BaseTools](#basetools)
+- [HttpTestingTools](#httptestingtools) (the described interceptor is added to http interceptors)
+
+#### InspectTools
+
+- [request(..)](#request---observablehttprequestunknown)
+
+##### request(..) -> Observable\<HttpRequest\<unknown\>\>
+
+Inspect the passed request into the described interceptor.
+
+Overload signatures :
+
+- `request(req: HttpRequest)`
+- `request(method: 'GET' | 'DELETE' | 'HEAD' | 'OPTIONS' | 'JSONP', url: string)`
+- `request(method: 'POST' | 'PUT' | 'PATCH', url: string, body: any)`
+
+Example :
+
+```ts
+it('should add "x-custom-header" to headers', tb(({ inspect, rx }, done) => {
+  const req = new HttpRequest('GET', '/test');
+  expect(req.headers.has('x-custom-header')).toBeFalse();
+
+  rx.remind = inspect.request(req).subscribe({
+    next: (interceptedReq) => {
+      expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
+      done();
+    },
+  });
+}));
+```
+
+##### successResponse(..) -> Observable\<HttpEvent\<unknown\>\>
+
+Inspect the passed http response into the described interceptor.
+
+Overload signatures :
+
+- `successResponse(res: HttpResponse\<unknown\>): Observable\<HttpEvent\<unknown\>\>`
+- `successResponse(url: string, body: any): Observable\<HttpEvent\<unknown\>\>`
+
+Example :
+
+```ts
+ it('should do something on success response', tb(({ rx, inspect }, done) => {
+  const mockRes = new HttpResponse({ body: {} });
+
+  rx.remind = inspect.successResponse(mockRes).subscribe({
+    next: (res) => {
+      // (…) expectations
+      done();
+    },
+  });
+}));
+```
+
+##### errorResponse(..) -> Observable\<HttpEvent\<unknown\>\>
+
+Inspect the passed http error response into the described interceptor.
+
+Overload signatures :
+
+- `errorResponse(res: HttpErrorResponse): Observable\<HttpEvent\<unknown\>\>`
+- `errorResponse(url: string, error: any): Observable\<HttpEvent\<unknown\>\>`
+
+Example :
+
+```ts
+it('should do something on error response', tb(({ rx, inspect }, done) => {
+  const mockErr = new HttpErrorResponse({ error: 'Error' });
+
+  rx.remind = inspect.errorResponse(mockErr).subscribe({
+    error: (err) => {
+      // (…) expectations
+      done();
+    },
+  });
+}));
+```
 
 ### ModuleTestBed
 
 - [Options](#moduletestbed-options)
-- Definitions
-  - [tb.import(..)](#importoneormanyimports---moduletestbed)
-  - [tb.provide(..)](#provideoneormanyproviders---moduletestbed)
-  - [tb.inject(..)](#injectname-token---moduletestbed)
-  - [tb.setup(..)](#setupaction---jasmineimplementationcallback-2)
-  - [tb.compile()](#compile---promisevoid-2)
-  - [tb(..)](#assertion---jasmineimplementationcallback)
-- Tools
+- [Definitions](#moduletestbed-definitions)
+- [Tools](#moduletestbed-tools)
   - [ModuleTools](#moduletools)
-  - [BaseTools](#basetools-2)
 
 #### ModuleTestBed Options
 
@@ -571,56 +737,17 @@ Options :
 ```
 [//]: # (@formatter:on)
 
-#### Definitions
+#### ModuleTestBed Definitions
 
-#### import(oneOrManyImports) -> ModuleTestBed
+Check common definitions :
 
-Check common definitions [tb.import(..)](#importoneormanyimports---basetestbed).
+- [tb.import(..)](#importoneormanyimports---basetestbed).
+- [tb.provide(..)](#provideoneormanyproviders---basetestbed).
+- [tb.inject(..)](#injectname-token---basetestbed).
+- [tb.setup(..)](#setupaction---jasmineimplementationcallback).
+- [tb.compile(..)](#compile---promisevoid).
 
-#### provide(oneOrManyProviders) -> ModuleTestBed
-
-Check common definitions [tb.provide(..)](#provideoneormanyproviders---basetestbed).
-
-#### inject(name, token) -> ModuleTestBed
-
-Check common definitions [tb.inject(..)](#injectname-token---basetestbed).
-
-#### setup(action) -> jasmine.ImplementationCallback
-
-Check common definitions [tb.setup(..)](#setupaction---jasmineimplementationcallback-3).
-
-#### compile() -> Promise\<void\>
-
-Check common definitions [tb.compile(..)](#compile---promisevoid-3).
-
-#### (assertion) -> jasmine.ImplementationCallback
-
-Wraps the `it` assertion function and provides enhanced tools for testing component expectations.
-
-It supports the jasmine `DoneFn` and `async`/`await` (check examples below).
-
-Examples :
-
-```ts
-it('should do something', tb(({ module }) => {
-  // (…) expectations
-})); 
-```
-
-```ts
-it('should do something', tb(({ module }, done) => {
-  // (…) expectations
-  done();
-})); 
-```
-
-```ts
-it('should do something', tb(async ({ module }) => {
-  // (…) async expectations 
-})); 
-```
-
-#### Tools
+#### ModuleTestBed Tools
 
 #### ModuleTools
 
@@ -631,18 +758,18 @@ it('should do something', tb(async ({ module }) => {
 }
 ```
 
-#### BaseTools
+Check common tools :
 
-Check common tools [BaseTools](#basetools-3).
+- [BaseTools](#basetools).
 
 ### Common definitions
 
-- Definitions
-  - [tb.import(..)](#importoneormanyimports---basetestbed)
-  - [tb.provide(..)](#provideoneormanyproviders---basetestbed)
-  - [tb.inject(..)](#injectname-token---basetestbed)
-  - [tb.setup(..)](#setupaction---jasmineimplementationcallback-3)
-  - [tb.compile()](#compile---promisevoid-3)
+- [tb.import(..)](#importoneormanyimports---basetestbed)
+- [tb.provide(..)](#provideoneormanyproviders---basetestbed)
+- [tb.declare(..)](#declareoneormanydeclarations---renderertestbed)
+- [tb.inject(..)](#injectname-token---basetestbed)
+- [tb.setup(..)](#setupaction---jasmineimplementationcallback)
+- [tb.compile()](#compile---promisevoid)
 
 #### Definitions
 
@@ -667,6 +794,18 @@ describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent)
     .provide(AppService)
     .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
+});
+```
+
+#### declare(oneOrManyDeclarations) -> RendererTestBed
+
+Declares required non-standalone component(s), directive(s) and pipe(s) into testing module for your current tests.
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .declare(AppFirstComponent)
+    .declare([AppSecondComponent, AppPipe]);
 });
 ```
 
@@ -718,11 +857,37 @@ describe('AppComponent', () => {
 });
 ```
 
+#### (assertion, options?) -> jasmine.ImplementationCallback
+
+Wraps the `it` assertion function and provides enhanced tools for testing component expectations.
+
+It supports the jasmine `DoneFn` and `async`/`await` (check examples below).
+
+Examples :
+
+```ts
+it('should do something', tb((tools) => {
+  // (…) expectations
+}, { /* options */ })); 
+```
+
+```ts
+it('should do something', tb((tools, done) => {
+  // (…) expectations
+  done();
+})); 
+```
+
+```ts
+it('should do something', tb(async (tools) => {
+  // (…) async expectations 
+})); 
+```
+
 ### Common tools
 
-- Tools
-  - [BaseTools](#basetools-3)
-  - [HttpTestingTools](#httptestingtools-2)
+- [BaseTools](#basetools)
+- [HttpTestingTools](#httptestingtools)
 
 #### BaseTools
 
@@ -910,62 +1075,6 @@ it('should resolve', (done) => {
 }); 
 ```
 
-### Http
-
-#### Interceptor
-
-Utilities to check the behaviour of interceptors according to the success or failure of the request/response.
-
-- [makeInterceptorSucceed(…)](#makeinterceptorsucceedinterceptor-config)
-- [makeInterceptorFail(…)](#makeinterceptorfailinterceptor-config)
-
-##### makeInterceptorSucceed(interceptor, config?)
-
-Makes interceptor succeed to observe the output `HttpRequest`.
-
-```ts
-it('should intercept and add header', (done) => {
-  makeInterceptorSucceed(myInterceptor).subscribe({
-    next: ({ headers }: HttpRequest<unknown>) => {
-      expect(headers.get('x-my-header')).toEqual('my-header-value');
-      done();
-    },
-  });
-});
-```
-
-##### makeInterceptorFail(interceptor, config?)
-
-Makes interceptor fail to observe the output `HttpErrorResponse`.
-
-```ts
-it('should intercept and error', (done) => {
-  makeInterceptorFail(myInterceptor, { status: 401 }).subscribe({
-    error: ({ status }: HttpErrorResponse) => {
-      expect(status).toEqual(401);
-      done();
-    },
-  });
-});
-```
-
-### Pipe
-
-#### testPipeValues(pipe, record)
-
-Tests the pipe by successively transform the record's key and compare it to the expected record's value.
-
-```ts
-describe('MultiplyPipe', () => {
-  const pipe = new MultiplyPipe();
-
-  testPipeValues(pipe, {
-    1: '2',
-    2: '4',
-  });
-});
-```
-
 ## Demo
 
 Check [demo](./projects/ngx-testing-tools-demo) `.spec.ts` files.
@@ -977,9 +1086,7 @@ Compatible with Angular `>= 15.2.x`.
 ## What's next ? 🤩
 
 - More custom test beds :
-  - `PipeTestBed`
   - `DirectiveTestBed`
-  - `InterceptorTestBed`
   - `RouterTestBed`
 - Mocks
 - Angular schematics

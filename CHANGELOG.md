@@ -1,3 +1,27 @@
+# 2.3.0 (2024-02-08)
+
+### Features
+
+- `PipeTestBed`.
+- `InterceptorTestBed`.
+
+### Improvements
+
+- Codebase.
+- Project tree.
+- Tests.
+- Docs.
+
+### Deprecations
+
+Will be removed in v3.
+
+- `testPipeValues` (use `PipeTestBed` instead).
+- `makeInterceptorSucceed` (use `InterceptorTestBed` instead).
+- `makeInterceptorFail` (use `InterceptorTestBed` instead).
+
+> Commits : https://github.com/remscodes/ngx-testing-tools/commits/v2.3.0
+
 # 2.2.0 (2024-01-31)
 
 ### Features
