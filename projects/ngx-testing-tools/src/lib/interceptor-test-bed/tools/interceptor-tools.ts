@@ -12,9 +12,6 @@ export function buildInterceptorTools<T>(factory: InterceptorTestBedFactory<T>):
   const interceptor: T = interceptorProxy.instance;
 
   const { injected, injector, rx } = buildBaseTools(factory);
-
-  interceptorProxy.injector = injector;
-
   const http: HttpTools = buildHttpTools(injector, { httpTesting: true });
   const inspect: InpectTools = buildInspectTools(interceptorProxy);
 
