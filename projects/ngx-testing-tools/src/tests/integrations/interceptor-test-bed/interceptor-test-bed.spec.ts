@@ -28,39 +28,79 @@ describe('InterceptorTestBed', () => {
       expect(typeof interceptor === 'object').toBeTrue();
     }));
 
-    it('should set custom header', tb(({ inspect, rx }, done) => {
-      const req = new HttpRequest('GET', '/test');
-      validateHeader(req.headers, { name: 'x-custom-header', value: null });
+    describe('inspect request', () => {
 
-      rx.remind = inspect.request(req).subscribe({
-        next: ({ headers }) => {
-          validateHeader(headers, { name: 'x-custom-header', value: 'my-value' });
-          done();
-        },
-      });
-    }));
+      it('with HttpRequest', tb(({ inspect, rx }, done) => {
+        const req = new HttpRequest('GET', '/test');
+        validateHeader(req.headers, { name: 'x-custom-header', value: null });
 
-    it('should inspect success', tb(({ rx, inspect }, done) => {
-      const res = new HttpResponse({});
+        rx.remind = inspect.request(req).subscribe({
+          next: ({ headers }) => {
+            validateHeader(headers, { name: 'x-custom-header', value: 'my-value' });
+            done();
+          },
+        });
+      }));
 
-      rx.remind = inspect.successResponse(res).subscribe({
-        next: (value) => {
-          expect(value).toBeInstanceOf(HttpResponse);
-          done();
-        },
-      });
-    }));
+      it('with method and url', tb(({ inspect, rx }, done) => {
+        rx.remind = inspect.request('GET', '/test').subscribe({
+          next: ({ headers }) => {
+            validateHeader(headers, { name: 'x-custom-header', value: 'my-value' });
+            done();
+          },
+        });
+      }));
+    });
 
-    it('should inspect error response', tb(({ rx, inspect }, done) => {
-      const err = new HttpErrorResponse({});
+    describe('inspect success response', () => {
 
-      rx.remind = inspect.errorResponse(err).subscribe({
-        error: (value) => {
-          expect(value).toBeInstanceOf(HttpErrorResponse);
-          done();
-        },
-      });
-    }));
+      it('with HttpResponse', tb(({ rx, inspect }, done) => {
+        const res = new HttpResponse({ body: {} });
+
+        rx.remind = inspect.successResponse(res).subscribe({
+          next: (value) => {
+            expect(value).toBeInstanceOf(HttpResponse);
+            expect((value as HttpResponse<unknown>).body).toEqual({});
+            done();
+          },
+        });
+      }));
+
+      it('with url and body', tb(({ rx, inspect }, done) => {
+        rx.remind = inspect.successResponse('/test', {}).subscribe({
+          next: (res) => {
+            expect(res).toBeInstanceOf(HttpResponse);
+            expect((res as HttpResponse<unknown>).body).toEqual({});
+            done();
+          },
+        });
+      }));
+    });
+
+    describe('inspect error response', () => {
+
+      it('with HttpErrorResponse', tb(({ rx, inspect }, done) => {
+        const err = new HttpErrorResponse({ error: 'Error' });
+
+        rx.remind = inspect.errorResponse(err).subscribe({
+          error: (value) => {
+            expect(value).toBeInstanceOf(HttpErrorResponse);
+            expect(value.error).toEqual('Error');
+            done();
+          },
+        });
+      }));
+
+      it('with url and error', tb(({ rx, inspect }, done) => {
+        rx.remind = inspect.errorResponse('/test', 'Error').subscribe({
+          error: (err) => {
+            expect(err).toBeInstanceOf(HttpErrorResponse);
+            expect(err.error).toEqual('Error');
+            done();
+          },
+        });
+      }));
+    });
 
     it('should update header with http tools', tb(({ http }, done) => {
       http.client.get('/test').subscribe({
@@ -83,8 +123,10 @@ describe('InterceptorTestBed', () => {
       };
     }
 
-    const tb = interceptorTestBed(oneInterceptor())
-      .provide(Store);
+    const tb = interceptorTestBed(oneInterceptor(), {
+      providers: [Store],
+      checkCreate: false,
+    });
 
     it('should interceptor be a function', tb(({ interceptor }) => {
       expect(typeof interceptor === 'function').toBeTrue();
