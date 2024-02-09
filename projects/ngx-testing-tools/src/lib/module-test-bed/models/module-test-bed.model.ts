@@ -5,12 +5,12 @@ import { InjectionStore } from '../../common/tools/store/models/injected-store.m
 import { ModuleTestBedFactory } from '../module-test-bed-factory';
 import { ModuleTools } from '../tools';
 
-export interface ModuleTestBed<T, I extends InjectionStore = InjectionStore> extends ModuleTestBedFactory<T, I> {
-  (assertion: ModuleCallback<T, I['injected']>): jasmine.ImplementationCallback;
+export interface ModuleTestBed<T, S extends InjectionStore = InjectionStore> extends ModuleTestBedFactory<T, S> {
+  (assertion: ModuleCallback<T, S['injected']>): jasmine.ImplementationCallback;
 
-  inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): ModuleTestBed<T, InjectionStore<PrettyMerge<I['injected'] & { [k in key]: instance }>>>;
+  inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): ModuleTestBed<T, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
 
-  setup(action: ModuleCallback<T, I['injected']>): jasmine.ImplementationCallback;
+  setup(action: ModuleCallback<T, S['injected']>): jasmine.ImplementationCallback;
 }
 
 type ModuleCallback<T, I extends {}> = EnhancedJasmineCallback<ModuleTools<T, I>>

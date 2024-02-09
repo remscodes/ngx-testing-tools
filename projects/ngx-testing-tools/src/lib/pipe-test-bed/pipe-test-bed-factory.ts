@@ -6,7 +6,10 @@ import { PipeTestBedOptions } from './models';
 import { PipeTools } from './tools';
 import { buildPipeTools } from './tools/pipe-tools';
 
-export class PipeTestBedFactory<PipeType extends PipeTransform, Store extends InjectionStore = InjectionStore> extends BaseTestBedFactory<PipeType, Store, PipeTools<PipeType, Store['injected']>> {
+export class PipeTestBedFactory<
+  PipeType extends PipeTransform,
+  Store extends InjectionStore = InjectionStore
+> extends BaseTestBedFactory<PipeType, Store, PipeTools<PipeType, Store['injected']>> {
 
   public constructor(
     rootPipe: Type<PipeType>,

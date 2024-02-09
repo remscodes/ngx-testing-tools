@@ -6,7 +6,10 @@ import { ModuleTestBedOptions } from './models';
 import { ModuleTools } from './tools';
 import { buildModuleTools } from './tools/module-tools';
 
-export class ModuleTestBedFactory<ModuleType, Store extends InjectionStore = InjectionStore> extends BaseTestBedFactory<ModuleType, Store, ModuleTools<ModuleType, Store['injected']>> {
+export class ModuleTestBedFactory<
+  ModuleType,
+  Store extends InjectionStore = InjectionStore
+> extends BaseTestBedFactory<ModuleType, Store, ModuleTools<ModuleType, Store['injected']>> {
 
   public constructor(
     rootModule: Type<ModuleType>,

@@ -7,12 +7,13 @@ import { DirectiveTestBed, DirectiveTestBedOptions } from './models';
 /**
  * Creates a new `DirectiveTestBed` to configure the custom test bed and wrap the assertion test.
  * @param rootDirective - The described Directive.
+ * @param hostComponent - The host component on which the directive is tested.
  * @param options
  */
-export function directiveTestBed<T>(rootDirective: Type<T>, options: DirectiveTestBedOptions = {}): DirectiveTestBed<T> {
-  const factory = new DirectiveTestBedFactory(rootDirective, options);
+export function directiveTestBed<T, H>(rootDirective: Type<T>, hostComponent: Type<H>, options: DirectiveTestBedOptions = {}): DirectiveTestBed<T, H> {
+  const factory = new DirectiveTestBedFactory(rootDirective, hostComponent, options);
 
-  const tb: DirectiveTestBed<T> = ((assertion) => {
+  const tb: DirectiveTestBed<T, H> = ((assertion) => {
     return buildJasmineCallback({
       callback: assertion,
       deferredTools: factory['deferredTools'],
@@ -20,7 +21,7 @@ export function directiveTestBed<T>(rootDirective: Type<T>, options: DirectiveTe
         tools.rx['cleanAll']();
       },
     });
-  }) as DirectiveTestBed<T>;
+  }) as DirectiveTestBed<T, H>;
 
-  return mergeRendererFactory(factory, tb) as DirectiveTestBed<T>;
+  return mergeRendererFactory(factory, tb) as DirectiveTestBed<T, H>;
 }

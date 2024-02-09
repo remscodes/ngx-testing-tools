@@ -8,7 +8,10 @@ import { ServiceTestBedOptions } from './models';
 import { ServiceTools } from './tools';
 import { buildServiceTools } from './tools/service-tools';
 
-export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = InjectionStore> extends BaseTestBedFactory<ServiceType, Store, ServiceTools<ServiceType, Store['injected']>> {
+export class ServiceTestBedFactory<
+  ServiceType,
+  Store extends InjectionStore = InjectionStore
+> extends BaseTestBedFactory<ServiceType, Store, ServiceTools<ServiceType, Store['injected']>> {
 
   public constructor(
     rootService: Type<ServiceType>,
@@ -19,15 +22,17 @@ export class ServiceTestBedFactory<ServiceType, Store extends InjectionStore = I
 
     const {
       httpTesting = false,
+      verifyHttp = true,
     } = options;
+
+    this.httpOptions = { httpTesting, verifyHttp };
 
     if (httpTesting) this.provide(HTTP_PROVIDERS);
 
     this.provide(this.described);
-    this.httpOptions = { httpTesting };
   }
 
-  private readonly httpOptions: HttpOptions;
+  private readonly httpOptions: Required<HttpOptions>;
 
   protected override deferredTools = () => buildServiceTools(this, this.httpOptions);
 

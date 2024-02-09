@@ -12,8 +12,10 @@ import { InterceptorProxy } from './proxy/interceptor-proxy';
 import { InterceptorTools } from './tools';
 import { buildInterceptorTools } from './tools/interceptor-tools';
 
-export class InterceptorTestBedFactory<InterceptorType, Store extends InjectionStore = InjectionStore>
-  extends BaseTestBedFactory<InterceptorProxy, Store, InterceptorTools<InterceptorType, Store['injected']>> {
+export class InterceptorTestBedFactory<
+  InterceptorType,
+  Store extends InjectionStore = InjectionStore
+> extends BaseTestBedFactory<InterceptorProxy, Store, InterceptorTools<InterceptorType, Store['injected']>> {
 
   public constructor(
     rootInterceptor: Type<InterceptorType> | HttpInterceptorFn,

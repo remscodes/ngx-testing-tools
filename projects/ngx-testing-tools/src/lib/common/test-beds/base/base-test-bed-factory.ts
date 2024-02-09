@@ -13,13 +13,13 @@ import { AnyProvider, Importation } from '../models/metadata-type.models';
 import { BaseTestBedOptions } from './models/base-test-bed-options.model';
 
 export abstract class BaseTestBedFactory<
-  InstanceType,
+  DescribedType,
   Store extends InjectionStore = InjectionStore,
   Tools extends BaseTools = BaseTools
 > {
 
   protected constructor(
-    protected described: Type<InstanceType>,
+    protected described: Type<DescribedType>,
     options: BaseTestBedOptions = {},
   ) {
     const {
@@ -38,9 +38,9 @@ export abstract class BaseTestBedFactory<
 
   protected testBed: TestBedStatic = TestBed;
 
-  protected _instance: InstanceType = null!;
+  protected _instance: DescribedType = null!;
 
-  protected get instance(): InstanceType {
+  protected get instance(): DescribedType {
     assertInstance(this._instance, this.described);
     return this._instance;
   }
@@ -89,7 +89,7 @@ export abstract class BaseTestBedFactory<
    * @param name the key to access the instance.
    * @param token the provider token.
    */
-  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): BaseTestBedFactory<InstanceType, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
+  public inject<key extends string, T>(name: NonEmptyString<key>, token: ProviderToken<T>): BaseTestBedFactory<DescribedType, InjectionStore<PrettyMerge<Store['injected'] & { [k in key]: T }>>> {
     this.injectedMap.set(name, token);
     return this;
   }

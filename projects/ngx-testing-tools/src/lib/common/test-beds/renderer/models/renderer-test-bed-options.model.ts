@@ -15,13 +15,20 @@ export interface RendererTestBedOptions extends BaseTestBedOptions {
    */
   schemas?: SchemaMetadata[];
   /**
+   * Performs changes detection before assertion.
+   * @default true
+   */
+  startDetectChanges?: boolean;
+  /**
    * Disables Angular animations with `provideNoopAnimations()`.
    * @default true
    */
   noopAnimations?: boolean;
   /**
-   * Imports (standalone) or declares (non-standalone) the described into the custom test bed.
-   * @default true
+   * Useful when you only want to test the logic of the described component.
+   *
+   * If enabled, no template will be rendered and no change detections will be performed.
+   * @default false
    */
-  // ingestDescribed?: boolean;
+  noTemplate?: boolean;
 }

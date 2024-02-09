@@ -1,6 +1,6 @@
 import { BaseTestBedFactory } from './base-test-bed-factory';
 
-export function mergeBaseFactory<T, F extends BaseTestBedFactory<T>>(factory: F, tb: F) {
+export function mergeBaseFactory<F extends BaseTestBedFactory<any>>(factory: F, tb: F) {
   tb.import = (imports: any) => {
     factory.import(imports);
     return tb;

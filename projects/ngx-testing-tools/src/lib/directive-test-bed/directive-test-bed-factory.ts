@@ -6,20 +6,26 @@ import { DirectiveTestBedOptions } from './models';
 import { DirectiveTools } from './tools';
 import { buildDirectiveTools } from './tools/directive-tools';
 
-export class DirectiveTestBedFactory<DirectiveType, Store extends InjectionStore = InjectionStore> extends RendererTestBedFactory<DirectiveType, Store, DirectiveTools<DirectiveType, Store['injected']>> {
+export class DirectiveTestBedFactory<
+  DirectiveType,
+  HostType,
+  Store extends InjectionStore = InjectionStore
+> extends RendererTestBedFactory<DirectiveType, Store, DirectiveTools<DirectiveType, Store['injected']>, HostType> {
 
   public constructor(
     rootDirective: Type<DirectiveType>,
+    hostComponent: Type<HostType>,
     options: DirectiveTestBedOptions = {},
   ) {
     assertDirectiveCtor(rootDirective);
-    super(rootDirective, options);
+    super(rootDirective, hostComponent, options);
   }
 
   protected override deferredTools = () => buildDirectiveTools(this);
 
   public override async compile(): Promise<void> {
     await super.compile();
+    this.createHostFixture();
     this.injectDescribed();
   }
 }
