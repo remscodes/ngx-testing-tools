@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { mockSuccessResponseHandlerFactory } from './handlers/mock-success-response-handler';
 
 export function inspectSuccessResponse(interceptor: HttpInterceptor, resOrUrl: HttpResponse<unknown> | string, body: any = null): Observable<HttpEvent<any>> {
-  const res = (resOrUrl instanceof HttpResponse)
+  const res: HttpResponse<unknown> = (resOrUrl instanceof HttpResponse)
     ? resOrUrl
     : new HttpResponse({ url: resOrUrl, body, status: 200 });
 
