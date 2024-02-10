@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest
 import { inject, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
-import { INTERCEPTOR_INFO } from './interceptor-info';
+import { INTERCEPTOR_INFO } from './interceptor-info.token';
 
 @Injectable()
 export class InterceptorProxy implements HttpInterceptor {

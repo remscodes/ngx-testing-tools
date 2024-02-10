@@ -1,6 +1,6 @@
 import { ElementRef, Inject, Injectable } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
-import { HOST_FIXTURE } from './host-component';
+import { HOST_FIXTURE } from './host-fixture.token';
 
 @Injectable()
 export class HostElementRef extends ElementRef {
