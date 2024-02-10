@@ -1,7 +1,9 @@
-import { Type } from '@angular/core';
+import { ElementRef, Type } from '@angular/core';
 import { assertDirectiveCtor } from '../common/assertions/assert-directive-ctor';
 import { RendererTestBedFactory } from '../common/test-beds/renderer/renderer-test-bed-factory';
 import { InjectionStore } from '../common/tools/store/models/injected-store.model';
+import { HOST_FIXTURE } from './host/host-component';
+import { HostElementRef } from './host/host-element-ref';
 import { DirectiveTestBedOptions } from './models';
 import { DirectiveTools } from './tools';
 import { buildDirectiveTools } from './tools/directive-tools';
@@ -10,7 +12,7 @@ export class DirectiveTestBedFactory<
   DirectiveType,
   HostType,
   Store extends InjectionStore = InjectionStore
-> extends RendererTestBedFactory<DirectiveType, Store, DirectiveTools<DirectiveType, Store['injected']>, HostType> {
+> extends RendererTestBedFactory<DirectiveType, Store, DirectiveTools<DirectiveType, HostType, Store['injected']>, HostType> {
 
   public constructor(
     rootDirective: Type<DirectiveType>,
@@ -19,6 +21,12 @@ export class DirectiveTestBedFactory<
   ) {
     assertDirectiveCtor(rootDirective);
     super(rootDirective, hostComponent, options);
+
+    this.provide([
+      rootDirective,
+      { provide: HOST_FIXTURE, useFactory: () => this.fixture },
+      { provide: ElementRef, useClass: HostElementRef },
+    ]);
   }
 
   protected override deferredTools = () => buildDirectiveTools(this);

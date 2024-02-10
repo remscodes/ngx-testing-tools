@@ -56,10 +56,15 @@ export abstract class RendererTestBedFactory<
   protected declarations: Set<Declaration>;
   protected schemas: Set<SchemaMetadata>;
 
-  protected fixture: ComponentFixture<HostType> = null!;
+  protected _fixture: ComponentFixture<HostType> = null!;
+
+  protected get fixture(): ComponentFixture<HostType> {
+    assertInstance(this._fixture, ComponentFixture);
+    return this._fixture;
+  }
 
   protected createHostFixture(): void {
-    this.fixture = this.testBed.createComponent(this.host);
+    this._fixture = this.testBed.createComponent(this.host);
   }
 
   /**
@@ -86,9 +91,6 @@ export abstract class RendererTestBedFactory<
   }
 
   public override shouldCreate(): void {
-    shouldCreate(() => {
-      assertInstance(this.fixture, ComponentFixture);
-      return this.fixture.componentInstance;
-    });
+    shouldCreate(() => this.fixture.componentInstance);
   }
 }

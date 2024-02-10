@@ -13,15 +13,23 @@ import { DirectiveTestBed, DirectiveTestBedOptions } from './models';
 export function directiveTestBed<T, H>(rootDirective: Type<T>, hostComponent: Type<H>, options: DirectiveTestBedOptions = {}): DirectiveTestBed<T, H> {
   const factory = new DirectiveTestBedFactory(rootDirective, hostComponent, options);
 
-  const tb: DirectiveTestBed<T, H> = ((assertion) => {
+  const defaultStartDetectChanges = factory['startDetectChanges'];
+  const noTemplate = factory['noTemplate'];
+
+  const tb: DirectiveTestBed<T, H> = ((assertion, opts = {}) => {
+    const { startDetectChanges = defaultStartDetectChanges } = opts;
+
     return buildJasmineCallback({
       callback: assertion,
       deferredTools: factory['deferredTools'],
+      preTest: (tools) => {
+        if (!noTemplate && startDetectChanges) tools.fixture.detectChanges();
+      },
       postTest: (tools) => {
         tools.rx['cleanAll']();
       },
     });
   }) as DirectiveTestBed<T, H>;
 
-  return mergeRendererFactory(factory, tb) as DirectiveTestBed<T, H>;
+  return mergeRendererFactory(factory, tb as any) as DirectiveTestBed<T, H>;
 }
