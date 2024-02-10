@@ -1,4 +1,4 @@
-import { ElementRef, Type } from '@angular/core';
+import { ElementRef, Type, ViewContainerRef } from '@angular/core';
 import { assertDirectiveCtor } from '../common/assertions/assert-directive-ctor';
 import { RendererTestBedFactory } from '../common/test-beds/renderer/renderer-test-bed-factory';
 import { InjectionStore } from '../common/tools/store/models/injected-store.model';
@@ -26,6 +26,7 @@ export class DirectiveTestBedFactory<
       rootDirective,
       { provide: HOST_FIXTURE, useFactory: () => this.fixture },
       { provide: ElementRef, useClass: HostElementRef },
+      ViewContainerRef,
     ]);
   }
 

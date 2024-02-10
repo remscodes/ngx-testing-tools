@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Host, Input, OnChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, ViewContainerRef } from '@angular/core';
 
 @Directive({
   selector: '[highlight]',
@@ -7,7 +7,8 @@ import { Directive, ElementRef, Host, Input, OnChanges } from '@angular/core';
 export class HighlightDirective implements OnChanges {
 
   public constructor(
-    @Host() private ref: ElementRef<HTMLElement>,
+    private ref: ElementRef<HTMLElement>,
+    private container: ViewContainerRef,
   ) { }
 
   @Input('highlight')
