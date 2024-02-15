@@ -32,3 +32,5 @@ export interface RendererTestBedOptions extends BaseTestBedOptions {
    */
   noTemplate?: boolean;
 }
+
+// TODO add shallowRendering

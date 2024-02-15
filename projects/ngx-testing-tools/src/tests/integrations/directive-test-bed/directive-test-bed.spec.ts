@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
 import { directiveTestBed } from '../../../lib';
 import { HighlightDirective } from '../../fixtures/directives/highlight.directive';
 
@@ -17,13 +16,12 @@ describe('DirectiveTestBed', () => {
   describe('', () => {
     const tb = directiveTestBed(HighlightDirective, HostComponent);
 
-    it('should ', tb(({ host, fixture, directive }) => {
-      const span: HTMLSpanElement = fixture.debugElement.query(By.css('#my-text')).nativeElement;
+    it('should ', tb(({ host, fixture, directive, query }) => {
+      const span: HTMLSpanElement = query.findElement('#my-text');
 
       expect(span.style.backgroundColor).toEqual(directive['defaultColor']);
 
       host.color = 'red';
-
       fixture.detectChanges();
 
       expect(span.style.backgroundColor).toEqual('red');
