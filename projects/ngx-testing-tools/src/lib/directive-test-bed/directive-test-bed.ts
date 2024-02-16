@@ -31,5 +31,5 @@ export function directiveTestBed<T, H>(rootDirective: Type<T>, hostComponent: Ty
     });
   }) as DirectiveTestBed<T, H>;
 
-  return mergeRendererFactory(factory, tb as any) as DirectiveTestBed<T, H>;
+  return mergeRendererFactory(factory, tb) as DirectiveTestBed<T, H>;
 }
