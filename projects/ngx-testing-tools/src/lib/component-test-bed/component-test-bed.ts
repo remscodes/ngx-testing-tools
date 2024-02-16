@@ -10,19 +10,20 @@ import { ComponentTestBed, ComponentTestBedOptions } from './models';
  * @param options
  */
 export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTestBedOptions = {}): ComponentTestBed<T> {
-  const {
-    httpTesting = false,
-    verifyHttp: globalVerifyHttp,
-    noTemplate = false,
-    startDetectChanges: globalStartDetectChanges,
-  } = options;
-
   const factory = new ComponentTestBedFactory(rootComponent, options);
+
+  const {
+    httpTesting,
+    verifyHttp: defaultVerifyHttp,
+  } = factory['httpOptions'];
+
+  const defaultStartDetectChanges = factory['startDetectChanges'];
+  const noTemplate = factory['noTemplate'];
 
   const tb: ComponentTestBed<T> = ((assertion, opts = {}) => {
     const {
-      startDetectChanges = globalStartDetectChanges ?? true,
-      verifyHttp = globalVerifyHttp ?? true,
+      startDetectChanges = defaultStartDetectChanges,
+      verifyHttp = defaultVerifyHttp,
     } = opts;
 
     return buildJasmineCallback({

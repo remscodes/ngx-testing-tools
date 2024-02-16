@@ -7,13 +7,15 @@ import { httpProviders } from '../common/tools/http/http-providers';
 import { InjectionStore } from '../common/tools/store/models/injected-store.model';
 import { isConstructor } from '../common/utils/constructor.util';
 import { InterceptorTestBedOptions } from './models';
-import { INTERCEPTOR_INFO, InterceptorInfo } from './proxy/interceptor-info';
+import { INTERCEPTOR_INFO, InterceptorInfo } from './proxy/interceptor-info.token';
 import { InterceptorProxy } from './proxy/interceptor-proxy';
 import { InterceptorTools } from './tools';
 import { buildInterceptorTools } from './tools/interceptor-tools';
 
-export class InterceptorTestBedFactory<InterceptorType, Store extends InjectionStore = InjectionStore>
-  extends BaseTestBedFactory<InterceptorProxy, Store, InterceptorTools<InterceptorType, Store['injected']>> {
+export class InterceptorTestBedFactory<
+  InterceptorType,
+  Store extends InjectionStore = InjectionStore
+> extends BaseTestBedFactory<InterceptorProxy, Store, InterceptorTools<InterceptorType, Store['injected']>> {
 
   public constructor(
     rootInterceptor: Type<InterceptorType> | HttpInterceptorFn,

@@ -470,8 +470,6 @@ Options :
 {
   imports?: Importation[] = [];
   providers?: AnyProvider[] = [];
-  declarations?: Declaration[] = [];
-  schemas?: SchemaMetadata[] = [];
   // Automatically compiles the custom test bed for each test.
   autoCompile?: boolean = true;
   // Automatically invokes the "should create" test.
@@ -487,7 +485,6 @@ Check common definitions :
 
 - [tb.import(..)](#importoneormanyimports---basetestbed)
 - [tb.provide(..)](#provideoneormanyproviders---basetestbed)
-- [tb.declare(..)](#declareoneormanydeclarations---renderertestbed)
 - [tb.inject(..)](#injectname-token---basetestbed)
 - [tb.provide(..)](#provideoneormanyproviders---basetestbed)
 - [tb.setup(..)](#setupaction---jasmineimplementationcallback)

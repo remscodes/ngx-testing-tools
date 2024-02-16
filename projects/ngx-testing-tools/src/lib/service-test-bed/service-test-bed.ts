@@ -10,15 +10,15 @@ import { ServiceTestBedFactory } from './service-test-bed-factory';
  * @param options
  */
 export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedOptions = {}): ServiceTestBed<T> {
-  const {
-    httpTesting = false,
-    verifyHttp: globalVerifyHttp,
-  } = options;
-
   const factory = new ServiceTestBedFactory(rootService, options);
 
+  const {
+    httpTesting,
+    verifyHttp: defaultVerifyHttp,
+  } = factory['httpOptions'];
+
   const tb: ServiceTestBed<T> = ((assertion, opts = {}) => {
-    const { verifyHttp = globalVerifyHttp ?? true } = opts;
+    const { verifyHttp = defaultVerifyHttp } = opts;
 
     return buildJasmineCallback({
       callback: assertion,

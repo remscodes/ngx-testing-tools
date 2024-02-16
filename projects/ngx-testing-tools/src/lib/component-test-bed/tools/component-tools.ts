@@ -1,5 +1,4 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { assertInstance } from '../../common/assertions/assert-instance';
 import { buildBaseTools } from '../../common/tools/base/base-tools';
 import { buildHttpTools } from '../../common/tools/http/http-tools';
 import { HttpOptions } from '../../common/tools/http/models/http-options.model';
@@ -15,8 +14,6 @@ interface ComponentToolsBuilderOptions extends HttpOptions {}
 
 export function buildComponentTools<T>(factory: ComponentTestBedFactory<T>, options: ComponentToolsBuilderOptions): ComponentTools<T> {
   const fixture: ComponentFixture<T> = factory['fixture'];
-  assertInstance(fixture, ComponentFixture);
-
   const { componentInstance: component, debugElement: debug } = fixture;
 
   const query: ComponentQueryTools = buildComponentQueryTools(fixture);

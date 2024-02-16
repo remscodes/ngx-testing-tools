@@ -5,12 +5,12 @@ import { InjectionStore } from '../../common/tools/store/models/injected-store.m
 import { PipeTestBedFactory } from '../pipe-test-bed-factory';
 import { PipeTools } from '../tools';
 
-export interface PipeTestBed<T extends PipeTransform, I extends InjectionStore = InjectionStore> extends PipeTestBedFactory<T, I> {
-  (assertion: PipeCallback<T, I['injected']>): jasmine.ImplementationCallback;
+export interface PipeTestBed<T extends PipeTransform, S extends InjectionStore = InjectionStore> extends PipeTestBedFactory<T, S> {
+  (assertion: PipeCallback<T, S['injected']>): jasmine.ImplementationCallback;
 
-  inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): PipeTestBed<T, InjectionStore<PrettyMerge<I['injected'] & { [k in key]: instance }>>>;
+  inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): PipeTestBed<T, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
 
-  setup(action: PipeCallback<T, I['injected']>): jasmine.ImplementationCallback;
+  setup(action: PipeCallback<T, S['injected']>): jasmine.ImplementationCallback;
 }
 
 type PipeCallback<T, I extends {}> = EnhancedJasmineCallback<PipeTools<T, I>>

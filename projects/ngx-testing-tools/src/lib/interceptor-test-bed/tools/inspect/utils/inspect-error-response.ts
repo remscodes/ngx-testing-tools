@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { mockErrorResponseHandlerFactory } from './handlers/mock-error-response-handler';
 
 export function inspectErrorResponse(interceptor: HttpInterceptor, resOrUrl: HttpErrorResponse | string, error?: any): Observable<HttpEvent<any>> {
-  const res = (resOrUrl instanceof HttpErrorResponse)
+  const res: HttpErrorResponse = (resOrUrl instanceof HttpErrorResponse)
     ? resOrUrl
     : new HttpErrorResponse({ url: resOrUrl, error, status: 500 });
 

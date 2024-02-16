@@ -1,3 +1,3 @@
-import { RendererTestBedOptions } from '../../common/test-beds/renderer/models/renderer-test-bed-options.model';
+import { BaseTestBedOptions } from '../../common/test-beds/base/models/base-test-bed-options.model';
 
-export interface PipeTestBedOptions extends RendererTestBedOptions {}
+export interface PipeTestBedOptions extends BaseTestBedOptions {}

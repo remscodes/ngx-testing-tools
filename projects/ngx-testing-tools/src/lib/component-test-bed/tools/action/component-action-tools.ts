@@ -7,5 +7,6 @@ export function buildComponentActionTools(fixture: ComponentFixture<unknown>): C
   return {
     click: (input) => click(fixture, input),
     emitOutput: (directive, name, val) => emitOutput(fixture, directive, name, val),
-  };
+    // setInput: (name: string, $value: any) => {}
+  }
 }
