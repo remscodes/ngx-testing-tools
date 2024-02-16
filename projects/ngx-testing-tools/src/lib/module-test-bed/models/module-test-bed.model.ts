@@ -9,8 +9,6 @@ export interface ModuleTestBed<T, S extends InjectionStore = InjectionStore> ext
   (assertion: ModuleCallback<T, S['injected']>): jasmine.ImplementationCallback;
 
   inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): ModuleTestBed<T, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
-
-  setup(action: ModuleCallback<T, S['injected']>): jasmine.ImplementationCallback;
 }
 
 type ModuleCallback<T, I extends {}> = EnhancedJasmineCallback<ModuleTools<T, I>>

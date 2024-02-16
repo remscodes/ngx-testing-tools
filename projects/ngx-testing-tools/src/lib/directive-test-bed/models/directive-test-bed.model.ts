@@ -10,8 +10,6 @@ export interface DirectiveTestBed<T, H, S extends InjectionStore = InjectionStor
   (assertion: DirectiveCallback<T, H, S['injected']>, options?: DirectiveExtraOptions): jasmine.ImplementationCallback;
 
   inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): DirectiveTestBed<T, H, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
-
-  setup(action: DirectiveCallback<T, H, S['injected']>): jasmine.ImplementationCallback;
 }
 
 type DirectiveCallback<T, H, I extends {}> = EnhancedJasmineCallback<DirectiveTools<T, H, I>>

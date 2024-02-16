@@ -9,8 +9,6 @@ export interface PipeTestBed<T extends PipeTransform, S extends InjectionStore =
   (assertion: PipeCallback<T, S['injected']>): jasmine.ImplementationCallback;
 
   inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): PipeTestBed<T, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
-
-  setup(action: PipeCallback<T, S['injected']>): jasmine.ImplementationCallback;
 }
 
 type PipeCallback<T, I extends {}> = EnhancedJasmineCallback<PipeTools<T, I>>

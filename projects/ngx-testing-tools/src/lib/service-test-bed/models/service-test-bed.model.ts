@@ -10,8 +10,6 @@ export interface ServiceTestBed<T, S extends InjectionStore = InjectionStore> ex
   (assertion: ServiceCallback<T, S['injected']>, options?: ServiceExtraOptions): jasmine.ImplementationCallback;
 
   inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): ServiceTestBed<T, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
-
-  setup(action: ServiceCallback<T, S['injected']>): jasmine.ImplementationCallback;
 }
 
 type ServiceCallback<T, I extends {}> = EnhancedJasmineCallback<ServiceTools<T, I>>
