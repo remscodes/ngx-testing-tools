@@ -7,11 +7,9 @@ import { DirectiveTestBedFactory } from '../directive-test-bed-factory';
 import { DirectiveTools } from '../tools';
 
 export interface DirectiveTestBed<T, H, S extends InjectionStore = InjectionStore> extends DirectiveTestBedFactory<T, H, S> {
-  (assertion: DirectiveCallback<T, H, S['injected']>, options?: DirectiveExtraOptions): jasmine.ImplementationCallback;
+  (assertion: EnhancedJasmineCallback<DirectiveTools<T, H, S['injected']>>, options?: DirectiveExtraOptions): jasmine.ImplementationCallback;
 
   inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): DirectiveTestBed<T, H, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
 }
-
-type DirectiveCallback<T, H, I extends {}> = EnhancedJasmineCallback<DirectiveTools<T, H, I>>
 
 type DirectiveExtraOptions = Pick<RendererTestBedOptions, 'startDetectChanges'>

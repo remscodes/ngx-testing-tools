@@ -8,12 +8,10 @@ import { ComponentTestBedFactory } from '../component-test-bed-factory';
 import { ComponentTools } from '../tools';
 
 export interface ComponentTestBed<T, S extends InjectionStore = InjectionStore> extends ComponentTestBedFactory<T, S> {
-  (assertion: ComponentCallback<T, S['injected']>, options?: ComponentExtraOptions): jasmine.ImplementationCallback;
+  (assertion: EnhancedJasmineCallback<ComponentTools<T, S['injected']>>, options?: ComponentExtraOptions): jasmine.ImplementationCallback;
 
   inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): ComponentTestBed<T, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
 }
-
-type ComponentCallback<T, I extends {}> = EnhancedJasmineCallback<ComponentTools<T, I>>
 
 type ComponentExtraOptions =
   & Pick<RendererTestBedOptions, 'startDetectChanges'>

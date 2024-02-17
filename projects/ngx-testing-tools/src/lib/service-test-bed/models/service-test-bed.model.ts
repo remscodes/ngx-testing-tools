@@ -7,11 +7,9 @@ import { ServiceTestBedFactory } from '../service-test-bed-factory';
 import { ServiceTools } from '../tools';
 
 export interface ServiceTestBed<T, S extends InjectionStore = InjectionStore> extends ServiceTestBedFactory<T, S> {
-  (assertion: ServiceCallback<T, S['injected']>, options?: ServiceExtraOptions): jasmine.ImplementationCallback;
+  (assertion: EnhancedJasmineCallback<ServiceTools<T, S['injected']>>, options?: ServiceExtraOptions): jasmine.ImplementationCallback;
 
   inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): ServiceTestBed<T, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
 }
-
-type ServiceCallback<T, I extends {}> = EnhancedJasmineCallback<ServiceTools<T, I>>
 
 type ServiceExtraOptions = Pick<HttpOptions, 'verifyHttp'>
