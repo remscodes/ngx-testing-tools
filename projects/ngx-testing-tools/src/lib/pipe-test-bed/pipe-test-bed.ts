@@ -22,5 +22,5 @@ export function pipeTestBed<T extends PipeTransform>(rootPipe: Type<T>, options:
     });
   }) as PipeTestBed<T>;
 
-  return mergeBaseFactory(factory, tb) as PipeTestBed<T>;
+  return mergeBaseFactory(factory, tb);
 }
