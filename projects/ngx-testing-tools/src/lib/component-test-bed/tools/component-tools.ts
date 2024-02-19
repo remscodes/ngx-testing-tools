@@ -15,11 +15,12 @@ interface ComponentToolsBuilderOptions extends HttpOptions {}
 export function buildComponentTools<T>(factory: ComponentTestBedFactory<T>, options: ComponentToolsBuilderOptions): ComponentTools<T> {
   const fixture: ComponentFixture<T> = factory['fixture'];
   const { componentInstance: component, debugElement: debug } = fixture;
+  const element: HTMLElement = debug.children[0]?.nativeElement;
 
   const query: ComponentQueryTools = buildComponentQueryTools(fixture);
   const action: ComponentActionTools = buildComponentActionTools(fixture);
   const { injected, injector, rx } = buildBaseTools(factory, { thisInjector: debug.injector });
   const http: HttpTools = buildHttpTools(injector, options);
 
-  return { action, component, debug, fixture, http, injected, injector, query, rx };
+  return { action, component, debug, element, fixture, http, injected, injector, query, rx };
 }

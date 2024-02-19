@@ -162,8 +162,8 @@ describe('componentTestBed', () => {
       noTemplate: true,
     });
 
-    it('should have no template', tb(({ fixture }) => {
-      expect(fixture.nativeElement.innerHTML).toEqual('');
+    it('should have no template', tb(({ element }) => {
+      expect(element).toBeFalsy();
     }));
   });
 

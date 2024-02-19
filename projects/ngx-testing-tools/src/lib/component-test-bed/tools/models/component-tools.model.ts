@@ -15,6 +15,10 @@ export interface ComponentTools<T, I extends {} = {}> extends BaseTools<I>, Http
    */
   component: T;
   /**
+   * The described component element.
+   */
+  element: HTMLElement;
+  /**
    * Enhanced tools to query elements.
    */
   query: ComponentQueryTools;
