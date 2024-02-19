@@ -1,6 +1,6 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { ComponentActionTools } from '../action/models/component-action-tools.model';
-import { ComponentQueryTools } from '../query/models/component-query-tools.model';
+import { ActionTools } from '../action/models/action-tools.model';
+import { QueryTools } from '../query/models/query-tools.model';
 
 export interface RendererTools<T> {
   /**
@@ -20,9 +20,9 @@ export interface RendererTools<T> {
   /**
    * Enhanced tools to query elements from host.
    */
-  query: ComponentQueryTools;
+  query: QueryTools;
   /**
    * Enhanced tools to perform action on elements from host.
    */
-  action: ComponentActionTools;
+  action: ActionTools;
 }
