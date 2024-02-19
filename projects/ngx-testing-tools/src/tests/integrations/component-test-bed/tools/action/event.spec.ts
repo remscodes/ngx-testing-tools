@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { emitEvent } from '../../../../../lib/component-test-bed/tools/action/utils/event';
+import { emitEvent } from '../../../../../lib/common/tools/renderer/action/utils/event';
 import { OuterComponent } from '../../../../fixtures/components/outer.component';
 import { MyButtonDirective } from '../../../../fixtures/directives/my-button.directive';
 import { createOuterComponentFixture } from '../../../../fixtures/helpers/configuration/create-outer-component-fixture';
