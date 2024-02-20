@@ -1,5 +1,5 @@
-import { throwCannotFind } from '../../../../lib/common/tools/renderer/query/utils/cannot-find';
-import { NoWhereDirective } from '../../../fixtures/directives/no-where.directive';
+import { throwCannotFind } from '../../../../../../lib/common/tools/renderer/query/utils/cannot-find';
+import { NoWhereDirective } from '../../../../../fixtures/directives/no-where.directive';
 
 describe('throwCannotFind', () => {
 
