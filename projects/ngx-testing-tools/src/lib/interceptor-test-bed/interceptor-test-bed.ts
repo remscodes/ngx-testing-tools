@@ -35,7 +35,7 @@ export function interceptorTestBed<T extends HttpInterceptor>(rootInterceptor: T
         tools.rx['cleanAll']();
       },
     });
-  }) as InterceptorTestBed<T>;
+  }) as InterceptorTestBed<T | HttpInterceptorFn>;
 
-  return mergeBaseFactory(factory, tb as any) as InterceptorTestBed<T | HttpInterceptorFn>;
+  return mergeBaseFactory(factory, tb as any);
 }

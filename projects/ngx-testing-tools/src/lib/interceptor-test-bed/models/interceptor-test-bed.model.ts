@@ -7,13 +7,9 @@ import { InterceptorTools } from '../tools';
 import { InterceptorTestBedOptions } from './interceptor-test-bed-options.model';
 
 export interface InterceptorTestBed<T, S extends InjectionStore = InjectionStore> extends InterceptorTestBedFactory<T, S> {
-  (assertion: InterceptorCallback<T, S['injected']>, options?: InterceptorExtraOptions): jasmine.ImplementationCallback;
+  (assertion: EnhancedJasmineCallback<InterceptorTools<T, S['injected']>>, options?: InterceptorExtraOptions): jasmine.ImplementationCallback;
 
   inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): InterceptorTestBed<T, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
-
-  setup(action: InterceptorCallback<T, S['injected']>): jasmine.ImplementationCallback;
 }
-
-type InterceptorCallback<T, I extends {}> = EnhancedJasmineCallback<InterceptorTools<T, I>>
 
 type InterceptorExtraOptions = Pick<InterceptorTestBedOptions, 'verifyHttp'>

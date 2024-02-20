@@ -22,5 +22,5 @@ export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOpti
     });
   }) as ModuleTestBed<T>;
 
-  return mergeBaseFactory(factory, tb) as ModuleTestBed<T>;
+  return mergeBaseFactory(factory, tb);
 }

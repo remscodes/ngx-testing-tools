@@ -1,7 +1,7 @@
 import { buildJasmineDone } from '../../../../lib/common/jasmine/jasmine-done';
 
 describe('doneFactory', () => {
-  const mockDone: any = () => {};
+  const mockDone: DoneFn = () => {};
   mockDone.fail = () => {};
 
   it('should done', () => {

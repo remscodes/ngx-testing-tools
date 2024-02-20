@@ -18,7 +18,6 @@ describe('ServiceTestBedFactory', () => {
   });
 
   beforeEach(() => {
-    validateArray(compiler.declarations, { size: 0 });
     validateArray(compiler.imports, { size: 0 });
     validateArray(compiler.providers, { size: 0 });
   });
@@ -26,4 +25,8 @@ describe('ServiceTestBedFactory', () => {
   it('should create', () => {
     expect(factory).toBeTruthy();
   });
+});
+
+describe('ServiceTestBedFactory default options', () => {
+  new ServiceTestBedFactory(AppService);
 });

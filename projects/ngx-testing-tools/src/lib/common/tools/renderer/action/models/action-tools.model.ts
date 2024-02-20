@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 
-export interface ComponentActionTools {
+export interface ActionTools {
   // setInput(name: string, $value: any, options?: InputOptions): void;
   //
   // setInput(selector: string, name: string, $value: any): void;

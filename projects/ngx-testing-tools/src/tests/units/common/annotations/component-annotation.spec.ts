@@ -5,24 +5,24 @@ describe('Component Annotation', () => {
 
   describe('getComponentAnnotation', () => {
 
-    it('should get component annotation', () => {
-      @Component({ template: '', standalone: true })
-      class AComponent {}
+    it('should get annotation', () => {
+      @Component({ template: '' })
+      class FooComponent {}
 
-      expect(getComponentAnnotation(AComponent)).toBeTruthy();
+      expect(getComponentAnnotation(FooComponent)).toBeTruthy();
     });
 
-    it('should not get component annotation', () => {
-      class NotAComponent {}
+    it('should not get annotation', () => {
+      @Directive()
+      class FooDirective {}
 
-      expect(getComponentAnnotation(NotAComponent)).toBeNull();
+      expect(getComponentAnnotation(FooDirective)).toBeNull();
     });
 
-    it('should not get component annotation', () => {
-      @Directive({ selector: '[a]', standalone: true })
-      class ADirective {}
+    it('should not get annotation', () => {
+      class Foo {}
 
-      expect(getComponentAnnotation(ADirective)).toBeNull();
+      expect(getComponentAnnotation(Foo)).toBeNull();
     });
   });
 });

@@ -39,5 +39,5 @@ export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTe
     });
   }) as ComponentTestBed<T>;
 
-  return mergeRendererFactory(factory, tb) as ComponentTestBed<T>;
+  return mergeRendererFactory(factory, tb);
 }

@@ -2,20 +2,21 @@ import { Component, Directive } from '@angular/core';
 import { assertDirectiveCtor } from '../../../../lib/common/assertions/assert-directive-ctor';
 
 describe('assertDirectiveCtor', () => {
-  @Directive({ selector: '', standalone: true })
-  class AppDirective {}
-
-  @Component({ selector: 'app-root3', template: ``, standalone: true })
-  class AppComponent {}
 
   it('should pass', () => {
-    expect(() => assertDirectiveCtor(AppDirective))
+    @Directive()
+    class FooDirective {}
+
+    expect(() => assertDirectiveCtor(FooDirective))
       .not.toThrowError();
   });
 
   it('should throw error with AppComponent indication', () => {
-    expect(() => assertDirectiveCtor(AppComponent))
-      .toThrowError('The provided "AppComponent" is not a Directive. The DirectiveTestBed cannot be created.');
+    @Component({ template: `` })
+    class FooComponent {}
+
+    expect(() => assertDirectiveCtor(FooComponent))
+      .toThrowError('The provided "FooComponent" is not a Directive. The DirectiveTestBed cannot be created.');
   });
 
   it('should throw error with [object Object] indication', () => {

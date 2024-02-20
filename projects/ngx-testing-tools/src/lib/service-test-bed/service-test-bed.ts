@@ -30,5 +30,5 @@ export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedO
     });
   }) as ServiceTestBed<T>;
 
-  return mergeBaseFactory(factory, tb) as ServiceTestBed<T>;
+  return mergeBaseFactory(factory, tb);
 }

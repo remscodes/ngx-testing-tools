@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
 import { BaseTestBedFactory } from '../../../../../lib/common/test-beds/base/base-test-bed-factory';
-import { DeferredTools } from '../../../../../lib/common/tools/models/deferred-tools.model';
+import { BaseTestBedOptions } from '../../../../../lib/common/test-beds/base/models/base-test-bed-options.model';
 import { InnerComponent } from '../../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../../fixtures/components/outer.component';
 import { MyButtonDirective } from '../../../../fixtures/directives/my-button.directive';
@@ -11,11 +11,11 @@ import { MockTestCompiler } from '../../../../fixtures/mocks/test-compiler.mock'
 import { AppService } from '../../../../fixtures/services/app.service';
 
 class NonAbstractBaseTestBedFactory<T> extends BaseTestBedFactory<T> {
-  public constructor(x: Type<any>) {
-    super(x, { autoCompile: false, checkCreate: false });
+  public constructor(x: Type<T>, opts?: BaseTestBedOptions) {
+    super(x, opts);
   }
 
-  protected override deferredTools: DeferredTools = () => ({} as any);
+  protected override deferredTools = () => ({} as any);
 }
 
 describe('BaseTestBedFactory', () => {
@@ -23,13 +23,12 @@ describe('BaseTestBedFactory', () => {
   let compiler: MockTestCompiler;
 
   beforeEach(() => {
-    factory = new NonAbstractBaseTestBedFactory(OuterComponent);
+    factory = new NonAbstractBaseTestBedFactory(OuterComponent, { autoCompile: false, checkCreate: false });
     compiler = new MockTestCompiler();
     factory['testBed'] = mockTestBedStatic(compiler);
   });
 
   beforeEach(() => {
-    validateArray(compiler.declarations, { size: 0 });
     validateArray(compiler.imports, { size: 0 });
     validateArray(compiler.providers, { size: 0 });
   });
@@ -76,5 +75,10 @@ describe('BaseTestBedFactory', () => {
       .inject('service', AppService);
 
     validateMap(factory['injectedMap'], { size: 1, entries: { service: AppService } });
+  });
+
+  it('should get jasmine callback from setup', () => {
+    const cb = factory.setup(({}) => {});
+    expect(cb).toBeInstanceOf(Function);
   });
 });

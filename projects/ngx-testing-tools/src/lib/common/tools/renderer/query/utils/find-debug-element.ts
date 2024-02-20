@@ -1,7 +1,7 @@
 import { DebugElement, Type } from '@angular/core';
 import { ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { Nullable } from '../../../../common/shared.models';
+import { Nullable } from '../../../../shared.models';
 import { throwCannotFind } from './cannot-find';
 
 /** @deprecated Use `ComponentTestBed` instead to access this utility. Will be removed in v3. */
