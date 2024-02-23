@@ -1,51 +1,31 @@
-import { themes as prismThemes } from 'prism-react-renderer';
-import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import type { Config } from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
 
-const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+export default {
+  title: 'Angular Testing Tools',
+  tagline: 'Makes Angular testing easier',
   favicon: 'img/favicon.ico',
-
-  // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
-
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
-
+  url: 'https://remscodes.github.io',
+  baseUrl: '/ngx-testing-tools/',
+  organizationName: 'remscodes',
+  projectName: 'ngx-testing-tools',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-  },
-
   presets: [
     [
       'classic',
       {
         docs: {
+          showLastUpdateTime: true,
           sidebarPath: './sidebars.ts',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          path: './docs',
+          editUrl: 'https://github.com/remscodes/ngx-testing-tools/website',
         },
         blog: {
+          path: './blog',
           showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/remscodes/ngx-testing-tools/website',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -53,26 +33,48 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr'],
+  },
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
+      title: 'Testing Tools',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'My logo',
         src: 'img/logo.svg',
       },
       items: [
         {
+          to: '/docs',
+          label: 'Docs',
           type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          sidebarId: 'docs',
           position: 'left',
-          label: 'Tutorial',
         },
-        { to: '/blog', label: 'Blog', position: 'left' },
         {
-          href: 'https://github.com/facebook/docusaurus',
+          to: '/examples',
+          label: 'Examples',
+          type: 'docSidebar',
+          sidebarId: 'examples',
+          position: 'left',
+        },
+        {
+          to: '/reference',
+          label: 'Reference',
+          type: 'docSidebar',
+          sidebarId: 'reference',
+          position: 'left',
+        },
+        {
+          to: '/blog',
+          label: 'Blog',
+          position: 'right',
+        },
+        {
+          href: 'https://github.com/remscodes/ngx-testing-tools',
           label: 'GitHub',
           position: 'right',
         },
@@ -85,22 +87,22 @@ const config: Config = {
           title: 'Docs',
           items: [
             {
-              label: 'Tutorial',
-              to: '/docs/intro',
+              label: 'Getting started',
+              to: '/docs/introduction',
+            },
+            {
+              label: 'Examples',
+              to: '/docs/examples/about',
+            },
+            {
+              label: 'Reference',
+              to: '/docs/reference/api/overview',
             },
           ],
         },
         {
           title: 'Community',
           items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
             {
               label: 'Twitter',
               href: 'https://twitter.com/docusaurus',
@@ -116,18 +118,16 @@ const config: Config = {
             },
             {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/remscodes/ngx-testing-tools',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © 2023-${new Date().getFullYear()} Rémy Abitbol`,
     },
     prism: {
       theme: prismThemes.github,
       darkTheme: prismThemes.dracula,
     },
   } satisfies Preset.ThemeConfig,
-};
-
-export default config;
+} satisfies Config;
