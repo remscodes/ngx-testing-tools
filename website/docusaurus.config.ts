@@ -88,15 +88,15 @@ export default {
           items: [
             {
               label: 'Getting started',
-              to: '/docs',
+              to: '/docs/introduction',
             },
             {
-              label: 'API',
-              to: '/api',
+              label: 'Examples',
+              to: '/docs/examples/about',
             },
             {
               label: 'Reference',
-              to: '/reference',
+              to: '/docs/reference/api/overview',
             },
           ],
         },
@@ -123,7 +123,7 @@ export default {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Rémy Abitbol. Built with Docusaurus.`,
+      copyright: `Copyright © 2023-${new Date().getFullYear()} Rémy Abitbol`,
     },
     prism: {
       theme: prismThemes.github,

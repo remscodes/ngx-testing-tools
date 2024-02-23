@@ -2,14 +2,8 @@ import type { SidebarsConfig } from '@docusaurus/plugin-content-docs';
 
 export default {
   docs: [
-    {
-      type: 'category',
-      label: 'Getting Started',
-      items: [
-        'getting-started/introduction',
-        'getting-started/installation',
-      ],
-    },
+    'introduction',
+    'getting-started',
     {
       type: 'category',
       label: 'Guides',
@@ -27,8 +21,9 @@ export default {
       type: 'category',
       label: 'API Reference',
       items: [
-        'reference/api-reference/overview',
+        'reference/api/overview',
       ],
     },
-  ]
+    'reference/version-compatibility'
+  ],
 } satisfies SidebarsConfig;
