@@ -28,7 +28,9 @@ jobs:
           cache: 'pnpm'
 
       - name: Clean install node modules
-        run: pnpm install --frozen-lockfile --ignore-scripts
+        run: |
+          cd website
+          pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Build website
         run: |
