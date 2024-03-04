@@ -42,7 +42,7 @@ dependencies:
 devDependencies:
   '@angular-devkit/build-angular':
     specifier: ^17.2.2
-    version: 17.2.2(@angular/compiler-cli@17.1.0)(karma@6.4.3)(ng-packagr@17.2.0)(typescript@5.3.3)
+    version: 17.2.2(@angular/compiler-cli@17.1.0)(karma@6.4.3)(ng-packagr@17.2.1)(typescript@5.3.3)
   '@angular/cli':
     specifier: ^17.2.2
     version: 17.2.2
@@ -71,8 +71,8 @@ devDependencies:
     specifier: ~2.1.0
     version: 2.1.0(jasmine-core@5.1.2)(karma-jasmine@5.1.0)(karma@6.4.3)
   ng-packagr:
-    specifier: ^17.2.0
-    version: 17.2.0(@angular/compiler-cli@17.1.0)(tslib@2.6.2)(typescript@5.3.3)
+    specifier: ^17.2.1
+    version: 17.2.1(@angular/compiler-cli@17.1.0)(tslib@2.6.2)(typescript@5.3.3)
   typescript:
     specifier: ~5.3.3
     version: 5.3.3
@@ -97,7 +97,7 @@ packages:
       - chokidar
     dev: true
 
-  /@angular-devkit/build-angular@17.2.2(@angular/compiler-cli@17.1.0)(karma@6.4.3)(ng-packagr@17.2.0)(typescript@5.3.3):
+  /@angular-devkit/build-angular@17.2.2(@angular/compiler-cli@17.1.0)(karma@6.4.3)(ng-packagr@17.2.1)(typescript@5.3.3):
     resolution: {integrity: sha512-K55xBiWBfxD4wmxLR2viOPbBryOk6YaZeNr72IMkp1yIrIy1BES6LDJi7R9fDW7+TprqZdM4B91Tkc+BCwYQzQ==}
     engines: {node: ^18.13.0 || >=20.9.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
     peerDependencies:
@@ -178,7 +178,7 @@ packages:
       magic-string: 0.30.7
       mini-css-extract-plugin: 2.8.0(webpack@5.90.1)
       mrmime: 2.0.0
-      ng-packagr: 17.2.0(@angular/compiler-cli@17.1.0)(tslib@2.6.2)(typescript@5.3.3)
+      ng-packagr: 17.2.1(@angular/compiler-cli@17.1.0)(tslib@2.6.2)(typescript@5.3.3)
       open: 8.4.2
       ora: 5.4.1
       parse5-html-rewriting-stream: 7.0.0
@@ -432,10 +432,6 @@ packages:
       rxjs: 7.8.1
       tslib: 2.6.2
     dev: false
-
-  /@assemblyscript/loader@0.10.1:
-    resolution: {integrity: sha512-H71nDOOL8Y7kWRLqf6Sums+01Q5msqBW2KhDUTemh1tvY04eSkSXrK0uj/4mmY0Xr16/3zyZmsrxN7CKuRbNRg==}
-    dev: true
 
   /@babel/code-frame@7.23.5:
     resolution: {integrity: sha512-CgH3s1a96LipHCmSUmYFPwY7MNx8C3avkq7i4Wl3cfa662ldtUe4VM1TPXX70pfmrlWTb6jLqTYrZyT2ZTJBgA==}
@@ -4416,18 +4412,6 @@ packages:
       function-bind: 1.1.2
     dev: true
 
-  /hdr-histogram-js@2.0.3:
-    resolution: {integrity: sha512-Hkn78wwzWHNCp2uarhzQ2SGFLU3JY8SBDDd3TAABK4fc30wm+MuPOrg5QVFVfkKOQd6Bfz3ukJEI+q9sXEkK1g==}
-    dependencies:
-      '@assemblyscript/loader': 0.10.1
-      base64-js: 1.5.1
-      pako: 1.0.11
-    dev: true
-
-  /hdr-histogram-percentiles-obj@3.0.0:
-    resolution: {integrity: sha512-7kIufnBqdsBGcSZLPJwqHT3yhk1QTsSlFsVD3kx5ixH/AlgBs9yM1q6DPhXZ8f8gtdqgh7N7/5btRLpQsS2gHw==}
-    dev: true
-
   /hosted-git-info@7.0.1:
     resolution: {integrity: sha512-+K84LB1DYwMHoHSgaOY/Jfhw3ucPmSET5v98Ke/HdNSw4a0UktWzyW1mjhjpuxxTqOOsfWT/7iVshHmVZ4IpOA==}
     engines: {node: ^16.14.0 || >=18.0.0}
@@ -4928,10 +4912,6 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
-    dev: true
-
-  /jsonc-parser@3.2.0:
-    resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
     dev: true
 
   /jsonc-parser@3.2.1:
@@ -5467,8 +5447,8 @@ packages:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
     dev: true
 
-  /ng-packagr@17.2.0(@angular/compiler-cli@17.1.0)(tslib@2.6.2)(typescript@5.3.3):
-    resolution: {integrity: sha512-M2N4IoXkoZQjxstIL2OkCUhBUWH6LhyOtRv8Xi5FFQKxQL7C8/4OL8oilZRbHt2W7DyE3QpQk60S8AbZEypk9w==}
+  /ng-packagr@17.2.1(@angular/compiler-cli@17.1.0)(tslib@2.6.2)(typescript@5.3.3):
+    resolution: {integrity: sha512-Y0qukNaNkDfDp2gyJQ76pG4tKmENDNXiUacSvxmXZF5sCPM4DWS+SL5cZTqNFur70eocRTrWqtOoARSIPA1WMg==}
     engines: {node: ^18.13.0 || >=20.9.0}
     hasBin: true
     peerDependencies:
@@ -5496,13 +5476,13 @@ packages:
       fast-glob: 3.3.2
       find-cache-dir: 3.3.2
       injection-js: 2.4.0
-      jsonc-parser: 3.2.0
+      jsonc-parser: 3.2.1
       less: 4.2.0
       ora: 5.4.1
-      piscina: 4.2.1
-      postcss: 8.4.33
+      piscina: 4.4.0
+      postcss: 8.4.35
       rxjs: 7.8.1
-      sass: 1.69.7
+      sass: 1.70.0
       tslib: 2.6.2
       typescript: 5.3.3
     optionalDependencies:
@@ -5813,10 +5793,6 @@ packages:
       - supports-color
     dev: true
 
-  /pako@1.0.11:
-    resolution: {integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==}
-    dev: true
-
   /parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
@@ -5926,17 +5902,14 @@ packages:
     dev: true
     optional: true
 
-  /piscina@4.2.1:
-    resolution: {integrity: sha512-LShp0+lrO+WIzB9LXO+ZmO4zGHxtTJNZhEO56H9SSu+JPaUQb6oLcTCzWi5IL2DS8/vIkCE88ElahuSSw4TAkA==}
-    dependencies:
-      hdr-histogram-js: 2.0.3
-      hdr-histogram-percentiles-obj: 3.0.0
+  /piscina@4.3.1:
+    resolution: {integrity: sha512-MBj0QYm3hJQ/C/wIXTN1OCYC8uQ4BBJ4LVele2P4ZwVQAH04vkk8E1SpDbuemLAL1dZorbuOob9rYqJeWCcCRg==}
     optionalDependencies:
       nice-napi: 1.0.2
     dev: true
 
-  /piscina@4.3.1:
-    resolution: {integrity: sha512-MBj0QYm3hJQ/C/wIXTN1OCYC8uQ4BBJ4LVele2P4ZwVQAH04vkk8E1SpDbuemLAL1dZorbuOob9rYqJeWCcCRg==}
+  /piscina@4.4.0:
+    resolution: {integrity: sha512-+AQduEJefrOApE4bV7KRmp3N2JnnyErlVqq4P/jmko4FPz9Z877BCccl/iB3FdrWSUkvbGV9Kan/KllJgat3Vg==}
     optionalDependencies:
       nice-napi: 1.0.2
     dev: true
@@ -6028,15 +6001,6 @@ packages:
 
   /postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
-    dev: true
-
-  /postcss@8.4.33:
-    resolution: {integrity: sha512-Kkpbhhdjw2qQs2O2DGX+8m5OVqEcbB9HRBvuYM9pgrjEFUg30A9LmXNlTAUj4S9kgtGyrMbTzVjH7E+s5Re2yg==}
-    engines: {node: ^10 || ^12 || >=14}
-    dependencies:
-      nanoid: 3.3.7
-      picocolors: 1.0.0
-      source-map-js: 1.0.2
     dev: true
 
   /postcss@8.4.35:
@@ -6391,16 +6355,6 @@ packages:
       neo-async: 2.6.2
       sass: 1.70.0
       webpack: 5.90.1(esbuild@0.20.0)
-    dev: true
-
-  /sass@1.69.7:
-    resolution: {integrity: sha512-rzj2soDeZ8wtE2egyLXgOOHQvaC2iosZrkF6v3EUG+tBwEvhqUCzm0VP3k9gHF9LXbSrRhT5SksoI56Iw8NPnQ==}
-    engines: {node: '>=14.0.0'}
-    hasBin: true
-    dependencies:
-      chokidar: 3.5.3
-      immutable: 4.3.4
-      source-map-js: 1.0.2
     dev: true
 
   /sass@1.70.0:
