@@ -8,11 +8,13 @@ export class ButtonDirective {}
 
 @Component({
   selector: 'app-page-1',
+  standalone: true,
+  imports: [
+    ButtonDirective,
+  ],
   templateUrl: './page-1.component.html',
   styleUrl: './page-1.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [ButtonDirective],
 })
 export class Page1Component {
 
