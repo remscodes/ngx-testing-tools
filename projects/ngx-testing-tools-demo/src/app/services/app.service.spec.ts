@@ -16,8 +16,8 @@ describe('AppService', () => {
     });
 
     http.emitSuccessResponse({
-      url: service.CAT_FACT_URL,
       method: 'GET',
+      url: service.CAT_FACT_URL,
       body: mockRes,
     });
   }));
