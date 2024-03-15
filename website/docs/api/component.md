@@ -1,12 +1,18 @@
 # Component TestBed
 
-### Usage
+## `componentTestBed(..)`
+
+Creates a specific test bed for component.
+
+> Works for standalone and non-standalone components.
+
+It returns a function that wraps `it`'s callback and from which you access tools ([see below](#tools)).
 
 ```ts
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
 
-  it('should do something', tb(() => {
+  it('should do something', tb(() => { // <-- tb function used here
     // ... expectations
   }));
 });
@@ -21,6 +27,42 @@ describe('AppComponent', () => {
   });
 });
 ```
+
+### `imports`
+
+**Default** : `[]`
+
+Imports template's dependencies for the described component and its children.
+
+It is often used for non-standalone component, because standalone component embed its own importations.
+
+Example :
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent, {
+    imports: [SharedModule, NonStandaloneComponent],
+  });
+});
+```
+
+### `providers`
+
+List of providers to be available during tests for the described component and its children.
+
+### `declarations`
+
+### `schemas`
+
+### `noopAnimations`
+
+Disable Angular animation during tests.
+
+Default to `true`.
+
+> It provides `provideNoopAnimation()` under the hood.
+
+### `startDetectChanges`
 
 Options :
 
@@ -111,22 +153,47 @@ it('should do something', tb(async ({ component }) => {
 })); 
 ```
 
-#### ComponentTestBed Tools
+## Tools
 
-#### ComponentTools
+### component
+
+The described component instance.
+
+> The instance is typed according to the passed component Type\<T\> in `componentTestBed`.
 
 ```ts
-{
-  // The described component fixture.
-  fixture: ComponentFixture<T>;
-  // The described component instance.
-  component: T;
-  // Enhanced tools to query elements (see below).
-  query: ComponentQueryTools;
-  // Enhanced tools to perform action on elements (see below).
-  action: ComponentActionTools;
-}
+it('should ', tb(({ component }) => {
+  expect(component.prop).toEqual('foo');
+}));
 ```
+
+### fixture
+
+The described component fixture.
+
+```ts
+it('should ', tb(({ fixture, component }) => {
+  component.prop = 'bar';
+  fixture.detectChanges();
+  expect(component.prop).toEqual('bar');
+}));
+```
+
+### element
+
+The described component native element.
+
+### query
+
+Enhanced tools to query elements (see below).
+
+### action
+
+Enhanced tools to perform action on elements (see below).
+
+### http
+
+Only if `httpTesting` is `true`.
 
 Check common tools :
 

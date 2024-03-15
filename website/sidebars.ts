@@ -6,10 +6,12 @@ export default {
     'getting-started',
     {
       type: 'category',
-      label: 'Guides',
+      label: 'API',
       collapsed: false,
       items: [
-        'guides/component',
+        'api/component',
+        'api/service',
+        'api/directive',
       ],
     },
   ],
