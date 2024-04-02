@@ -1,19 +1,57 @@
 # Component TestBed
 
+**Quick Example**
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent) // 🛠️ Create the test bed which is re-compiled for each test
+    .inject('prefs', Preferences); // 🖇️ Link a key to an injection for all tests, see below 👇
+
+  it('should render title', tb(({ component, query }) => { // 🔋 Access enhanced tools for testing components 
+    expect(component.title).toEqual('app-v17');
+    const span = query.findElement('.content span');
+    expect(span.textContent).toContain('app-v17 app is running!');
+  }));
+
+  it('should update preferences on click', tb(({ action, injected: { prefs } }) => { // 🤯 Retrieve injections by autocompletion
+    expect(prefs.approved).toBeFalse();
+    action.click('#my-button');
+    expect(prefs.approved).toBeTrue();
+  }));
+});
+```
+
 ## `componentTestBed(..)`
 
 Creates a specific test bed for component.
 
 > Works for standalone and non-standalone components.
 
-It returns a function that wraps `it`'s callback and from which you access tools ([see below](#tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools ([see below](#tools)).
 
 ```ts
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
 
-  it('should do something', tb(() => { // <-- tb function used here
+  it('should do something', tb((tools) => { // <-- tb function used here
     // ... expectations
+  }));
+});
+```
+
+`tb` function supports the jasmine `DoneFn` and async/await notation.
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent);
+
+  it('should do something', tb(async (tools) => {
+    // ... async expectations
+  }));
+
+  it('should do something', tb((tools, done) => {
+    // ... expectations
+    done();
   }));
 });
 ```
@@ -25,6 +63,10 @@ describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent, {
     // ... options (see below)
   });
+
+  it('should do something', tb(() => {
+    // ... expectations
+  }));
 });
 ```
 
@@ -39,127 +81,128 @@ It is often used for non-standalone component, because standalone component embe
 Example :
 
 ```ts
-describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent, {
-    imports: [SharedModule, NonStandaloneComponent],
-  });
+const tb = componentTestBed(AppComponent, {
+  imports: [SharedModule, MaterialModule],
 });
 ```
 
 ### `providers`
 
+**Default** : `[]`
+
 List of providers to be available during tests for the described component and its children.
+
+Example :
+
+```ts
+const tb = componentTestBed(AppComponent, {
+  providers: [AppService, { provide: StoreService, useClass: MockStoreService }],
+});
+```
 
 ### `declarations`
 
+**Default** : `[]`
+
+List of components, directives and pipes to be used in the described **non-standalone** component template.
+
+Example :
+
+```ts
+const tb = componentTestBed(NonStandaloneComponent, {
+  declarations: [ChildComponent, AppDirective, AppPipe],
+});
+```
+
 ### `schemas`
+
+**Default** : `[]`
+
+Allows specific elements and properties to be used in the template.
+
+Check `NO_ERRORS_SCHEMA` and `CUSTOM_ELEMENTS_SCHEMA`.
+
+Example :
+
+```ts
+const tb = componentTestBed(AppComponent, {
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+});
+```
 
 ### `noopAnimations`
 
-Disable Angular animation during tests.
+**Default** : `true`
 
-Default to `true`.
+Disable Angular animation.
 
 > It provides `provideNoopAnimation()` under the hood.
 
 ### `startDetectChanges`
 
-Options :
+**Default** : `true`
 
-[//]: # (@formatter:off)
-```ts
-{
-  imports?: Importation[] = [];
-  providers?: AnyProvider[] = [];
-  declarations?: Declaration[] = [];
-  schemas?: SchemaMetadata[] = [];
-  // Disables Angular animations with `provideNoopAnimations()`.
-  noopAnimations?: boolean = true;
-  // Run component fixture `detectChanges()` before assertion.
-  startDetectChanges?: boolean = true;
-  // Useful when you only want to test the logic of the described component.
-  // If enabled, no template will be rendered and no change detections will be performed.
-  noTemplate?: boolean = false;
-  // Enables `HttpTools`.
-  httpTesting?: boolean = false;
-  // When enabled, the assertion will end by `HttpTestingController.verify()`.
-  // Works only when `httpTesting` test bed option is `true`, otherwise has no effect.
-  verifyHttp?: boolean = true;
-  // Automatically compiles the custom test bed for each test.
-  autoCompile?: boolean = true;
-  // Automatically invokes the "should create" test.
-  // It checks if the provided `described` instance is truthy. 
-  checkCreate?: boolean = true;
-}
-```
-[//]: # (@formatter:on)
+Runs component `fixture.detectChanges()` before each assertion.
 
-#### ComponentTestBed Definitions
+### `noTemplate`
 
-Check common definitions :
+**Default** : `false`
 
-- [tb.import(..)](#importoneormanyimports---basetestbed)
-- [tb.provide(..)](#provideoneormanyproviders---basetestbed)
-- [tb.declare(..)](#declareoneormanydeclarations---renderertestbed)
-- [tb.inject(..)](#injectname-token---basetestbed)
-- [tb.setup(..)](#setupaction---jasmineimplementationcallback)
-- [tb.compile(..)](#compile---promisevoid)
+Useful when you only want to test the logic of the described component.
 
-#### (assertion, options?) -> jasmine.ImplementationCallback
+If enabled, no template will be rendered and no change detections will be performed.
 
-Options :
+### `httpTesting`
 
-[//]: # (@formatter:off)
-```ts
-{
-  // Run component fixture `detectChanges()` before assertion.
-  startDetectChanges?: boolean = true;
-  // When enabled, the assertion will end by `HttpTestingController.verify()`.
-  // Works only when `httpTesting` test bed option is `true`, otherwise has no effect.
-  verifyHttp?: boolean = true;
-}
-```
-[//]: # (@formatter:on)
+**Default** : `false`
 
-Check examples : [tb(..)](#assertion-options---jasmineimplementationcallback-2).
+Enables [HttpTestingTools](#http).
 
-Examples :
+### `verifyHttp`
 
-```ts
-it('should do something', tb(({ component, fixture, injector, action, query }) => {
-  component.myInput = true;
-  fixture.detectChanges();
+**Default** : `true`
 
-  const auth = injector.get(AuthService);
+When enabled, each assertion will end by `HttpTestingController.verify()`.
 
-  const inner = query.findComponent(InnerComponent);
+Works only when [httpTesting](#httptesting) is `true`, otherwise has no effect.
 
-  action.click('#my-button');
+### `autoCompile`
 
-  // (…) expectations
-}, { startDetectChanges: false })); 
-```
+**Default** : `true`
 
-```ts
-it('should do something', tb(({ component }, done) => {
-  // (…) expectations
-  done();
-})); 
-```
+Automatically compiles the custom test bed for each test.
 
-```ts
-it('should do something', tb(async ({ component }) => {
-  // (…) async expectations 
-})); 
-```
+### `checkCreate`
+
+**Default** : `true`
+
+Automatically invokes the "should create" angular test.
+
+It checks if the provided `described` instance is truthy.
 
 ## Tools
 
-### component
+Each custom test bed has it own tools related to what is tested.
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent);
+
+  it('should do something', tb((tools /* <- tools here */) => {
+    // ... expectations
+  }));
+});
+```
+
+ComponentTools extends [BaseTools](#basetools).
+
+### `component`
 
 The described component instance.
 
 > The instance is typed according to the passed component Type\<T\> in `componentTestBed`.
+
+Example :
 
 ```ts
 it('should ', tb(({ component }) => {
@@ -167,9 +210,11 @@ it('should ', tb(({ component }) => {
 }));
 ```
 
-### fixture
+### `fixture`
 
 The described component fixture.
+
+Example :
 
 ```ts
 it('should ', tb(({ fixture, component }) => {
@@ -179,23 +224,164 @@ it('should ', tb(({ fixture, component }) => {
 }));
 ```
 
-### element
+### `element`
 
 The described component native element.
 
-### query
+Example :
 
-Enhanced tools to query elements (see below).
+```ts
+it('should ', tb(({ element }) => {
 
-### action
+}));
+```
 
-Enhanced tools to perform action on elements (see below).
+### `query`
 
-### http
+Enhanced tools to query elements. Check
+
+Example :
+
+```ts
+it('should ', tb(({ query }) => {
+
+}));
+```
+
+### `action`
+
+Enhanced tools to perform action on elements. Check
+
+Example :
+
+```ts
+it('should ', tb(({ action }) => {
+
+}));
+```
+
+### `http`
 
 Only if `httpTesting` is `true`.
 
-Check common tools :
+Check [HttpTools](#httptestingtools)
 
-- [BaseTools](#basetools)
-- [HttpTestingTools](#httptestingtools)
+## Tools options
+
+For specific test, you enable/disable options that override the test bed options.
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent);
+
+  it('should do something', tb((tools) => {
+    // ... expectations
+  }, {} /* <- options here */));
+});
+```
+
+### `startDetectChanges`
+
+**Default** : `true`
+
+Runs component `fixture.detectChanges()` before this assertion.
+
+### `verifyHttp`
+
+**Default** : `true`
+
+When enabled, this assertion will end by HttpTestingController.verify().
+
+Works only when `httpTesting` is `true`, otherwise has no effect.
+
+## `ComponentTestBed`
+
+### `import(..)`
+
+Same as [options imports](#imports) but with chaining methods.
+
+Example :
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .import(SharedModule)
+    .import([ThirdPartyModule, MaterialModule]);
+});
+```
+
+### `provide(..)`
+
+Same as [options providers](#providers) but with chaining methods.
+
+Example :
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .provide(AppService)
+    .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
+});
+```
+
+### `declare(..)`
+
+Same as [options declarations](#declarations) but with chaining methods.
+
+Example :
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .declare(ChildComponent)
+    .declare([HeaderComponent, AppPipe]);
+});
+```
+
+### `inject(..)`
+
+Links an injected instance to a key and retrieve it into the enhanced tools by autocompletion.
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .inject('auth', AuthService);
+
+  it('should do something', tb(({ injected: { auth } }) => {
+    // (…) expectations
+  }));
+});
+```
+
+### `setup(..)`
+
+Setups extra action using the enhanced tools.
+
+Works only for `beforeEach` and `afterEach`.
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent);
+
+  beforeEach(tb.setup(({ component }) => {
+    component.myInput = true;
+  }));
+});
+```
+
+### `compile(..)`
+
+To be used when you need to do third party setups before compiling the custom test bed.
+
+**It has to be used into `beforeEach()` setup and autoCompile must be set to false.**
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent, { autoCompile: false });
+
+  beforeEach(async () => {
+    // (…) specific setup
+    await tb.compile();
+  });
+});
+```
