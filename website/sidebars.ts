@@ -26,7 +26,7 @@ export default {
           collapsed: true,
           items: [
             'api/common/base-tools',
-            'api/common/http-tools',
+            'api/common/http-testing-tools',
           ],
         },
       ],

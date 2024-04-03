@@ -100,7 +100,7 @@ const tb = serviceTestBed(AppService, {
 
 **Default** : `false`
 
-Enables [HttpTestingTools](#http).
+Enables [HttpTestingTools](../common/http-testing-tools).
 
 ### `verifyHttp`
 
@@ -126,4 +126,140 @@ It checks if the provided `described` instance is truthy.
 
 ## Tools
 
-Each custom test bed has it own tools related to what is tested.
+The tb function provides tools.
+
+```ts
+describe('AppService', () => {
+  const tb = serviceTestBed(AppService);
+
+  it('should ', tb((tools /* <- tools here */) => {
+    // ... expectations
+  }));
+});
+```
+
+ServiceTools extends [BaseTools](../common/base-tools) and [HttpTestingTools](../common/http-testing-tools).
+
+### `service`
+
+The described service instance.
+
+> The instance is typed according to the passed service Type\<T\> in `serviceTestBed`.
+
+Example :
+
+```ts
+it('should ', tb(({ service }) => {
+  expect(service.prop).toEqual('foo');
+}));
+```
+
+## Tools Options
+
+For specific test, you enable/disable options that override the test bed options.
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent);
+
+  it('should do something', tb((tools) => {
+    // ... expectations
+  }, {} /* <- options here */));
+});
+```
+
+### `verifyHttp`
+
+Same as [options verifyHttp](#verifyhttp) but **only for the current assertion**.
+
+## `ComponentTestBed`
+
+### `import(..)`
+
+Same as [options imports](#imports) but with chaining methods.
+
+Example :
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .import(SharedModule)
+    .import([ThirdPartyModule, MaterialModule]);
+});
+```
+
+### `provide(..)`
+
+Same as [options providers](#providers) but with chaining methods.
+
+Example :
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .provide(AppService)
+    .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
+});
+```
+
+### `declare(..)`
+
+Same as [options declarations](#declarations) but with chaining methods.
+
+Example :
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .declare(ChildComponent)
+    .declare([HeaderComponent, AppPipe]);
+});
+```
+
+### `inject(..)`
+
+Links an injected instance to a key and retrieve it into the enhanced tools by autocompletion.
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent)
+    .inject('auth', AuthService);
+
+  it('should do something', tb(({ injected: { auth } }) => {
+    // (…) expectations
+  }));
+});
+```
+
+### `setup(..)`
+
+Setups extra action using the enhanced tools.
+
+Works only for `beforeEach` and `afterEach`.
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent);
+
+  beforeEach(tb.setup(({ component }) => {
+    component.myInput = true;
+  }));
+});
+```
+
+### `compile(..)`
+
+To be used when you need to do third party setups before compiling the custom test bed.
+
+**It has to be used into `beforeEach()` setup and autoCompile must be set to false.**
+
+```ts
+describe('AppComponent', () => {
+  const tb = componentTestBed(AppComponent, { autoCompile: false });
+
+  beforeEach(async () => {
+    // (…) third party setup
+    await tb.compile();
+  });
+});
+```

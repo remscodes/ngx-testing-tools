@@ -158,7 +158,7 @@ If enabled, no template will be rendered and no change detections will be perfor
 
 **Default** : `false`
 
-Enables [HttpTestingTools](#http).
+Enables [HttpTestingTools](../common/http-testing-tools).
 
 ### `verifyHttp`
 
@@ -184,19 +184,19 @@ It checks if the provided `described` instance is truthy.
 
 ## Tools
 
-Each custom test bed has it own tools related to what is tested.
+The tb function provides tools.
 
 ```ts
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
 
-  it('should do something', tb((tools /* <- tools here */) => {
+  it('should ', tb((tools /* <- tools here */) => {
     // ... expectations
   }));
 });
 ```
 
-ComponentTools extends [BaseTools](#basetools).
+ComponentTools extends [BaseTools](../common/base-tools) and [HttpTestingTools](../common/http-testing-tools).
 
 ### `component`
 
@@ -263,12 +263,6 @@ it('should ', tb(({ action }) => {
 
 }));
 ```
-
-### `http`
-
-Only if `httpTesting` is `true`.
-
-Check [HttpTools](#httptestingtools)
 
 ## Tools options
 
