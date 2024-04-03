@@ -1,4 +1,4 @@
-# Component TestBed
+# Component
 
 **Quick Example**
 
@@ -25,7 +25,7 @@ describe('AppComponent', () => {
 
 Creates a specific test bed for component.
 
-> Works for standalone and non-standalone components.
+> Works for standalone and non-standalone component.
 
 It returns a function to be used to wrap `it`'s callback and from which you access tools ([see below](#tools)).
 
@@ -144,6 +144,8 @@ Disable Angular animation.
 
 Runs component `fixture.detectChanges()` before each assertion.
 
+Has no effect if [noTemplate](#notemplate) is `true`.
+
 ### `noTemplate`
 
 **Default** : `false`
@@ -228,6 +230,8 @@ it('should ', tb(({ fixture, component }) => {
 
 The described component native element.
 
+Can be `undefined` if [noTemplate](#notemplate) is `false`.
+
 Example :
 
 ```ts
@@ -282,17 +286,11 @@ describe('AppComponent', () => {
 
 ### `startDetectChanges`
 
-**Default** : `true`
-
-Runs component `fixture.detectChanges()` before this assertion.
+Same as [options startDetectChanges](#startdetectchanges) but **only for the current assertion**.
 
 ### `verifyHttp`
 
-**Default** : `true`
-
-When enabled, this assertion will end by HttpTestingController.verify().
-
-Works only when `httpTesting` is `true`, otherwise has no effect.
+Same as [options verifyHttp](#verifyHttp) but **only for the current assertion**.
 
 ## `ComponentTestBed`
 
@@ -380,7 +378,7 @@ describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent, { autoCompile: false });
 
   beforeEach(async () => {
-    // (…) specific setup
+    // (…) third party setup
     await tb.compile();
   });
 });

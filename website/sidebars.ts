@@ -9,9 +9,26 @@ export default {
       label: 'API',
       collapsed: false,
       items: [
-        'api/component',
-        'api/service',
-        'api/directive',
+        {
+          type: 'category',
+          label: 'Test Beds',
+          collapsed: false,
+          collapsible: false,
+          items: [
+            'api/test-beds/component',
+            'api/test-beds/service',
+            'api/test-beds/directive',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Common',
+          collapsed: true,
+          items: [
+            'api/common/base-tools',
+            'api/common/http-tools',
+          ],
+        },
       ],
     },
   ],
@@ -26,6 +43,6 @@ export default {
         'reference/api/overview',
       ],
     },
-    'reference/version-compatibility'
+    'reference/version-compatibility',
   ],
 } satisfies SidebarsConfig;
