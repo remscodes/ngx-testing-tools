@@ -1,4 +1,8 @@
-# Service
+---
+title: Service
+---
+
+# Service TestBed
 
 **Quick Example**
 
@@ -7,16 +11,16 @@ describe('AppService', () => {
   const tb = serviceTestBed(AppService, { httpTesting: true }); // 🛠️ Create the test bed and enable http testing
 
   it('should fetch cat fact', tb(({ service, http, rx }, done) => {
-    const mockRes = { fact: 'string', length: 6 };
+    const mockBody = { fact: 'string', length: 6 };
 
     rx.remind = service.getCatFact().subscribe({ // 🧯 Use rx.remind to auto unsubscribe after the end of the test
       next: (res) => {
-        expect(res).toEqual(mockRes);
+        expect(res).toEqual(mockBody);
         done();
       },
     });
 
-    http.emitSuccessResponse({ url: service.CAT_FACT_URL, body: mockRes }); // 🎭 Fake the http response of the request that matches the url
+    http.emitSuccessResponse({ url: service.CAT_FACT_URL, body: mockBody }); // 🎭 Fake the http response of the request that matches the url
   }));
 });
 ```
@@ -25,13 +29,13 @@ describe('AppService', () => {
 
 Creates a specific test bed for service.
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools ([check Tools](#tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ServiveTools](#servicetools)).
 
 ```ts
 describe('AppService', () => {
   const tb = serviceTestBed(AppService);
 
-  it('should do something', tb((tools) => { // <-- tb function used here
+  it('should ', tb((tools) => { // <-- tb function used here
     // ... expectations
   }));
 });
@@ -43,11 +47,11 @@ describe('AppService', () => {
 describe('AppService', () => {
   const tb = serviceTestBed(AppService);
 
-  it('should do something', tb(async (tools) => {
+  it('should ', tb(async (tools) => {
     // ... async expectations
   }));
 
-  it('should do something', tb((tools, done) => {
+  it('should ', tb((tools, done) => {
     // ... expectations
     done();
   }));
@@ -60,7 +64,7 @@ describe('AppService', () => {
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent, {} /* <- options here */);
 
-  it('should do something', tb(() => {
+  it('should ', tb(() => {
     // ... expectations
   }));
 });
@@ -120,11 +124,11 @@ Automatically compiles the custom test bed for each test.
 
 **Default** : `true`
 
-Automatically invokes the "should create" angular test.
+Automatically invokes the "should create" Angular test.
 
 It checks if the provided `described` instance is truthy.
 
-## Tools
+## ServiceTools
 
 The tb function provides tools.
 
@@ -162,7 +166,7 @@ For specific test, you enable/disable options that override the test bed options
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
 
-  it('should do something', tb((tools) => {
+  it('should ', tb((tools) => {
     // ... expectations
   }, {} /* <- options here */));
 });
@@ -172,7 +176,7 @@ describe('AppComponent', () => {
 
 Same as [options verifyHttp](#verifyhttp) but **only for the current assertion**.
 
-## `ComponentTestBed`
+## `ServiceTestBed`
 
 ### `import(..)`
 
@@ -181,8 +185,8 @@ Same as [options imports](#imports) but with chaining methods.
 Example :
 
 ```ts
-describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent)
+describe('AppService', () => {
+  const tb = serviceTestBed(AppService)
     .import(SharedModule)
     .import([ThirdPartyModule, MaterialModule]);
 });
@@ -195,24 +199,10 @@ Same as [options providers](#providers) but with chaining methods.
 Example :
 
 ```ts
-describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent)
-    .provide(AppService)
+describe('AppService', () => {
+  const tb = serviceTestBed(AppService)
+    .provide(NotifService)
     .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
-});
-```
-
-### `declare(..)`
-
-Same as [options declarations](#declarations) but with chaining methods.
-
-Example :
-
-```ts
-describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent)
-    .declare(ChildComponent)
-    .declare([HeaderComponent, AppPipe]);
 });
 ```
 
@@ -221,12 +211,12 @@ describe('AppComponent', () => {
 Links an injected instance to a key and retrieve it into the enhanced tools by autocompletion.
 
 ```ts
-describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent)
+describe('AppService', () => {
+  const tb = serviceTestBed(AppService)
     .inject('auth', AuthService);
 
-  it('should do something', tb(({ injected: { auth } }) => {
-    // (…) expectations
+  it('should ', tb(({ injected: { auth } }) => {
+    // ... expectations
   }));
 });
 ```
@@ -238,11 +228,11 @@ Setups extra action using the enhanced tools.
 Works only for `beforeEach` and `afterEach`.
 
 ```ts
-describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent);
+describe('AppService', () => {
+  const tb = serviceTestBed(AppService);
 
-  beforeEach(tb.setup(({ component }) => {
-    component.myInput = true;
+  beforeEach(tb.setup(({ service }) => {
+    service.foo = true;
   }));
 });
 ```
@@ -254,11 +244,11 @@ To be used when you need to do third party setups before compiling the custom te
 **It has to be used into `beforeEach()` setup and autoCompile must be set to false.**
 
 ```ts
-describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent, { autoCompile: false });
+describe('AppService', () => {
+  const tb = serviceTestBed(AppService, { autoCompile: false });
 
   beforeEach(async () => {
-    // (…) third party setup
+    // ... third party setup
     await tb.compile();
   });
 });

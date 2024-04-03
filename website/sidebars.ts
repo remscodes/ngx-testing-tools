@@ -13,11 +13,11 @@ export default {
           type: 'category',
           label: 'Test Beds',
           collapsed: false,
-          collapsible: false,
           items: [
             'api/test-beds/component',
-            'api/test-beds/service',
             'api/test-beds/directive',
+            'api/test-beds/pipe',
+            'api/test-beds/service',
           ],
         },
         {
@@ -26,6 +26,7 @@ export default {
           collapsed: true,
           items: [
             'api/common/base-tools',
+            'api/common/renderer-tools',
             'api/common/http-testing-tools',
           ],
         },

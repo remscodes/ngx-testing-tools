@@ -1,4 +1,8 @@
-# Component
+---
+title: Component
+---
+
+# Component TestBed
 
 **Quick Example**
 
@@ -27,13 +31,13 @@ Creates a specific test bed for component.
 
 > Works for standalone and non-standalone component.
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools ([see below](#tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ComponentTools](#componenttools)).
 
 ```ts
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
 
-  it('should do something', tb((tools) => { // <-- tb function used here
+  it('should ', tb((tools) => { // <-- tb function used here
     // ... expectations
   }));
 });
@@ -45,11 +49,11 @@ describe('AppComponent', () => {
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
 
-  it('should do something', tb(async (tools) => {
+  it('should ', tb(async (tools) => {
     // ... async expectations
   }));
 
-  it('should do something', tb((tools, done) => {
+  it('should ', tb((tools, done) => {
     // ... expectations
     done();
   }));
@@ -64,7 +68,7 @@ describe('AppComponent', () => {
     // ... options (see below)
   });
 
-  it('should do something', tb(() => {
+  it('should ', tb(() => {
     // ... expectations
   }));
 });
@@ -178,11 +182,11 @@ Automatically compiles the custom test bed for each test.
 
 **Default** : `true`
 
-Automatically invokes the "should create" angular test.
+Automatically invokes the "should create" Angular test.
 
 It checks if the provided `described` instance is truthy.
 
-## Tools
+## ComponentTools
 
 The tb function provides tools.
 
@@ -242,7 +246,7 @@ it('should ', tb(({ element }) => {
 
 ### `query`
 
-Enhanced tools to query elements. Check
+Enhanced tools to query elements.
 
 Example :
 
@@ -254,7 +258,7 @@ it('should ', tb(({ query }) => {
 
 ### `action`
 
-Enhanced tools to perform action on elements. Check
+Enhanced tools to perform action on elements.
 
 Example :
 
@@ -272,7 +276,7 @@ For specific test, you enable/disable options that override the test bed options
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
 
-  it('should do something', tb((tools) => {
+  it('should ', tb((tools) => {
     // ... expectations
   }, {} /* <- options here */));
 });
@@ -339,8 +343,8 @@ describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent)
     .inject('auth', AuthService);
 
-  it('should do something', tb(({ injected: { auth } }) => {
-    // (…) expectations
+  it('should ', tb(({ injected: { auth } }) => {
+    // ... expectations
   }));
 });
 ```
@@ -372,7 +376,7 @@ describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent, { autoCompile: false });
 
   beforeEach(async () => {
-    // (…) third party setup
+    // ... third party setup
     await tb.compile();
   });
 });

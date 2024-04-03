@@ -2,7 +2,11 @@
 
 Only if `httpTesting` is `true`.
 
-Every test beds tools (except `DirectiveTools`, `PipeTools` and `ModuleTools`) extends this tools.
+The test beds tools that extends these tools are :
+
+- [ComponentTools](../test-beds/component#componenttools)
+- [DirectiveTools](../test-beds/directive#directivetools)
+- [PipeTools](../test-beds/pipe#pipetools)
 
 ```ts
 it('should ', tb(({ http }) => {

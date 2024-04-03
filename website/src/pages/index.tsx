@@ -16,8 +16,6 @@ function HomepageHeader() {
 
         <Heading as="h1" className="hero__title">{siteConfig.title}</Heading>
 
-        <Heading as="h1" className="hero__title">Website under construction !</Heading>
-
         <p className="hero__subtitle">{siteConfig.tagline}</p>
 
         <div className={styles.buttons}>

@@ -1,6 +1,6 @@
 # BaseTools
 
-Every test beds tools extends this tools.
+Every test beds tools extends these tools.
 
 ```ts
 it('should ', tb(({ injector, injected, rx }) => {
@@ -46,7 +46,7 @@ Uses the `remind` setter to add subscription or subject into local array.
 Example :
 
 ```ts
-it('should do something', tb(({ rx }) => {
+it('should ', tb(({ rx }) => {
   // Auto unsubscribe after the test end
   rx.remind = myObservable.subscrible();
 
