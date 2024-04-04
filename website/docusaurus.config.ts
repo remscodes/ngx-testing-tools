@@ -11,7 +11,7 @@ export default {
   organizationName: 'remscodes',
   projectName: 'ngx-testing-tools',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',
   presets: [
     [
       'classic',
@@ -58,20 +58,20 @@ export default {
           sidebarId: 'docs',
           position: 'left',
         },
-        {
-          to: '/examples',
-          label: 'Examples',
-          type: 'docSidebar',
-          sidebarId: 'examples',
-          position: 'left',
-        },
-        {
-          to: '/reference',
-          label: 'Reference',
-          type: 'docSidebar',
-          sidebarId: 'reference',
-          position: 'left',
-        },
+        // {
+        //   to: '/examples',
+        //   label: 'Examples',
+        //   type: 'docSidebar',
+        //   sidebarId: 'examples',
+        //   position: 'left',
+        // },
+        // {
+        //   to: '/reference',
+        //   label: 'Reference',
+        //   type: 'docSidebar',
+        //   sidebarId: 'reference',
+        //   position: 'left',
+        // },
         // {
         //   to: '/blog',
         //   label: 'Blog',
@@ -94,14 +94,14 @@ export default {
               label: 'Getting started',
               to: '/docs/introduction',
             },
-            {
-              label: 'Examples',
-              to: '/docs/examples/about',
-            },
-            {
-              label: 'Reference',
-              to: '/docs/reference/api/overview',
-            },
+            // {
+            //   label: 'Examples',
+            //   to: '/docs/examples/about',
+            // },
+            // {
+            //   label: 'Reference',
+            //   to: '/docs/reference/api/overview',
+            // },
           ],
         },
         // {
@@ -123,6 +123,10 @@ export default {
             {
               label: 'GitHub',
               href: 'https://github.com/remscodes/ngx-testing-tools',
+            },
+            {
+              label: 'NPM',
+              href: 'https://npm.im/ngx-testing-tools',
             },
           ],
         },
