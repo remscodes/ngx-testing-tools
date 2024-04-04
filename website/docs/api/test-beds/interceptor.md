@@ -7,31 +7,64 @@ import TabItem from '@theme/TabItem';
 
 # Interceptor TestBed
 
-**Quick example**
-
-```ts
-it('should set custom header before send', tb(({ inspect, rx }) => {
-  const req = new HttpRequest('GET', '/test');
-  expect(req.headers.has('x-custom-header')).toBeFalse();
-
-  rx.remind = inspect.request(req).subscribe({
-    next: (interceptedReq) => {
-      expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
-      done();
-    },
-  });
-})); 
-```
-
-## `interceptorTestBed(..)`
-
-Creates a specific test bed for interceptor.
+Custom test bed for testing Interceptor.
 
 :::info
 Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterceptor`) interceptor.
 :::
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools (check [InterceptorTools](#tools)).
+**Quick example**
+
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appInterceptor', () => {
+      const tb = interceptorTestBed(appInterceptor());
+
+      it('should set custom header before send', tb(({ inspect, rx }) => {
+        const req = new HttpRequest('GET', '/test');
+        expect(req.headers.has('x-custom-header')).toBeFalse();
+    
+        rx.remind = inspect.request(req).subscribe({
+          next: (interceptedReq) => {
+            expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
+            done();
+          },
+        });
+      }));
+    });
+    ```
+
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppInterceptor', () => {
+      const tb = interceptorTestBed(AppInterceptor);
+
+      it('should set custom header before send', tb(({ inspect, rx }) => {
+        const req = new HttpRequest('GET', '/test');
+        expect(req.headers.has('x-custom-header')).toBeFalse();
+    
+        rx.remind = inspect.request(req).subscribe({
+          next: (interceptedReq) => {
+            expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
+            done();
+          },
+        });
+      }));
+    });
+    ```
+
+  </TabItem>
+</Tabs>
+
+## `interceptorTestBed(..)`
+
+Creates a specific test bed for interceptor.
+
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [InterceptorTools](#assertion-tools)).
 
 <Tabs groupId="interceptors-type">
 
@@ -144,6 +177,7 @@ Example :
     imports: [SharedModule, MaterialModule],
   });
   ```
+
   </TabItem>
 
   <TabItem value="Class">
@@ -202,7 +236,7 @@ Automatically invokes the "should create" Angular test.
 
 It checks if the provided described instance is truthy.
 
-## Tools
+## Assertion tools
 
 The tb function provides `InterceptorTools`.
 
@@ -282,7 +316,7 @@ Example :
     ```ts
     describe('appInterceptor', () => {
       const tb = interceptorTestBed(appInterceptor());
-    
+
       it('should set custom header before send', tb(({ inspect, rx }, done) => {
         const req = new HttpRequest('GET', '/test');
         expect(req.headers.has('x-custom-header')).toBeFalse();
@@ -296,6 +330,7 @@ Example :
       }));
     });
     ```
+
   </TabItem>
 
   <TabItem value="Class">
@@ -316,10 +351,9 @@ Example :
       }));
     });
     ```
+
   </TabItem>
 </Tabs>
-
-
 
 #### `successResponse(..)`
 
@@ -333,7 +367,7 @@ Example :
 
   rx.remind = inspect.successResponse(mockRes).subscribe({
     next: (res) => {
-      // (…) expectations
+      // ... expectations
       done();
     },
   });
@@ -341,6 +375,23 @@ Example :
 ```
 
 #### `errorResponse(..)`
+
+Inspect the passed http error response into the described interceptor.
+
+Example :
+
+```ts
+it('should ', tb(({ inspect, rx }, done) => {
+  const mockErr = new HttpErrorResponse({ error: 'Error' });
+
+  rx.remind = inspect.errorResponse(mockErr).subscribe({
+    error: (err) => {
+      // ... expectations
+      done();
+    },
+  });
+}));
+```
 
 ## Assertion Options
 

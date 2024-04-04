@@ -4,6 +4,8 @@ title: Service
 
 # Service TestBed
 
+Custom test bed for testing Service.
+
 **Quick example**
 
 ```ts
@@ -29,7 +31,7 @@ describe('AppService', () => {
 
 Creates a specific test bed for service.
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ServiceTools](#tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ServiceTools](#assertion-tools)).
 
 ```ts
 describe('AppService', () => {
@@ -130,7 +132,7 @@ Automatically invokes the "should create" Angular test.
 
 It checks if the provided described instance is truthy.
 
-## Tools
+## Assertion tools
 
 The tb function provides `ServiceTools`.
 

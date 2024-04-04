@@ -4,6 +4,12 @@ title: Pipe
 
 # Pipe TestBed
 
+Custom test bed for testing Pipe.
+
+:::info
+Works for standalone and non-standalone pipe.
+:::
+
 **Quick example**
 
 ```ts
@@ -25,11 +31,7 @@ describe('AppPipe', () => {
 
 Creates a specific test bed for pipe.
 
-:::info
-Works for standalone and non-standalone pipe.
-:::
-
-It returns a function to be used to wrap `it`'s callback and from which you access tools (check [PipeTools](#tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [PipeTools](#assertion-tools)).
 
 ```ts
 describe('AppPipe', () => {
@@ -116,7 +118,7 @@ Automatically invokes the "should create" Angular test.
 
 It checks if the provided described instance is truthy.
 
-## Tools
+## Assertion tools
 
 The tb function provides `PipeTools`.
 

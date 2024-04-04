@@ -2,11 +2,11 @@
 
 The test beds tools that extends these tools are :
 
-- [ComponentTools](../test-beds/component#tools) (only if [httpTesting](../test-beds/component#httptesting) is `true`)
-- [ServiceTools](../test-beds/service#tools) (only if [httpTesting](../test-beds/service#httptesting) is `true`)
-- [InterceptorTools](../test-beds/interceptor#tools)
+- [ComponentTools](../test-beds/component#assertion-tools) (only if [httpTesting](../test-beds/component#httptesting) is `true`)
+- [ServiceTools](../test-beds/service#assertion-tools) (only if [httpTesting](../test-beds/service#httptesting) is `true`)
+- [InterceptorTools](../test-beds/interceptor#assertion-tools)
 
-## `http`
+### `http`
 
 ```ts
 it('should ', tb(({ http }) => {
@@ -14,7 +14,7 @@ it('should ', tb(({ http }) => {
 }));
 ```
 
-### `client`
+#### `client`
 
 Angular `HttpClient`.
 
@@ -25,7 +25,7 @@ it('should ', tb(({ http }) => {
 })); 
 ```
 
-### `controller`
+#### `controller`
 
 Angular `HttpTestingController`.
 
@@ -36,7 +36,7 @@ it('should ', tb(({ http }) => {
 })); 
 ```
 
-### `emitSuccessResponse(..)`
+#### `emitSuccessResponse(..)`
 
 Fakes a http success response for the request that matches the url.
 
@@ -57,7 +57,7 @@ it('should ', tb(({ http }, done) => {
 })); 
 ```
 
-### `emitErrorResponse(..)`
+#### `emitErrorResponse(..)`
 
 Fakes a http error response for the request that matches the url.
 

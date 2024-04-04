@@ -40,6 +40,10 @@ export default {
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 4
+    },
     navbar: {
       title: 'Testing Tools',
       logo: {

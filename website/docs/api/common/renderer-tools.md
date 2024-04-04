@@ -2,16 +2,38 @@
 
 The test beds tools that extends these tools are :
 
-- [ComponentTools](../test-beds/component#tools)
-- [DirectiveTools](../test-beds/directive#tools)
+- [ComponentTools](../test-beds/component#assertion-tools)
+- [DirectiveTools](../test-beds/directive#assertion-tools)
+
+### `fixture`
+
+The host component fixture.
 
 ```ts
-it('should ', tb(({ query, action }) => {
+it('should ', tb(({ fixture }) => {
   // ... expectations
 }));
 ```
 
-## `query`
+### `element`
+
+The host component native element.
+
+:::info
+It is the real `HTMLElement` without the wrapper "\<div id="rootXX" ng-version="X.X.X"\>...\</div\>"
+:::
+
+:::note
+Can be `undefined` if [noTemplate](#notemplate) is `false`.
+:::
+
+```ts
+it('should ', tb(({ element }) => {
+  // ... expectations
+}));
+```
+
+### `query`
 
 Enhanced tools to query elements inside the host component.
 
@@ -22,7 +44,7 @@ it('should ', tb(({ query }) => {
 }));
 ```
 
-### `findComponent(..)`
+#### `findComponent(..)`
 
 Returns the first component instance found with the provided CSS selector or directive.
 
@@ -42,7 +64,7 @@ it('should ', tb(({ query }) => {
 }));
 ```
 
-### `findAllComponents(..)`
+#### `findAllComponents(..)`
 
 Returns an array of all component instances found with the provided CSS selector or directive.
 
@@ -62,7 +84,7 @@ it('should ', tb(({ query }) => {
 })); 
 ```
 
-### `findElement(..)`
+#### `findElement(..)`
 
 Return the first native element (that extends `HTMLElement`) with by the provided CSS selector or directive.
 
@@ -78,7 +100,7 @@ it('should ', tb(({ query }) => {
 }));
 ```
 
-### `findAllElements(..)`
+#### `findAllElements(..)`
 
 Returns an array of all native elements that extends `HTMLElement` found by the provided CSS selector or directive.
 
@@ -94,7 +116,7 @@ it('should ', tb(({ query }) => {
 }));
 ```
 
-### `findDebugElement(..)`
+#### `findDebugElement(..)`
 
 Returns the first debug element found with the provided CSS selector or directive.
 
@@ -110,7 +132,7 @@ it('should ', tb(({ query }) => {
 }));
 ```
 
-### `findAllDebugElements(..)`
+#### `findAllDebugElements(..)`
 
 Returns an array of all debug elements found with the provided CSS selector or directive.
 
@@ -126,7 +148,7 @@ it('should ', tb(({ query }) => {
 }));
 ```
 
-## `action`
+### `action`
 
 Enhanced tools to perform action on elements inside the host component.
 
@@ -136,7 +158,7 @@ it('should ', tb(({ action }) => {
 }));
 ```
 
-### `click(..)`
+#### `click(..)`
 
 Clicks on the element found by CSS selector or directive.
 
@@ -151,12 +173,12 @@ it('should do something on click', tb(({ action }) => {
 
   // <button buttonDirective (click)="handleClick()">
   action.click(MyButtonDirective);
-  
+
   // ... expectations
 })); 
 ```
 
-### `emitOutput(..)`
+#### `emitOutput(..)`
 
 Emits output of element found by CSS selector or directive, `eventName` and an optional `$event`.
 

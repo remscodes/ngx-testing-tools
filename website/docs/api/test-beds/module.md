@@ -4,6 +4,8 @@ title: Module
 
 # Module TestBed
 
+Custom test bed for testing Module.
+
 **Quick example**
 
 ```ts
@@ -21,7 +23,7 @@ describe('AppModule', () => {
 
 Creates a specific test bed for module.
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ModuleTools](#tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ModuleTools](#assertion-tools)).
 
 ```ts
 describe('AppModule', () => {
@@ -104,7 +106,7 @@ Automatically invokes the "should create" Angular test.
 
 It checks if the provided described instance is truthy.
 
-## Tools
+## Assertion tools
 
 The tb function provides `ModuleTools`.
 

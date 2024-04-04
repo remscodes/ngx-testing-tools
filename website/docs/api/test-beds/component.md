@@ -4,6 +4,12 @@ title: Component
 
 # Component TestBed
 
+Custom test bed for testing Component.
+
+:::info
+Works for standalone and non-standalone component.
+:::
+
 **Quick example**
 
 ```ts
@@ -29,11 +35,7 @@ describe('AppComponent', () => {
 
 Creates a specific test bed for component.
 
-:::info
-Works for standalone and non-standalone component.
-:::
-
-It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ComponentTools](#tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ComponentTools](#assertion-tools)).
 
 ```ts
 describe('AppComponent', () => {
@@ -193,7 +195,7 @@ Automatically invokes the "should create" Angular test.
 
 It checks if the provided described instance is truthy.
 
-## Tools
+## Assertion tools
 
 The tb function provides `ComponentTools`.
 
@@ -207,7 +209,7 @@ describe('AppComponent', () => {
 });
 ```
 
-`ComponentTools` extends **[BaseTools](../common/base-tools)**, **[RendererTools](../common/renderer-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
+👉 `ComponentTools` extends **[BaseTools](../common/base-tools)**, **[RendererTools](../common/renderer-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
 
 ### `component`
 
@@ -222,39 +224,6 @@ Example :
 ```ts
 it('should ', tb(({ component }) => {
   expect(component.prop).toEqual('foo');
-}));
-```
-
-### `fixture`
-
-The described component fixture.
-
-Example :
-
-```ts
-it('should ', tb(({ fixture, component }) => {
-  component.prop = 'bar';
-  fixture.detectChanges();
-  expect(component.prop).toEqual('bar');
-}));
-```
-
-### `element`
-
-The described component native element.
-
-:::info
-It is the real `HTMLElement` without the wrapper "\<div id="rootXX" ng-version="X.X.X"\>...\</div\>"
-:::
-
-:::note
-Can be `undefined` if [noTemplate](#notemplate) is `false`.
-:::
-
-
-```ts
-it('should ', tb(({ element }) => {
-  // ...expectations
 }));
 ```
 
