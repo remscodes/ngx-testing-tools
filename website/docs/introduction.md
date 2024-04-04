@@ -38,16 +38,16 @@ describe('AppService', () => {
   const tb = serviceTestBed(AppService, { httpTesting: true }); // 🛠️ Create the test bed and enable http testing
 
   it('should fetch cat fact', tb(({ service, http, rx }, done) => {
-    const mockRes = { fact: 'string', length: 6 };
+    const mockBody = { fact: 'string', length: 6 };
 
     rx.remind = service.getCatFact().subscribe({ // 🧯 Use rx.remind to auto unsubscribe after the end of the test
       next: (res) => {
-        expect(res).toEqual(mockRes);
+        expect(res).toEqual(mockBody);
         done();
       },
     });
 
-    http.emitSuccessResponse({ url: service.CAT_FACT_URL, body: mockRes }); // 🎭 Fake the http response of the request that matches the url
+    http.emitSuccessResponse({ url: service.CAT_FACT_URL, body: mockBody }); // 🎭 Fake the http response of the request that matches the url
   }));
 });
 ```

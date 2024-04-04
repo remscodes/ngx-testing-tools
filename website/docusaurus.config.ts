@@ -68,11 +68,11 @@ export default {
           sidebarId: 'reference',
           position: 'left',
         },
-        {
-          to: '/blog',
-          label: 'Blog',
-          position: 'right',
-        },
+        // {
+        //   to: '/blog',
+        //   label: 'Blog',
+        //   position: 'right',
+        // },
         {
           href: 'https://github.com/remscodes/ngx-testing-tools',
           label: 'GitHub',
@@ -100,22 +100,22 @@ export default {
             },
           ],
         },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
-          ],
-        },
+        // {
+        //   title: 'Community',
+        //   items: [
+        //     {
+        //       label: 'Twitter',
+        //       href: 'https://twitter.com/docusaurus',
+        //     },
+        //   ],
+        // },
         {
           title: 'More',
           items: [
-            {
-              label: 'Blog',
-              to: '/blog',
-            },
+            // {
+            //   label: 'Blog',
+            //   to: '/blog',
+            // },
             {
               label: 'GitHub',
               href: 'https://github.com/remscodes/ngx-testing-tools',

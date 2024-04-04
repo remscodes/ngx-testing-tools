@@ -974,7 +974,7 @@ Fakes a http success response for the request that matches the url.
 it('should do something', tb(({ http }, done) => {
   const mockRes = 'result';
 
-  http.get('/test').subscribe({
+  http.client.get('/test').subscribe({
     next: (value) => {
       expect(value).toEqual(mockRes);
       done();
@@ -991,7 +991,7 @@ Fakes a http error response for the request that matches the url.
 
 ```ts
 it('should do something', tb(({ http }, done) => {
-  http.get('/test').subscribe({
+  http.client.get('/test').subscribe({
     error: ({ status }) => {
       expect(status).toEqual(401);
       done();

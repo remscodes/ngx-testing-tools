@@ -6,10 +6,33 @@ export default {
     'getting-started',
     {
       type: 'category',
-      label: 'Guides',
+      label: 'API',
       collapsed: false,
       items: [
-        'guides/component',
+        {
+          type: 'category',
+          label: 'Test Beds',
+          collapsed: false,
+          collapsible: false,
+          items: [
+            'api/test-beds/component',
+            'api/test-beds/directive',
+            'api/test-beds/interceptor',
+            'api/test-beds/module',
+            'api/test-beds/pipe',
+            'api/test-beds/service',
+          ],
+        },
+        {
+          type: 'category',
+          label: 'Common tools',
+          collapsed: true,
+          items: [
+            'api/common/base-tools',
+            'api/common/renderer-tools',
+            'api/common/http-testing-tools',
+          ],
+        },
       ],
     },
   ],
@@ -24,6 +47,6 @@ export default {
         'reference/api/overview',
       ],
     },
-    'reference/version-compatibility'
+    'reference/version-compatibility',
   ],
 } satisfies SidebarsConfig;

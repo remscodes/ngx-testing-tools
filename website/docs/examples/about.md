@@ -1,4 +1,5 @@
 ---
 id: about
-title: About examples
 ---
+
+# About examples
