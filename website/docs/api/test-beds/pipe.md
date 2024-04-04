@@ -27,7 +27,7 @@ Creates a specific test bed for pipe.
 
 > Works for standalone and non-standalone pipe.
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools ([PipeTools](#pipetools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools ([PipeTools](#tools)).
 
 ```ts
 describe('AppPipe', () => {
@@ -56,7 +56,7 @@ describe('AppPipe', () => {
 });
 ```
 
-## Options
+## TestBed Options
 
 ```ts
 describe('AppPipe', () => {
@@ -112,9 +112,9 @@ Automatically invokes the "should create" Angular test.
 
 It checks if the provided `described` instance is truthy.
 
-## PipeTools
+## Tools
 
-The tb function provides tools.
+The tb function provides `PipeTools`.
 
 ```ts
 describe('AppPipe', () => {
@@ -126,7 +126,7 @@ describe('AppPipe', () => {
 });
 ```
 
-PipeTools extends [BaseTools](../common/base-tools).
+`PipeTools` extends **[BaseTools](../common/base-tools)**.
 
 ### `pipe`
 
@@ -144,7 +144,20 @@ it('should ', tb(({ pipe }) => {
 
 ### `verify`
 
+Verifies pipe `transform` with passed data and parameters.
 
+Example :
+
+```ts
+it('should transform values', tb(({ verify }) => {
+  verify({ data: 'format', parameters: ['my-'], expected: 'my-format' });
+
+  verify.many([
+    { data: 'format', parameters: ['a-'], expected: 'a-format' },
+    { data: 'format', parameters: ['a-', '-b'], expected: 'a-format-b' },
+  ]);
+}));
+```
 
 ## `PipeTestBed`
 
@@ -211,7 +224,7 @@ describe('AppPipe', () => {
 
 To be used when you need to do third party setups before compiling the custom test bed.
 
-**It has to be used into `beforeEach()` setup and autoCompile must be set to false.**
+**It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.**
 
 ```ts
 describe('AppPipe', () => {

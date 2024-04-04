@@ -33,8 +33,8 @@ Creates a specific test bed for directive.
 
 > Works for standalone and non-standalone directive.
 
-## Options
+## TestBed Options
 
-## DirectiveTools
+## Tools
 
 ## Tools options

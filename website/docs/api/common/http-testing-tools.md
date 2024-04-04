@@ -4,9 +4,9 @@ Only if `httpTesting` is `true`.
 
 The test beds tools that extends these tools are :
 
-- [ComponentTools](../test-beds/component#componenttools)
-- [DirectiveTools](../test-beds/directive#directivetools)
-- [PipeTools](../test-beds/pipe#pipetools)
+- [ComponentTools](../test-beds/component#tools)
+- [DirectiveTools](../test-beds/directive#tools)
+- [PipeTools](../test-beds/pipe#tools)
 
 ```ts
 it('should ', tb(({ http }) => {
@@ -14,9 +14,9 @@ it('should ', tb(({ http }) => {
 })); 
 ```
 
-## http
+## `http`
 
-### client
+### `client`
 
 Angular `HttpClient`.
 
@@ -27,7 +27,7 @@ it('should ', tb(({ http }) => {
 })); 
 ```
 
-### controller
+### `controller`
 
 Angular `HttpTestingController`.
 

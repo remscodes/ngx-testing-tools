@@ -29,7 +29,7 @@ describe('AppService', () => {
 
 Creates a specific test bed for service.
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ServiveTools](#servicetools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ServiveTools](#tools)).
 
 ```ts
 describe('AppService', () => {
@@ -58,7 +58,7 @@ describe('AppService', () => {
 });
 ```
 
-## Options
+## TestBed Options
 
 ```ts
 describe('AppComponent', () => {
@@ -128,9 +128,9 @@ Automatically invokes the "should create" Angular test.
 
 It checks if the provided `described` instance is truthy.
 
-## ServiceTools
+## Tools
 
-The tb function provides tools.
+The tb function provides `ServiceTools`.
 
 ```ts
 describe('AppService', () => {
@@ -142,7 +142,7 @@ describe('AppService', () => {
 });
 ```
 
-ServiceTools extends [BaseTools](../common/base-tools) and [HttpTestingTools](../common/http-testing-tools).
+`ServiceTools` extends **[BaseTools](../common/base-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
 
 ### `service`
 
@@ -241,7 +241,7 @@ describe('AppService', () => {
 
 To be used when you need to do third party setups before compiling the custom test bed.
 
-**It has to be used into `beforeEach()` setup and autoCompile must be set to false.**
+**It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.**
 
 ```ts
 describe('AppService', () => {

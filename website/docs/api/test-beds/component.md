@@ -31,7 +31,7 @@ Creates a specific test bed for component.
 
 > Works for standalone and non-standalone component.
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ComponentTools](#componenttools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ComponentTools](#tools)).
 
 ```ts
 describe('AppComponent', () => {
@@ -60,7 +60,7 @@ describe('AppComponent', () => {
 });
 ```
 
-## Options
+## TestBed Options
 
 ```ts
 describe('AppComponent', () => {
@@ -186,9 +186,9 @@ Automatically invokes the "should create" Angular test.
 
 It checks if the provided `described` instance is truthy.
 
-## ComponentTools
+## Tools
 
-The tb function provides tools.
+The tb function provides `ComponentTools`.
 
 ```ts
 describe('AppComponent', () => {
@@ -200,7 +200,7 @@ describe('AppComponent', () => {
 });
 ```
 
-ComponentTools extends [BaseTools](../common/base-tools) and [HttpTestingTools](../common/http-testing-tools).
+`ComponentTools` extends **[BaseTools](../common/base-tools)**, **[RendererTools](../common/renderer-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
 
 ### `component`
 
@@ -234,37 +234,13 @@ it('should ', tb(({ fixture, component }) => {
 
 The described component native element.
 
-Can be `undefined` if [noTemplate](#notemplate) is `false`.
+> It is the real `HTMLElement` without the wrapper "\<div id="rootXX" ng-version="X.X.X"\>...\</div\>"
 
-Example :
+Can be `undefined` if [noTemplate](#notemplate) is `false`.
 
 ```ts
 it('should ', tb(({ element }) => {
-
-}));
-```
-
-### `query`
-
-Enhanced tools to query elements.
-
-Example :
-
-```ts
-it('should ', tb(({ query }) => {
-
-}));
-```
-
-### `action`
-
-Enhanced tools to perform action on elements.
-
-Example :
-
-```ts
-it('should ', tb(({ action }) => {
-
+  // ...expectations
 }));
 ```
 
@@ -369,7 +345,7 @@ describe('AppComponent', () => {
 
 To be used when you need to do third party setups before compiling the custom test bed.
 
-**It has to be used into `beforeEach()` setup and autoCompile must be set to false.**
+**It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.**
 
 ```ts
 describe('AppComponent', () => {
