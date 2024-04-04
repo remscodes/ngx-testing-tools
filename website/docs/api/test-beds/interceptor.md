@@ -10,7 +10,17 @@ import TabItem from '@theme/TabItem';
 **Quick example**
 
 ```ts
+it('should set custom header before send', tb(({ inspect, rx }) => {
+  const req = new HttpRequest('GET', '/test');
+  expect(req.headers.has('x-custom-header')).toBeFalse();
 
+  rx.remind = inspect.request(req).subscribe({
+    next: (interceptedReq) => {
+      expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
+      done();
+    },
+  });
+})); 
 ```
 
 ## `interceptorTestBed(..)`
@@ -26,11 +36,12 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
+
     ```ts
     describe('appInterceptor', () => {
       const tb = interceptorTestBed(appInterceptor());
 
-      it('should ', tb((tools) => { // <-- tb function used here
+      it('should ', tb((tools) => { // 👈 tb function used here
         // ... expectations
       }));
     });
@@ -41,11 +52,11 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
     ```ts
     describe('appInterceptor', () => {
       const tb = interceptorTestBed(appInterceptor());
-    
+
       it('should ', tb(async (tools) => {
         // ... async expectations
       }));
-    
+
       it('should ', tb((tools, done) => {
         // ... expectations
         done();
@@ -60,22 +71,22 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
     describe('AppInterceptor', () => {
       const tb = interceptorTestBed(AppInterceptor);
 
-      it('should ', tb((tools) => { // <-- tb function used here
+      it('should ', tb((tools) => { // 👈 tb function used here
         // ... expectations
       }));
     });
     ```
 
     `tb` function supports the jasmine `DoneFn` and async/await notation.
-    
+
     ```ts
     describe('AppInterceptor', () => {
       const tb = interceptorTestBed(AppInterceptor);
-    
+
       it('should ', tb(async (tools) => {
         // ... async expectations
       }));
-    
+
       it('should ', tb((tools, done) => {
         // ... expectations
         done();
@@ -93,7 +104,7 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
   <TabItem value="function">
     ```ts
     describe('appInterceptor', () => {
-      const tb = pipeTestBed(appInterceptor(), {} /* <- here */);
+      const tb = pipeTestBed(appInterceptor(), {} /* 👈 here */);
 
       it('should ', tb(() => {
         // ... expectations
@@ -106,7 +117,7 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
   <TabItem value="Class">
     ```ts
     describe('AppInterceptor', () => {
-      const tb = pipeTestBed(AppInterceptor, {} /* <- here */);
+      const tb = pipeTestBed(AppInterceptor, {} /* 👈 here */);
 
       it('should ', tb(() => {
         // ... expectations
@@ -171,6 +182,12 @@ Example :
   </TabItem>
 </Tabs>
 
+### `verifyHttp`
+
+**Default** : `true`
+
+When enabled, each assertion will end by `HttpTestingController.verify()`.
+
 ### `autoCompile`
 
 **Default** : `true`
@@ -183,7 +200,7 @@ Automatically compiles the custom test bed for each test.
 
 Automatically invokes the "should create" Angular test.
 
-It checks if the provided `described` instance is truthy.
+It checks if the provided described instance is truthy.
 
 ## Tools
 
@@ -196,7 +213,7 @@ The tb function provides `InterceptorTools`.
     describe('appInterceptor', () => {
       const tb = interceptorTestBed(appInterceptor());
 
-      it('should ', tb((tools /* <- here */) => {
+      it('should ', tb((tools /* 👈 here */) => {
         // ... expectations
       }));
     });
@@ -209,7 +226,7 @@ The tb function provides `InterceptorTools`.
     describe('AppInterceptor', () => {
       const tb = interceptorTestBed(AppInterceptor);
 
-      it('should ', tb((tools /* <- here */) => {
+      it('should ', tb((tools /* 👈 here */) => {
         // ... expectations
       }));
     });
@@ -235,7 +252,7 @@ Example :
   <TabItem value="function">
     ```ts
     it('should ', tb(({ interceptor }) => {
-      interceptor(req, next).subscribe(..);  
+      interceptor(mockReq, mockNext).subscribe(..);
     }));
     ```
   </TabItem>
@@ -250,6 +267,117 @@ Example :
 </Tabs>
 
 ### `inspect`
+
+Tools to inspect outgoing requests and incoming responses.
+
+#### `request(..)`
+
+Inspect the passed request into the described interceptor.
+
+Example :
+
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appInterceptor', () => {
+      const tb = interceptorTestBed(appInterceptor());
+    
+      it('should set custom header before send', tb(({ inspect, rx }, done) => {
+        const req = new HttpRequest('GET', '/test');
+        expect(req.headers.has('x-custom-header')).toBeFalse();
+        
+        rx.remind = inspect.passRequest(req).subscribe({
+          next: (interceptedReq) => {
+            expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
+            done();
+          },
+        });
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppInterceptor', () => {
+      const tb = interceptorTestBed(AppInterceptor);
+
+      it('should set custom header before send', tb(({ inspect, rx }, done) => {
+        const req = new HttpRequest('GET', '/test');
+        expect(req.headers.has('x-custom-header')).toBeFalse();
+        
+        rx.remind = inspect.passRequest(req).subscribe({
+          next: (interceptedReq) => {
+            expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
+            done();
+          },
+        });
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+
+
+
+#### `successResponse(..)`
+
+Inspect the passed http response into the described interceptor.
+
+Example :
+
+```ts
+ it('should ', tb(({ inspect, rx }, done) => {
+  const mockRes = new HttpResponse({ body: {} });
+
+  rx.remind = inspect.successResponse(mockRes).subscribe({
+    next: (res) => {
+      // (…) expectations
+      done();
+    },
+  });
+}));
+```
+
+#### `errorResponse(..)`
+
+## Assertion Options
+
+For specific test, you enable/disable options that override the test bed options.
+
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appInterceptor', () => {
+      const tb = interceptorTestBed(appInterceptor());
+
+      it('should ', tb((tools) => {
+        // ... expectations
+      }, {} /* 👈 here */));
+    });
+    ```
+
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppInterceptor', () => {
+      const tb = interceptorTestBed(AppInterceptor);
+
+      it('should ', tb((tools) => {
+        // ... expectations
+      }, {} /* 👈 here */));
+    });
+    ```
+
+  </TabItem>
+</Tabs>
+
+### `verifyHttp`
+
+Same as [options verifyHttp](#verifyhttp) but **only for the current assertion**.
 
 ## `InterceptorTestBed`
 
@@ -384,7 +512,7 @@ Example :
   </TabItem>
 </Tabs>
 
-### `compile(..)`
+### `compile()`
 
 To be used when you need to do third party setups before compiling the custom test bed.
 

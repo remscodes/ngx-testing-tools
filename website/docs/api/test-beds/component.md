@@ -39,7 +39,7 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
 
-  it('should ', tb((tools) => { // <-- tb function used here
+  it('should ', tb((tools) => { // 👈 tb function used here
     // ... expectations
   }));
 });
@@ -66,7 +66,7 @@ describe('AppComponent', () => {
 
 ```ts
 describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent, {} /* <- here */);
+  const tb = componentTestBed(AppComponent, {} /* 👈 here */);
 
   it('should ', tb(() => {
     // ... expectations
@@ -191,7 +191,7 @@ Automatically compiles the custom test bed for each test.
 
 Automatically invokes the "should create" Angular test.
 
-It checks if the provided `described` instance is truthy.
+It checks if the provided described instance is truthy.
 
 ## Tools
 
@@ -201,7 +201,7 @@ The tb function provides `ComponentTools`.
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
 
-  it('should ', tb((tools /* <- here */) => {
+  it('should ', tb((tools /* 👈 here */) => {
     // ... expectations
   }));
 });
@@ -243,9 +243,14 @@ it('should ', tb(({ fixture, component }) => {
 
 The described component native element.
 
-> It is the real `HTMLElement` without the wrapper "\<div id="rootXX" ng-version="X.X.X"\>...\</div\>"
+:::info
+It is the real `HTMLElement` without the wrapper "\<div id="rootXX" ng-version="X.X.X"\>...\</div\>"
+:::
 
+:::note
 Can be `undefined` if [noTemplate](#notemplate) is `false`.
+:::
+
 
 ```ts
 it('should ', tb(({ element }) => {
@@ -253,7 +258,7 @@ it('should ', tb(({ element }) => {
 }));
 ```
 
-## Tools options
+## Assertion options
 
 For specific test, you enable/disable options that override the test bed options.
 
@@ -263,7 +268,7 @@ describe('AppComponent', () => {
 
   it('should ', tb((tools) => {
     // ... expectations
-  }, {} /* <- options here */));
+  }, {} /* 👈 here */));
 });
 ```
 
@@ -350,7 +355,7 @@ describe('AppComponent', () => {
 });
 ```
 
-### `compile(..)`
+### `compile()`
 
 To be used when you need to do third party setups before compiling the custom test bed.
 

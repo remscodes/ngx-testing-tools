@@ -29,13 +29,13 @@ describe('AppService', () => {
 
 Creates a specific test bed for service.
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ServiveTools](#tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ServiceTools](#tools)).
 
 ```ts
 describe('AppService', () => {
   const tb = serviceTestBed(AppService);
 
-  it('should ', tb((tools) => { // <-- tb function used here
+  it('should ', tb((tools) => { // 👈 tb function used here
     // ... expectations
   }));
 });
@@ -62,7 +62,7 @@ describe('AppService', () => {
 
 ```ts
 describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent, {} /* <- here */);
+  const tb = componentTestBed(AppComponent, {} /* 👈 here */);
 
   it('should ', tb(() => {
     // ... expectations
@@ -128,7 +128,7 @@ Automatically compiles the custom test bed for each test.
 
 Automatically invokes the "should create" Angular test.
 
-It checks if the provided `described` instance is truthy.
+It checks if the provided described instance is truthy.
 
 ## Tools
 
@@ -138,7 +138,7 @@ The tb function provides `ServiceTools`.
 describe('AppService', () => {
   const tb = serviceTestBed(AppService);
 
-  it('should ', tb((tools /* <- here */) => {
+  it('should ', tb((tools /* 👈 here */) => {
     // ... expectations
   }));
 });
@@ -162,7 +162,7 @@ it('should ', tb(({ service }) => {
 }));
 ```
 
-## Tools Options
+## Assertion Options
 
 For specific test, you enable/disable options that override the test bed options.
 
@@ -172,7 +172,7 @@ describe('AppComponent', () => {
 
   it('should ', tb((tools) => {
     // ... expectations
-  }, {} /* <- options here */));
+  }, {} /* 👈 here */));
 });
 ```
 
@@ -241,7 +241,7 @@ describe('AppService', () => {
 });
 ```
 
-### `compile(..)`
+### `compile()`
 
 To be used when you need to do third party setups before compiling the custom test bed.
 

@@ -27,7 +27,7 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
 describe('AppModule', () => {
   const tb = moduleTestBed(AppModule);
 
-  it('should ', tb((tools) => { // <-- tb function used here
+  it('should ', tb((tools) => { // 👈 tb function used here
     // ... expectations
   }));
 });
@@ -54,7 +54,7 @@ describe('AppModule', () => {
 
 ```ts
 describe('AppModule', () => {
-  const tb = moduleTestBed(AppModule, {} /* <- here */);
+  const tb = moduleTestBed(AppModule, {} /* 👈 here */);
 
   it('should ', tb(() => {
     // ... expectations
@@ -102,7 +102,7 @@ Automatically compiles the custom test bed for each test.
 
 Automatically invokes the "should create" Angular test.
 
-It checks if the provided `described` instance is truthy.
+It checks if the provided described instance is truthy.
 
 ## Tools
 
@@ -112,7 +112,7 @@ The tb function provides `ModuleTools`.
 describe('AppModule', () => {
   const tb = moduleTestBed(AppModule);
 
-  it('should ', tb((tools /* <- here */) => {
+  it('should ', tb((tools /* 👈 here */) => {
     // ... expectations
   }));
 });
@@ -197,7 +197,7 @@ describe('AppModule', () => {
 });
 ```
 
-### `compile(..)`
+### `compile()`
 
 To be used when you need to do third party setups before compiling the custom test bed.
 

@@ -3,16 +3,16 @@
 The test beds tools that extends these tools are :
 
 - [ComponentTools](../test-beds/component#tools) (only if [httpTesting](../test-beds/component#httptesting) is `true`)
-- [DirectiveTools](../test-beds/directive#tools) (only if [httpTesting](../test-beds/directive#httptesting) is `true`)
-- [InterceptorTools](../test-beds/interceptor#tools) 
+- [ServiceTools](../test-beds/service#tools) (only if [httpTesting](../test-beds/service#httptesting) is `true`)
+- [InterceptorTools](../test-beds/interceptor#tools)
+
+## `http`
 
 ```ts
 it('should ', tb(({ http }) => {
   // ... expectations
-})); 
+}));
 ```
-
-## `http`
 
 ### `client`
 

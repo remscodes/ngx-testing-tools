@@ -39,4 +39,4 @@ Works for standalone and non-standalone directive.
 
 ## Tools
 
-## Tools options
+## Assertion options

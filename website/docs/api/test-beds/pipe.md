@@ -35,7 +35,7 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
 describe('AppPipe', () => {
   const tb = pipeTestBed(AppPipe);
 
-  it('should ', tb((tools) => { // <-- tb function used here
+  it('should ', tb((tools) => { // 👈 tb function used here
     // ... expectations
   }));
 });
@@ -62,7 +62,7 @@ describe('AppPipe', () => {
 
 ```ts
 describe('AppPipe', () => {
-  const tb = pipeTestBed(AppPipe, {} /* <- here */);
+  const tb = pipeTestBed(AppPipe, {} /* 👈 here */);
 
   it('should ', tb(() => {
     // ... expectations
@@ -114,7 +114,7 @@ Automatically compiles the custom test bed for each test.
 
 Automatically invokes the "should create" Angular test.
 
-It checks if the provided `described` instance is truthy.
+It checks if the provided described instance is truthy.
 
 ## Tools
 
@@ -124,7 +124,7 @@ The tb function provides `PipeTools`.
 describe('AppPipe', () => {
   const tb = pipeTestBed(AppPipe);
 
-  it('should ', tb((tools /* <- here */) => {
+  it('should ', tb((tools /* 👈 here */) => {
     // ... expectations
   }));
 });
@@ -228,7 +228,7 @@ describe('AppPipe', () => {
 });
 ```
 
-### `compile(..)`
+### `compile()`
 
 To be used when you need to do third party setups before compiling the custom test bed.
 
