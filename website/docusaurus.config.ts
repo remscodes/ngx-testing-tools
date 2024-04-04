@@ -42,7 +42,7 @@ export default {
     image: 'img/docusaurus-social-card.jpg',
     tableOfContents: {
       minHeadingLevel: 2,
-      maxHeadingLevel: 4
+      maxHeadingLevel: 4,
     },
     navbar: {
       title: 'Testing Tools',
@@ -104,29 +104,16 @@ export default {
             // },
           ],
         },
-        // {
-        //   title: 'Community',
-        //   items: [
-        //     {
-        //       label: 'Twitter',
-        //       href: 'https://twitter.com/docusaurus',
-        //     },
-        //   ],
-        // },
         {
           title: 'More',
           items: [
-            // {
-            //   label: 'Blog',
-            //   to: '/blog',
-            // },
             {
               label: 'GitHub',
               href: 'https://github.com/remscodes/ngx-testing-tools',
             },
             {
-              label: 'NPM',
-              href: 'https://npm.im/ngx-testing-tools',
+              label: 'Stack Overflow',
+              href: 'https://stackoverflow.com/questions/tagged/ngx-testing-tools',
             },
           ],
         },
