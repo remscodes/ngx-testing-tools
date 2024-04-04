@@ -30,6 +30,9 @@
       "DOM.Iterable"
     ]
   },
+  "include": [
+    "projects"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
