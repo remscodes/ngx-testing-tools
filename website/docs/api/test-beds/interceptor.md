@@ -137,7 +137,7 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
   <TabItem value="function">
     ```ts
     describe('appInterceptor', () => {
-      const tb = pipeTestBed(appInterceptor(), {} /* 👈 here */);
+      const tb = interceptorTestBed(appInterceptor(), {} /* 👈 here */);
 
       it('should ', tb(() => {
         // ... expectations
@@ -150,7 +150,7 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
   <TabItem value="Class">
     ```ts
     describe('AppInterceptor', () => {
-      const tb = pipeTestBed(AppInterceptor, {} /* 👈 here */);
+      const tb = interceptorTestBed(AppInterceptor, {} /* 👈 here */);
 
       it('should ', tb(() => {
         // ... expectations
@@ -567,7 +567,9 @@ Example :
 
 To be used when you need to do third party setups before compiling the custom test bed.
 
-**It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.**
+:::warning
+It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.
+:::
 
 <Tabs groupId="interceptors-type">
 

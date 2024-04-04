@@ -94,12 +94,9 @@ It is often used for non-standalone component, because standalone component embe
 Example :
 
 ```ts
-const tb = directiveTestBed(AppDirective, HostComponent
-{
+const tb = directiveTestBed(AppDirective, HostComponent, {
   imports: [SharedModule, MaterialModule],
-}
-)
-;
+});
 ```
 
 ### `providers`
@@ -111,12 +108,9 @@ List of providers to be available during tests for the described host component 
 Example :
 
 ```ts
-const tb = directiveTestBed(AppDirective, HostComponent
-{
+const tb = directiveTestBed(AppDirective, HostComponent, {
   providers: [AppService, { provide: StoreService, useClass: MockStoreService }],
-}
-)
-;
+});
 ```
 
 ### `declarations`
@@ -331,7 +325,9 @@ describe('AppDirective', () => {
 
 To be used when you need to do third party setups before compiling the custom test bed.
 
-**It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.**
+:::warning
+It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.
+:::
 
 ```ts
 describe('AppDirective', () => {

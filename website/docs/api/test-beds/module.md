@@ -203,7 +203,9 @@ describe('AppModule', () => {
 
 To be used when you need to do third party setups before compiling the custom test bed.
 
-**It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.**
+:::warning
+It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.
+:::
 
 ```ts
 describe('AppModule', () => {

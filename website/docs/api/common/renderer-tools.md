@@ -24,7 +24,7 @@ It is the real `HTMLElement` without the wrapper "\<div id="rootXX" ng-version="
 :::
 
 :::note
-Can be `undefined` if [noTemplate](#notemplate) is `false`.
+Can be `undefined` if `noTemplate` is `false`.
 :::
 
 ```ts
