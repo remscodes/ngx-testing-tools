@@ -4,7 +4,7 @@ title: Service
 
 # Service TestBed
 
-**Quick Example**
+**Quick example**
 
 ```ts
 describe('AppService', () => {
@@ -136,7 +136,7 @@ The tb function provides `ServiceTools`.
 describe('AppService', () => {
   const tb = serviceTestBed(AppService);
 
-  it('should ', tb((tools /* <- tools here */) => {
+  it('should ', tb((tools /* <- here */) => {
     // ... expectations
   }));
 });
@@ -148,7 +148,9 @@ describe('AppService', () => {
 
 The described service instance.
 
-> The instance is typed according to the passed service Type\<T\> in `serviceTestBed`.
+:::info
+The instance is typed according to the passed service `Type<T>` in `serviceTestBed(..)`.
+:::
 
 Example :
 

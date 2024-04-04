@@ -4,7 +4,7 @@ title: Pipe
 
 # Pipe TestBed
 
-**Quick Example**
+**Quick example**
 
 ```ts
 describe('AppPipe', () => {
@@ -25,9 +25,11 @@ describe('AppPipe', () => {
 
 Creates a specific test bed for pipe.
 
-> Works for standalone and non-standalone pipe.
+:::info
+Works for standalone and non-standalone pipe.
+:::
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools ([PipeTools](#tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [PipeTools](#tools)).
 
 ```ts
 describe('AppPipe', () => {
@@ -74,7 +76,9 @@ describe('AppPipe', () => {
 
 Imports template's dependencies for the described pipe.
 
+:::note
 It is often used for non-standalone pipe, because standalone component embed its own importations.
+:::
 
 Example :
 
@@ -120,7 +124,7 @@ The tb function provides `PipeTools`.
 describe('AppPipe', () => {
   const tb = pipeTestBed(AppPipe);
 
-  it('should ', tb((tools /* <- tools here */) => {
+  it('should ', tb((tools /* <- here */) => {
     // ... expectations
   }));
 });
@@ -132,7 +136,9 @@ describe('AppPipe', () => {
 
 The described pipe instance.
 
-> The instance is typed according to the passed pipe Type\<T\> in `pipeTestBed`.
+:::info
+The instance is typed according to the passed pipe `Type<T>` in `pipeTestBed(..)`.
+:::
 
 Example :
 

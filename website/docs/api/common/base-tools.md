@@ -7,7 +7,7 @@ it('should ', tb(({ injector, injected, rx }) => {
   // ... expectations
 }));
 ```
-## `injector`
+### `injector`
 
 Test bed injector to get instance.
 
@@ -20,7 +20,7 @@ it('should ', tb(({ injector }) => {
 }));
 ```
 
-## `injected`
+### `injected`
 
 Get instances injected with `tb.inject(..)` by autocompletion.
 
@@ -37,7 +37,7 @@ describe('AppComponent', () => {
 });
 ```
 
-## `rx`
+### `rx`
 
 `RxBox` to auto unsubscribe `Subscription` and auto complete `Subject` when the test ends.
 
@@ -53,6 +53,7 @@ it('should ', tb(({ rx }) => {
   // Auto complete after the test end
   const subject = new Subject();
   rx.remind = subject;
-  // (…) expectations
+  
+  // ... expectations
 })); 
 ```

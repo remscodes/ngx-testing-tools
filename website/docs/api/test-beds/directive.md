@@ -4,7 +4,7 @@ title: Directive
 
 # Directive TestBed
 
-**Quick Example**
+**Quick example**
 
 ```ts
 @Component({
@@ -31,7 +31,9 @@ describe('AppDirective', () => {
 
 Creates a specific test bed for directive.
 
-> Works for standalone and non-standalone directive.
+:::info
+Works for standalone and non-standalone directive.
+:::
 
 ## TestBed Options
 

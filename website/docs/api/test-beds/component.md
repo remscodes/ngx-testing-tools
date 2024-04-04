@@ -4,7 +4,7 @@ title: Component
 
 # Component TestBed
 
-**Quick Example**
+**Quick example**
 
 ```ts
 describe('AppComponent', () => {
@@ -29,7 +29,9 @@ describe('AppComponent', () => {
 
 Creates a specific test bed for component.
 
-> Works for standalone and non-standalone component.
+:::info
+Works for standalone and non-standalone component.
+:::
 
 It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ComponentTools](#tools)).
 
@@ -80,7 +82,9 @@ describe('AppComponent', () => {
 
 Imports template's dependencies for the described component and its children.
 
+:::note
 It is often used for non-standalone component, because standalone component embed its own importations.
+:::
 
 Example :
 
@@ -124,7 +128,8 @@ const tb = componentTestBed(NonStandaloneComponent, {
 
 Allows specific elements and properties to be used in the template.
 
-Check `NO_ERRORS_SCHEMA` and `CUSTOM_ELEMENTS_SCHEMA`.
+See Angular [CUSTOM_ELEMENTS_SCHEMA](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA) 
+and [NO_ERRORS_SCHEMA](https://angular.io/api/core/NO_ERRORS_SCHEMA).
 
 Example :
 
@@ -140,7 +145,9 @@ const tb = componentTestBed(AppComponent, {
 
 Disable Angular animation.
 
-> It provides `provideNoopAnimation()` under the hood.
+:::note
+It provides `provideNoopAnimation()` under the hood.
+:::
 
 ### `startDetectChanges`
 
@@ -194,7 +201,7 @@ The tb function provides `ComponentTools`.
 describe('AppComponent', () => {
   const tb = componentTestBed(AppComponent);
 
-  it('should ', tb((tools /* <- tools here */) => {
+  it('should ', tb((tools /* <- here */) => {
     // ... expectations
   }));
 });
@@ -206,7 +213,9 @@ describe('AppComponent', () => {
 
 The described component instance.
 
-> The instance is typed according to the passed component Type\<T\> in `componentTestBed`.
+:::info
+The instance is typed according to the passed component `Type<T>` in `componentTestBed(..)`.
+:::
 
 Example :
 
