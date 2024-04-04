@@ -126,7 +126,7 @@ const tb = componentTestBed(NonStandaloneComponent, {
 
 Allows specific elements and properties to be used in the template.
 
-See Angular [CUSTOM_ELEMENTS_SCHEMA](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA) 
+See Angular [CUSTOM_ELEMENTS_SCHEMA](https://angular.io/api/core/CUSTOM_ELEMENTS_SCHEMA)
 and [NO_ERRORS_SCHEMA](https://angular.io/api/core/NO_ERRORS_SCHEMA).
 
 Example :
@@ -175,7 +175,9 @@ Enables [HttpTestingTools](../common/http-testing-tools).
 
 When enabled, each assertion will end by `HttpTestingController.verify()`.
 
-Works only when [httpTesting](#httptesting) is `true`, otherwise has no effect.
+:::warning
+Works only if [httpTesting](#httptesting) is `true`, otherwise has no effect.
+:::
 
 ### `autoCompile`
 

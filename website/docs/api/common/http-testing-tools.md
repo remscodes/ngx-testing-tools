@@ -1,12 +1,10 @@
 # HttpTestingTools
 
-Only if `httpTesting` is `true`.
-
 The test beds tools that extends these tools are :
 
-- [ComponentTools](../test-beds/component#tools)
-- [DirectiveTools](../test-beds/directive#tools)
-- [PipeTools](../test-beds/pipe#tools)
+- [ComponentTools](../test-beds/component#tools) (only if [httpTesting](../test-beds/component#httptesting) is `true`)
+- [DirectiveTools](../test-beds/directive#tools) (only if [httpTesting](../test-beds/directive#httptesting) is `true`)
+- [InterceptorTools](../test-beds/interceptor#tools) 
 
 ```ts
 it('should ', tb(({ http }) => {

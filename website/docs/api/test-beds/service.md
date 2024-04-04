@@ -74,7 +74,7 @@ describe('AppComponent', () => {
 
 **Default** : `[]`
 
-Imports template's dependencies for the described service and its children.
+Imports dependencies for the described service.
 
 It is often used for non-standalone component, because standalone component embed its own importations.
 
@@ -112,7 +112,9 @@ Enables [HttpTestingTools](../common/http-testing-tools).
 
 When enabled, each assertion will end by `HttpTestingController.verify()`.
 
-Works only when [httpTesting](#httptesting) is `true`, otherwise has no effect.
+:::warning
+Works only if [httpTesting](#httptesting) is `true`, otherwise has no effect.
+:::
 
 ### `autoCompile`
 

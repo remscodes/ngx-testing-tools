@@ -74,7 +74,7 @@ describe('AppPipe', () => {
 
 **Default** : `[]`
 
-Imports template's dependencies for the described pipe.
+Imports dependencies for the described pipe.
 
 :::note
 It is often used for non-standalone pipe, because standalone pipe embed its own importations.
@@ -215,6 +215,8 @@ describe('AppPipe', () => {
 Setups extra action using the enhanced tools.
 
 Works only for `beforeEach` and `afterEach`.
+
+Example :
 
 ```ts
 describe('AppPipe', () => {
