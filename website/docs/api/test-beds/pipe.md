@@ -62,7 +62,7 @@ describe('AppPipe', () => {
 
 ```ts
 describe('AppPipe', () => {
-  const tb = pipeTestBed(AppPipe, {} /* <- options here */);
+  const tb = pipeTestBed(AppPipe, {} /* <- here */);
 
   it('should ', tb(() => {
     // ... expectations
@@ -77,7 +77,7 @@ describe('AppPipe', () => {
 Imports template's dependencies for the described pipe.
 
 :::note
-It is often used for non-standalone pipe, because standalone component embed its own importations.
+It is often used for non-standalone pipe, because standalone pipe embed its own importations.
 :::
 
 Example :

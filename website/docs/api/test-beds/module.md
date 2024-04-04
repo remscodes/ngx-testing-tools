@@ -54,7 +54,7 @@ describe('AppModule', () => {
 
 ```ts
 describe('AppModule', () => {
-  const tb = moduleTestBed(AppModule, {} /* <- options here */);
+  const tb = moduleTestBed(AppModule, {} /* <- here */);
 
   it('should ', tb(() => {
     // ... expectations

@@ -9,7 +9,7 @@ it('should ', tb(({ injector, injected, rx }) => {
 ```
 ### `injector`
 
-Test bed injector to get instance.
+Test bed injector to get instances.
 
 Example :
 

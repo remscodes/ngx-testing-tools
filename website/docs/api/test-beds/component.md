@@ -66,9 +66,7 @@ describe('AppComponent', () => {
 
 ```ts
 describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent, {
-    // ... options (see below)
-  });
+  const tb = componentTestBed(AppComponent, {} /* <- here */);
 
   it('should ', tb(() => {
     // ... expectations

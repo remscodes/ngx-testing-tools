@@ -62,7 +62,7 @@ describe('AppService', () => {
 
 ```ts
 describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent, {} /* <- options here */);
+  const tb = componentTestBed(AppComponent, {} /* <- here */);
 
   it('should ', tb(() => {
     // ... expectations

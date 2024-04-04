@@ -13,6 +13,7 @@ export default {
           type: 'category',
           label: 'Test Beds',
           collapsed: false,
+          collapsible: false,
           items: [
             'api/test-beds/component',
             'api/test-beds/directive',
@@ -24,7 +25,7 @@ export default {
         },
         {
           type: 'category',
-          label: 'Common',
+          label: 'Common tools',
           collapsed: true,
           items: [
             'api/common/base-tools',
