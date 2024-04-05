@@ -4,6 +4,8 @@ title: Service
 
 # Service TestBed
 
+Custom test bed for testing Service.
+
 **Quick example**
 
 ```ts
@@ -29,7 +31,7 @@ describe('AppService', () => {
 
 Creates a specific test bed for service.
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ServiceTools](#tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ServiceTools](#assertion-tools)).
 
 ```ts
 describe('AppService', () => {
@@ -61,8 +63,8 @@ describe('AppService', () => {
 ## TestBed Options
 
 ```ts
-describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent, {} /* 👈 here */);
+describe('AppService', () => {
+  const tb = serviceTestBed(AppService, {} /* 👈 here */);
 
   it('should ', tb(() => {
     // ... expectations
@@ -130,7 +132,7 @@ Automatically invokes the "should create" Angular test.
 
 It checks if the provided described instance is truthy.
 
-## Tools
+## Assertion tools
 
 The tb function provides `ServiceTools`.
 
@@ -167,8 +169,8 @@ it('should ', tb(({ service }) => {
 For specific test, you enable/disable options that override the test bed options.
 
 ```ts
-describe('AppComponent', () => {
-  const tb = componentTestBed(AppComponent);
+describe('AppService', () => {
+  const tb = serviceTestBed(AppService);
 
   it('should ', tb((tools) => {
     // ... expectations
@@ -245,7 +247,9 @@ describe('AppService', () => {
 
 To be used when you need to do third party setups before compiling the custom test bed.
 
-**It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.**
+:::warning
+It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.
+:::
 
 ```ts
 describe('AppService', () => {

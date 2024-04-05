@@ -17,10 +17,10 @@ export default {
           items: [
             'api/test-beds/component',
             'api/test-beds/directive',
-            'api/test-beds/interceptor',
-            'api/test-beds/module',
             'api/test-beds/pipe',
             'api/test-beds/service',
+            'api/test-beds/interceptor',
+            'api/test-beds/module',
           ],
         },
         {

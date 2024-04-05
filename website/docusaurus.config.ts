@@ -3,15 +3,15 @@ import type { Config } from '@docusaurus/types';
 import { themes as prismThemes } from 'prism-react-renderer';
 
 export default {
-  title: 'Angular Testing Tools',
-  tagline: 'Makes Angular testing easier',
+  title: 'Ngx Testing Tools',
+  tagline: 'The only extension you need to test your Angular application',
   favicon: 'img/favicon.ico',
   url: 'https://remscodes.github.io',
   baseUrl: '/ngx-testing-tools/',
   organizationName: 'remscodes',
   projectName: 'ngx-testing-tools',
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenMarkdownLinks: 'throw',
   presets: [
     [
       'classic',
@@ -20,12 +20,10 @@ export default {
           showLastUpdateTime: true,
           sidebarPath: './sidebars.ts',
           path: './docs',
-          editUrl: 'https://github.com/remscodes/ngx-testing-tools/website',
         },
         blog: {
           path: './blog',
           showReadingTime: true,
-          editUrl: 'https://github.com/remscodes/ngx-testing-tools/website',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -38,8 +36,11 @@ export default {
     locales: ['en', 'fr'],
   },
   themeConfig: {
-    // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 4,
+    },
     navbar: {
       title: 'Testing Tools',
       logo: {
@@ -54,20 +55,20 @@ export default {
           sidebarId: 'docs',
           position: 'left',
         },
-        {
-          to: '/examples',
-          label: 'Examples',
-          type: 'docSidebar',
-          sidebarId: 'examples',
-          position: 'left',
-        },
-        {
-          to: '/reference',
-          label: 'Reference',
-          type: 'docSidebar',
-          sidebarId: 'reference',
-          position: 'left',
-        },
+        // {
+        //   to: '/examples',
+        //   label: 'Examples',
+        //   type: 'docSidebar',
+        //   sidebarId: 'examples',
+        //   position: 'left',
+        // },
+        // {
+        //   to: '/reference',
+        //   label: 'Reference',
+        //   type: 'docSidebar',
+        //   sidebarId: 'reference',
+        //   position: 'left',
+        // },
         // {
         //   to: '/blog',
         //   label: 'Blog',
@@ -90,35 +91,26 @@ export default {
               label: 'Getting started',
               to: '/docs/introduction',
             },
-            {
-              label: 'Examples',
-              to: '/docs/examples/about',
-            },
-            {
-              label: 'Reference',
-              to: '/docs/reference/api/overview',
-            },
+            // {
+            //   label: 'Examples',
+            //   to: '/docs/examples/about',
+            // },
+            // {
+            //   label: 'Reference',
+            //   to: '/docs/reference/api/overview',
+            // },
           ],
         },
-        // {
-        //   title: 'Community',
-        //   items: [
-        //     {
-        //       label: 'Twitter',
-        //       href: 'https://twitter.com/docusaurus',
-        //     },
-        //   ],
-        // },
         {
           title: 'More',
           items: [
-            // {
-            //   label: 'Blog',
-            //   to: '/blog',
-            // },
             {
               label: 'GitHub',
               href: 'https://github.com/remscodes/ngx-testing-tools',
+            },
+            {
+              label: 'Stack Overflow',
+              href: 'https://stackoverflow.com/questions/tagged/ngx-testing-tools',
             },
           ],
         },
@@ -126,8 +118,8 @@ export default {
       copyright: `Copyright © 2023-${new Date().getFullYear()} Rémy Abitbol`,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      theme: prismThemes.oneLight,
+      darkTheme: prismThemes.oneDark,
     },
   } satisfies Preset.ThemeConfig,
 } satisfies Config;
