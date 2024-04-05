@@ -3,8 +3,8 @@ import type { Config } from '@docusaurus/types';
 import { themes as prismThemes } from 'prism-react-renderer';
 
 export default {
-  title: 'Angular Testing Tools',
-  tagline: 'Makes Angular testing easier',
+  title: 'Ngx Testing Tools',
+  tagline: 'The only extension you need to test your Angular application',
   favicon: 'img/favicon.ico',
   url: 'https://remscodes.github.io',
   baseUrl: '/ngx-testing-tools/',
@@ -20,12 +20,10 @@ export default {
           showLastUpdateTime: true,
           sidebarPath: './sidebars.ts',
           path: './docs',
-          editUrl: 'https://github.com/remscodes/ngx-testing-tools/website',
         },
         blog: {
           path: './blog',
           showReadingTime: true,
-          editUrl: 'https://github.com/remscodes/ngx-testing-tools/website',
         },
         theme: {
           customCss: './src/css/custom.css',
@@ -38,7 +36,6 @@ export default {
     locales: ['en', 'fr'],
   },
   themeConfig: {
-    // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     tableOfContents: {
       minHeadingLevel: 2,
@@ -121,8 +118,8 @@ export default {
       copyright: `Copyright © 2023-${new Date().getFullYear()} Rémy Abitbol`,
     },
     prism: {
-      theme: prismThemes.github,
-      darkTheme: prismThemes.dracula,
+      theme: prismThemes.oneLight,
+      darkTheme: prismThemes.oneDark,
     },
   } satisfies Preset.ThemeConfig,
 } satisfies Config;
