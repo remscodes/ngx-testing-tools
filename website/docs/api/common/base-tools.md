@@ -2,11 +2,6 @@
 
 Every test beds tools extends these tools.
 
-```ts
-it('should ', tb(({ injector, injected, rx }) => {
-  // ... expectations
-}));
-```
 ### `injector`
 
 Test bed injector to get instances.

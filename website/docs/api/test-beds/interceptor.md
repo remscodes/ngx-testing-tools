@@ -271,6 +271,10 @@ The tb function provides `InterceptorTools`.
 
 `InterceptorTools` extends **[BaseTools](../common/base-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
 
+:::info
+The provided http tools includes the described interceptor into its interceptors. 
+:::
+
 ### `interceptor`
 
 The described interceptor instance.
@@ -310,50 +314,19 @@ Inspect the passed request into the described interceptor.
 
 Example :
 
-<Tabs groupId="interceptors-type">
+```ts
+it('should set custom header before send', tb(({ inspect, rx }, done) => {
+  const req = new HttpRequest('GET', '/test');
+  expect(req.headers.has('x-custom-header')).toBeFalse();
 
-  <TabItem value="function">
-    ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor());
-
-      it('should set custom header before send', tb(({ inspect, rx }, done) => {
-        const req = new HttpRequest('GET', '/test');
-        expect(req.headers.has('x-custom-header')).toBeFalse();
-        
-        rx.remind = inspect.passRequest(req).subscribe({
-          next: (interceptedReq) => {
-            expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
-            done();
-          },
-        });
-      }));
-    });
-    ```
-
-  </TabItem>
-
-  <TabItem value="Class">
-    ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor);
-
-      it('should set custom header before send', tb(({ inspect, rx }, done) => {
-        const req = new HttpRequest('GET', '/test');
-        expect(req.headers.has('x-custom-header')).toBeFalse();
-        
-        rx.remind = inspect.passRequest(req).subscribe({
-          next: (interceptedReq) => {
-            expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
-            done();
-          },
-        });
-      }));
-    });
-    ```
-
-  </TabItem>
-</Tabs>
+  rx.remind = inspect.passRequest(req).subscribe({
+    next: (interceptedReq) => {
+      expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
+      done();
+    },
+  });
+}));
+```
 
 #### `successResponse(..)`
 
@@ -393,7 +366,7 @@ it('should ', tb(({ inspect, rx }, done) => {
 }));
 ```
 
-## Assertion Options
+## Assertion options
 
 For specific test, you enable/disable options that override the test bed options.
 
