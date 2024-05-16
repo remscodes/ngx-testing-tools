@@ -164,7 +164,7 @@ it('should ', tb(({ service }) => {
 }));
 ```
 
-## Assertion Options
+## Assertion options
 
 For specific test, you enable/disable options that override the test bed options.
 
