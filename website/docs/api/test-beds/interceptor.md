@@ -22,7 +22,7 @@ Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterce
     describe('appInterceptor', () => {
       const tb = interceptorTestBed(appInterceptor());
 
-      it('should set custom header before send', tb(({ inspect, rx }) => {
+      it('should set custom header before send', tb(({ inspect, rx }, done) => {
         const req = new HttpRequest('GET', '/test');
         expect(req.headers.has('x-custom-header')).toBeFalse();
     
@@ -43,7 +43,7 @@ Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterce
     describe('AppInterceptor', () => {
       const tb = interceptorTestBed(AppInterceptor);
 
-      it('should set custom header before send', tb(({ inspect, rx }) => {
+      it('should set custom header before send', tb(({ inspect, rx }, done) => {
         const req = new HttpRequest('GET', '/test');
         expect(req.headers.has('x-custom-header')).toBeFalse();
     
