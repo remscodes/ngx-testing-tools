@@ -40,13 +40,13 @@ export default {
     'examples/about',
   ],
   reference: [
-    {
-      type: 'category',
-      label: 'API Reference',
-      items: [
-        'reference/api/overview',
-      ],
-    },
+    // {
+    //   type: 'category',
+    //   label: 'API Reference',
+    //   items: [
+    //     'reference/api/overview',
+    //   ],
+    // },
     'reference/version-compatibility',
   ],
 } satisfies SidebarsConfig;

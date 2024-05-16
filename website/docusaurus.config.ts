@@ -62,13 +62,13 @@ export default {
         //   sidebarId: 'examples',
         //   position: 'left',
         // },
-        // {
-        //   to: '/reference',
-        //   label: 'Reference',
-        //   type: 'docSidebar',
-        //   sidebarId: 'reference',
-        //   position: 'left',
-        // },
+        {
+          to: '/reference',
+          label: 'Reference',
+          type: 'docSidebar',
+          sidebarId: 'reference',
+          position: 'left',
+        },
         // {
         //   to: '/blog',
         //   label: 'Blog',
