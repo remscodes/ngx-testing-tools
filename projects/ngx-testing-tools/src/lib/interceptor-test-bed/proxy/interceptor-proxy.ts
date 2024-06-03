@@ -2,12 +2,12 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest
 import { inject, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
-import { INTERCEPTOR_INFO } from './interceptor-info.token';
+import { INTERCEPTOR_INFO, InterceptorInfo } from './interceptor-info.token';
 
 @Injectable()
 export class InterceptorProxy implements HttpInterceptor {
 
-  private info = inject(INTERCEPTOR_INFO);
+  private info: InterceptorInfo = inject(INTERCEPTOR_INFO);
 
   private isRootCtor: boolean = this.info.isRootCtor;
 
@@ -15,11 +15,9 @@ export class InterceptorProxy implements HttpInterceptor {
     ? inject(this.info.rootInterceptor)
     : this.info.rootInterceptor;
 
-  public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (this.isRootCtor) return (this.instance as HttpInterceptor).intercept(req, next);
-
-    return TestBed.runInInjectionContext(() => {
-      return (this.instance as HttpInterceptorFn)(req, next.handle);
-    });
+  public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    return (this.isRootCtor)
+      ? (this.instance as HttpInterceptor).intercept(req, next)
+      : TestBed.runInInjectionContext(() => (this.instance as HttpInterceptorFn)(req, next.handle));
   }
 }
