@@ -6,8 +6,4 @@ export interface DirectiveTools<T, H, I extends {} = {}> extends RendererTools<H
    * The described directive instance.
    */
   directive: T;
-  /**
-   * The host instance.
-   */
-  host: H;
 }
