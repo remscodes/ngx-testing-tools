@@ -19,8 +19,8 @@ describe('moduleTestBed', () => {
       module.foo = false;
     }));
 
-    it('should ', () => {
-
-    });
+    it('should foo be false', tb(({ module }) => {
+      expect(module.foo).toBeFalse();
+    }));
   });
 });
