@@ -579,7 +579,7 @@ It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be 
 
 Create the "should create" for the described interceptor.
 
-To be used when there are no apparent or consistent tests to be performed.
+To be used when there are no apparent or relevant tests to be performed.
 
 <Tabs groupId="interceptors-type">
 

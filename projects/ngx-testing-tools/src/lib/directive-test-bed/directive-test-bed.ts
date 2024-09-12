@@ -37,7 +37,7 @@ export function directiveTestBed<T, H>(rootDirective: Type<T>, hostComponent: Ty
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or consistent tests to be performed on this directive.
+ * To be used when there are no apparent or relevant tests to be performed on this directive.
  *
  * The usage of this function and `directiveTestBed` function must be mutually exclusive.
  *

@@ -28,7 +28,7 @@ export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOpti
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or consistent tests to be performed on this module.
+ * To be used when there are no apparent or relevant tests to be performed on this module.
  *
  * The usage of this function and `moduleTestBed` function must be mutually exclusive.
  *
