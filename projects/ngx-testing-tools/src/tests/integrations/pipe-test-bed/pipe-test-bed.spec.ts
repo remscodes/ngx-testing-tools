@@ -1,7 +1,11 @@
-import { pipeTestBed } from '../../../lib';
+import { itShouldCreatePipe, pipeTestBed } from '../../../lib';
 import { PrefixPipe } from '../../fixtures/pipes/prefix.pipe';
 
-describe('PipeTestBed', () => {
+describe('itShouldCreatePipe', () => {
+  itShouldCreatePipe(PrefixPipe);
+});
+
+describe('pipeTestBed', () => {
 
   describe('setup', () => {
     const tb = pipeTestBed(PrefixPipe);

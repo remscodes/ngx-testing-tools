@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { buildJasmineCallback } from '../common/jasmine/jasmine-callback';
 import { mergeRendererFactory } from '../common/test-beds/renderer/merge-renderer-factory';
 import { DirectiveTestBedFactory } from './directive-test-bed-factory';
@@ -33,3 +33,27 @@ export function directiveTestBed<T, H>(rootDirective: Type<T>, hostComponent: Ty
 
   return mergeRendererFactory(factory, tb);
 }
+
+/**
+ * Only invokes the "should create" test.
+ *
+ * To be used when there are no apparent or relevant tests to be performed on this directive.
+ *
+ * The usage of this function and `directiveTestBed` function must be mutually exclusive.
+ *
+ * @param rootDirective - The described Directive.
+ * @param options
+ */
+export function itShouldCreateDirective<T>(rootDirective: Type<T>, options: itShouldCreateOptions = {}): void {
+  @Component({ template: '', standalone: true })
+  class HostComponent {}
+
+  directiveTestBed(rootDirective, HostComponent, options);
+}
+
+type itShouldCreateOptions = Pick<DirectiveTestBedOptions,
+  | 'imports'
+  | 'providers'
+  | 'declarations'
+  | 'schemas'
+>

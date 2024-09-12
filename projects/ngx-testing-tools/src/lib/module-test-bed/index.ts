@@ -1,3 +1,3 @@
 export * from './models';
 export * from './tools';
-export { moduleTestBed } from './module-test-bed';
+export { moduleTestBed, itShouldCreateModule } from './module-test-bed';

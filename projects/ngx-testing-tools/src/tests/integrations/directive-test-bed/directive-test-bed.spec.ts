@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
-import { directiveTestBed } from '../../../lib';
+import { directiveTestBed, itShouldCreateDirective } from '../../../lib';
 import { HighlightDirective } from '../../fixtures/directives/highlight.directive';
+
+describe('isShouldCreateDirective', () => {
+  itShouldCreateDirective(HighlightDirective);
+});
 
 describe('directiveTestBed', () => {
 

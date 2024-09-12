@@ -1,3 +1,3 @@
 export * from './models';
 export * from './tools';
-export { pipeTestBed } from './pipe-test-bed';
+export { pipeTestBed, itShouldCreatePipe } from './pipe-test-bed';

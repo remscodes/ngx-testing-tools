@@ -248,3 +248,15 @@ describe('AppPipe', () => {
   });
 });
 ```
+
+## `itShouldCreatePipe(..)`
+
+Create the "should create" for the described pipe.
+
+To be used when there are no apparent or relevant tests to be performed.
+
+```ts
+describe('AppPipe', () => {
+  itShouldCreatePipe(AppPipe);
+});
+```

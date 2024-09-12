@@ -41,3 +41,24 @@ export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTe
 
   return mergeRendererFactory(factory, tb);
 }
+
+/**
+ * Only invokes the "should create" test.
+ *
+ * To be used when there are no apparent or relevant tests to be performed on this component.
+ *
+ * The usage of this function and `componentTestBed` function must be mutually exclusive.
+ *
+ * @param rootComponent - The described Component.
+ * @param options
+ */
+export function itShouldCreateComponent<T>(rootComponent: Type<T>, options: itShouldCreateOptions = {}): void {
+  componentTestBed(rootComponent, options);
+}
+
+type itShouldCreateOptions = Pick<ComponentTestBedOptions,
+  | 'imports'
+  | 'providers'
+  | 'declarations'
+  | 'schemas'
+>

@@ -24,3 +24,22 @@ export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOpti
 
   return mergeBaseFactory(factory, tb);
 }
+
+/**
+ * Only invokes the "should create" test.
+ *
+ * To be used when there are no apparent or relevant tests to be performed on this module.
+ *
+ * The usage of this function and `moduleTestBed` function must be mutually exclusive.
+ *
+ * @param rootModule - The described Module.
+ * @param options
+ */
+export function itShouldCreateModule<T>(rootModule: Type<T>, options: ItShouldCreateOptions = {}): void {
+  moduleTestBed(rootModule, options);
+}
+
+type ItShouldCreateOptions = Pick<ModuleTestBedOptions,
+  | 'providers'
+  | 'imports'
+>

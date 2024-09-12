@@ -1,10 +1,14 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Component, inject } from '@angular/core';
-import { componentTestBed } from '../../../lib';
+import { componentTestBed, itShouldCreateComponent } from '../../../lib';
 import { InnerComponent } from '../../fixtures/components/inner.component';
 import { OuterComponent } from '../../fixtures/components/outer.component';
 import { validateArray } from '../../fixtures/helpers/validators/validate-array';
 import { AppService } from '../../fixtures/services/app.service';
+
+describe('itShouldCreateComponent', () => {
+  itShouldCreateComponent(OuterComponent);
+});
 
 describe('componentTestBed', () => {
 

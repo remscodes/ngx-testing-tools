@@ -1,9 +1,13 @@
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Injectable } from '@angular/core';
-import { serviceTestBed } from '../../../lib';
+import { itShouldCreateService, serviceTestBed } from '../../../lib';
 import { AppService } from '../../fixtures/services/app.service';
 
-describe('ServiceTestBed', () => {
+describe('itShouldCreateService', () => {
+  itShouldCreateService(AppService);
+});
+
+describe('serviceTestBed', () => {
 
   describe('instance', () => {
     serviceTestBed(AppService);

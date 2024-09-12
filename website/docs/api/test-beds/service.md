@@ -261,3 +261,15 @@ describe('AppService', () => {
   });
 });
 ```
+
+## `itShouldCreateService(..)`
+
+Create the "should create" for the described service.
+
+To be used when there are no apparent or relevant tests to be performed.
+
+```ts
+describe('AppService', () => {
+  itShouldCreateService(AppService);
+});
+```

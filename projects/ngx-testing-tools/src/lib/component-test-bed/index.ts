@@ -1,3 +1,3 @@
 export * from './models';
 export * from './tools';
-export { componentTestBed } from './component-test-bed';
+export { componentTestBed, itShouldCreateComponent } from './component-test-bed';

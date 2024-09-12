@@ -1,6 +1,7 @@
 import { Type } from '@angular/core';
 import { buildJasmineCallback } from '../common/jasmine/jasmine-callback';
 import { mergeBaseFactory } from '../common/test-beds/base/merge-base-factory';
+import { PipeTestBedOptions } from '../pipe-test-bed';
 import { ServiceTestBed, ServiceTestBedOptions } from './models';
 import { ServiceTestBedFactory } from './service-test-bed-factory';
 
@@ -32,3 +33,22 @@ export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedO
 
   return mergeBaseFactory(factory, tb);
 }
+
+/**
+ * Only invokes the "should create" test.
+ *
+ * To be used when there are no apparent or relevant tests to be performed on this service.
+ *
+ * The usage of this function and `serviceTestBed` function must be mutually exclusive.
+ *
+ * @param rootService - The described Service.
+ * @param options
+ */
+export function itShouldCreateService<T>(rootService: Type<T>, options: ItShouldCreateOptions = {}): void {
+  serviceTestBed(rootService, options);
+}
+
+type ItShouldCreateOptions = Pick<PipeTestBedOptions,
+  | 'providers'
+  | 'imports'
+>
