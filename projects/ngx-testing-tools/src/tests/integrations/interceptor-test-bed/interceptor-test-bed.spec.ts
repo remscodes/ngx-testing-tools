@@ -1,26 +1,45 @@
 import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpInterceptorFn, HttpRequest, HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { interceptorTestBed } from '../../../lib';
+import { interceptorTestBed, itShouldCreateInterceptor } from '../../../lib';
 import { validateHeader } from '../../fixtures/helpers/validators/validate-http-header';
 
-describe('InterceptorTestBed', () => {
+@Injectable()
+class Store {}
 
-  @Injectable()
-  class Store {}
+@Injectable()
+class OneInterceptor implements HttpInterceptor {
+
+  public constructor(
+    public store: Store,
+  ) { }
+
+  public intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    return next.handle(req.clone({ setHeaders: { 'x-custom-header': 'my-value' } })).pipe(tap({}));
+  }
+}
+
+function oneInterceptor(): HttpInterceptorFn {
+  return (req, next) => {
+    inject(Store);
+    return next(req.clone({ setHeaders: { 'x-custom-header': 'my-value' } }));
+  };
+}
+
+describe('itShouldCreateInterceptor', () => {
 
   describe('with class', () => {
-    @Injectable()
-    class OneInterceptor implements HttpInterceptor {
-      constructor(public store: Store) {}
+    itShouldCreateInterceptor(OneInterceptor, { providers: [Store] });
+  });
 
-      public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req.clone({ setHeaders: { 'x-custom-header': 'my-value' } })).pipe(
-          tap({}),
-        );
-      }
-    }
+  describe('with fn', () => {
+    itShouldCreateInterceptor(oneInterceptor());
+  });
+});
 
+describe('interceptorTestBed', () => {
+
+  describe('with class', () => {
     const tb = interceptorTestBed(OneInterceptor)
       .provide(Store);
 
@@ -116,13 +135,6 @@ describe('InterceptorTestBed', () => {
   });
 
   describe('with fn', () => {
-    function oneInterceptor(): HttpInterceptorFn {
-      return (req, next) => {
-        inject(Store);
-        return next(req.clone({ setHeaders: { 'x-custom-header': 'my-value' } }));
-      };
-    }
-
     const tb = interceptorTestBed(oneInterceptor(), {
       providers: [Store],
       checkCreate: false,
