@@ -48,8 +48,9 @@ export function interceptorTestBed<T extends HttpInterceptor>(rootInterceptor: T
  * The usage of this function and `interceptorTestBed` function must be mutually exclusive.
  *
  * @param rootInterceptor - The described HttpInterceptor.
+ * @param options
  */
-export function itShouldCreateInterceptor<T extends HttpInterceptor>(rootInterceptor: Type<T>): void
+export function itShouldCreateInterceptor<T extends HttpInterceptor>(rootInterceptor: Type<T>, options?: ItShouldCreateOptions): void
 /**
  * Only invokes the "should create" test.
  *
@@ -58,8 +59,14 @@ export function itShouldCreateInterceptor<T extends HttpInterceptor>(rootInterce
  * The usage of this function and `interceptorTestBed` function must be mutually exclusive.
  *
  * @param rootInterceptor - The described HttpInterceptorFn.
+ * @param options
  */
-export function itShouldCreateInterceptor(rootInterceptor: HttpInterceptorFn): void
-export function itShouldCreateInterceptor<T extends HttpInterceptor>(rootInterceptor: Type<T> | HttpInterceptorFn): void {
-  interceptorTestBed(rootInterceptor as any);
+export function itShouldCreateInterceptor(rootInterceptor: HttpInterceptorFn, options?: ItShouldCreateOptions): void
+export function itShouldCreateInterceptor<T extends HttpInterceptor>(rootInterceptor: Type<T> | HttpInterceptorFn, options: ItShouldCreateOptions = {}): void {
+  interceptorTestBed(rootInterceptor as any, options);
 }
+
+type ItShouldCreateOptions = Pick<InterceptorTestBedOptions,
+  | 'providers'
+  | 'imports'
+>

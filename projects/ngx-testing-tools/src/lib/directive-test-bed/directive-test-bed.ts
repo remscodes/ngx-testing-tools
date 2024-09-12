@@ -42,10 +42,18 @@ export function directiveTestBed<T, H>(rootDirective: Type<T>, hostComponent: Ty
  * The usage of this function and `directiveTestBed` function must be mutually exclusive.
  *
  * @param rootDirective - The described Directive.
+ * @param options
  */
-export function itShouldCreateDirective<T>(rootDirective: Type<T>): void {
+export function itShouldCreateDirective<T>(rootDirective: Type<T>, options: itShouldCreateOptions = {}): void {
   @Component({ template: '', standalone: true })
   class HostComponent {}
 
-  directiveTestBed(rootDirective, HostComponent);
+  directiveTestBed(rootDirective, HostComponent, options);
 }
+
+type itShouldCreateOptions = Pick<DirectiveTestBedOptions,
+  | 'imports'
+  | 'providers'
+  | 'declarations'
+  | 'schemas'
+>

@@ -33,7 +33,13 @@ export function pipeTestBed<T extends PipeTransform>(rootPipe: Type<T>, options:
  * The usage of this function and `pipeTestBed` function must be mutually exclusive.
  *
  * @param rootPipe - The described Pipe.
+ * @param options
  */
-export function itShouldCreatePipe<T extends PipeTransform>(rootPipe: Type<T>): void {
-  pipeTestBed(rootPipe);
+export function itShouldCreatePipe<T extends PipeTransform>(rootPipe: Type<T>, options: ItShouldCreateOptions = {}): void {
+  pipeTestBed(rootPipe, options);
 }
+
+type ItShouldCreateOptions = Pick<PipeTestBedOptions,
+  | 'providers'
+  | 'imports'
+>
