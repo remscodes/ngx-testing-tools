@@ -17,6 +17,8 @@ export class ModuleTestBedFactory<
   ) {
     assertModuleCtor(rootModule);
     super(rootModule, options);
+
+    this.import(rootModule);
   }
 
   protected override deferredTools = () => buildModuleTools(this);
