@@ -272,7 +272,7 @@ The tb function provides `InterceptorTools`.
 `InterceptorTools` extends **[BaseTools](../common/base-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
 
 :::info
-The provided http tools includes the described interceptor into its interceptors. 
+The provided http tools includes the described interceptor into its interceptors.
 :::
 
 ### `interceptor`
@@ -572,5 +572,30 @@ It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be 
     });
     ```
 
+  </TabItem>
+</Tabs>
+
+## `itShouldCreateInterceptor(..)`
+
+Create the "should create" for the described interceptor.
+
+To be used when there are no apparent or consistent tests to be performed.
+
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appInterceptor', () => {
+      itShouldCreateInterceptor(appInterceptor());
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppInterceptor', () => {
+      itShouldCreateInterceptor(AppInterceptor);
+    });
+    ```
   </TabItem>
 </Tabs>

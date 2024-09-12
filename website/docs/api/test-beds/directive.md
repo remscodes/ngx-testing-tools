@@ -339,3 +339,15 @@ describe('AppDirective', () => {
   });
 });
 ```
+
+## `itShouldCreateDirective(..)`
+
+Create the "should create" for the described directive.
+
+To be used when there are no apparent or consistent tests to be performed.
+
+```ts
+describe('AppDirective', () => {
+  itShouldCreateComponent(AppDirective);
+});
+```

@@ -217,3 +217,15 @@ describe('AppModule', () => {
   });
 });
 ```
+
+## `itShouldCreateModule(..)`
+
+Create the "should create" for the described module.
+
+To be used when there are no apparent or consistent tests to be performed.
+
+```ts
+describe('AppModule', () => {
+  itShouldCreateModule(AppModule);
+});
+```
