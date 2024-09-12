@@ -24,3 +24,16 @@ export function pipeTestBed<T extends PipeTransform>(rootPipe: Type<T>, options:
 
   return mergeBaseFactory(factory, tb);
 }
+
+/**
+ * Only invokes the "should create" test.
+ *
+ * To be used when there are no apparent or consistent tests to be performed on this pipe.
+ *
+ * The usage of this function and `pipeTestBed` function must be mutually exclusive.
+ *
+ * @param rootPipe - The described Pipe.
+ */
+export function itShouldCreatePipe<T extends PipeTransform>(rootPipe: Type<T>): void {
+  pipeTestBed(rootPipe);
+}

@@ -39,3 +39,27 @@ export function interceptorTestBed<T extends HttpInterceptor>(rootInterceptor: T
 
   return mergeBaseFactory(factory, tb as any);
 }
+
+/**
+ * Only invokes the "should create" test.
+ *
+ * To be used when there are no apparent or consistent tests to be performed on this interceptor.
+ *
+ * The usage of this function and `interceptorTestBed` function must be mutually exclusive.
+ *
+ * @param rootInterceptor - The described HttpInterceptor.
+ */
+export function itShouldCreateInterceptor<T extends HttpInterceptor>(rootInterceptor: Type<T>): void
+/**
+ * Only invokes the "should create" test.
+ *
+ * To be used when there are no apparent or consistent tests to be performed on this interceptor.
+ *
+ * The usage of this function and `interceptorTestBed` function must be mutually exclusive.
+ *
+ * @param rootInterceptor - The described HttpInterceptorFn.
+ */
+export function itShouldCreateInterceptor(rootInterceptor: HttpInterceptorFn): void
+export function itShouldCreateInterceptor<T extends HttpInterceptor>(rootInterceptor: Type<T> | HttpInterceptorFn): void {
+  interceptorTestBed(rootInterceptor as any);
+}

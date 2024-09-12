@@ -1,3 +1,3 @@
 export * from './models';
 export * from './tools';
-export { directiveTestBed } from './directive-test-bed';
+export { directiveTestBed, itShouldCreateDirective } from './directive-test-bed';

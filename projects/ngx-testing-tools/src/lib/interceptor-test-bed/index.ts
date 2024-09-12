@@ -1,3 +1,3 @@
 export * from './models';
-export { interceptorTestBed } from './interceptor-test-bed';
+export { interceptorTestBed, itShouldCreateInterceptor } from './interceptor-test-bed';
 
