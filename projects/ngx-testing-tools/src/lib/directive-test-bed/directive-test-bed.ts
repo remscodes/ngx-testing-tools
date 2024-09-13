@@ -45,7 +45,7 @@ export function directiveTestBed<T, H>(rootDirective: Type<T>, hostComponent: Ty
  * @param options
  */
 export function itShouldCreateDirective<T>(rootDirective: Type<T>, options?: itShouldCreateDirectiveOptions): void {
-  @Component({ template: '', standalone: true })
+  @Component({ template: '', standalone: true, selector: 'host-component:not(div)' })
   class HostComponent {}
 
   directiveTestBed(rootDirective, HostComponent, options);

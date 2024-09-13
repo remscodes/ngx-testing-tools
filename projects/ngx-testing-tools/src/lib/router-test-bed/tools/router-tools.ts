@@ -1,4 +1,4 @@
-import { Signal, signal } from '@angular/core';
+import { Signal, signal, WritableSignal } from '@angular/core';
 import { Event, NavigationEnd, Router, Routes } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { filter } from 'rxjs';
@@ -13,10 +13,10 @@ export function buildRouterTools<T extends Routes>(factory: RouterTestBedFactory
 
   const { injected, injector, rx } = buildBaseTools(factory);
 
-  const urlSignal = signal<string>(router.url);
+  const urlSignal: WritableSignal<string> = signal<string>(router.url);
 
   rx.remind = router.events
-    .pipe(filter((event: Event) => event instanceof NavigationEnd))
+    .pipe(filter((event: Event) => (event instanceof NavigationEnd)))
     .subscribe({
       next: (event: Event) => urlSignal.set((event as NavigationEnd).url),
     });
