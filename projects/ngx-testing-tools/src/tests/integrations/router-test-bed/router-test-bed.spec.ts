@@ -1,18 +1,14 @@
-import { inject, Injectable } from '@angular/core';
 import { Routes } from '@angular/router';
-import { routerTestBed } from '../../../lib/router-test-bed';
+import { routerTestBed } from '../../../lib';
 import { InnerComponent } from '../../fixtures/components/inner.component';
 import { OuterComponent } from '../../fixtures/components/outer.component';
-
-@Injectable()
-class AuthService {
-  public isAuth: boolean = false;
-}
+import { AUTH_GUARD } from '../../fixtures/guards/auth.guard';
+import { AuthService } from '../../fixtures/services/auth.service';
 
 const APP_ROUTES: Routes = [
   { path: 'home', component: OuterComponent },
   { path: 'carousel', component: InnerComponent },
-  { path: 'account', component: InnerComponent, canActivate: [() => inject(AuthService).isAuth] },
+  { path: 'account', component: InnerComponent, canActivate: [AUTH_GUARD] },
 ];
 
 describe('routerTestBed', () => {
@@ -34,12 +30,12 @@ describe('routerTestBed', () => {
 
     await navigateByUrl('account');
 
-    expect($url()).toEqual(`/${initialUrl}`); // guard reject
+    expect($url()).toEqual(`/${initialUrl}`); // expect guard reject so navigation end to current url
 
-    auth.isAuth = true;
+    auth.isLogin = true;
 
     await navigateByUrl('account');
 
-    expect($url()).toEqual('/account'); // guard pass
+    expect($url()).toEqual('/account'); // expect guard pass
   }));
 });

@@ -11,7 +11,11 @@ import { buildServiceTools } from './tools/service-tools';
 export class ServiceTestBedFactory<
   ServiceType,
   Store extends InjectionStore = InjectionStore
-> extends BaseTestBedFactory<ServiceType, Store, ServiceTools<ServiceType, Store['injected']>> {
+> extends BaseTestBedFactory<
+  ServiceType,
+  Store,
+  ServiceTools<ServiceType, Store['injected']>
+> {
 
   public constructor(
     rootService: Type<ServiceType>,

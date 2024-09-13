@@ -10,7 +10,11 @@ import { buildRouterTools } from './tools/router-tools';
 export class RouterTestBedFactory<
   RoutesConst extends Routes,
   Store extends InjectionStore = InjectionStore
-> extends BaseTestBedFactory<Router, Store, RouterTools<RoutesConst, Store['injected']>> {
+> extends BaseTestBedFactory<
+  Router,
+  Store,
+  RouterTools<RoutesConst, Store['injected']>
+> {
 
   public constructor(
     routes: RoutesConst,

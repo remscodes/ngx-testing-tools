@@ -6,12 +6,10 @@ import { buildRendererTools } from '../../common/tools/renderer/renderer-tools';
 import { ComponentTestBedFactory } from '../component-test-bed-factory';
 import { ComponentTools } from './models';
 
-interface ComponentToolsBuilderOptions extends HttpOptions {}
-
-export function buildComponentTools<T>(factory: ComponentTestBedFactory<T>, options: ComponentToolsBuilderOptions): ComponentTools<T> {
+export function buildComponentTools<T>(factory: ComponentTestBedFactory<T>, httpOptions: HttpOptions): ComponentTools<T> {
   const { action, element, fixture, host: component, query } = buildRendererTools(factory);
   const { injected, injector, rx } = buildBaseTools(factory, { thisInjector: fixture.debugElement.injector });
-  const http: HttpTools = buildHttpTools(injector, options);
+  const http: HttpTools = buildHttpTools(injector, httpOptions);
 
   return { action, component, debug: fixture.debugElement, element, fixture, http, injected, injector, query, rx };
 }
