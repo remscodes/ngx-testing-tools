@@ -10,15 +10,23 @@ import { RouterTestBedFactory } from './router-test-bed-factory';
  * @param options
  */
 export function routerTestBed<T extends Routes>(routes: T, options: RouterTestBedOptions = {}): RouterTestBed<T> {
-  const factory = new RouterTestBedFactory(routes);
-  const { startDetectChanges } = options;
+  const factory = new RouterTestBedFactory(routes, options);
 
-  const tb: RouterTestBed<T> = ((assertion) => {
+  const defaultStartDetectChanges = factory['startDetectChanges'];
+
+  const tb: RouterTestBed<T> = ((assertion, opts = {}) => {
+    const {
+      initialUrl,
+      startDetectChanges = defaultStartDetectChanges,
+    } = opts;
+
+    if (initialUrl) factory['initialUrl'] = initialUrl;
+
     return buildJasmineCallback({
       callback: assertion,
       deferredTools: factory['deferredTools'],
       preTest: (tools) => {
-        if (!startDetectChanges) tools.harness.detectChanges();
+        if (startDetectChanges) tools.harness.detectChanges();
       },
       postTest: (tools) => {
         tools.rx['cleanAll']();

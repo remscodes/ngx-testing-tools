@@ -38,7 +38,7 @@ export abstract class BaseTestBedFactory<
 
   protected testBed: TestBedStatic = TestBed;
 
-  protected _instance: DescribedType = null!;
+  private _instance: DescribedType = null!;
 
   protected get instance(): DescribedType {
     assertInstance(this._instance, this.described);
