@@ -13,7 +13,7 @@ export class ModuleTestBedFactory<
 
   public constructor(
     rootModule: Type<ModuleType>,
-    options: ModuleTestBedOptions = {},
+    options: ModuleTestBedOptions,
   ) {
     assertModuleCtor(rootModule);
     super(rootModule, options);

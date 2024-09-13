@@ -131,7 +131,3 @@ describe('ComponentTestBedFactory', () => {
     bedFactory2.shouldCreate();
   });
 });
-
-describe('ComponentTestBedFactory default options', () => {
-  new ComponentTestBedFactory(OuterComponent);
-});

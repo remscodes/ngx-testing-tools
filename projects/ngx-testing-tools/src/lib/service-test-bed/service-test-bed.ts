@@ -44,11 +44,11 @@ export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedO
  * @param rootService - The described Service.
  * @param options
  */
-export function itShouldCreateService<T>(rootService: Type<T>, options: ItShouldCreateOptions = {}): void {
+export function itShouldCreateService<T>(rootService: Type<T>, options?: ItShouldCreateServiceOptions): void {
   serviceTestBed(rootService, options);
 }
 
-type ItShouldCreateOptions = Pick<PipeTestBedOptions,
+type ItShouldCreateServiceOptions = Pick<PipeTestBedOptions,
   | 'providers'
   | 'imports'
 >

@@ -15,7 +15,7 @@ export class ServiceTestBedFactory<
 
   public constructor(
     rootService: Type<ServiceType>,
-    options: ServiceTestBedOptions = {},
+    options: ServiceTestBedOptions,
   ) {
     assertServiceCtor(rootService);
     super(rootService, options);

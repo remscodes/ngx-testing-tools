@@ -21,7 +21,7 @@ export abstract class RendererTestBedFactory<
   protected constructor(
     described: Type<DescribedType>,
     private host: Type<HostType>,
-    options: RendererTestBedOptions = {},
+    options: RendererTestBedOptions,
   ) {
     super(described, options);
 

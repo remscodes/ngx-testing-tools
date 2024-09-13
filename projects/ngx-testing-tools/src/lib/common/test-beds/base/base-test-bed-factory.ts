@@ -20,7 +20,7 @@ export abstract class BaseTestBedFactory<
 
   protected constructor(
     protected described: Type<DescribedType>,
-    options: BaseTestBedOptions = {},
+    options: BaseTestBedOptions,
   ) {
     const {
       imports = [],

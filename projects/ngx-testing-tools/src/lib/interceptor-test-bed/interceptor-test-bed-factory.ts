@@ -19,7 +19,7 @@ export class InterceptorTestBedFactory<
 
   public constructor(
     rootInterceptor: Type<InterceptorType> | HttpInterceptorFn,
-    options: InterceptorTestBedOptions = {},
+    options: InterceptorTestBedOptions,
   ) {
     const isRootCtor = isConstructor(rootInterceptor);
     (isRootCtor)
