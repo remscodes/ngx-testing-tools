@@ -13,7 +13,7 @@ export interface RouterTools<T extends Routes, I extends {} = {}> extends BaseTo
    */
   harness: RouterTestingHarness;
   /**
-   * Proxy of RouterTestingHarness.navigateByUrl
+   * @see RouterTestingHarness.navigateByUrl
    */
   navigateByUrl: RouterTestingHarness['navigateByUrl'];
   /**
