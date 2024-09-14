@@ -4,6 +4,7 @@ import { assertInstance } from '../../assertions/assert-instance';
 import { shouldCreate } from '../../expectations/should-create';
 import { buildJasmineCallback } from '../../jasmine/jasmine-callback';
 import { EnhancedJasmineCallback } from '../../jasmine/models/enhanced-jasmine-callback.model';
+import { JasmineCallback } from '../../jasmine/models/jasmine-callback.model';
 import { MaybeArray, NonEmptyString, PrettyMerge } from '../../shared.models';
 import { BaseTools } from '../../tools/base/models/base-tools.model';
 import { DeferredTools } from '../../tools/models/deferred-tools.model';
@@ -124,7 +125,7 @@ export abstract class BaseTestBedFactory<
    *
    * **Works only for `beforeEach` and `afterEach`**.
    */
-  public setup(action: EnhancedJasmineCallback<Tools>): jasmine.ImplementationCallback {
+  public setup(action: EnhancedJasmineCallback<Tools>): JasmineCallback {
     return buildJasmineCallback({
       callback: action,
       deferredTools: this.deferredTools,
