@@ -22,9 +22,8 @@ export class InterceptorTestBedFactory<
     options: InterceptorTestBedOptions,
   ) {
     const isRootCtor = isConstructor(rootInterceptor);
-    (isRootCtor)
-      ? assertServiceCtor(rootInterceptor)
-      : assertFn(rootInterceptor);
+    if (isRootCtor) assertServiceCtor(rootInterceptor);
+    else assertFn(rootInterceptor);
 
     super(InterceptorProxy, options);
 
