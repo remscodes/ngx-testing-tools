@@ -1,42 +1,77 @@
 import { guardTestBed } from '../../../lib/guard-test-bed';
+import { ADMIN_GUARD, AdminGuard } from '../../fixtures/guards/admin.guard';
 import { AUTH_GUARD, AuthGuard } from '../../fixtures/guards/auth.guard';
 import { AuthService } from '../../fixtures/services/auth.service';
 
 describe('guardTestBed', () => {
 
-  describe('with class', () => {
-    const tb = guardTestBed(AuthGuard)
-      .provide(AuthService);
+  describe('with fn', () => {
 
-    it('should not pass', tb(({ challenge }) => {
-      const result = challenge();
-      expect(result).toBeFalse();
-    }));
+    describe('canActivate', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
+        .provide(AuthService)
+        .inject('auth', AuthService);
 
-    it('should pass', tb(({ challenge, injector }) => {
-      const auth = injector.get(AuthService);
-      auth.isLogin = true;
+      it('should not activate', tb(({ challenge }) => {
+        const result = challenge();
+        expect(result).toBeFalse();
+      }));
 
-      const result = challenge();
-      expect(result).toBeTrue();
-    }));
+      it('should activate', tb(({ challenge, injected: { auth } }) => {
+        auth.isLogin = true;
+
+        const result = challenge();
+        expect(result).toBeTrue();
+      }));
+    });
+
+    describe('canActivateChild', () => {
+      const tb = guardTestBed(ADMIN_GUARD, { type: 'CanActivateChild' });
+
+      it('should not activate child', tb(({ challenge }) => {
+        const result = challenge();
+        expect(result).toBeFalse();
+      }));
+
+      it('should activate child', tb(({ challenge }) => {
+        const result = challenge.withInfo({ data: { isAdmin: true } });
+        expect(result).toBeTrue();
+      }));
+    });
   });
 
-  describe('with fn', () => {
-    const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
-      .provide(AuthService);
+  describe('with class', () => {
 
-    it('should not pass', tb(({ challenge }) => {
-      const result = challenge();
-      expect(result).toBeFalse();
-    }));
+    describe('canActivate', () => {
+      const tb = guardTestBed(AuthGuard)
+        .provide(AuthService);
 
-    it('should pass', tb(({ challenge, injector }) => {
-      const auth = injector.get(AuthService);
-      auth.isLogin = true;
+      it('should not activate', tb(({ challenge }) => {
+        const result = challenge();
+        expect(result).toBeFalse();
+      }));
 
-      const result = challenge();
-      expect(result).toBeTrue();
-    }));
+      it('should activate', tb(({ challenge, injector }) => {
+        const auth = injector.get(AuthService);
+        auth.isLogin = true;
+
+        const result = challenge();
+        expect(result).toBeTrue();
+      }));
+    });
+
+    describe('canActivateChild', () => {
+      const tb = guardTestBed(AdminGuard);
+
+      it('should not activate child', tb(({ challenge }) => {
+        const result = challenge();
+        expect(result).toBeFalse();
+      }));
+
+      it('should activate child', tb(({ challenge }) => {
+        const result = challenge.withInfo({ data: { isAdmin: true } });
+        expect(result).toBeTrue();
+      }));
+    });
   });
 });
