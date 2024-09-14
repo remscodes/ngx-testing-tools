@@ -5,12 +5,10 @@ import { HttpTools } from '../../common/tools/http/models/http-tools.model';
 import { ServiceTestBedFactory } from '../service-test-bed-factory';
 import { ServiceTools } from './models';
 
-interface ServiceToolsBuilderOptions extends HttpOptions {}
-
-export function buildServiceTools<T>(factory: ServiceTestBedFactory<T>, options: ServiceToolsBuilderOptions): ServiceTools<T> {
+export function buildServiceTools<T>(factory: ServiceTestBedFactory<T>, httpOptions: HttpOptions): ServiceTools<T> {
   const service: T = factory['instance'];
   const { injected, injector, rx } = buildBaseTools(factory);
-  const http: HttpTools = buildHttpTools(injector, options);
+  const http: HttpTools = buildHttpTools(injector, httpOptions);
 
   return { http, injected, injector, rx, service };
 }

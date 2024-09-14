@@ -42,6 +42,8 @@ describe('AppDirective', () => {
 
 Creates a specific test bed for directive.
 
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [DirectiveTools](#assertion-tools)).
+
 ```ts
 describe('AppDirective', () => {
   const tb = directiveTestBed(AppDirective, HostComponent);

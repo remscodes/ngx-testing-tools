@@ -13,7 +13,7 @@ export class PipeTestBedFactory<
 
   public constructor(
     rootPipe: Type<PipeType>,
-    options: PipeTestBedOptions = {},
+    options: PipeTestBedOptions,
   ) {
     assertPipeCtor(rootPipe);
     super(rootPipe, options);

@@ -35,11 +35,11 @@ export function pipeTestBed<T extends PipeTransform>(rootPipe: Type<T>, options:
  * @param rootPipe - The described Pipe.
  * @param options
  */
-export function itShouldCreatePipe<T extends PipeTransform>(rootPipe: Type<T>, options: ItShouldCreateOptions = {}): void {
+export function itShouldCreatePipe<T extends PipeTransform>(rootPipe: Type<T>, options?: ItShouldCreatePipeOptions): void {
   pipeTestBed(rootPipe, options);
 }
 
-type ItShouldCreateOptions = Pick<PipeTestBedOptions,
+type ItShouldCreatePipeOptions = Pick<PipeTestBedOptions,
   | 'providers'
   | 'imports'
 >

@@ -52,11 +52,11 @@ export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTe
  * @param rootComponent - The described Component.
  * @param options
  */
-export function itShouldCreateComponent<T>(rootComponent: Type<T>, options: itShouldCreateOptions = {}): void {
+export function itShouldCreateComponent<T>(rootComponent: Type<T>, options?: itShouldCreateComponentOptions): void {
   componentTestBed(rootComponent, options);
 }
 
-type itShouldCreateOptions = Pick<ComponentTestBedOptions,
+type itShouldCreateComponentOptions = Pick<ComponentTestBedOptions,
   | 'imports'
   | 'providers'
   | 'declarations'

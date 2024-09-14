@@ -13,3 +13,14 @@ export interface ServiceTestBed<T, S extends InjectionStore = InjectionStore> ex
 }
 
 type ServiceExtraOptions = Pick<HttpOptions, 'verifyHttp'>
+
+// export type ServiceTestBed<
+//   ServiceType,
+//   Store extends InjectionStore = InjectionStore
+// > = CustomTestBed<
+//   ServiceType,
+//   ServiceTestBedFactory<ServiceType, Store>,
+//   Store,
+//   ServiceTools<ServiceType, Store['injected']>,
+//   ServiceExtraOptions
+// >

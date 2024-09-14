@@ -20,7 +20,7 @@ export abstract class BaseTestBedFactory<
 
   protected constructor(
     protected described: Type<DescribedType>,
-    options: BaseTestBedOptions = {},
+    options: BaseTestBedOptions,
   ) {
     const {
       imports = [],
@@ -38,7 +38,7 @@ export abstract class BaseTestBedFactory<
 
   protected testBed: TestBedStatic = TestBed;
 
-  protected _instance: DescribedType = null!;
+  private _instance: DescribedType = null!;
 
   protected get instance(): DescribedType {
     assertInstance(this._instance, this.described);

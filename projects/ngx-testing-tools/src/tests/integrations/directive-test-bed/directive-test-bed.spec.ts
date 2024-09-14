@@ -9,6 +9,7 @@ describe('isShouldCreateDirective', () => {
 describe('directiveTestBed', () => {
 
   @Component({
+    selector: 'host-component',
     template: `<span id="my-text" [highlight]="color">My Text</span>`,
     standalone: true,
     imports: [HighlightDirective],

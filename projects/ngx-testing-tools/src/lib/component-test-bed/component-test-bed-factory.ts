@@ -15,7 +15,7 @@ export class ComponentTestBedFactory<
 
   public constructor(
     rootComponent: Type<ComponentType>,
-    options: ComponentTestBedOptions = {},
+    options: ComponentTestBedOptions,
   ) {
     assertComponentCtor(rootComponent);
     super(rootComponent, rootComponent, options);

@@ -26,7 +26,3 @@ describe('ServiceTestBedFactory', () => {
     expect(factory).toBeTruthy();
   });
 });
-
-describe('ServiceTestBedFactory default options', () => {
-  new ServiceTestBedFactory(AppService);
-});

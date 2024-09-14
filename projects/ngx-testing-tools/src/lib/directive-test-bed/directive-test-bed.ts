@@ -44,14 +44,14 @@ export function directiveTestBed<T, H>(rootDirective: Type<T>, hostComponent: Ty
  * @param rootDirective - The described Directive.
  * @param options
  */
-export function itShouldCreateDirective<T>(rootDirective: Type<T>, options: itShouldCreateOptions = {}): void {
-  @Component({ template: '', standalone: true })
+export function itShouldCreateDirective<T>(rootDirective: Type<T>, options?: itShouldCreateDirectiveOptions): void {
+  @Component({ template: '', standalone: true, selector: 'host-component:not(div)' })
   class HostComponent {}
 
   directiveTestBed(rootDirective, HostComponent, options);
 }
 
-type itShouldCreateOptions = Pick<DirectiveTestBedOptions,
+type itShouldCreateDirectiveOptions = Pick<DirectiveTestBedOptions,
   | 'imports'
   | 'providers'
   | 'declarations'

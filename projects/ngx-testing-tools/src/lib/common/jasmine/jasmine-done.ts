@@ -4,9 +4,14 @@ export function buildJasmineDone(done: DoneFn, postAction: () => void): DoneFn {
     postAction();
   }) as DoneFn;
 
-  doneWrapper.fail = (m) => {
-    done.fail(m);
-    postAction();
+  doneWrapper.fail = (message: string | Error | undefined) => {
+    try {
+      done.fail(message);
+    }
+    catch (err: unknown) {
+      postAction();
+      throw err;
+    }
   };
 
   return doneWrapper;

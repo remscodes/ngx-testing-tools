@@ -17,7 +17,7 @@ export class DirectiveTestBedFactory<
   public constructor(
     rootDirective: Type<DirectiveType>,
     hostComponent: Type<HostType>,
-    options: DirectiveTestBedOptions = {},
+    options: DirectiveTestBedOptions,
   ) {
     assertDirectiveCtor(rootDirective);
     super(rootDirective, hostComponent, options);

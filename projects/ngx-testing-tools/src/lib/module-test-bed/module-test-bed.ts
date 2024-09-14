@@ -35,11 +35,11 @@ export function moduleTestBed<T>(rootModule: Type<T>, options: ModuleTestBedOpti
  * @param rootModule - The described Module.
  * @param options
  */
-export function itShouldCreateModule<T>(rootModule: Type<T>, options: ItShouldCreateOptions = {}): void {
+export function itShouldCreateModule<T>(rootModule: Type<T>, options?: ItShouldCreateModuleOptions): void {
   moduleTestBed(rootModule, options);
 }
 
-type ItShouldCreateOptions = Pick<ModuleTestBedOptions,
+type ItShouldCreateModuleOptions = Pick<ModuleTestBedOptions,
   | 'providers'
   | 'imports'
 >

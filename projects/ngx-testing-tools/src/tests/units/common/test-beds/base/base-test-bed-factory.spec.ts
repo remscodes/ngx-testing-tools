@@ -11,7 +11,7 @@ import { MockTestCompiler } from '../../../../fixtures/mocks/test-compiler.mock'
 import { AppService } from '../../../../fixtures/services/app.service';
 
 class NonAbstractBaseTestBedFactory<T> extends BaseTestBedFactory<T> {
-  public constructor(x: Type<T>, opts?: BaseTestBedOptions) {
+  public constructor(x: Type<T>, opts: BaseTestBedOptions = {}) {
     super(x, opts);
   }
 
