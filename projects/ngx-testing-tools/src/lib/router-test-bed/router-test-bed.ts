@@ -6,8 +6,8 @@ import { RouterTestBedFactory } from './router-test-bed-factory';
 
 /**
  * Creates a new `RouterTestBed` to configure the custom test bed and wrap the assertion test.
- * @param routes
- * @param options
+ * @param routes - the routes to be tested
+ * @param options - check `RouterTestBedOptions`
  */
 export function routerTestBed<T extends Routes>(routes: T, options: RouterTestBedOptions = {}): RouterTestBed<T> {
   const factory = new RouterTestBedFactory(routes, options);

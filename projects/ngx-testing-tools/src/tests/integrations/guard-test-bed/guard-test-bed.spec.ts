@@ -18,7 +18,7 @@ describe('guardTestBed', () => {
   });
 
   describe('with fn', () => {
-    const tb = guardTestBed(AUTH_GUARD)
+    const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
       .provide(AuthService);
 
     it('should not pass', tb(({ guard, challenge }) => {

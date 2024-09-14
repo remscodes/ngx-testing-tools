@@ -1,15 +1,26 @@
 import { CanActivate, CanActivateChild, CanActivateChildFn, CanActivateFn, CanDeactivate, CanDeactivateFn, CanLoad, CanLoadFn, CanMatch, CanMatchFn } from '@angular/router';
 
-export type GuardCan<T = unknown> =
+export type GuardClass<ComponentType = unknown> =
   | CanActivate
   | CanActivateChild
-  | CanDeactivate<T>
+  | CanDeactivate<ComponentType>
   | CanLoad
   | CanMatch
 
-export type GuardCanFn<T = unknown> =
+export type GuardFn<ComponentType = unknown> =
   | CanActivateFn
   | CanActivateChildFn
-  | CanDeactivateFn<T>
+  | CanDeactivateFn<ComponentType>
   | CanLoadFn
   | CanMatchFn
+
+export type GuardCan =
+  | 'CanActivate'
+  | 'CanActivateChild'
+  | 'CanDeactivate'
+  | 'CanLoad'
+  | 'CanMatch'
+
+export type InternalGuardCan =
+  | GuardCan
+  | 'ctor'

@@ -1,8 +1,8 @@
 import { InjectionToken, Type } from '@angular/core';
-import { GuardCan, GuardCanFn } from '../models/guard-can.model';
+import { GuardClass, GuardFn } from '../models/guard-can.model';
 
 export interface GuardInfo {
-  rootGuard: Type<GuardCan> | GuardCanFn;
+  rootGuard: Type<GuardClass> | GuardFn;
   isRootCtor: boolean;
 }
 

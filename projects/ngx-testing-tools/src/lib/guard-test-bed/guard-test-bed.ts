@@ -3,23 +3,23 @@ import { buildJasmineCallback } from '../common/jasmine/jasmine-callback';
 import { mergeBaseFactory } from '../common/test-beds/base/merge-base-factory';
 import { GuardTestBedFactory } from './guard-test-bed-factory';
 import { GuardTestBed, GuardTestBedOptions } from './models';
-import { GuardCan, GuardCanFn } from './models/guard-can.model';
+import { GuardCan, GuardClass, GuardFn } from './models/guard-can.model';
+import { ValidGuard } from './models/valid-guard.model';
 
 /**
  * Creates a new `GuardTestBed` to configure the custom test bed and wrap the assertion test.
- * @param rootGuard
- * @param options
+ * @param rootGuard - the described class guard
+ * @param options - check `GuardTestBedOptions`
  */
-export function guardTestBed<T extends GuardCan>(rootGuard: Type<T>, options?: GuardTestBedOptions): GuardTestBed<T>
+export function guardTestBed<T extends GuardClass>(rootGuard: Type<T>, options?: GuardTestBedOptions): GuardTestBed<T>
 /**
  * Creates a new `GuardTestBed` to configure the custom test bed and wrap the assertion test.
- * @param rootGuard
- * @param can
- * @param options
+ * @param rootGuard - the described function guard
+ * @param options - check `GuardTestBedOptions`
  */
-export function guardTestBed<T extends GuardCanFn>(rootGuard: T, can: '', options?: GuardTestBedOptions): GuardTestBed<T>
-export function guardTestBed<T>(rootGuard: ValidGuard<T>, canOrOptions: undefined, options: GuardTestBedOptions = {}): GuardTestBed<T> {
-  const factory = new GuardTestBedFactory<any>(rootGuard as any, options);
+export function guardTestBed<T extends GuardFn>(rootGuard: T, options: GuardTestBedOptions & { type: GuardCan }): GuardTestBed<T>
+export function guardTestBed<T>(rootGuard: ValidGuard<T>, options: GuardTestBedOptions & { type?: GuardCan } = {}): GuardTestBed<T> {
+  const factory = new GuardTestBedFactory(rootGuard, options);
 
   const {
     httpTesting,
@@ -43,8 +43,3 @@ export function guardTestBed<T>(rootGuard: ValidGuard<T>, canOrOptions: undefine
 
   return mergeBaseFactory(factory, tb);
 }
-
-type ValidGuard<T> =
-  T extends GuardCan ? Type<T>
-    : T extends GuardCanFn ? T
-      : never
