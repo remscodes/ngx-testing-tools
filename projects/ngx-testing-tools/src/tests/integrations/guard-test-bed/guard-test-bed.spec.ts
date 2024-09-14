@@ -8,12 +8,17 @@ describe('guardTestBed', () => {
     const tb = guardTestBed(AuthGuard)
       .provide(AuthService);
 
-    it('should not pass', tb(({ guard }) => {
-
+    it('should not pass', tb(({ challenge }) => {
+      const result = challenge();
+      expect(result).toBeFalse();
     }));
 
-    it('should pass', tb(({ injector }) => {
+    it('should pass', tb(({ challenge, injector }) => {
       const auth = injector.get(AuthService);
+      auth.isLogin = true;
+
+      const result = challenge();
+      expect(result).toBeTrue();
     }));
   });
 
@@ -21,12 +26,17 @@ describe('guardTestBed', () => {
     const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
       .provide(AuthService);
 
-    it('should not pass', tb(({ guard, challenge }) => {
-      challenge();
+    it('should not pass', tb(({ challenge }) => {
+      const result = challenge();
+      expect(result).toBeFalse();
     }));
 
-    it('should pass', tb(({ injector }) => {
+    it('should pass', tb(({ challenge, injector }) => {
       const auth = injector.get(AuthService);
+      auth.isLogin = true;
+
+      const result = challenge();
+      expect(result).toBeTrue();
     }));
   });
 });

@@ -44,6 +44,7 @@ export class GuardTestBedFactory<
       { provide: GUARD_INFO, useValue: { rootGuard, isRootCtor } as GuardInfo },
     ]);
 
+    if (isRootCtor) this.provide(rootGuard);
     if (httpTesting) this.provide(HTTP_PROVIDERS);
 
     this.httpOptions = { httpTesting, verifyHttp };
