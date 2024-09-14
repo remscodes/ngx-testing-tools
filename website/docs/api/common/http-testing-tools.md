@@ -4,7 +4,7 @@ The test beds tools that extends these tools are :
 
 - [ComponentTools](../test-beds/component#assertion-tools) (only if [httpTesting](../test-beds/component#httptesting) is `true`)
 - [ServiceTools](../test-beds/service#assertion-tools) (only if [httpTesting](../test-beds/service#httptesting) is `true`)
-- [InterceptorTools](../test-beds/interceptor#assertion-tools)
+- [InterceptorTools](../test-beds/interceptor#assertion-tools) (always)
 
 ### `http`
 
@@ -16,7 +16,7 @@ it('should ', tb(({ http }) => {
 
 #### `client`
 
-Angular `HttpClient`.
+Angular [`HttpClient`](https://angular.dev/api/common/http/HttpClient).
 
 ```ts
 it('should ', tb(({ http }) => {
@@ -27,7 +27,7 @@ it('should ', tb(({ http }) => {
 
 #### `controller`
 
-Angular `HttpTestingController`.
+Angular [`HttpTestingController`](https://angular.dev/api/common/http/testing/HttpTestingController).
 
 ```ts
 it('should ', tb(({ http }) => {
