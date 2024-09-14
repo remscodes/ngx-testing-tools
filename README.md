@@ -86,7 +86,8 @@ Compatible with Angular `>= 15.2.x`.
 ## What's next ? 🤩
 
 - More custom test beds :
-  - `RouterTestBed`
+  - `GuardTestBed`
+  - `ResolverTestBed`
 - Mocks
 - Angular schematics
 
