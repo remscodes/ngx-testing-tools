@@ -4,6 +4,7 @@ import { DeferredTools } from '../tools/models/deferred-tools.model';
 import { postAsync } from '../utils/async.util';
 import { buildJasmineDone } from './jasmine-done';
 import { EnhancedJasmineCallback } from './models/enhanced-jasmine-callback.model';
+import { JasmineCallback } from './models/jasmine-callback.model';
 
 interface JasmineCallbackArgs<Tools extends BaseTools> {
   callback: EnhancedJasmineCallback<Tools>;
@@ -12,7 +13,7 @@ interface JasmineCallbackArgs<Tools extends BaseTools> {
   postTest?: (tools: Tools) => void;
 }
 
-export function buildJasmineCallback<Tools extends BaseTools>(args: JasmineCallbackArgs<Tools>): jasmine.ImplementationCallback {
+export function buildJasmineCallback<Tools extends BaseTools>(args: JasmineCallbackArgs<Tools>): JasmineCallback {
   const { callback, deferredTools, preTest, postTest } = args;
 
   const callbackWrapper = (done: Nullable<DoneFn>) => {
