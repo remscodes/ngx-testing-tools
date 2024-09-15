@@ -7,7 +7,7 @@ export type GuardClass<ComponentType = unknown> =
   | CanLoad
   | CanMatch
 
-export type GuardFn<ComponentType = unknown> =
+export type GuardFn<ComponentType = any> =
   | CanActivateFn
   | CanActivateChildFn
   | CanDeactivateFn<ComponentType>

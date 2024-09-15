@@ -1,5 +1,7 @@
-import { Injector } from '@angular/core';
+import { inject, Injector } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { isConstructor } from '../../../common/utils/constructor.util';
 import { buildRouteSnapshot } from '../../../router/route-snapshot';
 import { InternalGuardCan } from '../../models/guard-can.model';
 import { GuardProxy } from '../../proxy/guard-proxy';
@@ -91,15 +93,16 @@ function buildChallengeToolsForDeactivate(guardProxy: GuardProxy, injector: Inje
     const {
       currentState = getRouterState(injector),
       nextState = currentState,
-      component = {},
+      component: ComponentCtor,
       data,
       params,
       queryParams,
     } = info;
 
+    const component = (isConstructor(ComponentCtor)) ? TestBed.runInInjectionContext(() => inject(ComponentCtor)) : ComponentCtor;
     const currentRoute: ActivatedRouteSnapshot = buildRouteSnapshot({ data, params, queryParams });
 
-    return guardProxy.canDeactivate(component, currentRoute, currentState, nextState);
+    return guardProxy.canDeactivate(component ?? {}, currentRoute, currentState, nextState);
   };
 
   return challenge;

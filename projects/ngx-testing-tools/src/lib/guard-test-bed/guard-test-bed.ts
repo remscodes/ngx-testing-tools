@@ -11,7 +11,7 @@ import { ValidGuard } from './models/valid-guard.model';
  * @param rootGuard - the described class guard
  * @param options - check `GuardTestBedOptions`
  */
-export function guardTestBed<T extends GuardClass>(rootGuard: Type<T>, options?: GuardTestBedOptions): GuardTestBed<T>
+export function guardTestBed<T extends GuardClass>(rootGuard: Type<T>, options?: GuardTestBedOptions & { type?: GuardCan }): GuardTestBed<T>
 /**
  * Creates a new `GuardTestBed` to configure the custom test bed and wrap the assertion test.
  * @param rootGuard - the described function guard
