@@ -7,12 +7,16 @@ export interface RouteSnapshotConfig {
 }
 
 export function buildRouteSnapshot(config: RouteSnapshotConfig = {}): ActivatedRouteSnapshot {
-  const { data, params, queryParams } = config;
-  const route = new ActivatedRouteSnapshot();
+  const {
+    data = {},
+    params = {},
+    queryParams = {},
+  } = config;
 
-  if (data) route.data = data;
-  if (params) route.params = params;
-  if (queryParams) route.queryParams = queryParams;
+  const route = new ActivatedRouteSnapshot();
+  route.data = data;
+  route.params = params;
+  route.queryParams = queryParams;
 
   return route;
 }

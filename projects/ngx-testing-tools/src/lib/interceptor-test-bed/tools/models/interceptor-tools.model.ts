@@ -1,6 +1,6 @@
 import { BaseTools } from '../../../common/tools/base/models/base-tools.model';
 import { HttpTestingTools } from '../../../common/tools/http/models/http-testing-tools.model';
-import { InpectTools } from '../inspect/models/inspect-tools.model';
+import { InspectTools } from '../inspect/models/inspect-tools.model';
 
 export interface InterceptorTools<T, I extends {} = {}> extends HttpTestingTools, BaseTools<I> {
   /**
@@ -10,5 +10,5 @@ export interface InterceptorTools<T, I extends {} = {}> extends HttpTestingTools
   /**
    * Enhanced tools to inspect outgoing request and incoming response.
    */
-  inspect: InpectTools;
+  inspect: InspectTools;
 }

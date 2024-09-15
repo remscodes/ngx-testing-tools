@@ -40,8 +40,9 @@ export class RouterTestBedFactory<
     this.createHarnessBeforeEachTest();
   }
 
-  protected initialUrl: string;
   protected readonly startDetectChanges: boolean;
+
+  protected initialUrl: string;
 
   private _routes: RoutesConst;
   private _harness: RouterTestingHarness = null!;

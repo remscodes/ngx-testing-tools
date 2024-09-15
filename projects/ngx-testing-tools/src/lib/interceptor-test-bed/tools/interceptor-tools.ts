@@ -4,7 +4,7 @@ import { HttpTools } from '../../common/tools/http/models/http-tools.model';
 import { InterceptorTestBedFactory } from '../interceptor-test-bed-factory';
 import { InterceptorProxy } from '../proxy/interceptor-proxy';
 import { buildInspectTools } from './inspect/inspect-tools';
-import { InpectTools } from './inspect/models/inspect-tools.model';
+import { InspectTools } from './inspect/models/inspect-tools.model';
 import { InterceptorTools } from './models';
 
 export function buildInterceptorTools<T>(factory: InterceptorTestBedFactory<T>): InterceptorTools<T> {
@@ -13,7 +13,7 @@ export function buildInterceptorTools<T>(factory: InterceptorTestBedFactory<T>):
 
   const { injected, injector, rx } = buildBaseTools(factory);
   const http: HttpTools = buildHttpTools(injector, { httpTesting: true });
-  const inspect: InpectTools = buildInspectTools(interceptorProxy);
+  const inspect: InspectTools = buildInspectTools(interceptorProxy);
 
   return { http, injected, injector, inspect, interceptor, rx };
 }

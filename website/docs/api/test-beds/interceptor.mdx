@@ -2,8 +2,8 @@
 title: Interceptor
 ---
 
-import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
 
 # Interceptor TestBed
 
@@ -15,6 +15,7 @@ Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterce
 
 **Quick example**
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -25,7 +26,7 @@ Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterce
       it('should set custom header before send', tb(({ inspect, rx }, done) => {
         const req = new HttpRequest('GET', '/test');
         expect(req.headers.has('x-custom-header')).toBeFalse();
-    
+
         rx.remind = inspect.request(req).subscribe({
           next: (interceptedReq) => {
             expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
@@ -35,7 +36,6 @@ Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterce
       }));
     });
     ```
-
   </TabItem>
 
   <TabItem value="Class">
@@ -46,7 +46,7 @@ Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterce
       it('should set custom header before send', tb(({ inspect, rx }, done) => {
         const req = new HttpRequest('GET', '/test');
         expect(req.headers.has('x-custom-header')).toBeFalse();
-    
+
         rx.remind = inspect.request(req).subscribe({
           next: (interceptedReq) => {
             expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
@@ -56,9 +56,9 @@ Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterce
       }));
     });
     ```
-
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ## `interceptorTestBed(..)`
 
@@ -66,10 +66,10 @@ Creates a specific test bed for interceptor.
 
 It returns a function to be used to wrap `it`'s callback and from which you access tools (check [InterceptorTools](#assertion-tools)).
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
-
     ```ts
     describe('appInterceptor', () => {
       const tb = interceptorTestBed(appInterceptor());
@@ -96,7 +96,6 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
       }));
     });
     ```
-
   </TabItem>
 
   <TabItem value="Class">
@@ -126,12 +125,13 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
       }));
     });
     ```
-
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ## TestBed Options
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -144,7 +144,6 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
       }));
     });
     ```
-
   </TabItem>
 
   <TabItem value="Class">
@@ -157,9 +156,9 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
       }));
     });
     ```
-
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ### `imports`
 
@@ -169,6 +168,7 @@ Imports dependencies for the described interceptor.
 
 Example :
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -188,6 +188,7 @@ Example :
     ```
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ### `providers`
 
@@ -197,6 +198,7 @@ List of providers to be available during tests for the described interceptor.
 
 Example :
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -215,6 +217,7 @@ Example :
     ```
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ### `verifyHttp`
 
@@ -240,6 +243,7 @@ It checks if the provided described instance is truthy.
 
 The tb function provides `InterceptorTools`.
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -252,7 +256,6 @@ The tb function provides `InterceptorTools`.
       }));
     });
     ```
-
   </TabItem>
 
   <TabItem value="Class">
@@ -265,9 +268,9 @@ The tb function provides `InterceptorTools`.
       }));
     });
     ```
-
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 `InterceptorTools` extends **[BaseTools](../common/base-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
 
@@ -285,6 +288,7 @@ The instance is typed according to the passed interceptor in `interceptorTestBed
 
 Example :
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -303,6 +307,7 @@ Example :
     ```
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ### `inspect`
 
@@ -370,6 +375,7 @@ it('should ', tb(({ inspect, rx }, done) => {
 
 For specific test, you enable/disable options that override the test bed options.
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -382,7 +388,6 @@ For specific test, you enable/disable options that override the test bed options
       }, {} /* 👈 here */));
     });
     ```
-
   </TabItem>
 
   <TabItem value="Class">
@@ -395,9 +400,9 @@ For specific test, you enable/disable options that override the test bed options
       }, {} /* 👈 here */));
     });
     ```
-
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ### `verifyHttp`
 
@@ -411,6 +416,7 @@ Same as [options imports](#imports) but with chaining methods.
 
 Example :
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -433,6 +439,7 @@ Example :
     ```
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ### `provide(..)`
 
@@ -440,6 +447,7 @@ Same as [options providers](#providers) but with chaining methods.
 
 Example :
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -462,11 +470,13 @@ Example :
     ```
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ### `inject(..)`
 
 Links an injected instance to a key and retrieve it into the enhanced tools by autocompletion.
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -480,7 +490,6 @@ Links an injected instance to a key and retrieve it into the enhanced tools by a
       }));
     });
     ```
-
   </TabItem>
 
   <TabItem value="Class">
@@ -494,9 +503,9 @@ Links an injected instance to a key and retrieve it into the enhanced tools by a
       }));
     });
     ```
-
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ### `setup(..)`
 
@@ -506,6 +515,7 @@ Works only for `beforeEach` and `afterEach`.
 
 Example :
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -519,7 +529,6 @@ Example :
       }));
     });
     ```
-
   </TabItem>
 
   <TabItem value="Class">
@@ -532,9 +541,9 @@ Example :
       }));
     });
     ```
-
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ### `compile()`
 
@@ -544,6 +553,7 @@ To be used when you need to do third party setups before compiling the custom te
 It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.
 :::
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -557,7 +567,6 @@ It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be 
       });
     });
     ```
-
   </TabItem>
 
   <TabItem value="Class">
@@ -571,9 +580,9 @@ It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be 
       });
     });
     ```
-
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ## `itShouldCreateInterceptor(..)`
 
@@ -581,6 +590,7 @@ Create the "should create" for the described interceptor.
 
 To be used when there are no apparent or relevant tests to be performed.
 
+[//]: # (@formatter:off)
 <Tabs groupId="interceptors-type">
 
   <TabItem value="function">
@@ -599,3 +609,4 @@ To be used when there are no apparent or relevant tests to be performed.
     ```
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)

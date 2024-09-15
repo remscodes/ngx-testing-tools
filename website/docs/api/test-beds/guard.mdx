@@ -1,0 +1,570 @@
+---
+title: Guard
+---
+
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# Guard TestBed
+
+Custom test bed for testing guard.
+
+**Quick example**
+
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' });
+
+      it('should not activate if logged', tb(({ challenge }) => {
+        const result1 = challenge();
+        expect(result1).toBeFalse();
+
+        const result2 = challenge.withInfo({ data: { isAllowed: true } });
+        expect(result2).toBeTrue();
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+  ```ts
+  describe('AuthGuard', () => {
+    const tb = guardTestBed(AuthGuard);
+
+    it('should not activate if logged', tb(({ challenge }) => {
+      const result1 = challenge();
+      expect(result1).toBeFalse();
+
+      const result2 = challenge.withInfo({ data: { isAllowed: true } });
+      expect(result2).toBeTrue();
+    }));
+  });
+  ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+## `guardTestBed(..)`
+
+Creates a specific test bed for router.
+
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [GuardTools](#assertion-tools)).
+
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
+
+      it('should ', tb((tools) => { // 👈 tb function used here
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard)
+
+      it('should ', tb((tools) => { // 👈 tb function used here
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+`tb` function supports the jasmine `DoneFn` and async/await notation.
+
+```ts
+describe('AuthGuard', () => {
+  const tb = guardTestBed(AuthGuard);
+
+  it('should ', tb(async (tools) => {
+    // ... async expectations
+  }));
+
+  it('should ', tb((tools, done) => {
+    // ... expectations
+    done();
+  }));
+});
+```
+
+## TestBed Options
+
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, {} /* 👈 here */);
+
+      it('should ', tb(() => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard, {} /* 👈 here */);
+
+      it('should ', tb(() => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `type`
+
+**Default** : `undefined`
+
+Specifies the type of guard being tested.
+
+:::info
+Required for guard functions and optional for guard classes.
+:::
+
+:::note
+Recommanded for guard classes that implement many interfaces to choose what guard mecanism will be performed by the tools.
+:::
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
+
+  <TabItem value="function">
+    ```ts
+    const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    const tb = guardTestBed(AuthGuard, { type: 'CanMatch' });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `imports`
+
+**Default** : `[]`
+
+Imports dependencies for the described guard.
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
+
+  <TabItem value="function">
+    ```ts
+    const tb = guardTestBed(AUTH_GUARD, {
+      type: 'CanActivate',
+      imports: [SharedModule, AuthModule],
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    const tb = guardTestBed(AuthGuard, {
+      imports: [SharedModule, AuthModule],
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `providers`
+
+**Default** : `[]`
+
+List of providers to be available during tests for the described guard.
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
+
+  <TabItem value="function">
+    ```ts
+    const tb = guardTestBed(AUTH_GUARD, {
+      type: 'CanActivate',
+      providers: [AppService, { provide: StoreService, useClass: MockStoreService }],
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    const tb = guardTestBed(AuthGuard, {
+      providers: [AppService, { provide: StoreService, useClass: MockStoreService }],
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `httpTesting`
+
+**Default** : `false`
+
+Enables [HttpTestingTools](../common/http-testing-tools).
+
+### `verifyHttp`
+
+**Default** : `true`
+
+When enabled, each assertion will end by `HttpTestingController.verify()`.
+
+:::warning
+Works only if [httpTesting](#httptesting) is `true`, otherwise has no effect.
+:::
+
+### `autoCompile`
+
+**Default** : `true`
+
+Automatically compiles the custom test bed for each test.
+
+### `checkCreate`
+
+**Default** : `true`
+
+Automatically invokes the "should create" Angular test.
+
+It checks if the provided described instance is truthy.
+
+## Assertion tools
+
+The tb function provides `GuardTools`.
+
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' });
+
+      it('should ', tb((tools /* 👈 here */) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard);
+
+      it('should ', tb((tools /* 👈 here */) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+👉 `GuardTools` extends **[BaseTools](../common/base-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
+
+### `guard`
+
+The described guard.
+
+Example :
+
+```ts
+it('should ', tb(({ guard }) => {
+  expect(guard.foo).toBeTrue();
+}));
+```
+
+### `challenge`
+
+The main tool for testing guard.
+
+It runs the described guard to check its output as it in its current context.
+
+:::info
+The return type of the `challenge` function is the same as the return type of the described guard.
+:::
+
+Example :
+
+```ts
+it('should not pass', tb(({ challenge }) => {
+  const result = challenge();
+  expect(result).toBeFalse();
+}));
+```
+
+You can add more routing context by providing extra routing information by running `challenge.withInfo(..)`
+
+Example :
+
+```ts
+it('should pass if user agreed', tb(({ challenge }) => {
+  const result1 = challenge();
+  expect(result1).toBeFalse();
+
+  const result2 = challenge.withInfo({ queryParams: { agreed: true } });
+  expect(result2).toBeTrue();
+}));
+```
+
+#### `RoutingInfo`
+
+##### `data`
+
+Default : `{}`
+
+##### `params`
+
+Default : `{}`
+
+##### `queryParams`
+
+Default : `{}`
+
+##### `currentState`
+
+
+##### `nextState`
+
+##### `component`
+
+##### `route`
+
+##### `segments`
+
+## Assertion options
+
+For specific test, you enable/disable options that override the test bed options.
+
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' });
+
+      it('should ', tb((tools) => {
+        // ... expectations
+      }, {} /* 👈 here */));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard);
+
+      it('should ', tb((tools) => {
+        // ... expectations
+      }, {} /* 👈 here */));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `verifyHttp`
+
+Same as [options verifyHttp](#verifyHttp) but **only for the current assertion**.
+
+## `GuardTestBed`
+
+### `import(..)`
+
+Same as [options imports](#imports) but with chaining methods.
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
+        .import(AppModule)
+        .import([SharedModule, ThirdPartyModule]);
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard)
+        .import(AppModule)
+        .import([SharedModule, ThirdPartyModule]);
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `provide(..)`
+
+Same as [options providers](#providers) but with chaining methods.
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
+        .provide(AppService)
+        .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard)
+        .provide(AppService)
+        .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `inject(..)`
+
+Links an injected instance to a key and retrieve it into the enhanced tools by autocompletion.
+
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
+      .inject('auth', AuthService);
+
+      it('should ', tb(({ injected: { auth } }) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard)
+      .inject('auth', AuthService);
+
+      it('should ', tb(({ injected: { auth } }) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `setup(..)`
+
+Setups extra action using the enhanced tools.
+
+Works only for `beforeEach` and `afterEach`.
+
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' }});
+
+      beforeEach(tb.setup(({ guard }) => {
+        guard.foo = true;
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard);
+
+      beforeEach(tb.setup(({ guard }) => {
+        guard.foo = true;
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `compile()`
+
+To be used when you need to do third party setups before compiling the custom test bed.
+
+:::warning
+It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.
+:::
+
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate', autoCompile: false });
+
+      beforeEach(async () => {
+        // ... third party setup
+        await tb.compile();
+      });
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard, { autoCompile: false });
+
+      beforeEach(async () => {
+        // ... third party setup
+        await tb.compile();
+      });
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)

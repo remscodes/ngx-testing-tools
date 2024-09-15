@@ -103,6 +103,10 @@ Example :
 
 ```ts
 const tb = routerTestBed(APP_ROUTES, { initialUrl: 'home' });
+
+it('should navigation init to /home', tb(async ({ $url, navigateByUrl }) => {
+  expect($url()).toEqual('/home'); // expect equal to initialUrl
+}));
 ```
 
 ### `startDetectChanges`
@@ -155,7 +159,7 @@ It checks if the provided described instance is truthy.
 
 ## Assertion tools
 
-The tb function provides `ComponentTools`.
+The tb function provides `RouterTools`.
 
 ```ts
 describe('App Routes', () => {
@@ -231,10 +235,6 @@ describe('App Routes', () => {
   }, {} /* 👈 here */));
 });
 ```
-
-### `initialUrl`
-
-Same as [options initialUrl](#initialurl) but **only for the current assertion**.
 
 ### `startDetectChanges`
 

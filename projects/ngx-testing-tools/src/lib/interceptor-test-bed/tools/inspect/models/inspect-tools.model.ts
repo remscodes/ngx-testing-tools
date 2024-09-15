@@ -2,7 +2,7 @@ import { HttpErrorResponse, HttpEvent, HttpRequest, HttpResponse } from '@angula
 import { Observable } from 'rxjs';
 import { BodyRequestMethod, NoBodyRequestMethod } from '../../../../common/tools/http/utils/models/request-method.model';
 
-export interface InpectTools {
+export interface InspectTools {
   /**
    * Inspect the passed request into the described interceptor.
    */
