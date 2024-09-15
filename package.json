@@ -65,6 +65,8 @@
     "directive",
     "service",
     "interceptor",
+    "guard",
+    "router",
     "testbed",
     "pipe",
     "provider",
