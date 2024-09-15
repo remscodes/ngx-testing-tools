@@ -14,31 +14,31 @@ export function buildChallengeTools(guardProxy: GuardProxy, injector: Injector, 
 
   switch (true) {
     case isCanActivateGuard(guard, guardType):
-      return buildChallengeToolsForActivate(guardProxy, injector);
+      return buildChallengeToolsForActivate(guardProxy, injector, 'canActivate');
 
     case isCanActivateChildGuard(guard, guardType):
-      return buildChallengeToolsForActivateChild(guardProxy, injector);
+      return buildChallengeToolsForActivate(guardProxy, injector, 'canActivateChild');
 
     case isCanDeactivateGuard(guard, guardType):
       return buildChallengeToolsForDeactivate(guardProxy, injector);
 
     case isCanLoadGuard(guard, guardType):
-      return buildChallengeToolsForLoad(guardProxy, injector);
+      return buildChallengeToolsForLoad(guardProxy, 'canLoad');
 
     case isCanMatchGuard(guard, guardType):
-      return buildChallengeToolsForMatch(guardProxy, injector);
+      return buildChallengeToolsForLoad(guardProxy, 'canMatch');
 
     default:
       throw new Error(`Unknown guard type (${guardType}) or invalid passed guard (${guard.name ?? guard}).`);
   }
 }
 
-function buildChallengeToolsForActivate(guardProxy: GuardProxy, injector: Injector): ChallengeTools<unknown> {
+function buildChallengeToolsForActivate(guardProxy: GuardProxy, injector: Injector, key: 'canActivate' | 'canActivateChild'): ChallengeTools<unknown> {
   const challenge: ChallengeTools<any> = () => {
     const route: ActivatedRouteSnapshot = buildRouteSnapshot();
     const state: RouterStateSnapshot = getRouterState(injector);
 
-    return guardProxy.canActivate(route, state);
+    return guardProxy[key](route, state);
   };
 
   challenge.withInfo = (info: ChallengeInfo) => {
@@ -51,31 +51,7 @@ function buildChallengeToolsForActivate(guardProxy: GuardProxy, injector: Inject
 
     const route: ActivatedRouteSnapshot = buildRouteSnapshot({ data, params, queryParams });
 
-    return guardProxy.canActivate(route, state);
-  };
-
-  return challenge;
-}
-
-function buildChallengeToolsForActivateChild(guardProxy: GuardProxy, injector: Injector): ChallengeTools<unknown> {
-  const challenge: ChallengeTools<any> = () => {
-    const route: ActivatedRouteSnapshot = buildRouteSnapshot();
-    const state: RouterStateSnapshot = getRouterState(injector);
-
-    return guardProxy.canActivateChild(route, state);
-  };
-
-  challenge.withInfo = (info: ChallengeInfo) => {
-    const {
-      currentState: state = getRouterState(injector),
-      data,
-      params,
-      queryParams,
-    } = info;
-
-    const route: ActivatedRouteSnapshot = buildRouteSnapshot({ data, params, queryParams });
-
-    return guardProxy.canActivateChild(route, state);
+    return guardProxy[key](route, state);
   };
 
   return challenge;
@@ -108,33 +84,20 @@ function buildChallengeToolsForDeactivate(guardProxy: GuardProxy, injector: Inje
   return challenge;
 }
 
-function buildChallengeToolsForLoad(guardProxy: GuardProxy, _injector: Injector): ChallengeTools<unknown> {
+function buildChallengeToolsForLoad(guardProxy: GuardProxy, key: 'canLoad' | 'canMatch'): ChallengeTools<unknown> {
   const challenge: ChallengeTools<any> = () => {
-    return guardProxy.canLoad({}, []);
+    return guardProxy[key]({ data: {} }, []);
   };
 
   challenge.withInfo = (info: ChallengeInfo) => {
     const {
       route = {},
+      data = {},
       segments = [],
     } = info;
-    return guardProxy.canLoad(route, segments);
-  };
 
-  return challenge;
-}
-
-function buildChallengeToolsForMatch(guardProxy: GuardProxy, _injector: Injector): ChallengeTools<unknown> {
-  const challenge: ChallengeTools<any> = () => {
-    return guardProxy.canMatch({}, []);
-  };
-
-  challenge.withInfo = (info: ChallengeInfo) => {
-    const {
-      route = {},
-      segments = [],
-    } = info;
-    return guardProxy.canMatch(route, segments);
+    route.data ??= data;
+    return guardProxy[key](route, segments);
   };
 
   return challenge;

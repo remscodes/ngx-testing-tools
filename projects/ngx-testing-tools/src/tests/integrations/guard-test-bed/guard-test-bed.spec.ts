@@ -1,8 +1,10 @@
 import { guardTestBed } from '../../../lib/guard-test-bed';
 import { DeactivateComponent } from '../../fixtures/components/deactivate.component';
-import { ADMIN_GUARD, AdminGuard } from '../../fixtures/guards/admin.guard';
-import { AUTH_GUARD, AuthGuard } from '../../fixtures/guards/auth.guard';
-import { UNLOAD_GUARD, UnloadGuard } from '../../fixtures/guards/unload.guard';
+import { ACTIVATE_CHILD_GUARD, ActivateChildGuard } from '../../fixtures/guards/activate-child.guard';
+import { ACTIVATE_GUARD, ActivateGuard } from '../../fixtures/guards/activate.guard';
+import { DeactivateGuard, UNLOAD_GUARD } from '../../fixtures/guards/deactivate.guard';
+import { LOAD_GUARD, LoadGuard } from '../../fixtures/guards/load.guard';
+import { MATCH_GUARD, MatchGuard } from '../../fixtures/guards/match.guard';
 import { AuthService } from '../../fixtures/services/auth.service';
 
 describe('guardTestBed', () => {
@@ -10,7 +12,7 @@ describe('guardTestBed', () => {
   describe('with fn', () => {
 
     describe('canActivate', () => {
-      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
+      const tb = guardTestBed(ACTIVATE_GUARD, { type: 'CanActivate' })
         .provide(AuthService)
         .inject('auth', AuthService);
 
@@ -28,7 +30,7 @@ describe('guardTestBed', () => {
     });
 
     describe('canActivateChild', () => {
-      const tb = guardTestBed(ADMIN_GUARD, { type: 'CanActivateChild' });
+      const tb = guardTestBed(ACTIVATE_CHILD_GUARD, { type: 'CanActivateChild' });
 
       it('should not activate child', tb(({ challenge }) => {
         const result = challenge();
@@ -58,12 +60,40 @@ describe('guardTestBed', () => {
         expect(result).toBeTrue();
       }));
     });
+
+    describe('canLoad', () => {
+      const tb = guardTestBed(LOAD_GUARD, { type: 'CanLoad' });
+
+      it('should not load', tb(({ challenge }) => {
+        const result = challenge();
+        expect(result).toBeFalse();
+      }));
+
+      it('should load', tb(({ challenge }) => {
+        const result = challenge.withInfo({ data: { isAdmin: true } });
+        expect(result).toBeTrue();
+      }));
+    });
+
+    describe('canMatch', () => {
+      const tb = guardTestBed(MATCH_GUARD, { type: 'CanMatch' });
+
+      it('should not match', tb(({ challenge }) => {
+        const result = challenge();
+        expect(result).toBeFalse();
+      }));
+
+      it('should match', tb(({ challenge }) => {
+        const result = challenge.withInfo({ data: { isAdmin: true } });
+        expect(result).toBeTrue();
+      }));
+    });
   });
 
   describe('with class', () => {
 
     describe('canActivate', () => {
-      const tb = guardTestBed(AuthGuard)
+      const tb = guardTestBed(ActivateGuard)
         .provide(AuthService);
 
       it('should not activate', tb(({ challenge }) => {
@@ -81,7 +111,7 @@ describe('guardTestBed', () => {
     });
 
     describe('canActivateChild', () => {
-      const tb = guardTestBed(AdminGuard);
+      const tb = guardTestBed(ActivateChildGuard);
 
       it('should not activate child', tb(({ challenge }) => {
         const result = challenge();
@@ -95,9 +125,14 @@ describe('guardTestBed', () => {
     });
 
     describe('canDeactivate', () => {
-      const tb = guardTestBed(UnloadGuard)
+      const tb = guardTestBed(DeactivateGuard)
         .provide(DeactivateComponent)
         .inject('component', DeactivateComponent);
+
+      it('should deactivate', tb(({ challenge }) => {
+        const result = challenge();
+        expect(result).toBeTrue();
+      }));
 
       it('should not deactivate', tb(({ challenge, injected: { component } }) => {
         const result = challenge.withInfo({ component });
@@ -108,6 +143,34 @@ describe('guardTestBed', () => {
         component.formSaved = true;
 
         const result = challenge.withInfo({ component });
+        expect(result).toBeTrue();
+      }));
+    });
+
+    describe('canLoad', () => {
+      const tb = guardTestBed(LoadGuard);
+
+      it('should not load', tb(({ challenge }) => {
+        const result = challenge();
+        expect(result).toBeFalse();
+      }));
+
+      it('should load', tb(({ challenge }) => {
+        const result = challenge.withInfo({ data: { isAdmin: true } });
+        expect(result).toBeTrue();
+      }));
+    });
+
+    describe('canMatch', () => {
+      const tb = guardTestBed(MatchGuard);
+
+      it('should not match', tb(({ challenge }) => {
+        const result = challenge();
+        expect(result).toBeFalse();
+      }));
+
+      it('should match', tb(({ challenge }) => {
+        const result = challenge.withInfo({ data: { isAdmin: true } });
         expect(result).toBeTrue();
       }));
     });

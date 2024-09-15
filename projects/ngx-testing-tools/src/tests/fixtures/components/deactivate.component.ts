@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ComponentCanDeactivate } from '../guards/unload.guard';
+import { ComponentCanDeactivate } from '../guards/deactivate.guard';
 
 @Component({
   selector: 'test-component-can-deactivate',

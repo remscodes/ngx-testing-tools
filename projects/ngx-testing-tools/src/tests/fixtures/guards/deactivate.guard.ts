@@ -6,7 +6,7 @@ export interface ComponentCanDeactivate {
 }
 
 @Injectable()
-export class UnloadGuard implements CanDeactivate<ComponentCanDeactivate> {
+export class DeactivateGuard implements CanDeactivate<ComponentCanDeactivate> {
 
   public canDeactivate(component: Partial<ComponentCanDeactivate>): boolean {
     return component?.canDeactivate?.() ?? true;
