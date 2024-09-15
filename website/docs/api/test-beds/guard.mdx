@@ -2,10 +2,6 @@
 title: Guard
 ---
 
-
-
-
-
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
@@ -21,17 +17,13 @@ Custom test bed for testing guard.
   <TabItem value="function">
     ```ts
     describe('AUTH_GUARD', () => {
-      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
-        .provide(AuthService)
-        .inject('auth', AuthService);
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' });
 
-      it('should not activate if logged', tb(({ challenge, injected: { auth } }) => {
+      it('should not activate if logged', tb(({ challenge }) => {
         const result1 = challenge();
         expect(result1).toBeFalse();
 
-        auth.isLogin = true;
-
-        const result2 = challenge();
+        const result2 = challenge.withInfo({ data: { isAllowed: true } });
         expect(result2).toBeTrue();
       }));
     });
@@ -41,17 +33,13 @@ Custom test bed for testing guard.
   <TabItem value="Class">
   ```ts
   describe('AuthGuard', () => {
-    const tb = guardTestBed(AuthGuard)
-      .provide(AuthService)
-      .inject('auth', AuthService);
+    const tb = guardTestBed(AuthGuard);
 
-    it('should not activate if logged', tb(({ challenge, injected: { auth } }) => {
+    it('should not activate if logged', tb(({ challenge }) => {
       const result1 = challenge();
       expect(result1).toBeFalse();
 
-      auth.isLogin = true;
-
-      const result2 = challenge();
+      const result2 = challenge.withInfo({ data: { isAllowed: true } });
       expect(result2).toBeTrue();
     }));
   });
@@ -114,15 +102,34 @@ describe('AuthGuard', () => {
 
 ## TestBed Options
 
-```ts
-describe('AuthGuard', () => {
-  const tb = guardTestBed(AuthGuard, {} /* 👈 here */);
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
 
-  it('should ', tb(() => {
-    // ... expectations
-  }));
-});
-```
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, {} /* 👈 here */);
+
+      it('should ', tb(() => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard, {} /* 👈 here */);
+
+      it('should ', tb(() => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
 
 ### `type`
 
@@ -132,26 +139,30 @@ Specifies the type of guard being tested.
 
 :::info
 Required for guard functions and optional for guard classes.
+:::
 
+:::note
 Recommanded for guard classes that implement many interfaces to choose what guard mecanism will be performed by the tools.
 :::
 
 Example :
 
+[//]: # (@formatter:off)
 <Tabs groupId="guard-type">
 
   <TabItem value="function">
     ```ts
-    const tb = guardTestBed(AUTH_GUARD, {type: 'CanMatch'});
+    const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' });
     ```
   </TabItem>
 
   <TabItem value="Class">
     ```ts
-    const tb = guardTestBed(AuthGuard, {type: 'CanMatch'});
+    const tb = guardTestBed(AuthGuard, { type: 'CanMatch' });
     ```
   </TabItem>
 </Tabs>
+[//]: # (@formatter:on)
 
 ### `imports`
 
@@ -161,11 +172,27 @@ Imports dependencies for the described guard.
 
 Example :
 
-```ts
-const tb = guardTestBed(AuthGuard, {
-  imports: [SharedModule, AuthModule],
-});
-```
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
+
+  <TabItem value="function">
+    ```ts
+    const tb = guardTestBed(AUTH_GUARD, {
+      type: 'CanActivate',
+      imports: [SharedModule, AuthModule],
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    const tb = guardTestBed(AuthGuard, {
+      imports: [SharedModule, AuthModule],
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
 
 ### `providers`
 
@@ -175,11 +202,27 @@ List of providers to be available during tests for the described guard.
 
 Example :
 
-```ts
-const tb = guardTestBed(AuthGuard, {
-  providers: [AppService, { provide: StoreService, useClass: MockStoreService }],
-});
-```
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
+
+  <TabItem value="function">
+    ```ts
+    const tb = guardTestBed(AUTH_GUARD, {
+      type: 'CanActivate',
+      providers: [AppService, { provide: StoreService, useClass: MockStoreService }],
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    const tb = guardTestBed(AuthGuard, {
+      providers: [AppService, { provide: StoreService, useClass: MockStoreService }],
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
 
 ### `httpTesting`
 
@@ -215,55 +258,139 @@ It checks if the provided described instance is truthy.
 
 The tb function provides `GuardTools`.
 
-```ts
-describe('AuthGuard', () => {
-  const tb = guardTestBed(AuthGuard);
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
 
-  it('should ', tb((tools /* 👈 here */) => {
-    // ... expectations
-  }));
-});
-```
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' });
+
+      it('should ', tb((tools /* 👈 here */) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard);
+
+      it('should ', tb((tools /* 👈 here */) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
 
 👉 `GuardTools` extends **[BaseTools](../common/base-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
 
 ### `guard`
 
-The described router routes.
+The described guard.
 
 Example :
 
 ```ts
 it('should ', tb(({ guard }) => {
-  // ... expectations
+  expect(guard.foo).toBeTrue();
 }));
 ```
 
 ### `challenge`
 
-The current router url as a [`Signal`](https://angular.dev/guide/signals).
+The main tool for testing guard.
+
+It runs the described guard to check its output as it in its current context.
+
+:::info
+The return type of the `challenge` function is the same as the return type of the described guard.
+:::
 
 Example :
 
 ```ts
-it('should ', tb(({ $url }) => {
-  expect($url()).toEqual('/home');
+it('should not pass', tb(({ challenge }) => {
+  const result = challenge();
+  expect(result).toBeFalse();
 }));
 ```
+
+You can add more routing context by providing extra routing information by running `challenge.withInfo(..)`
+
+Example :
+
+```ts
+it('should pass if user agreed', tb(({ challenge }) => {
+  const result1 = challenge();
+  expect(result1).toBeFalse();
+
+  const result2 = challenge.withInfo({ queryParams: { agreed: true } });
+  expect(result2).toBeTrue();
+}));
+```
+
+#### `RoutingInfo`
+
+##### `data`
+
+Default : `{}`
+
+##### `params`
+
+Default : `{}`
+
+##### `queryParams`
+
+Default : `{}`
+
+##### `currentState`
+
+
+##### `nextState`
+
+##### `component`
+
+##### `route`
+
+##### `segments`
 
 ## Assertion options
 
 For specific test, you enable/disable options that override the test bed options.
 
-```ts
-describe('AuthGuard', () => {
-  const tb = guardTestBed(AuthGuard);
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
 
-  it('should ', tb((tools) => {
-    // ... expectations
-  }, {} /* 👈 here */));
-});
-```
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' });
+
+      it('should ', tb((tools) => {
+        // ... expectations
+      }, {} /* 👈 here */));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard);
+
+      it('should ', tb((tools) => {
+        // ... expectations
+      }, {} /* 👈 here */));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
 
 ### `verifyHttp`
 
@@ -277,13 +404,30 @@ Same as [options imports](#imports) but with chaining methods.
 
 Example :
 
-```ts
-describe('AuthGuard', () => {
-  const tb = guardTestBed(AuthGuard)
-    .import(AppModule)
-    .import([SharedModule, ThirdPartyModule]);
-});
-```
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
+        .import(AppModule)
+        .import([SharedModule, ThirdPartyModule]);
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard)
+        .import(AppModule)
+        .import([SharedModule, ThirdPartyModule]);
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
 
 ### `provide(..)`
 
@@ -291,28 +435,65 @@ Same as [options providers](#providers) but with chaining methods.
 
 Example :
 
-```ts
-describe('AuthGuard', () => {
-  const tb = guardTestBed(AuthGuard)
-    .provide(AppService)
-    .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
-});
-```
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
+        .provide(AppService)
+        .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard)
+        .provide(AppService)
+        .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
 
 ### `inject(..)`
 
 Links an injected instance to a key and retrieve it into the enhanced tools by autocompletion.
 
-```ts
-describe('AuthGuard', () => {
-  const tb = guardTestBed(AuthGuard)
-    .inject('auth', AuthService);
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
 
-  it('should ', tb(({ injected: { auth } }) => {
-    // ... expectations
-  }));
-});
-```
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' })
+      .inject('auth', AuthService);
+
+      it('should ', tb(({ injected: { auth } }) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard)
+      .inject('auth', AuthService);
+
+      it('should ', tb(({ injected: { auth } }) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
 
 ### `setup(..)`
 
@@ -320,15 +501,34 @@ Setups extra action using the enhanced tools.
 
 Works only for `beforeEach` and `afterEach`.
 
-```ts
-describe('AuthGuard', () => {
-  const tb = guardTestBed(AuthGuard);
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
 
-  beforeEach(tb.setup(({ guard }) => {
-    guard.foo = true;
-  }));
-});
-```
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate' }});
+
+      beforeEach(tb.setup(({ guard }) => {
+        guard.foo = true;
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard);
+
+      beforeEach(tb.setup(({ guard }) => {
+        guard.foo = true;
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
 
 ### `compile()`
 
@@ -338,13 +538,33 @@ To be used when you need to do third party setups before compiling the custom te
 It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.
 :::
 
-```ts
-describe('AuthGuard', () => {
-  const tb = guardTestBed(AuthGuard, { autoCompile: false });
+[//]: # (@formatter:off)
+<Tabs groupId="interceptors-type">
 
-  beforeEach(async () => {
-    // ... third party setup
-    await tb.compile();
-  });
-});
-```
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      const tb = guardTestBed(AUTH_GUARD, { type: 'CanActivate', autoCompile: false });
+
+      beforeEach(async () => {
+        // ... third party setup
+        await tb.compile();
+      });
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      const tb = guardTestBed(AuthGuard, { autoCompile: false });
+
+      beforeEach(async () => {
+        // ... third party setup
+        await tb.compile();
+      });
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
