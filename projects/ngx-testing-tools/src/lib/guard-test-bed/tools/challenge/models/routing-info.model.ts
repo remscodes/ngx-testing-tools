@@ -1,16 +1,34 @@
 import { Data, Params, Route, RouterStateSnapshot, UrlSegment } from '@angular/router';
 
-export interface ChallengeInfo {
+export interface RoutingInfo {
+  /**
+   * Angular routing data.
+   * @default {}
+   * @see Data
+   */
   data?: Data;
+  /**
+   * Angular routing params.
+   * @default {}
+   * @see Params
+   */
   params?: Params;
+  /**
+   * Angular routing queryParams/
+   * @default {}
+   * @see Params
+   */
   queryParams?: Params;
+  /**
+   * Angular current `RouterStateSnapshot`.
+   */
   currentState?: RouterStateSnapshot;
   /**
    * Only for CanDeactivate
    */
   nextState?: RouterStateSnapshot;
   /**
-   * Only for CanDeactivate
+   * Component to be used for testing CanDeactivate guard.
    */
   component?: any;
   /**

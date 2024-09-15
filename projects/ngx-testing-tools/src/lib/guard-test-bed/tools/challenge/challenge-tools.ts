@@ -6,7 +6,7 @@ import { buildRouteSnapshot } from '../../../router/route-snapshot';
 import { InternalGuardCan } from '../../models/guard-can.model';
 import { GuardProxy } from '../../proxy/guard-proxy';
 import { isCanActivateChildGuard, isCanActivateGuard, isCanDeactivateGuard, isCanLoadGuard, isCanMatchGuard } from '../../utils/guard.util';
-import { ChallengeInfo } from './models/challenge-info.model';
+import { RoutingInfo } from './models/routing-info.model';
 import { ChallengeTools } from './models/challenge-tools.model';
 
 export function buildChallengeTools(guardProxy: GuardProxy, injector: Injector, guardType: InternalGuardCan): ChallengeTools<any> {
@@ -41,7 +41,7 @@ function buildChallengeToolsForActivate(guardProxy: GuardProxy, injector: Inject
     return guardProxy[key](route, state);
   };
 
-  challenge.withInfo = (info: ChallengeInfo) => {
+  challenge.withInfo = (info: RoutingInfo) => {
     const {
       currentState: state = getRouterState(injector),
       data,
@@ -65,7 +65,7 @@ function buildChallengeToolsForDeactivate(guardProxy: GuardProxy, injector: Inje
     return guardProxy.canDeactivate({}, currentRoute, state, state);
   };
 
-  challenge.withInfo = (info: ChallengeInfo) => {
+  challenge.withInfo = (info: RoutingInfo) => {
     const {
       currentState = getRouterState(injector),
       nextState = currentState,
@@ -89,7 +89,7 @@ function buildChallengeToolsForLoad(guardProxy: GuardProxy, key: 'canLoad' | 'ca
     return guardProxy[key]({ data: {} }, []);
   };
 
-  challenge.withInfo = (info: ChallengeInfo) => {
+  challenge.withInfo = (info: RoutingInfo) => {
     const {
       route = {},
       data = {},
