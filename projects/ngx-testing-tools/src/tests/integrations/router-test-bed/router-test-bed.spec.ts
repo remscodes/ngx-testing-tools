@@ -17,6 +17,10 @@ describe('routerTestBed', () => {
     .provide(AuthService)
     .inject('auth', AuthService);
 
+  // it('should initiate another url', tb(({ $url }) => {
+  //   expect($url()).toEqual('/another');
+  // }, { initialUrl: 'another' }));
+
   it('should navigate to url', tb(async ({ $url, navigateByUrl }) => {
     expect($url()).toEqual(`/${initialUrl}`);
 

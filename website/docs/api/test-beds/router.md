@@ -232,10 +232,6 @@ describe('App Routes', () => {
 });
 ```
 
-### `initialUrl`
-
-Same as [options initialUrl](#initialurl) but **only for the current assertion**.
-
 ### `startDetectChanges`
 
 Same as [options startDetectChanges](#startdetectchanges) but **only for the current assertion**.

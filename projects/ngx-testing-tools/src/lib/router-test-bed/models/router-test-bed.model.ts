@@ -14,4 +14,4 @@ export interface RouterTestBed<T extends Routes, S extends InjectionStore = Inje
   inject<key extends string, instance>(name: NonEmptyString<key>, token: ProviderToken<instance>): RouterTestBed<T, InjectionStore<PrettyMerge<S['injected'] & { [k in key]: instance }>>>;
 }
 
-type RouterExtraOptions = Pick<RouterTestBedOptions, 'initialUrl' | 'startDetectChanges'>
+type RouterExtraOptions = Pick<RouterTestBedOptions, 'startDetectChanges'>

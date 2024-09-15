@@ -16,11 +16,8 @@ export function routerTestBed<T extends Routes>(routes: T, options: RouterTestBe
 
   const tb: RouterTestBed<T> = ((assertion, opts = {}) => {
     const {
-      initialUrl,
       startDetectChanges = defaultStartDetectChanges,
     } = opts;
-
-    if (initialUrl) factory['initialUrl'] = initialUrl;
 
     return buildJasmineCallback({
       callback: assertion,
