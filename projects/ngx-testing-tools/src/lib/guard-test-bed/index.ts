@@ -1,3 +1,3 @@
 export * from './models';
 export * from './tools';
-export { guardTestBed } from './guard-test-bed';
+export { guardTestBed, itShouldCreateGuard } from './guard-test-bed';
