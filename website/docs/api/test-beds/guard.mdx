@@ -568,3 +568,30 @@ It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be 
   </TabItem>
 </Tabs>
 [//]: # (@formatter:on)
+
+## `itShouldCreateGuard(..)`
+
+Create the "should create" for the described guard.
+
+To be used when there are no apparent or relevant tests to be performed.
+
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      itShouldCreateInterceptor(AUTH_GUARD);
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      itShouldCreateInterceptor(AuthGuard);
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
