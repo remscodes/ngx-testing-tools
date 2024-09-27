@@ -6,8 +6,8 @@ import { buildRouteSnapshot } from '../../../router/route-snapshot';
 import { InternalGuardCan } from '../../models/guard-can.model';
 import { GuardProxy } from '../../proxy/guard-proxy';
 import { isCanActivateChildGuard, isCanActivateGuard, isCanDeactivateGuard, isCanLoadGuard, isCanMatchGuard } from '../../utils/guard.util';
-import { RoutingInfo } from './models/routing-info.model';
 import { ChallengeTools } from './models/challenge-tools.model';
+import { RoutingInfo } from './models/routing-info.model';
 
 export function buildChallengeTools(guardProxy: GuardProxy, injector: Injector, guardType: InternalGuardCan): ChallengeTools<any> {
   const guard = guardProxy.instance;
