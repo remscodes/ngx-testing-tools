@@ -1,5 +1,5 @@
 import { assertFn } from '../common/assertions/assert-fn';
-import { assertServiceCtor } from '../common/assertions/assert-service-ctor';
+import { assertResolverCtor } from '../common/assertions/assert-resolver-ctor';
 import { BaseTestBedFactory } from '../common/test-beds/base/base-test-bed-factory';
 import { HTTP_PROVIDERS } from '../common/tools/http/http-providers';
 import { HttpOptions } from '../common/tools/http/models/http-options.model';
@@ -25,7 +25,7 @@ export class ResolverTestBedFactory<
     options: ResolverTestBedOptions,
   ) {
     const isRootCtor = isConstructor(rootResolver);
-    if (isRootCtor) assertServiceCtor(rootResolver);
+    if (isRootCtor) assertResolverCtor(rootResolver);
     else assertFn(rootResolver);
 
     super(ResolverProxy, options);

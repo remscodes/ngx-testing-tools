@@ -1,5 +1,5 @@
 import { assertFn } from '../common/assertions/assert-fn';
-import { assertServiceCtor } from '../common/assertions/assert-service-ctor';
+import { assertGuardCto } from '../common/assertions/assert-guard-cto';
 import { BaseTestBedFactory } from '../common/test-beds/base/base-test-bed-factory';
 import { HTTP_PROVIDERS } from '../common/tools/http/http-providers';
 import { HttpOptions } from '../common/tools/http/models/http-options.model';
@@ -26,7 +26,7 @@ export class GuardTestBedFactory<
     options: GuardTestBedOptions & { type?: GuardCan },
   ) {
     const isRootCtor = isConstructor(rootGuard);
-    if (isRootCtor) assertServiceCtor(rootGuard);
+    if (isRootCtor) assertGuardCto(rootGuard);
     else assertFn(rootGuard);
 
     super(GuardProxy, options);
