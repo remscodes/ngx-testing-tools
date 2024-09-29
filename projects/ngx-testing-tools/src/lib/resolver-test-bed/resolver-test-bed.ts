@@ -5,21 +5,13 @@ import { mergeBaseFactory } from '../common/test-beds/base/merge-base-factory';
 import { ResolverTestBed, ResolverTestBedOptions } from './models';
 import { ValidResolver } from './models/valid-resolver.model';
 import { ResolverTestBedFactory } from './resolver-test-bed-factory';
-
 /**
  * Creates a new `GuardTestBed` to configure the custom test bed and wrap the assertion test.
- * @param rootResolver - the described class resolver
+ * @param resolver - the described resolver
  * @param options - check `ResolverTestBedOptions`
  */
-export function resolverTestBed<T extends Resolve<any>>(rootResolver: Type<T>, options?: ResolverTestBedOptions): ResolverTestBed<T>
-/**
- * Creates a new `GuardTestBed` to configure the custom test bed and wrap the assertion test.
- * @param rootResolver - the described function resolver
- * @param options - check `ResolverTestBedOptions`
- */
-export function resolverTestBed<T extends ResolveFn<any>>(rootResolver: T, options: ResolverTestBedOptions): ResolverTestBed<T>
-export function resolverTestBed<T>(rootResolver: ValidResolver<T>, options: ResolverTestBedOptions = {}): ResolverTestBed<T> {
-  const factory = new ResolverTestBedFactory(rootResolver, options);
+export function resolverTestBed<T>(resolver: ValidResolver<T>, options: ResolverTestBedOptions = {}): ResolverTestBed<T> {
+  const factory = new ResolverTestBedFactory(resolver, options);
 
   const {
     httpTesting,
@@ -51,10 +43,10 @@ export function resolverTestBed<T>(rootResolver: ValidResolver<T>, options: Reso
  *
  * The usage of this function and `resolverTestBed` function must be mutually exclusive.
  *
- * @param rootResolver - the described resolver
+ * @param resolver - the described resolver
  * @param options
  */
-export function itShouldCreateResolver<T extends Resolve<any>>(rootResolver: Type<T>, options?: ItShouldCreateGuardOptions): void
+export function itShouldCreateResolver<T extends Resolve<any>>(resolver: Type<T>, options?: ItShouldCreateGuardOptions): void
 /**
  * Only invokes the "should create" test.
  *
@@ -62,10 +54,10 @@ export function itShouldCreateResolver<T extends Resolve<any>>(rootResolver: Typ
  *
  * The usage of this function and `resolverTestBed` function must be mutually exclusive.
  *
- * @param rootResolver - the described resolver
+ * @param resolverFn - the described resolver
  * @param options
  */
-export function itShouldCreateResolver<T extends ResolveFn<any>>(rootResolver: T, options?: ItShouldCreateGuardOptions): void
+export function itShouldCreateResolver<T extends ResolveFn<any>>(resolverFn: T, options?: ItShouldCreateGuardOptions): void
 export function itShouldCreateResolver<T>(rootResolver: ValidResolver<T>, options?: ItShouldCreateGuardOptions): void {
   resolverTestBed(rootResolver as any, options);
 }
