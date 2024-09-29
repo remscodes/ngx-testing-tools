@@ -1,7 +1,7 @@
 import { HTTP_INTERCEPTORS, HttpInterceptorFn, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
 import { Type } from '@angular/core';
 import { assertFn } from '../common/assertions/assert-fn';
-import { assertServiceCtor } from '../common/assertions/assert-service-ctor';
+import { assertInterceptorCtor } from '../common/assertions/assert-interceptor-ctor';
 import { BaseTestBedFactory } from '../common/test-beds/base/base-test-bed-factory';
 import { httpProviders } from '../common/tools/http/http-providers';
 import { InjectionStore } from '../common/tools/store/models/injected-store.model';
@@ -22,7 +22,7 @@ export class InterceptorTestBedFactory<
     options: InterceptorTestBedOptions,
   ) {
     const isRootCtor = isConstructor(rootInterceptor);
-    if (isRootCtor) assertServiceCtor(rootInterceptor);
+    if (isRootCtor) assertInterceptorCtor(rootInterceptor);
     else assertFn(rootInterceptor);
 
     super(InterceptorProxy, options);
