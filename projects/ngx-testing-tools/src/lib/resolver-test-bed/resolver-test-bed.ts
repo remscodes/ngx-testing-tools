@@ -6,7 +6,7 @@ import { ResolverTestBed, ResolverTestBedOptions } from './models';
 import { ValidResolver } from './models/valid-resolver.model';
 import { ResolverTestBedFactory } from './resolver-test-bed-factory';
 /**
- * Creates a new `GuardTestBed` to configure the custom test bed and wrap the assertion test.
+ * Creates a new `ResolverTestBed` to configure the custom test bed and wrap the assertion test.
  * @param resolver - the described resolver
  * @param options - check `ResolverTestBedOptions`
  */
@@ -58,8 +58,8 @@ export function itShouldCreateResolver<T extends Resolve<any>>(resolver: Type<T>
  * @param options
  */
 export function itShouldCreateResolver<T extends ResolveFn<any>>(resolverFn: T, options?: ItShouldCreateGuardOptions): void
-export function itShouldCreateResolver<T>(rootResolver: ValidResolver<T>, options?: ItShouldCreateGuardOptions): void {
-  resolverTestBed(rootResolver as any, options);
+export function itShouldCreateResolver<T>(resolver: ValidResolver<T>, options?: ItShouldCreateGuardOptions): void {
+  resolverTestBed(resolver, options);
 }
 
 type ItShouldCreateGuardOptions = Pick<ResolverTestBedOptions,

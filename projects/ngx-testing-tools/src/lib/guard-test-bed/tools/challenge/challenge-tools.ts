@@ -1,7 +1,8 @@
 import { inject, Injector } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { isConstructor } from '../../../common/utils/constructor.util';
+import { getRouterState } from '../../../common/utils/router.util';
 import { buildRouteSnapshot } from '../../../router/route-snapshot';
 import { InternalGuardCan } from '../../models/guard-can.model';
 import { GuardProxy } from '../../proxy/guard-proxy';
@@ -101,8 +102,4 @@ function buildChallengeToolsForLoad(guardProxy: GuardProxy, key: 'canLoad' | 'ca
   };
 
   return challenge;
-}
-
-function getRouterState(injector: Injector): RouterStateSnapshot {
-  return injector.get(Router).routerState.snapshot;
 }

@@ -20,7 +20,7 @@ describe('resolverTestBed', () => {
 
     it('should ', tb(async ({ resolver }) => {
       const res = await resolver();
-      res.title;
+      expect(res.title).toEqual('MyPost');
     }));
   });
 
@@ -29,7 +29,7 @@ describe('resolverTestBed', () => {
 
     it('should ', tb(async ({ resolver }) => {
       const res = await resolver.resolve();
-      res.title;
+      expect(res.title).toEqual('MyPost');
     }));
   });
 });

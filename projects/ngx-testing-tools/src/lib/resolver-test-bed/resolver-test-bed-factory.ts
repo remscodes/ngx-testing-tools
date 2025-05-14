@@ -21,12 +21,12 @@ export class ResolverTestBedFactory<
   ResolverTools<ResolverType, Store['injected']>
 > {
   public constructor(
-    rootResolver: ValidResolver<ResolverType>,
+    resolver: ValidResolver<ResolverType>,
     options: ResolverTestBedOptions,
   ) {
-    const isRootCtor = isConstructor(rootResolver);
-    if (isRootCtor) assertResolverCtor(rootResolver);
-    else assertFn(rootResolver);
+    const isRootCtor = isConstructor(resolver);
+    if (isRootCtor) assertResolverCtor(resolver);
+    else assertFn(resolver);
 
     super(ResolverProxy, options);
 
@@ -37,10 +37,10 @@ export class ResolverTestBedFactory<
 
     this.provide([
       ResolverProxy,
-      { provide: RESOLVER_INFO, useValue: { rootResolver, isRootCtor } as ResolverInfo },
+      { provide: RESOLVER_INFO, useValue: { rootResolver: resolver, isRootCtor } as ResolverInfo },
     ]);
 
-    if (isRootCtor) this.provide(rootResolver);
+    if (isRootCtor) this.provide(resolver);
     if (httpTesting) this.provide(HTTP_PROVIDERS);
 
     this.httpOptions = { httpTesting, verifyHttp };
