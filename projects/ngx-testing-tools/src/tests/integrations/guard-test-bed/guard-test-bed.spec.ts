@@ -1,4 +1,4 @@
-import { guardTestBed } from '../../../lib/guard-test-bed';
+import { guardTestBed, itShouldCreateGuard } from '../../../lib';
 import { DeactivateComponent } from '../../fixtures/components/deactivate.component';
 import { ACTIVATE_CHILD_GUARD, ActivateChildGuard } from '../../fixtures/guards/activate-child.guard';
 import { ACTIVATE_GUARD, ActivateGuard } from '../../fixtures/guards/activate.guard';
@@ -9,7 +9,7 @@ import { AuthService } from '../../fixtures/services/auth.service';
 
 describe('guardTestBed', () => {
 
-  describe('with fn', () => {
+  describe('with function', () => {
 
     describe('canActivate', () => {
       const tb = guardTestBed(ACTIVATE_GUARD, { type: 'CanActivate' })
@@ -139,7 +139,7 @@ describe('guardTestBed', () => {
         expect(result).toBeFalse();
       }));
 
-      it('should deactivate', tb(({ challenge, injected: { component } }) => {
+      it('should deactivate with extra info', tb(({ challenge, injected: { component } }) => {
         component.formSaved = true;
 
         const result = challenge.withInfo({ component });
@@ -175,4 +175,8 @@ describe('guardTestBed', () => {
       }));
     });
   });
+});
+
+describe('itShouldCreateGuard', () => {
+  itShouldCreateGuard(ActivateGuard, { providers: [AuthService] });
 });

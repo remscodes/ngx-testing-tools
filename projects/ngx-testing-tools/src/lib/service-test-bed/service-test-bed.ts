@@ -37,7 +37,7 @@ export function serviceTestBed<T>(rootService: Type<T>, options: ServiceTestBedO
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or relevant tests to be performed on this service.
+ * To be used when there are no noticeable or relevant tests to be performed on this service.
  *
  * The usage of this function and `serviceTestBed` function must be mutually exclusive.
  *

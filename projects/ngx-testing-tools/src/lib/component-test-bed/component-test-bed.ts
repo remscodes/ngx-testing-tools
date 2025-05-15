@@ -45,7 +45,7 @@ export function componentTestBed<T>(rootComponent: Type<T>, options: ComponentTe
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or relevant tests to be performed on this component.
+ * To be used when there are no noticeable or relevant tests to be performed on this component.
  *
  * The usage of this function and `componentTestBed` function must be mutually exclusive.
  *

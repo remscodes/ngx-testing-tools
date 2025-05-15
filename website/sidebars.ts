@@ -21,6 +21,7 @@ export default {
             'api/test-beds/service',
             'api/test-beds/interceptor',
             'api/test-beds/guard',
+            'api/test-beds/resolver',
             'api/test-beds/router',
             'api/test-beds/module',
           ],

@@ -28,16 +28,51 @@ function oneInterceptor(): HttpInterceptorFn {
 
 describe('itShouldCreateInterceptor', () => {
 
-  describe('with class', () => {
-    itShouldCreateInterceptor(OneInterceptor, { providers: [Store] });
+  describe('with function', () => {
+    itShouldCreateInterceptor(oneInterceptor());
   });
 
-  describe('with fn', () => {
-    itShouldCreateInterceptor(oneInterceptor());
+  describe('with class', () => {
+    itShouldCreateInterceptor(OneInterceptor, { providers: [Store] });
   });
 });
 
 describe('interceptorTestBed', () => {
+
+  describe('with function', () => {
+    const tb = interceptorTestBed(oneInterceptor(), {
+      providers: [Store],
+      checkCreate: false,
+    });
+
+    it('should interceptor be a function', tb(({ interceptor }) => {
+      expect(typeof interceptor === 'function').toBeTrue();
+    }));
+
+    it('should set custom header', tb(({ inspect, rx }, done) => {
+      const req = new HttpRequest('GET', '/test');
+      validateHeader(req.headers, { name: 'x-custom-header', value: null });
+
+      rx.remind = inspect.request(req).subscribe({
+        next: ({ headers }) => {
+          validateHeader(headers, { name: 'x-custom-header', value: 'my-value' });
+          done();
+        },
+      });
+    }));
+
+    it('should update header with http tools', tb(({ http }, done) => {
+      http.client.get('/test').subscribe({
+        next: () => done(),
+      });
+
+      const req = http.controller.expectOne('/test');
+
+      expect(req.request.headers.has('x-custom-header')).toBeTrue();
+
+      req.flush({});
+    }));
+  });
 
   describe('with class', () => {
     const tb = interceptorTestBed(OneInterceptor)
@@ -120,41 +155,6 @@ describe('interceptorTestBed', () => {
         });
       }));
     });
-
-    it('should update header with http tools', tb(({ http }, done) => {
-      http.client.get('/test').subscribe({
-        next: () => done(),
-      });
-
-      const req = http.controller.expectOne('/test');
-
-      expect(req.request.headers.has('x-custom-header')).toBeTrue();
-
-      req.flush({});
-    }));
-  });
-
-  describe('with fn', () => {
-    const tb = interceptorTestBed(oneInterceptor(), {
-      providers: [Store],
-      checkCreate: false,
-    });
-
-    it('should interceptor be a function', tb(({ interceptor }) => {
-      expect(typeof interceptor === 'function').toBeTrue();
-    }));
-
-    it('should set custom header', tb(({ inspect, rx }, done) => {
-      const req = new HttpRequest('GET', '/test');
-      validateHeader(req.headers, { name: 'x-custom-header', value: null });
-
-      rx.remind = inspect.request(req).subscribe({
-        next: ({ headers }) => {
-          validateHeader(headers, { name: 'x-custom-header', value: 'my-value' });
-          done();
-        },
-      });
-    }));
 
     it('should update header with http tools', tb(({ http }, done) => {
       http.client.get('/test').subscribe({

@@ -9,6 +9,10 @@ import Tabs from '@theme/Tabs';
 
 Custom test bed for testing guard.
 
+:::info
+Works for function and class guard.
+:::
+
 **Quick example**
 
 [//]: # (@formatter:off)
@@ -563,6 +567,33 @@ It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be 
         // ... third party setup
         await tb.compile();
       });
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+## `itShouldCreateGuard(..)`
+
+Create the "should create" for the described guard.
+
+To be used when there are no noticeable or relevant tests to be performed.
+
+[//]: # (@formatter:off)
+<Tabs groupId="guard-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('AUTH_GUARD', () => {
+      itShouldCreateInterceptor(AUTH_GUARD);
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AuthGuard', () => {
+      itShouldCreateInterceptor(AuthGuard);
     });
     ```
   </TabItem>

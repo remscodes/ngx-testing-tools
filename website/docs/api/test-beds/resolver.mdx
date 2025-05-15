@@ -1,38 +1,31 @@
 ---
-title: Interceptor
+title: Resolver
 ---
 
 import TabItem from '@theme/TabItem';
 import Tabs from '@theme/Tabs';
 
-# Interceptor TestBed
+# Resolver TestBed
 
-Custom test bed for testing Interceptor.
+Custom test bed for testing Resolver.
 
 :::info
-Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterceptor`) interceptor.
+Works for function (`ResolverFn`) and class (that implements `Resolver`) resolver.
 :::
 
 **Quick example**
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor());
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver());
 
-      it('should set custom header before send', tb(({ inspect, rx }, done) => {
-        const req = new HttpRequest('GET', '/test');
-        expect(req.headers.has('x-custom-header')).toBeFalse();
-
-        rx.remind = inspect.request(req).subscribe({
-          next: (interceptedReq) => {
-            expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
-            done();
-          },
-        });
+      it('should get the resolver data', tb(async ({ trigger }) => {
+        const result = await trigger();
+        expect(result.foo).toEqual('bar');
       }));
     });
     ```
@@ -40,19 +33,12 @@ Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterce
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor);
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
 
-      it('should set custom header before send', tb(({ inspect, rx }, done) => {
-        const req = new HttpRequest('GET', '/test');
-        expect(req.headers.has('x-custom-header')).toBeFalse();
-
-        rx.remind = inspect.request(req).subscribe({
-          next: (interceptedReq) => {
-            expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
-            done();
-          },
-        });
+      it('should get the resolver data', tb(async ({ trigger }) => {
+        const result = await trigger();
+        expect(result.foo).toEqual('bar');
       }));
     });
     ```
@@ -60,19 +46,19 @@ Works for function (`HttpInterceptorFn`) and class (that implements `HttpInterce
 </Tabs>
 [//]: # (@formatter:on)
 
-## `interceptorTestBed(..)`
+## `resolverTestBed(..)`
 
-Creates a specific test bed for interceptor.
+Creates a specific test bed for resolver.
 
-It returns a function to be used to wrap `it`'s callback and from which you access tools (check [InterceptorTools](#assertion-tools)).
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ResolverTools](#assertion-tools)).
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor());
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver());
 
       it('should ', tb((tools) => { // 👈 tb function used here
         // ... expectations
@@ -83,8 +69,8 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
     `tb` function supports the jasmine `DoneFn` and async/await notation.
 
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor());
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver());
 
       it('should ', tb(async (tools) => {
         // ... async expectations
@@ -100,8 +86,8 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor);
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
 
       it('should ', tb((tools) => { // 👈 tb function used here
         // ... expectations
@@ -112,8 +98,8 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
     `tb` function supports the jasmine `DoneFn` and async/await notation.
 
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor);
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
 
       it('should ', tb(async (tools) => {
         // ... async expectations
@@ -132,12 +118,12 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
 ## TestBed Options
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor(), {} /* 👈 here */);
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver(), {} /* 👈 here */);
 
       it('should ', tb(() => {
         // ... expectations
@@ -148,8 +134,8 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor, {} /* 👈 here */);
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver, {} /* 👈 here */);
 
       it('should ', tb(() => {
         // ... expectations
@@ -164,16 +150,16 @@ It returns a function to be used to wrap `it`'s callback and from which you acce
 
 **Default** : `[]`
 
-Imports dependencies for the described interceptor.
+Imports dependencies for the described resolver.
 
 Example :
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
   ```ts
-  const tb = interceptorTestBed(appInterceptor(), {
+  const tb = resolverTestBed(appResolver(), {
     imports: [SharedModule, MaterialModule],
   });
   ```
@@ -182,7 +168,7 @@ Example :
 
   <TabItem value="Class">
     ```ts
-    const tb = interceptorTestBed(AppInterceptor, {
+    const tb = resolverTestBed(AppResolver, {
       imports: [SharedModule, MaterialModule],
     });
     ```
@@ -194,16 +180,16 @@ Example :
 
 **Default** : `[]`
 
-List of providers to be available during tests for the described interceptor.
+List of providers to be available during tests for the described resolver.
 
 Example :
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    const tb = interceptorTestBed(appInterceptor(), {
+    const tb = resolverTestBed(appResolver(), {
       providers: [AuthService, { provide: StoreService, useClass: MockStoreService }],
     });
     ```
@@ -211,7 +197,7 @@ Example :
 
   <TabItem value="Class">
     ```ts
-    const tb = interceptorTestBed(AppInterceptor, {
+    const tb = resolverTestBed(AppResolver, {
       providers: [AuthService, { provide: StoreService, useClass: MockStoreService }],
     });
     ```
@@ -241,15 +227,15 @@ It checks if the provided described instance is truthy.
 
 ## Assertion tools
 
-The tb function provides `InterceptorTools`.
+The tb function provides `ResolverTools`.
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor());
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver());
 
       it('should ', tb((tools /* 👈 here */) => {
         // ... expectations
@@ -260,8 +246,8 @@ The tb function provides `InterceptorTools`.
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor);
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
 
       it('should ', tb((tools /* 👈 here */) => {
         // ... expectations
@@ -272,102 +258,64 @@ The tb function provides `InterceptorTools`.
 </Tabs>
 [//]: # (@formatter:on)
 
-`InterceptorTools` extends **[BaseTools](../common/base-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
+`ResolverTools` extends **[BaseTools](../common/base-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
+
+### `resolver`
+
+The described resolver instance.
 
 :::info
-The provided http tools includes the described interceptor into its interceptors.
-:::
-
-### `interceptor`
-
-The described interceptor instance.
-
-:::info
-The instance is typed according to the passed interceptor in `interceptorTestBed(..)`.
+The instance is typed according to the passed resolver in `resolverTestBed(..)`.
 :::
 
 Example :
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    it('should ', tb(({ interceptor }) => {
-      interceptor(mockReq, mockNext).subscribe(..);
+    it('should ', tb(({ resolver }) => {
+      resolver(mockRoute, mockState).subscribe(..);
     }));
     ```
   </TabItem>
 
   <TabItem value="Class">
     ```ts
-    it('should ', tb(({ interceptor }) => {
-      expect(interceptor.prop).toEqual('foo');
+    it('should ', tb(({ resolver }) => {
+      expect(resolver.prop).toEqual('foo');
     }));
     ```
   </TabItem>
 </Tabs>
 [//]: # (@formatter:on)
 
-### `inspect`
+### `trigger`
 
 Tools to inspect outgoing requests and incoming responses.
 
-#### `request(..)`
-
-Inspect the passed request into the described interceptor.
+:::info
+The return type of the `trigger` function is the same as the return type of the described resolver.
+:::
 
 Example :
 
 ```ts
-it('should set custom header before send', tb(({ inspect, rx }, done) => {
-  const req = new HttpRequest('GET', '/test');
-  expect(req.headers.has('x-custom-header')).toBeFalse();
-
-  rx.remind = inspect.passRequest(req).subscribe({
-    next: (interceptedReq) => {
-      expect(interceptedReq.headers.has('x-custom-header')).toBeTrue();
-      done();
-    },
-  });
+it('should get the resolver data', tb(async ({ trigger }) => {
+  const result = await trigger();
+  expect(result.foo).toEqual('bar');
 }));
 ```
 
-#### `successResponse(..)`
-
-Inspect the passed http response into the described interceptor.
+You can add more routing context by providing extra routing information by running trigger.withInfo(..)
 
 Example :
 
 ```ts
- it('should ', tb(({ inspect, rx }, done) => {
-  const mockRes = new HttpResponse({ body: {} });
-
-  rx.remind = inspect.successResponse(mockRes).subscribe({
-    next: (res) => {
-      // ... expectations
-      done();
-    },
-  });
-}));
-```
-
-#### `errorResponse(..)`
-
-Inspect the passed http error response into the described interceptor.
-
-Example :
-
-```ts
-it('should ', tb(({ inspect, rx }, done) => {
-  const mockErr = new HttpErrorResponse({ error: 'Error' });
-
-  rx.remind = inspect.errorResponse(mockErr).subscribe({
-    error: (err) => {
-      // ... expectations
-      done();
-    },
-  });
+it('should set custom header before send', tb(async ({ trigger }) => {
+  const result = await trigger.withInfo({ params: { id: 1 } });
+  expect(result.foo).toEqual('bar');
 }));
 ```
 
@@ -376,12 +324,12 @@ it('should ', tb(({ inspect, rx }, done) => {
 For specific test, you enable/disable options that override the test bed options.
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor());
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver());
 
       it('should ', tb((tools) => {
         // ... expectations
@@ -392,8 +340,8 @@ For specific test, you enable/disable options that override the test bed options
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor);
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
 
       it('should ', tb((tools) => {
         // ... expectations
@@ -417,12 +365,12 @@ Same as [options imports](#imports) but with chaining methods.
 Example :
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor())
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver())
         .import(SharedModule)
         .import([ThirdPartyModule, MaterialModule]);
     });
@@ -431,8 +379,8 @@ Example :
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor)
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver)
         .import(SharedModule)
         .import([ThirdPartyModule, MaterialModule]);
     });
@@ -448,12 +396,12 @@ Same as [options providers](#providers) but with chaining methods.
 Example :
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor())
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver())
         .provide(NotifService)
         .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
     });
@@ -462,8 +410,8 @@ Example :
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor)
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver)
         .provide(NotifService)
         .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
     });
@@ -477,12 +425,12 @@ Example :
 Links an injected instance to a key and retrieve it into the enhanced tools by autocompletion.
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor())
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver())
         .inject('auth', AuthService);
 
       it('should ', tb(({ injected: { auth } }) => {
@@ -494,8 +442,8 @@ Links an injected instance to a key and retrieve it into the enhanced tools by a
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor)
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver)
         .inject('auth', AuthService);
 
       it('should ', tb(({ injected: { auth } }) => {
@@ -516,12 +464,12 @@ Works only for `beforeEach` and `afterEach`.
 Example :
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor())
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver())
         inject('store', StoreService);
 
       beforeEach(tb.setup(({ injected: { store } }) => {
@@ -533,11 +481,11 @@ Example :
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor);
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
 
-      beforeEach(tb.setup(({ interceptor }) => {
-        interceptor.foo = true;
+      beforeEach(tb.setup(({ resolver }) => {
+        resolver.foo = true;
       }));
     });
     ```
@@ -554,12 +502,12 @@ It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be 
 :::
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      const tb = interceptorTestBed(appInterceptor(), { autoCompile: false });
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver(), { autoCompile: false });
 
       beforeEach(async () => {
         // ... third party setup
@@ -571,8 +519,8 @@ It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be 
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      const tb = interceptorTestBed(AppInterceptor, { autoCompile: false });
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver, { autoCompile: false });
 
       beforeEach(async () => {
         // ... third party setup
@@ -584,27 +532,27 @@ It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be 
 </Tabs>
 [//]: # (@formatter:on)
 
-## `itShouldCreateInterceptor(..)`
+## `itShouldCreateResolver(..)`
 
-Create the "should create" for the described interceptor.
+Create the "should create" for the described resolver.
 
 To be used when there are no noticeable or relevant tests to be performed.
 
 [//]: # (@formatter:off)
-<Tabs groupId="interceptors-type">
+<Tabs groupId="resolver-type">
 
   <TabItem value="function">
     ```ts
-    describe('appInterceptor', () => {
-      itShouldCreateInterceptor(appInterceptor());
+    describe('appResolver', () => {
+      itShouldCreateResolver(appResolver());
     });
     ```
   </TabItem>
 
   <TabItem value="Class">
     ```ts
-    describe('AppInterceptor', () => {
-      itShouldCreateInterceptor(AppInterceptor);
+    describe('AppResolver', () => {
+      itShouldCreateResolver(AppResolver);
     });
     ```
   </TabItem>
