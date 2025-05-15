@@ -90,7 +90,7 @@ export abstract class RendererTestBedFactory<
     await this.testBed.compileComponents();
   }
 
-  public override shouldCreate(): void {
+  public override _shouldCreate(): void {
     shouldCreate(() => this.fixture.componentInstance);
   }
 }

@@ -92,7 +92,7 @@ describe('componentTestBed', () => {
     const tb = componentTestBed(AComponent, { checkCreate: false })
       .declare(BComponent);
 
-    tb.shouldCreate();
+    tb._shouldCreate();
   });
 
   describe('query', () => {
