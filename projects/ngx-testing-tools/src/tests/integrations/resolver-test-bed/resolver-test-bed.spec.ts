@@ -18,8 +18,8 @@ describe('resolverTestBed', () => {
 
     const tb = resolverTestBed(POST_RESOLVER);
 
-    it('should ', tb(async ({ resolver }) => {
-      const res = await resolver();
+    it('should get output', tb(async ({ invoke }) => {
+      const res = await invoke();
       expect(res.title).toEqual('MyPost');
     }));
   });
@@ -27,8 +27,8 @@ describe('resolverTestBed', () => {
   describe('with class', () => {
     const tb = resolverTestBed(PostResolver);
 
-    it('should ', tb(async ({ resolver }) => {
-      const res = await resolver.resolve();
+    it('should get output', tb(async ({ invoke }) => {
+      const res = await invoke();
       expect(res.title).toEqual('MyPost');
     }));
   });

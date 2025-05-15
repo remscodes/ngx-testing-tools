@@ -1,3 +1,4 @@
+import { Type } from '@angular/core';
 import { Data, Params, Route, RouterStateSnapshot, UrlSegment } from '@angular/router';
 
 export interface RoutingInfo {
@@ -30,7 +31,7 @@ export interface RoutingInfo {
   /**
    * Component to be used for testing CanDeactivate guard.
    */
-  component?: any;
+  component?: Type<any> | any;
   /**
    * Only for CanMatch and CanLoad
    */

@@ -139,7 +139,7 @@ describe('guardTestBed', () => {
         expect(result).toBeFalse();
       }));
 
-      it('should deactivate', tb(({ challenge, injected: { component } }) => {
+      it('should deactivate with extra info', tb(({ challenge, injected: { component } }) => {
         component.formSaved = true;
 
         const result = challenge.withInfo({ component });

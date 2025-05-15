@@ -10,5 +10,5 @@ export interface ResolverTools<T, I extends {} = {}> extends HttpTestingTools, B
   /**
    * Activate the resolver to check the output.
    */
-  invoke: InvokeTools<unknown>;
+  invoke: InvokeTools;
 }

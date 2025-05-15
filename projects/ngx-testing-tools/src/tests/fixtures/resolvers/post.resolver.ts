@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Resolve, ResolveFn } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, ResolveFn, RouterStateSnapshot } from '@angular/router';
 
 export interface Post {
   title: string;
@@ -8,9 +8,9 @@ export interface Post {
 @Injectable()
 export class PostResolver implements Resolve<Post> {
 
-  public async resolve() {
+  public async resolve(_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) {
     return { title: 'MyPost' };
   }
 }
 
-export const POST_RESOLVER = (async () => ({ title: 'MyPost' })) satisfies ResolveFn<Post>;
+export const POST_RESOLVER = (async (_route: ActivatedRouteSnapshot, _state: RouterStateSnapshot) => ({ title: 'MyPost' })) satisfies ResolveFn<Post>;
