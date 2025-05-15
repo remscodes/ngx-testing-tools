@@ -3,10 +3,10 @@ import { ActivatedRouteSnapshot } from '@angular/router';
 import { getRouterState } from '../../../common/utils/router.util';
 import { buildRouteSnapshot, RouteSnapshotConfig } from '../../../router/route-snapshot';
 import { ResolverProxy } from '../../proxy/resolver-proxy';
-import { InvokeTools } from './models/invoke-tools.model';
+import { TriggerTools } from './models/trigger-tools.model';
 
-export function buildInvokeTools(resolver: ResolverProxy, injector: Injector): InvokeTools<unknown> {
-  const tools: InvokeTools<unknown> = () => {
+export function buildTriggerTools(resolver: ResolverProxy, injector: Injector): TriggerTools<unknown> {
+  const tools: TriggerTools<unknown> = () => {
     const route: ActivatedRouteSnapshot = buildRouteSnapshot();
     const state = getRouterState(injector);
     return resolver.resolve(route, state);
