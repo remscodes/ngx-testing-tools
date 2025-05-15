@@ -1,0 +1,560 @@
+---
+title: Resolver
+---
+
+import TabItem from '@theme/TabItem';
+import Tabs from '@theme/Tabs';
+
+# Resolver TestBed
+
+Custom test bed for testing Resolver.
+
+:::info
+Works for function (`ResolverFn`) and class (that implements `Resolver`) resolver.
+:::
+
+**Quick example**
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver());
+
+      it('should get the resolver data', tb(async ({ trigger }) => {
+        const result = await trigger();
+        expect(result.foo).toEqual('bar');
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
+
+      it('should get the resolver data', tb(async ({ trigger }) => {
+        const result = await trigger();
+        expect(result.foo).toEqual('bar');
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+## `resolverTestBed(..)`
+
+Creates a specific test bed for resolver.
+
+It returns a function to be used to wrap `it`'s callback and from which you access tools (check [ResolverTools](#assertion-tools)).
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver());
+
+      it('should ', tb((tools) => { // 👈 tb function used here
+        // ... expectations
+      }));
+    });
+    ```
+
+    `tb` function supports the jasmine `DoneFn` and async/await notation.
+
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver());
+
+      it('should ', tb(async (tools) => {
+        // ... async expectations
+      }));
+
+      it('should ', tb((tools, done) => {
+        // ... expectations
+        done();
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
+
+      it('should ', tb((tools) => { // 👈 tb function used here
+        // ... expectations
+      }));
+    });
+    ```
+
+    `tb` function supports the jasmine `DoneFn` and async/await notation.
+
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
+
+      it('should ', tb(async (tools) => {
+        // ... async expectations
+      }));
+
+      it('should ', tb((tools, done) => {
+        // ... expectations
+        done();
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+## TestBed Options
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver(), {} /* 👈 here */);
+
+      it('should ', tb(() => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver, {} /* 👈 here */);
+
+      it('should ', tb(() => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `imports`
+
+**Default** : `[]`
+
+Imports dependencies for the described resolver.
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+  ```ts
+  const tb = resolverTestBed(appResolver(), {
+    imports: [SharedModule, MaterialModule],
+  });
+  ```
+
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    const tb = resolverTestBed(AppResolver, {
+      imports: [SharedModule, MaterialModule],
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `providers`
+
+**Default** : `[]`
+
+List of providers to be available during tests for the described resolver.
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    const tb = resolverTestBed(appResolver(), {
+      providers: [AuthService, { provide: StoreService, useClass: MockStoreService }],
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    const tb = resolverTestBed(AppResolver, {
+      providers: [AuthService, { provide: StoreService, useClass: MockStoreService }],
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `verifyHttp`
+
+**Default** : `true`
+
+When enabled, each assertion will end by `HttpTestingController.verify()`.
+
+### `autoCompile`
+
+**Default** : `true`
+
+Automatically compiles the custom test bed for each test.
+
+### `checkCreate`
+
+**Default** : `true`
+
+Automatically invokes the "should create" Angular test.
+
+It checks if the provided described instance is truthy.
+
+## Assertion tools
+
+The tb function provides `ResolverTools`.
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver());
+
+      it('should ', tb((tools /* 👈 here */) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
+
+      it('should ', tb((tools /* 👈 here */) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+`ResolverTools` extends **[BaseTools](../common/base-tools)** and **[HttpTestingTools](../common/http-testing-tools)**.
+
+### `resolver`
+
+The described resolver instance.
+
+:::info
+The instance is typed according to the passed resolver in `resolverTestBed(..)`.
+:::
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    it('should ', tb(({ resolver }) => {
+      resolver(mockRoute, mockState).subscribe(..);
+    }));
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    it('should ', tb(({ resolver }) => {
+      expect(resolver.prop).toEqual('foo');
+    }));
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `trigger`
+
+Tools to inspect outgoing requests and incoming responses.
+
+:::info
+The return type of the `trigger` function is the same as the return type of the described resolver.
+:::
+
+Example :
+
+```ts
+it('should get the resolver data', tb(async ({ trigger }) => {
+  const result = await trigger();
+  expect(result.foo).toEqual('bar');
+}));
+```
+
+You can add more routing context by providing extra routing information by running trigger.withInfo(..)
+
+Example :
+
+```ts
+it('should set custom header before send', tb(async ({ trigger }) => {
+  const result = await trigger.withInfo({ params: { id: 1 } });
+  expect(result.foo).toEqual('bar');
+}));
+```
+
+## Assertion options
+
+For specific test, you enable/disable options that override the test bed options.
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver());
+
+      it('should ', tb((tools) => {
+        // ... expectations
+      }, {} /* 👈 here */));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
+
+      it('should ', tb((tools) => {
+        // ... expectations
+      }, {} /* 👈 here */));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `verifyHttp`
+
+Same as [options verifyHttp](#verifyhttp) but **only for the current assertion**.
+
+## `InterceptorTestBed`
+
+### `import(..)`
+
+Same as [options imports](#imports) but with chaining methods.
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver())
+        .import(SharedModule)
+        .import([ThirdPartyModule, MaterialModule]);
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver)
+        .import(SharedModule)
+        .import([ThirdPartyModule, MaterialModule]);
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `provide(..)`
+
+Same as [options providers](#providers) but with chaining methods.
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver())
+        .provide(NotifService)
+        .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver)
+        .provide(NotifService)
+        .provide([StoreService, { provide: MY_TOKEN, useValue: mockValue }]);
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `inject(..)`
+
+Links an injected instance to a key and retrieve it into the enhanced tools by autocompletion.
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver())
+        .inject('auth', AuthService);
+
+      it('should ', tb(({ injected: { auth } }) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver)
+        .inject('auth', AuthService);
+
+      it('should ', tb(({ injected: { auth } }) => {
+        // ... expectations
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `setup(..)`
+
+Setups extra action using the enhanced tools.
+
+Works only for `beforeEach` and `afterEach`.
+
+Example :
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver())
+        inject('store', StoreService);
+
+      beforeEach(tb.setup(({ injected: { store } }) => {
+        store.foo = true;
+      }));
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver);
+
+      beforeEach(tb.setup(({ resolver }) => {
+        resolver.foo = true;
+      }));
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+### `compile()`
+
+To be used when you need to do third party setups before compiling the custom test bed.
+
+:::warning
+It has to be used into `beforeEach(..)` and [autoCompile](#autocompile) must be set to `false`.
+:::
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      const tb = resolverTestBed(appResolver(), { autoCompile: false });
+
+      beforeEach(async () => {
+        // ... third party setup
+        await tb.compile();
+      });
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      const tb = resolverTestBed(AppResolver, { autoCompile: false });
+
+      beforeEach(async () => {
+        // ... third party setup
+        await tb.compile();
+      });
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
+
+## `itShouldCreateResolver(..)`
+
+Create the "should create" for the described resolver.
+
+To be used when there are no noticeable or relevant tests to be performed.
+
+[//]: # (@formatter:off)
+<Tabs groupId="resolver-type">
+
+  <TabItem value="function">
+    ```ts
+    describe('appResolver', () => {
+      itShouldCreateResolver(appResolver());
+    });
+    ```
+  </TabItem>
+
+  <TabItem value="Class">
+    ```ts
+    describe('AppResolver', () => {
+      itShouldCreateResolver(AppResolver);
+    });
+    ```
+  </TabItem>
+</Tabs>
+[//]: # (@formatter:on)
