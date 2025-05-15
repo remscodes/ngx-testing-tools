@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { findComponent } from '../../../../../lib';
+import { findComponent } from '../../../../../lib/common/tools/renderer/query/utils/find-component';
 import { InnerComponent } from '../../../../fixtures/components/inner.component';
 import { NoWhereComponent } from '../../../../fixtures/components/no-where.component';
 import { OuterComponent } from '../../../../fixtures/components/outer.component';

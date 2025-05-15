@@ -7,6 +7,3 @@ export * from './interceptor-test-bed';
 export * from './router-test-bed';
 export * from './guard-test-bed';
 export * from './resolver-test-bed';
-
-export * from './router';
-export * from './v3-removed';

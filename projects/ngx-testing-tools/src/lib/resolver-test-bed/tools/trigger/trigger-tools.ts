@@ -1,7 +1,6 @@
 import { Injector } from '@angular/core';
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { getRouterState } from '../../../common/utils/router.util';
-import { buildRouteSnapshot, RouteSnapshotConfig } from '../../../router/route-snapshot';
+import { buildRouteSnapshot, getRouterState, RouteSnapshotConfig } from '../../../common/utils/router.util';
 import { ResolverProxy } from '../../proxy/resolver-proxy';
 import { TriggerTools } from './models/trigger-tools.model';
 
