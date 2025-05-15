@@ -22,6 +22,11 @@ describe('resolverTestBed', () => {
       const res = await trigger();
       expect(res.title).toEqual('MyPost');
     }));
+
+    it('should get output', tb(async ({ trigger }) => {
+      const res = await trigger.withInfo({ params: { id: 1 } });
+      expect(res.title).toEqual('MyPost');
+    }));
   });
 
   describe('with class', () => {
@@ -32,4 +37,8 @@ describe('resolverTestBed', () => {
       expect(res.title).toEqual('MyPost');
     }));
   });
+});
+
+describe('itShouldCreateResolver', () => {
+  itShouldCreateResolver(PostResolver);
 });
