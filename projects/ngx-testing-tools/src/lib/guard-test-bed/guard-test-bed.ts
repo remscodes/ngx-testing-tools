@@ -47,7 +47,7 @@ export function guardTestBed<T>(rootGuard: ValidGuard<T>, options: GuardTestBedO
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or relevant tests to be performed on this guard.
+ * To be used when there are no noticeable or relevant tests to be performed on this guard.
  *
  * The usage of this function and `guardTestBed` function must be mutually exclusive.
  *
@@ -58,7 +58,7 @@ export function itShouldCreateGuard<T extends GuardClass>(rootGuard: Type<T>, op
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or relevant tests to be performed on this guard.
+ * To be used when there are no noticeable or relevant tests to be performed on this guard.
  *
  * The usage of this function and `guardTestBed` function must be mutually exclusive.
  *

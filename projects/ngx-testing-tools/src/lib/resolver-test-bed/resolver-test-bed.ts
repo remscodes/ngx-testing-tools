@@ -39,7 +39,7 @@ export function resolverTestBed<T>(resolver: ValidResolver<T>, options: Resolver
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or relevant tests to be performed on this resolver.
+ * To be used when there are no noticeable or relevant tests to be performed on this resolver.
  *
  * The usage of this function and `resolverTestBed` function must be mutually exclusive.
  *
@@ -50,7 +50,7 @@ export function itShouldCreateResolver<T extends Resolve<any>>(resolver: Type<T>
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or relevant tests to be performed on this resolver.
+ * To be used when there are no noticeable or relevant tests to be performed on this resolver.
  *
  * The usage of this function and `resolverTestBed` function must be mutually exclusive.
  *

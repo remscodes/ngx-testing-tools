@@ -347,7 +347,7 @@ describe('AppComponent', () => {
 
 Create the "should create" for the described component.
 
-To be used when there are no apparent or relevant tests to be performed.
+To be used when there are no noticeable or relevant tests to be performed.
 
 ```ts
 describe('AppComponent', () => {

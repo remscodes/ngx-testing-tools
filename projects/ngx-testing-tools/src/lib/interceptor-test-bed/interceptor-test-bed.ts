@@ -43,7 +43,7 @@ export function interceptorTestBed<T extends HttpInterceptor>(rootInterceptor: T
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or relevant tests to be performed on this interceptor.
+ * To be used when there are no noticeable or relevant tests to be performed on this interceptor.
  *
  * The usage of this function and `interceptorTestBed` function must be mutually exclusive.
  *
@@ -54,7 +54,7 @@ export function itShouldCreateInterceptor<T extends HttpInterceptor>(rootInterce
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or relevant tests to be performed on this interceptor.
+ * To be used when there are no noticeable or relevant tests to be performed on this interceptor.
  *
  * The usage of this function and `interceptorTestBed` function must be mutually exclusive.
  *

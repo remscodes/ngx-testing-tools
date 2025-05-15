@@ -28,7 +28,7 @@ export function pipeTestBed<T extends PipeTransform>(rootPipe: Type<T>, options:
 /**
  * Only invokes the "should create" test.
  *
- * To be used when there are no apparent or relevant tests to be performed on this pipe.
+ * To be used when there are no noticeable or relevant tests to be performed on this pipe.
  *
  * The usage of this function and `pipeTestBed` function must be mutually exclusive.
  *
