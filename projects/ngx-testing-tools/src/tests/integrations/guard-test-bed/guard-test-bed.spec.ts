@@ -1,4 +1,4 @@
-import { guardTestBed } from '../../../lib';
+import { guardTestBed, itShouldCreateGuard } from '../../../lib';
 import { DeactivateComponent } from '../../fixtures/components/deactivate.component';
 import { ACTIVATE_CHILD_GUARD, ActivateChildGuard } from '../../fixtures/guards/activate-child.guard';
 import { ACTIVATE_GUARD, ActivateGuard } from '../../fixtures/guards/activate.guard';
@@ -175,4 +175,8 @@ describe('guardTestBed', () => {
       }));
     });
   });
+});
+
+describe('itShouldCreateGuard', () => {
+  itShouldCreateGuard(ActivateGuard, { providers: [AuthService] });
 });
