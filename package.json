@@ -1,6 +1,6 @@
 {
   "name": "ngx-testing-tools-sources",
-  "version": "2.4.0",
+  "version": "3.0.0",
   "private": true,
   "description": "Makes Angular testing easier",
   "license": "MIT",
