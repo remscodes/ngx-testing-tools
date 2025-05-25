@@ -1,5 +1,5 @@
 import { ActivatedRouteSnapshot } from '@angular/router';
-import { buildRouteSnapshot } from '../../../lib/router/route-snapshot';
+import { buildRouteSnapshot } from '../../../../lib/common/utils/router.util';
 
 describe('buildRouteSnapshot', () => {
 

@@ -11,5 +11,5 @@ export function buildComponentTools<T>(factory: ComponentTestBedFactory<T>, http
   const { injected, injector, rx } = buildBaseTools(factory, { thisInjector: fixture.debugElement.injector });
   const http: HttpTools = buildHttpTools(injector, httpOptions);
 
-  return { action, component, debug: fixture.debugElement, element, fixture, http, injected, injector, query, rx };
+  return { action, component, element, fixture, http, injected, injector, query, rx };
 }

@@ -4,11 +4,8 @@ import { By } from '@angular/platform-browser';
 import { Nullable } from '../../../../shared.models';
 import { throwCannotFind } from './cannot-find';
 
-/** @deprecated Use `QueryTools` instead to access this utility. Will be removed in v3. */
 export function findDebugElement(fixture: ComponentFixture<any>, selector: string): DebugElement
-/** @deprecated Use `QueryTools` instead to access this utility. Will be removed in v3. */
 export function findDebugElement(fixture: ComponentFixture<any>, directive: Type<any>): DebugElement
-/** @deprecated Use `QueryTools` instead to access this utility. Will be removed in v3. */
 export function findDebugElement(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement
 export function findDebugElement(fixture: ComponentFixture<any>, selectorOrDirective: string | Type<any>): DebugElement {
   const element: Nullable<DebugElement> = (typeof selectorOrDirective === 'string')

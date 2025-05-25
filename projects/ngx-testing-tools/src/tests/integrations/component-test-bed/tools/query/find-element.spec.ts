@@ -1,5 +1,5 @@
 import { ComponentFixture } from '@angular/core/testing';
-import { findElement } from '../../../../../lib';
+import { findElement } from '../../../../../lib/common/tools/renderer/query/utils/find-element';
 import { InnerComponent } from '../../../../fixtures/components/inner.component';
 import { OuterComponent } from '../../../../fixtures/components/outer.component';
 import { MyButtonDirective } from '../../../../fixtures/directives/my-button.directive';

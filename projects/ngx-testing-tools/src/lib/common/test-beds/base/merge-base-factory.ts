@@ -13,10 +13,10 @@ export function mergeBaseFactory<F extends BaseTestBedFactory<unknown>, TB>(fact
     factory.inject(name, token);
     return tb;
   };
-  tb.compileEach = factory.compileEach.bind(factory);
+  tb._compileEach = factory._compileEach.bind(factory);
+  tb._shouldCreate = factory._shouldCreate.bind(factory);
   tb.compile = factory.compile.bind(factory);
   tb.setup = factory.setup.bind(factory);
-  tb.shouldCreate = factory.shouldCreate.bind(factory);
 
   return tb;
 }

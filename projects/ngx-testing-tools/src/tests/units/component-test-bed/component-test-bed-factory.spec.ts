@@ -128,6 +128,6 @@ describe('ComponentTestBedFactory', () => {
       checkCreate: false,
     });
 
-    bedFactory2.shouldCreate();
+    bedFactory2._shouldCreate();
   });
 });
