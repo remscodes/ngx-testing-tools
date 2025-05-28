@@ -1,6 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRouteSnapshot, MaybeAsync, Resolve, ResolveFn, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, ResolveFn, RouterStateSnapshot } from '@angular/router';
+import { MaybeAsync } from '../../common/models/maybe-async.model';
 import { RESOLVER_INFO, ResolverInfo } from './resolver-info.token';
 
 @Injectable()

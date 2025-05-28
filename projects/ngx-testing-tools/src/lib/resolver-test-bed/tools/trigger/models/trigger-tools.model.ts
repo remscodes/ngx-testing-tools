@@ -1,4 +1,4 @@
-import { MaybeAsync } from '@angular/router';
+import { MaybeAsync } from '../../../../common/models/maybe-async.model';
 import { RouteSnapshotConfig } from '../../../../common/utils/router.util';
 
 export interface TriggerTools<R = MaybeAsync<any>> {

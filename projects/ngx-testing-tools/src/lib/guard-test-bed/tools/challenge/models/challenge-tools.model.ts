@@ -1,4 +1,4 @@
-import { MaybeAsync } from '@angular/router';
+import { MaybeAsync } from '../../../../common/models/maybe-async.model';
 import { RoutingInfo } from './routing-info.model';
 
 export interface ChallengeTools<R = MaybeAsync<any>> {

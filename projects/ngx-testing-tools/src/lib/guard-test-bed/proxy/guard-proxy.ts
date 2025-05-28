@@ -1,6 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanActivateChildFn, CanActivateFn, CanDeactivate, CanDeactivateFn, CanLoad, CanLoadFn, CanMatch, CanMatchFn, GuardResult, MaybeAsync, Route, RouterStateSnapshot, UrlSegment } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanActivateChildFn, CanActivateFn, CanDeactivate, CanDeactivateFn, CanLoad, CanLoadFn, CanMatch, CanMatchFn, Route, RouterStateSnapshot, UrlSegment } from '@angular/router';
+import { MaybeAsync } from '../../common/models/maybe-async.model';
+import { GuardResult } from '../models/guard-result.model';
 import { GUARD_INFO, GuardInfo } from './guard-info.token';
 
 @Injectable()
