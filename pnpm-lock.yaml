@@ -55,8 +55,8 @@ importers:
         specifier: ~5.1.9
         version: 5.1.9
       jasmine-core:
-        specifier: ~5.11.0
-        version: 5.11.0
+        specifier: ~5.12.1
+        version: 5.12.1
       karma:
         specifier: ~6.4.4
         version: 6.4.4
@@ -71,7 +71,7 @@ importers:
         version: 5.1.0(karma@6.4.4)
       karma-jasmine-html-reporter:
         specifier: ~2.1.0
-        version: 2.1.0(jasmine-core@5.11.0)(karma-jasmine@5.1.0(karma@6.4.4))(karma@6.4.4)
+        version: 2.1.0(jasmine-core@5.12.1)(karma-jasmine@5.1.0(karma@6.4.4))(karma@6.4.4)
       ng-packagr:
         specifier: ^18.2.1
         version: 18.2.1(@angular/compiler-cli@18.0.1(@angular/compiler@18.0.1(@angular/core@18.0.1(rxjs@7.8.2)(zone.js@0.14.10)))(typescript@5.4.5))(tslib@2.8.1)(typescript@5.4.5)
@@ -3128,8 +3128,8 @@ packages:
   jasmine-core@4.6.1:
     resolution: {integrity: sha512-VYz/BjjmC3klLJlLwA4Kw8ytk0zDSmbbDLNs794VnWmkcCB7I9aAL/D48VNQtmITyPvea2C3jdUMfc3kAoy0PQ==}
 
-  jasmine-core@5.11.0:
-    resolution: {integrity: sha512-MPJ8L5yyNul0F2SuEsLASwESXQjJvBXnKu31JWFyRZSvuv2B79K4GDWN3pSqvLheUNh7Fyb6dXwd4rsz95O2Kg==}
+  jasmine-core@5.12.1:
+    resolution: {integrity: sha512-P/UbRZ0LKwXe7wEpwDheuhunPwITn4oPALhrJEQJo6756EwNGnsK/TSQrWojBB4cQDQ+VaxWYws9tFNDuiMh2Q==}
 
   jest-worker@27.5.1:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
@@ -8027,7 +8027,7 @@ snapshots:
 
   jasmine-core@4.6.1: {}
 
-  jasmine-core@5.11.0: {}
+  jasmine-core@5.12.1: {}
 
   jest-worker@27.5.1:
     dependencies:
@@ -8082,9 +8082,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  karma-jasmine-html-reporter@2.1.0(jasmine-core@5.11.0)(karma-jasmine@5.1.0(karma@6.4.4))(karma@6.4.4):
+  karma-jasmine-html-reporter@2.1.0(jasmine-core@5.12.1)(karma-jasmine@5.1.0(karma@6.4.4))(karma@6.4.4):
     dependencies:
-      jasmine-core: 5.11.0
+      jasmine-core: 5.12.1
       karma: 6.4.4
       karma-jasmine: 5.1.0(karma@6.4.4)
 
